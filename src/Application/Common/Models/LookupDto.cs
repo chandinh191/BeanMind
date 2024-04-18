@@ -1,19 +1,12 @@
-﻿using CleanArchitecture.Domain.Entities;
+﻿using CleanArchitecture.Application.Common.Mappings;
+using CleanArchitecture.Domain.Entities;
 
 namespace CleanArchitecture.Application.Common.Models;
 
-public class LookupDto
+// Note: This is currently just used to demonstrate applying multiple IMapFrom attributes.
+public class LookupDto : IMapFrom<TodoList>, IMapFrom<TodoItem>
 {
     public int Id { get; init; }
 
     public string? Title { get; init; }
-
-    private class Mapping : Profile
-    {
-        public Mapping()
-        {
-            CreateMap<TodoList, LookupDto>();
-            CreateMap<TodoItem, LookupDto>();
-        }
-    }
 }

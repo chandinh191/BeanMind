@@ -1,10 +1,23 @@
 ﻿namespace CleanArchitecture.Domain.ValueObjects;
 
-public class Colour(string code) : ValueObject
+public class Colour : ValueObject
 {
+    static Colour()
+    {
+    }
+
+    private Colour()
+    {
+    }
+
+    private Colour(string code)
+    {
+        Code = code;
+    }
+
     public static Colour From(string code)
     {
-        var colour = new Colour(code);
+        var colour = new Colour { Code = code };
 
         if (!SupportedColours.Contains(colour))
         {
@@ -30,7 +43,7 @@ public class Colour(string code) : ValueObject
 
     public static Colour Grey => new("#999999");
 
-    public string Code { get; private set; } = string.IsNullOrWhiteSpace(code)?"#000000":code;
+    public string Code { get; private set; } = "#000000";
 
     public static implicit operator string(Colour colour)
     {

@@ -1,8 +1,10 @@
-﻿using CleanArchitecture.Domain.Entities;
+﻿using AutoMapper;
+using CleanArchitecture.Application.Common.Mappings;
+using CleanArchitecture.Domain.Entities;
 
 namespace CleanArchitecture.Application.TodoLists.Queries.GetTodos;
 
-public class TodoItemDto
+public class TodoItemDto : IMapFrom<TodoItem>
 {
     public int Id { get; init; }
 
@@ -16,12 +18,9 @@ public class TodoItemDto
 
     public string? Note { get; init; }
 
-    private class Mapping : Profile
+    public void Mapping(Profile profile)
     {
-        public Mapping()
-        {
-            CreateMap<TodoItem, TodoItemDto>().ForMember(d => d.Priority, 
-                opt => opt.MapFrom(s => (int)s.Priority));
-        }
+        profile.CreateMap<TodoItem, TodoItemDto>()
+            .ForMember(d => d.Priority, opt => opt.MapFrom(s => (int)s.Priority));
     }
 }

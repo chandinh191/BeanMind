@@ -1,8 +1,9 @@
-﻿using CleanArchitecture.Domain.Entities;
+﻿using CleanArchitecture.Application.Common.Mappings;
+using CleanArchitecture.Domain.Entities;
 
 namespace CleanArchitecture.Application.TodoItems.Queries.GetTodoItemsWithPagination;
 
-public class TodoItemBriefDto
+public class TodoItemBriefDto : IMapFrom<TodoItem>
 {
     public int Id { get; init; }
 
@@ -11,12 +12,4 @@ public class TodoItemBriefDto
     public string? Title { get; init; }
 
     public bool Done { get; init; }
-
-    private class Mapping : Profile
-    {
-        public Mapping()
-        {
-            CreateMap<TodoItem, TodoItemBriefDto>();
-        }
-    }
 }
