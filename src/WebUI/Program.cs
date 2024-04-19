@@ -1,4 +1,5 @@
 using CleanArchitecture.Infrastructure.Persistence;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,7 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddWebUIServices();
-
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Your API", Version = "v1" });
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -32,12 +36,13 @@ else
 app.UseHealthChecks("/health");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
-app.UseSwaggerUi3(settings =>
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    settings.Path = "/api";
-    settings.DocumentPath = "/api/specification.json";
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
+    c.RoutePrefix = string.Empty;
 });
+
 
 app.UseRouting();
 
