@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using CleanArchitecture.Application.Common.Mappings;
-using CleanArchitecture.Domain.Entities;
+using BeanMind.Application.Common.Mappings;
+using BeanMind.Domain.Entities;
 
-namespace CleanArchitecture.Application.TodoLists.Queries.GetTodos;
+namespace BeanMind.Application.TodoLists.Queries.GetTodos;
 
 public class TodoItemDto : IMapFrom<TodoItem>
 {

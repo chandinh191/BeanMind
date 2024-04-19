@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Application.Common.Security;
-using CleanArchitecture.Domain.Enums;
+using BeanMind.Application.Common.Interfaces;
+using BeanMind.Application.Common.Security;
+using BeanMind.Domain.Enums;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace CleanArchitecture.Application.TodoLists.Queries.GetTodos;
+namespace BeanMind.Application.TodoLists.Queries.GetTodos;
 
 [Authorize]
 public record GetTodosQuery : IRequest<TodosVm>;

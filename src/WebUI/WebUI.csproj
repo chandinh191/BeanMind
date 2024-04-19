@@ -15,7 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <InternalsVisibleTo Include="CleanArchitecture.Application.IntegrationTests" />
+        <InternalsVisibleTo Include="BeanMind.Application.IntegrationTests" />
     </ItemGroup>
 
     <ItemGroup>

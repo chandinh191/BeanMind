@@ -1,7 +1,7 @@
-﻿using CleanArchitecture.Application.Common.Mappings;
-using CleanArchitecture.Domain.Entities;
+﻿using BeanMind.Application.Common.Mappings;
+using BeanMind.Domain.Entities;
 
-namespace CleanArchitecture.Application.TodoLists.Queries.ExportTodos;
+namespace BeanMind.Application.TodoLists.Queries.ExportTodos;
 
 public class TodoItemRecord : IMapFrom<TodoItem>
 {

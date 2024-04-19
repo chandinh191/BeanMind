@@ -1,8 +1,8 @@
-﻿using CleanArchitecture.Application.Common.Interfaces;
+﻿using BeanMind.Application.Common.Interfaces;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
-namespace CleanArchitecture.Application.TodoLists.Commands.UpdateTodoList;
+namespace BeanMind.Application.TodoLists.Commands.UpdateTodoList;
 
 public class UpdateTodoListCommandValidator : AbstractValidator<UpdateTodoListCommand>
 {

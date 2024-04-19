@@ -1,6 +1,6 @@
-﻿using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Infrastructure.Persistence;
-using CleanArchitecture.WebUI.Services;
+﻿using BeanMind.Application.Common.Interfaces;
+using BeanMind.Infrastructure.Persistence;
+using BeanMind.WebUI.Services;
 using Microsoft.AspNetCore.Mvc;
 
 

@@ -1,9 +1,9 @@
-﻿using CleanArchitecture.Application.Common.Exceptions;
+﻿using BeanMind.Application.Common.Exceptions;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace CleanArchitecture.WebUI.Filters;
+namespace BeanMind.WebUI.Filters;
 
 public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
 {

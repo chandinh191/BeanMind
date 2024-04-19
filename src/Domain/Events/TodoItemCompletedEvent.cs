@@ -1,4 +1,4 @@
-﻿namespace CleanArchitecture.Domain.Events;
+﻿namespace BeanMind.Domain.Events;
 
 public class TodoItemCompletedEvent : BaseEvent
 {

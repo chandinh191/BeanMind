@@ -1,6 +1,6 @@
-﻿using CleanArchitecture.Application.Common.Models;
+﻿using BeanMind.Application.Common.Models;
 
-namespace CleanArchitecture.Application.Common.Interfaces;
+namespace BeanMind.Application.Common.Interfaces;
 
 public interface IIdentityService
 {

@@ -1,8 +1,8 @@
 ﻿using System.Security.Claims;
 
-using CleanArchitecture.Application.Common.Interfaces;
+using BeanMind.Application.Common.Interfaces;
 
-namespace CleanArchitecture.WebUI.Services;
+namespace BeanMind.WebUI.Services;
 
 public class CurrentUserService : ICurrentUserService
 {

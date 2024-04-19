@@ -1,7 +1,7 @@
-﻿using CleanArchitecture.Application.Common.Models;
+﻿using BeanMind.Application.Common.Models;
 using Microsoft.AspNetCore.Identity;
 
-namespace CleanArchitecture.Infrastructure.Identity;
+namespace BeanMind.Infrastructure.Identity;
 
 public static class IdentityResultExtensions
 {

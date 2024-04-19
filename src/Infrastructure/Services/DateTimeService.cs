@@ -1,6 +1,6 @@
-﻿using CleanArchitecture.Application.Common.Interfaces;
+﻿using BeanMind.Application.Common.Interfaces;
 
-namespace CleanArchitecture.Infrastructure.Services;
+namespace BeanMind.Infrastructure.Services;
 
 public class DateTimeService : IDateTime
 {

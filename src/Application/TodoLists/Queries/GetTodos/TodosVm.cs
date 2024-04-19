@@ -1,4 +1,4 @@
-﻿namespace CleanArchitecture.Application.TodoLists.Queries.GetTodos;
+﻿namespace BeanMind.Application.TodoLists.Queries.GetTodos;
 
 public class TodosVm
 {

@@ -1,10 +1,10 @@
-﻿using CleanArchitecture.Application.Common.Exceptions;
-using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Domain.Entities;
-using CleanArchitecture.Domain.Events;
+﻿using BeanMind.Application.Common.Exceptions;
+using BeanMind.Application.Common.Interfaces;
+using BeanMind.Domain.Entities;
+using BeanMind.Domain.Events;
 using MediatR;
 
-namespace CleanArchitecture.Application.TodoItems.Commands.DeleteTodoItem;
+namespace BeanMind.Application.TodoItems.Commands.DeleteTodoItem;
 
 public record DeleteTodoItemCommand(int Id) : IRequest;
 

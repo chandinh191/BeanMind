@@ -1,6 +1,6 @@
-﻿global using CleanArchitecture.Domain.Common;
-global using CleanArchitecture.Domain.Entities;
-global using CleanArchitecture.Domain.Enums;
-global using CleanArchitecture.Domain.Events;
-global using CleanArchitecture.Domain.Exceptions;
-global using CleanArchitecture.Domain.ValueObjects;
+﻿global using BeanMind.Domain.Common;
+global using BeanMind.Domain.Entities;
+global using BeanMind.Domain.Enums;
+global using BeanMind.Domain.Events;
+global using BeanMind.Domain.Exceptions;
+global using BeanMind.Domain.ValueObjects;

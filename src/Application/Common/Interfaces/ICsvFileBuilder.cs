@@ -1,6 +1,6 @@
-﻿using CleanArchitecture.Application.TodoLists.Queries.ExportTodos;
+﻿using BeanMind.Application.TodoLists.Queries.ExportTodos;
 
-namespace CleanArchitecture.Application.Common.Interfaces;
+namespace BeanMind.Application.Common.Interfaces;
 
 public interface ICsvFileBuilder
 {

@@ -1,4 +1,4 @@
-﻿namespace CleanArchitecture.Domain.Enums;
+﻿namespace BeanMind.Domain.Enums;
 
 public enum PriorityLevel
 {

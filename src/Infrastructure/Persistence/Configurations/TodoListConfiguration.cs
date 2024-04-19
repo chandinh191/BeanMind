@@ -1,8 +1,8 @@
-﻿using CleanArchitecture.Domain.Entities;
+﻿using BeanMind.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CleanArchitecture.Infrastructure.Persistence.Configurations;
+namespace BeanMind.Infrastructure.Persistence.Configurations;
 
 public class TodoListConfiguration : IEntityTypeConfiguration<TodoList>
 {

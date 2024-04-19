@@ -1,10 +1,10 @@
-﻿using CleanArchitecture.Application.Common.Exceptions;
-using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Domain.Entities;
-using CleanArchitecture.Domain.Enums;
+﻿using BeanMind.Application.Common.Exceptions;
+using BeanMind.Application.Common.Interfaces;
+using BeanMind.Domain.Entities;
+using BeanMind.Domain.Enums;
 using MediatR;
 
-namespace CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItemDetail;
+namespace BeanMind.Application.TodoItems.Commands.UpdateTodoItemDetail;
 
 public record UpdateTodoItemDetailCommand : IRequest
 {

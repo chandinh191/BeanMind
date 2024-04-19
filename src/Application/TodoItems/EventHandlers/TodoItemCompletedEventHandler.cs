@@ -1,8 +1,8 @@
-﻿using CleanArchitecture.Domain.Events;
+﻿using BeanMind.Domain.Events;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace CleanArchitecture.Application.TodoItems.EventHandlers;
+namespace BeanMind.Application.TodoItems.EventHandlers;
 
 public class TodoItemCompletedEventHandler : INotificationHandler<TodoItemCompletedEvent>
 {
@@ -15,7 +15,7 @@ public class TodoItemCompletedEventHandler : INotificationHandler<TodoItemComple
 
     public Task Handle(TodoItemCompletedEvent notification, CancellationToken cancellationToken)
     {
-        _logger.LogInformation("CleanArchitecture Domain Event: {DomainEvent}", notification.GetType().Name);
+        _logger.LogInformation("BeanMind Domain Event: {DomainEvent}", notification.GetType().Name);
 
         return Task.CompletedTask;
     }

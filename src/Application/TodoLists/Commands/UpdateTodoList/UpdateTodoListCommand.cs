@@ -1,9 +1,9 @@
-﻿using CleanArchitecture.Application.Common.Exceptions;
-using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Domain.Entities;
+﻿using BeanMind.Application.Common.Exceptions;
+using BeanMind.Application.Common.Interfaces;
+using BeanMind.Domain.Entities;
 using MediatR;
 
-namespace CleanArchitecture.Application.TodoLists.Commands.UpdateTodoList;
+namespace BeanMind.Application.TodoLists.Commands.UpdateTodoList;
 
 public record UpdateTodoListCommand : IRequest
 {

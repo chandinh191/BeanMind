@@ -1,10 +1,10 @@
-﻿using CleanArchitecture.Domain.Entities;
-using CleanArchitecture.Infrastructure.Identity;
+﻿using BeanMind.Domain.Entities;
+using BeanMind.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace CleanArchitecture.Infrastructure.Persistence;
+namespace BeanMind.Infrastructure.Persistence;
 
 public class ApplicationDbContextInitialiser
 {

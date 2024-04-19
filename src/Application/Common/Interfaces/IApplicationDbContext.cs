@@ -1,7 +1,7 @@
-﻿using CleanArchitecture.Domain.Entities;
+﻿using BeanMind.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace CleanArchitecture.Application.Common.Interfaces;
+namespace BeanMind.Application.Common.Interfaces;
 
 public interface IApplicationDbContext
 {
