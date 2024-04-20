@@ -163,7 +163,7 @@ namespace BeanMind.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Subject",
+                name: "Subjects",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -176,7 +176,7 @@ namespace BeanMind.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Subject", x => x.Id);
+                    table.PrimaryKey("PK_Subjects", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -403,9 +403,9 @@ namespace BeanMind.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_Topic", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Topic_Subject_SubjectId",
+                        name: "FK_Topic_Subjects_SubjectId",
                         column: x => x.SubjectId,
-                        principalTable: "Subject",
+                        principalTable: "Subjects",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -1007,7 +1007,7 @@ namespace BeanMind.Infrastructure.Migrations
                 name: "Topic");
 
             migrationBuilder.DropTable(
-                name: "Subject");
+                name: "Subjects");
 
             migrationBuilder.DropTable(
                 name: "Quiz");

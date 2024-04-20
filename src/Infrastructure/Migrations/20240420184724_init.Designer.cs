@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BeanMind.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240420143252_init")]
+    [Migration("20240420184724_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -473,7 +473,7 @@ namespace BeanMind.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Subject");
+                    b.ToTable("Subjects");
                 });
 
             modelBuilder.Entity("BeanMind.Domain.Entities.TodoItem", b =>

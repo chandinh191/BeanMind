@@ -470,7 +470,7 @@ namespace BeanMind.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Subject");
+                    b.ToTable("Subjects");
                 });
 
             modelBuilder.Entity("BeanMind.Domain.Entities.TodoItem", b =>
