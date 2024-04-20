@@ -9,5 +9,8 @@ namespace BeanMind.Domain.Entities;
 public class ApplicationUser : IdentityUser
 {
     public IList<UserTakeQuiz>? UserTakeQuizs { get; set; }
+    public IList<UserTakeDailyChallengeQuiz>? UserTakeDailyChallengeQuizs { get; set; }
+    public IList<Transaction>? Transactions { get; set; }
+    public IList<UserTakeWorksheet>? UserTakeWorksheets { get; set; }
 
 }

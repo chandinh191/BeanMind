@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BeanMind.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240420073125_3th")]
-    partial class _3th
+    [Migration("20240420143252_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -66,6 +66,41 @@ namespace BeanMind.Infrastructure.Migrations
                     b.HasIndex("VideoId");
 
                     b.ToTable("Activity");
+                });
+
+            modelBuilder.Entity("BeanMind.Domain.Entities.Answer", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ContentAnswer")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsConrect")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("QuestionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuestionId");
+
+                    b.ToTable("Answer");
                 });
 
             modelBuilder.Entity("BeanMind.Domain.Entities.ApplicationUser", b =>
@@ -131,6 +166,105 @@ namespace BeanMind.Infrastructure.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("BeanMind.Domain.Entities.DailyChallenge", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DailyChallenge");
+                });
+
+            modelBuilder.Entity("BeanMind.Domain.Entities.DailyChallengeQuestion", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("DailyChallengeQuizId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("QuestionBankId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DailyChallengeQuizId");
+
+                    b.HasIndex("QuestionBankId");
+
+                    b.ToTable("DailyChallengeQuestion");
+                });
+
+            modelBuilder.Entity("BeanMind.Domain.Entities.DailyChallengeQuiz", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("DailyChallengeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Level")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DailyChallengeId");
+
+                    b.ToTable("DailyChallengeQuiz");
                 });
 
             modelBuilder.Entity("BeanMind.Domain.Entities.Document", b =>
@@ -200,6 +334,87 @@ namespace BeanMind.Infrastructure.Migrations
                     b.HasIndex("TopicId");
 
                     b.ToTable("Lession");
+                });
+
+            modelBuilder.Entity("BeanMind.Domain.Entities.Question", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ContentQuestion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("QuizId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuizId");
+
+                    b.ToTable("Question");
+                });
+
+            modelBuilder.Entity("BeanMind.Domain.Entities.QuestionBank", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Answer1")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Answer2")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Answer3")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Answer4")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CorrectAnswer")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Level")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Question")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("QuestionBank");
                 });
 
             modelBuilder.Entity("BeanMind.Domain.Entities.Quiz", b =>
@@ -377,6 +592,81 @@ namespace BeanMind.Infrastructure.Migrations
                     b.ToTable("Topic");
                 });
 
+            modelBuilder.Entity("BeanMind.Domain.Entities.Transaction", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Balance")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Money")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("Transaction");
+                });
+
+            modelBuilder.Entity("BeanMind.Domain.Entities.UserTakeDailyChallengeQuiz", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("DailyChallengeQuizId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Point")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("DailyChallengeQuizId");
+
+                    b.ToTable("UserTakeDailyChallengeQuiz");
+                });
+
             modelBuilder.Entity("BeanMind.Domain.Entities.UserTakeQuiz", b =>
                 {
                     b.Property<Guid>("Id")
@@ -414,6 +704,46 @@ namespace BeanMind.Infrastructure.Migrations
                     b.ToTable("UserTakeQuiz");
                 });
 
+            modelBuilder.Entity("BeanMind.Domain.Entities.UserTakeWorksheet", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("InteracStatus")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Point")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("WorksheetId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("WorksheetId");
+
+                    b.ToTable("UserTakeWorksheet");
+                });
+
             modelBuilder.Entity("BeanMind.Domain.Entities.Video", b =>
                 {
                     b.Property<Guid>("Id")
@@ -447,6 +777,66 @@ namespace BeanMind.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Video");
+                });
+
+            modelBuilder.Entity("BeanMind.Domain.Entities.Worksheet", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Worksheet");
+                });
+
+            modelBuilder.Entity("BeanMind.Domain.Entities.WorksheetQuestion", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("QuestionBankId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("WorksheetId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuestionBankId");
+
+                    b.HasIndex("WorksheetId");
+
+                    b.ToTable("WorksheetQuestion");
                 });
 
             modelBuilder.Entity("Duende.IdentityServer.EntityFramework.Entities.DeviceFlowCodes", b =>
@@ -756,6 +1146,47 @@ namespace BeanMind.Infrastructure.Migrations
                     b.Navigation("Video");
                 });
 
+            modelBuilder.Entity("BeanMind.Domain.Entities.Answer", b =>
+                {
+                    b.HasOne("BeanMind.Domain.Entities.Question", "Question")
+                        .WithMany("Answers")
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Question");
+                });
+
+            modelBuilder.Entity("BeanMind.Domain.Entities.DailyChallengeQuestion", b =>
+                {
+                    b.HasOne("BeanMind.Domain.Entities.DailyChallengeQuiz", "DailyChallengeQuiz")
+                        .WithMany("DailyChallengeQuestions")
+                        .HasForeignKey("DailyChallengeQuizId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BeanMind.Domain.Entities.QuestionBank", "QuestionBank")
+                        .WithMany("DailyChallengeQuestions")
+                        .HasForeignKey("QuestionBankId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DailyChallengeQuiz");
+
+                    b.Navigation("QuestionBank");
+                });
+
+            modelBuilder.Entity("BeanMind.Domain.Entities.DailyChallengeQuiz", b =>
+                {
+                    b.HasOne("BeanMind.Domain.Entities.DailyChallenge", "DailyChallenge")
+                        .WithMany("DailyChallengeQuizs")
+                        .HasForeignKey("DailyChallengeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DailyChallenge");
+                });
+
             modelBuilder.Entity("BeanMind.Domain.Entities.Lession", b =>
                 {
                     b.HasOne("BeanMind.Domain.Entities.Topic", "Topic")
@@ -765,6 +1196,17 @@ namespace BeanMind.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Topic");
+                });
+
+            modelBuilder.Entity("BeanMind.Domain.Entities.Question", b =>
+                {
+                    b.HasOne("BeanMind.Domain.Entities.Quiz", "Quiz")
+                        .WithMany("Questions")
+                        .HasForeignKey("QuizId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Quiz");
                 });
 
             modelBuilder.Entity("BeanMind.Domain.Entities.Quiz", b =>
@@ -823,6 +1265,36 @@ namespace BeanMind.Infrastructure.Migrations
                     b.Navigation("Subject");
                 });
 
+            modelBuilder.Entity("BeanMind.Domain.Entities.Transaction", b =>
+                {
+                    b.HasOne("BeanMind.Domain.Entities.ApplicationUser", "ApplicationUser")
+                        .WithMany("Transactions")
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+                });
+
+            modelBuilder.Entity("BeanMind.Domain.Entities.UserTakeDailyChallengeQuiz", b =>
+                {
+                    b.HasOne("BeanMind.Domain.Entities.ApplicationUser", "ApplicationUser")
+                        .WithMany("UserTakeDailyChallengeQuizs")
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BeanMind.Domain.Entities.DailyChallengeQuiz", "DailyChallengeQuiz")
+                        .WithMany("UserTakeDailyChallengeQuizs")
+                        .HasForeignKey("DailyChallengeQuizId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("DailyChallengeQuiz");
+                });
+
             modelBuilder.Entity("BeanMind.Domain.Entities.UserTakeQuiz", b =>
                 {
                     b.HasOne("BeanMind.Domain.Entities.ApplicationUser", "ApplicationUser")
@@ -840,6 +1312,44 @@ namespace BeanMind.Infrastructure.Migrations
                     b.Navigation("ApplicationUser");
 
                     b.Navigation("Quiz");
+                });
+
+            modelBuilder.Entity("BeanMind.Domain.Entities.UserTakeWorksheet", b =>
+                {
+                    b.HasOne("BeanMind.Domain.Entities.ApplicationUser", "ApplicationUser")
+                        .WithMany("UserTakeWorksheets")
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BeanMind.Domain.Entities.Worksheet", "Worksheet")
+                        .WithMany("UserTakeWorksheets")
+                        .HasForeignKey("WorksheetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("Worksheet");
+                });
+
+            modelBuilder.Entity("BeanMind.Domain.Entities.WorksheetQuestion", b =>
+                {
+                    b.HasOne("BeanMind.Domain.Entities.QuestionBank", "QuestionBank")
+                        .WithMany("WorksheetQuestions")
+                        .HasForeignKey("QuestionBankId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BeanMind.Domain.Entities.Worksheet", "Worksheet")
+                        .WithMany("WorksheetQuestions")
+                        .HasForeignKey("WorksheetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("QuestionBank");
+
+                    b.Navigation("Worksheet");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -895,7 +1405,25 @@ namespace BeanMind.Infrastructure.Migrations
 
             modelBuilder.Entity("BeanMind.Domain.Entities.ApplicationUser", b =>
                 {
+                    b.Navigation("Transactions");
+
+                    b.Navigation("UserTakeDailyChallengeQuizs");
+
                     b.Navigation("UserTakeQuizs");
+
+                    b.Navigation("UserTakeWorksheets");
+                });
+
+            modelBuilder.Entity("BeanMind.Domain.Entities.DailyChallenge", b =>
+                {
+                    b.Navigation("DailyChallengeQuizs");
+                });
+
+            modelBuilder.Entity("BeanMind.Domain.Entities.DailyChallengeQuiz", b =>
+                {
+                    b.Navigation("DailyChallengeQuestions");
+
+                    b.Navigation("UserTakeDailyChallengeQuizs");
                 });
 
             modelBuilder.Entity("BeanMind.Domain.Entities.Lession", b =>
@@ -903,8 +1431,22 @@ namespace BeanMind.Infrastructure.Migrations
                     b.Navigation("Activities");
                 });
 
+            modelBuilder.Entity("BeanMind.Domain.Entities.Question", b =>
+                {
+                    b.Navigation("Answers");
+                });
+
+            modelBuilder.Entity("BeanMind.Domain.Entities.QuestionBank", b =>
+                {
+                    b.Navigation("DailyChallengeQuestions");
+
+                    b.Navigation("WorksheetQuestions");
+                });
+
             modelBuilder.Entity("BeanMind.Domain.Entities.Quiz", b =>
                 {
+                    b.Navigation("Questions");
+
                     b.Navigation("UserTakeQuizs");
                 });
 
@@ -921,6 +1463,13 @@ namespace BeanMind.Infrastructure.Migrations
             modelBuilder.Entity("BeanMind.Domain.Entities.Topic", b =>
                 {
                     b.Navigation("Lessions");
+                });
+
+            modelBuilder.Entity("BeanMind.Domain.Entities.Worksheet", b =>
+                {
+                    b.Navigation("UserTakeWorksheets");
+
+                    b.Navigation("WorksheetQuestions");
                 });
 #pragma warning restore 612, 618
         }
