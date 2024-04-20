@@ -4,6 +4,7 @@ using BeanMind.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BeanMind.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240420073125_3th")]
+    partial class _3th
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -63,41 +66,6 @@ namespace BeanMind.Infrastructure.Migrations
                     b.HasIndex("VideoId");
 
                     b.ToTable("Activity");
-                });
-
-            modelBuilder.Entity("BeanMind.Domain.Entities.Answer", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ContentAnswer")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsConrect")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("LastModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("QuestionId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("QuestionId");
-
-                    b.ToTable("Answer");
                 });
 
             modelBuilder.Entity("BeanMind.Domain.Entities.ApplicationUser", b =>
@@ -232,38 +200,6 @@ namespace BeanMind.Infrastructure.Migrations
                     b.HasIndex("TopicId");
 
                     b.ToTable("Lession");
-                });
-
-            modelBuilder.Entity("BeanMind.Domain.Entities.Question", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ContentQuestion")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("LastModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("QuizId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("QuizId");
-
-                    b.ToTable("Question");
                 });
 
             modelBuilder.Entity("BeanMind.Domain.Entities.Quiz", b =>
@@ -820,17 +756,6 @@ namespace BeanMind.Infrastructure.Migrations
                     b.Navigation("Video");
                 });
 
-            modelBuilder.Entity("BeanMind.Domain.Entities.Answer", b =>
-                {
-                    b.HasOne("BeanMind.Domain.Entities.Question", "Question")
-                        .WithMany("Answers")
-                        .HasForeignKey("QuestionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Question");
-                });
-
             modelBuilder.Entity("BeanMind.Domain.Entities.Lession", b =>
                 {
                     b.HasOne("BeanMind.Domain.Entities.Topic", "Topic")
@@ -840,17 +765,6 @@ namespace BeanMind.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Topic");
-                });
-
-            modelBuilder.Entity("BeanMind.Domain.Entities.Question", b =>
-                {
-                    b.HasOne("BeanMind.Domain.Entities.Quiz", "Quiz")
-                        .WithMany("Questions")
-                        .HasForeignKey("QuizId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Quiz");
                 });
 
             modelBuilder.Entity("BeanMind.Domain.Entities.Quiz", b =>
@@ -989,15 +903,8 @@ namespace BeanMind.Infrastructure.Migrations
                     b.Navigation("Activities");
                 });
 
-            modelBuilder.Entity("BeanMind.Domain.Entities.Question", b =>
-                {
-                    b.Navigation("Answers");
-                });
-
             modelBuilder.Entity("BeanMind.Domain.Entities.Quiz", b =>
                 {
-                    b.Navigation("Questions");
-
                     b.Navigation("UserTakeQuizs");
                 });
 

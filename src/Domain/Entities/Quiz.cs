@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 namespace BeanMind.Domain.Entities;
 public class Quiz : BaseAuditableEntity
 {
-/*    [ForeignKey(nameof(Activity))]
+    [ForeignKey(nameof(Activity))]
     public Guid ActivityId { get; set; }
-    public virtual Activity? Activity { get; set; }*/
+    public virtual Activity? Activity { get; set; }
 
 
-
+    public IList<Question>? Questions { get; set; }
     public IList<UserTakeQuiz>? UserTakeQuizs { get; set; }
 }

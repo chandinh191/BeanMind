@@ -18,4 +18,12 @@ public class Activity : BaseAuditableEntity
     public Guid? QuizId { get; set; }
     public virtual Quiz? Quiz { get; set; }
 
+    [ForeignKey(nameof(Document))]
+    public Guid? DocumentId { get; set; }
+    public virtual Document? Document { get; set; }
+
+    [ForeignKey(nameof(Video))]
+    public Guid? VideoId { get; set; }
+    public virtual Video? Video { get; set; }
+
 }
