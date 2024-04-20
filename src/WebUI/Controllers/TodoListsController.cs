@@ -18,7 +18,7 @@ public class TodoListsController : ApiControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<FileResult> Get(int id)
+    public async Task<FileResult> Get(Guid id)
     {
         var vm = await Mediator.Send(new ExportTodosQuery { ListId = id });
 
@@ -26,7 +26,7 @@ public class TodoListsController : ApiControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<int>> Create(CreateTodoListCommand command)
+    public async Task<ActionResult<Guid>> Create(CreateTodoListCommand command)
     {
         return await Mediator.Send(command);
     }
@@ -35,7 +35,7 @@ public class TodoListsController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesDefaultResponseType]
-    public async Task<IActionResult> Update(int id, UpdateTodoListCommand command)
+    public async Task<IActionResult> Update(Guid id, UpdateTodoListCommand command)
     {
         if (id != command.Id)
         {
@@ -50,7 +50,7 @@ public class TodoListsController : ApiControllerBase
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesDefaultResponseType]
-    public async Task<IActionResult> Delete(int id)
+    public async Task<IActionResult> Delete(Guid id)
     {
         await Mediator.Send(new DeleteTodoListCommand(id));
 

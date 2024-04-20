@@ -6,14 +6,16 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BeanMind.Domain.Entities;
-public class UserTakeQuiz : BaseAuditableEntity
+public class Activity : BaseAuditableEntity
 {
-    [ForeignKey("ApplicationUser")]
-    public string ApplicationUserId { get; set; }
-    public virtual ApplicationUser? ApplicationUser { get; set; }
+    [ForeignKey(nameof(Lession))]
+    public Guid LessionId { get; set; }
+    public virtual Lession? Lession { get; set; }
+
+
+
     [ForeignKey(nameof(Quiz))]
-    public Guid QuizId { get; set; }
+    public Guid? QuizId { get; set; }
     public virtual Quiz? Quiz { get; set; }
 
-    public bool IsCompleted { get; set; }
 }

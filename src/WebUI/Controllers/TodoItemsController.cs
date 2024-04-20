@@ -20,7 +20,7 @@ public class TodoItemsController : ApiControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<int>> Create(CreateTodoItemCommand command)
+    public async Task<ActionResult<Guid>> Create(CreateTodoItemCommand command)
     {
         return await Mediator.Send(command);
     }
@@ -29,7 +29,7 @@ public class TodoItemsController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesDefaultResponseType]
-    public async Task<IActionResult> Update(int id, UpdateTodoItemCommand command)
+    public async Task<IActionResult> Update(Guid id, UpdateTodoItemCommand command)
     {
         if (id != command.Id)
         {
@@ -45,7 +45,7 @@ public class TodoItemsController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesDefaultResponseType]
-    public async Task<IActionResult> UpdateItemDetails(int id, UpdateTodoItemDetailCommand command)
+    public async Task<IActionResult> UpdateItemDetails(Guid id, UpdateTodoItemDetailCommand command)
     {
         if (id != command.Id)
         {
@@ -60,7 +60,7 @@ public class TodoItemsController : ApiControllerBase
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesDefaultResponseType]
-    public async Task<IActionResult> Delete(int id)
+    public async Task<IActionResult> Delete(Guid id)
     {
         await Mediator.Send(new DeleteTodoItemCommand(id));
 
