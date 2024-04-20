@@ -1,4 +1,5 @@
 ﻿using BeanMind.Application.Common.Interfaces;
+using BeanMind.Domain.Entities;
 using BeanMind.Infrastructure.Files;
 using BeanMind.Infrastructure.Identity;
 using BeanMind.Infrastructure.Persistence;

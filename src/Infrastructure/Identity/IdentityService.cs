@@ -1,5 +1,6 @@
 ﻿using BeanMind.Application.Common.Interfaces;
 using BeanMind.Application.Common.Models;
+using BeanMind.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
