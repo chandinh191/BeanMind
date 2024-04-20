@@ -144,11 +144,11 @@ public class IdentityService : IIdentityService
         if (result.Succeeded)
         {
             // Check role
-            if (!await _roleManager.RoleExistsAsync("Student"))
+            if (!await _roleManager.RoleExistsAsync(model.Role))
             {
-                await _roleManager.CreateAsync(new IdentityRole("Student"));
+                await _roleManager.CreateAsync(new IdentityRole(model.Role));
             }
-            await _userManager.AddToRoleAsync(user, "Student");
+            await _userManager.AddToRoleAsync(user, model.Role);
         }
 
         return result;

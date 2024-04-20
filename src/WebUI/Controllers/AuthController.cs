@@ -17,22 +17,49 @@ public class AuthController : ApiControllerBase
     [HttpPost("SignUp")]
     public async Task<IActionResult> SignUp(SignUpModel model)
     {
-        var result = await _identityService.SignUpAsync(model);
-        if (result.Succeeded)
+        try
         {
-            return Ok(result.Succeeded);
+            if(!ModelState.IsValid)
+            {
+                var errors = ModelState.Values.SelectMany(v => v.Errors)
+                                       .Select(e => e.ErrorMessage)
+                                       .ToList();
+                return BadRequest(errors);
+            }
+            else
+            {
+                var result = await _identityService.SignUpAsync(model);
+                if (result.Succeeded)
+                {
+                    return Ok(result.Succeeded);
+                }
+                else
+                {
+                    return BadRequest(result.Errors);
+                }
+            }
         }
-        return BadRequest("Đăng ký thất bại!");
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }        
     }
 
     [HttpPost("SignIn")]
     public async Task<IActionResult> SignIn(SignInModel model)
     {
-        var result = await _identityService.SignInAsync(model);
-        if (string.IsNullOrEmpty(result))
+        try
         {
-            return BadRequest("Sai tên đăng nhập hoặc mật khẩu!");
+            var result = await _identityService.SignInAsync(model);
+            if (string.IsNullOrEmpty(result))
+            {
+                return BadRequest("Sai tên đăng nhập hoặc mật khẩu!");
+            }
+            return Ok(result);
         }
-        return Ok(result);
+        catch(Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 }
