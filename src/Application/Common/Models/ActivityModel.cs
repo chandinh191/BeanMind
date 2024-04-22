@@ -4,9 +4,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BeanMind.Domain.Entities;
 
-namespace BeanMind.Domain.Entities;
-public class Activity : BaseAuditableEntity
+namespace BeanMind.Application.Common.Models;
+public class ActivityModel
 {
     [ForeignKey(nameof(Lession))]
     public Guid LessionId { get; set; }
