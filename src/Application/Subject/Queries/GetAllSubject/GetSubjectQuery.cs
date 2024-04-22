@@ -10,16 +10,15 @@ using BeanMind.Application.TodoItems.Queries.GetTodoItemsWithPagination;
 using BeanMind.Application.TodoLists.Queries.GetTodos;
 using BeanMind.Application.WeatherForecasts.Queries.GetWeatherForecasts;
 using MediatR;
-using AutoMapper;
 using AutoMapper.QueryableExtensions;
 
 using Microsoft.EntityFrameworkCore;
 
-namespace BeanMind.Application.Subject.Queries;
+namespace BeanMind.Application.Subject.Queries.GetAllSubject;
 
-public record GetSubjectQuery : IRequest<List<SubjectBriefDTO>>;
+public record GetSubjectQuery : IRequest<List<SubjectModel>>;
 
-public class GetSubjectQueryHandler : IRequestHandler<GetSubjectQuery, List<SubjectBriefDTO>>
+public class GetSubjectQueryHandler : IRequestHandler<GetSubjectQuery, List<SubjectModel>>
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -30,14 +29,14 @@ public class GetSubjectQueryHandler : IRequestHandler<GetSubjectQuery, List<Subj
         _mapper = mapper;
     }
 
-    public async Task<List<SubjectBriefDTO>> Handle(GetSubjectQuery request, CancellationToken cancellationToken)
+    public async Task<List<SubjectModel>> Handle(GetSubjectQuery request, CancellationToken cancellationToken)
     {
-        
+
 
         var list = await _context.Subjects
             .AsNoTracking()
-            .ProjectTo<SubjectBriefDTO>(_mapper.ConfigurationProvider)
+            .ProjectTo<SubjectModel>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
-        return list;    
+        return list;
     }
 }

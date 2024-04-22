@@ -4,10 +4,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BeanMind.Application.Common.Mappings;
 using BeanMind.Domain.Entities;
 
 namespace BeanMind.Application.Common.Models;
-public class QuizModel
+public class QuizModel : IMapFrom<Quiz>
 {
     [ForeignKey(nameof(Activity))]
     public Guid ActivityId { get; set; }

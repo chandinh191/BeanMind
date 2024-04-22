@@ -1,4 +1,5 @@
-﻿using BeanMind.Domain.Entities;
+﻿using BeanMind.Domain.Common;
+using BeanMind.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace BeanMind.Application.Common.Interfaces;
@@ -11,4 +12,5 @@ public interface IApplicationDbContext
     DbSet<BeanMind.Domain.Entities.Subject> Subjects { get; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+    DbSet<T> Get<T>() where T : BaseAuditableEntity;
 }
