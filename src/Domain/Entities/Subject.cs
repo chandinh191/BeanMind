@@ -9,5 +9,5 @@ public class Subject : BaseAuditableEntity
 {
     public string Name { get; set; }
     public string Description { get; set; }
-    public IList<Topic>? Topics { get; set; }
+    public virtual IList<Topic>? Topics { get; set; }
 }
