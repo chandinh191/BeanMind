@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using BeanMind.Application.Common.Interfaces;
+using BeanMind.Domain.Common;
 using BeanMind.Domain.Entities;
 using BeanMind.Infrastructure.Identity;
 using BeanMind.Infrastructure.Persistence.Interceptors;
@@ -48,5 +49,10 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, 
         await _mediator.DispatchDomainEvents(this);
 
         return await base.SaveChangesAsync(cancellationToken);
+    }
+
+    public DbSet<T> Get<T>() where T : BaseAuditableEntity
+    {
+        throw new NotImplementedException();
     }
 }

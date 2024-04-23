@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore;
 namespace BeanMind.Application.Subject.Queries.GetSubjectWithPagination;
 public class GetSubjectWithPaginationQuery : IRequest<PaginatedList<SubjectModel>>
 {
-    public int PageNumber { get; init; } = 1;
-    public int PageSize { get; init; } = 10;
+    public int PageNumber { get; set; }
+    public int PageSize { get; set; }
 }
 
 public class GetSubjectWithPaginationQueryHandler : IRequestHandler<GetSubjectWithPaginationQuery, PaginatedList<SubjectModel>>
