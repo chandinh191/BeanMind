@@ -14,11 +14,10 @@ public class Lession : BaseAuditableEntity
 
 
     public string Title { get; set; }
-    public string ImageURL { get; set; }
+    public string Description { get; set; }
 
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Order { get; set; }
-
 
     public IList<Activity>? Activities { get; set; }
 

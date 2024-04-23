@@ -9,11 +9,11 @@ public abstract class BaseAuditableEntity : BaseEntity
     public DateTime? LastModified { get; set; }
 
     public string? LastModifiedBy { get; set; }
-
     public bool IsDeleted { get; set; }
-    protected BaseAuditableEntity()
+    public BaseAuditableEntity()
     {
-        Created = DateTime.Now;
         IsDeleted = false;
+        Created = DateTime.Now;
+        LastModified = DateTime.Now;
     }
 }
