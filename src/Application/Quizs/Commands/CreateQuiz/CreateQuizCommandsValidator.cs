@@ -11,5 +11,6 @@ public class CreateQuizCommandsValidator : AbstractValidator<CreateQuizCommands>
 {
     public CreateQuizCommandsValidator()
     {
+
     }
 }
