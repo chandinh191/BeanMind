@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using FluentValidation;
 
-namespace BeanMind.Application.Lessions.Commands.DeleteLession;
-public class DeleteLessionCommandsValidator : AbstractValidator<DeleteLessionCommands>
+namespace BeanMind.Application.Topics.Commands.UpdateTopic;
+public class UpdateTopicCommandsValidator : AbstractValidator<UpdateTopicCommands>
 {
-    public DeleteLessionCommandsValidator()
+    public UpdateTopicCommandsValidator()
     {
         RuleFor(x => x.Id).NotEmpty();
     }
