@@ -9,7 +9,7 @@ using MediatR;
 namespace BeanMind.Application.Answers.Commands.UpdateAnswer;
 public class UpdateAnswerCommandsValidator : AbstractValidator<UpdateAnswerCommands>
 {
-    UpdateAnswerCommandsValidator()
+    public UpdateAnswerCommandsValidator()
     {
 
     }

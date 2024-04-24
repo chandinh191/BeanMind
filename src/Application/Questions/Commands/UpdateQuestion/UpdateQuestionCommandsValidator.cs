@@ -8,7 +8,7 @@ using FluentValidation;
 namespace BeanMind.Application.Questions.Commands.UpdateQuestion;
 public class UpdateQuestionCommandsValidator : AbstractValidator<UpdateQuestionCommands>
 {
-    UpdateQuestionCommandsValidator()
+    public UpdateQuestionCommandsValidator()
     {
         RuleFor(x => x.Id).NotEmpty();
     }

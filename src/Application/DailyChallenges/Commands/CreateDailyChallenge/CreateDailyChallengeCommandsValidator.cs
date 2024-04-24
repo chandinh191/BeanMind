@@ -8,7 +8,7 @@ using FluentValidation;
 namespace BeanMind.Application.DailyChallenges.Commands.CreateDailyChallenge;
 public class CreateDailyChallengeCommandsValidator : AbstractValidator<CreateDailyChallengeCommands>
 {
-    CreateDailyChallengeCommandsValidator()
+    public CreateDailyChallengeCommandsValidator()
     {
 
     }

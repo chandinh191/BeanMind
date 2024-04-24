@@ -8,7 +8,7 @@ using FluentValidation;
 namespace BeanMind.Application.Questions.Commands.CreateQuestion;
 public class CreateQuestionCommandsValidator : AbstractValidator<CreateQuestionCommands>
 {
-    CreateQuestionCommandsValidator()
+    public CreateQuestionCommandsValidator()
     {
 
     }

@@ -8,7 +8,7 @@ using FluentValidation;
 namespace BeanMind.Application.Lessions.Commands.CreateLession;
 public class CreateLessionCommandsValidator : AbstractValidator<CreateLessionCommands>
 {
-    CreateLessionCommandsValidator()
+    public CreateLessionCommandsValidator()
     {
     }
 }

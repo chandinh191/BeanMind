@@ -8,7 +8,7 @@ using FluentValidation;
 namespace BeanMind.Application.ActivityTypes.Commands.UpdateActivityType;
 public class UpdateActivityTypeCommandsValidator : AbstractValidator<UpdateActivityTypeCommands>
 {
-    UpdateActivityTypeCommandsValidator()
+    public UpdateActivityTypeCommandsValidator()
     {
 
     }

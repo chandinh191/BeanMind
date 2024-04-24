@@ -8,7 +8,7 @@ using FluentValidation;
 namespace BeanMind.Application.ChallengeLevels.Commands.CreateChallengeLevel;
 public class CreateChallengeLevelCommandsValidator : AbstractValidator<CreateChallengeLevelCommands>
 {
-    CreateChallengeLevelCommandsValidator()
+    public CreateChallengeLevelCommandsValidator()
     {
 
     }

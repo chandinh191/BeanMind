@@ -8,7 +8,7 @@ using FluentValidation;
 namespace BeanMind.Application.QuestionBanks.Commands.DeleteQuestionBank;
 public class DeleteQuestionBankCommandsValidator : AbstractValidator<DeleteQuestionBankCommands>
 {
-    DeleteQuestionBankCommandsValidator()
+    public DeleteQuestionBankCommandsValidator()
     {
         RuleFor(x => x.Id).NotEmpty();
     }

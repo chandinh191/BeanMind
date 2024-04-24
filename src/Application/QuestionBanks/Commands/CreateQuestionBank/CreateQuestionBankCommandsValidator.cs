@@ -10,7 +10,7 @@ using MediatR;
 namespace BeanMind.Application.QuestionBanks.Commands.CreateQuestionBank;
 public class CreateQuestionBankCommandsValidator : AbstractValidator<CreateQuestionBankCommands>
 {
-    CreateQuestionBankCommandsValidator()
+    public CreateQuestionBankCommandsValidator()
     {
     }
 }

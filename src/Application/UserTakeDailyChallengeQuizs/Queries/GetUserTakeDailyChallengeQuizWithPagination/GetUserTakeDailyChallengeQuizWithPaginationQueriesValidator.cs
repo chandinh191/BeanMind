@@ -8,7 +8,7 @@ using FluentValidation;
 namespace BeanMind.Application.UserTakeDailyChallengeQuizs.Queries.GetUserTakeDailyChallengeQuizWithPagination;
 public class GetUserTakeDailyChallengeQuizWithPaginationQueriesValidator : AbstractValidator<GetUserTakeDailyChallengeQuizWithPaginationQueries>
 {
-    GetUserTakeDailyChallengeQuizWithPaginationQueriesValidator()
+    public GetUserTakeDailyChallengeQuizWithPaginationQueriesValidator()
     {
         RuleFor(x => x.PageNumber)
             .GreaterThanOrEqualTo(1).WithMessage("PageNumber at least greater than or equal to 1.");

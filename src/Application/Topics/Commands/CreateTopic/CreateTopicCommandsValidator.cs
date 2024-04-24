@@ -8,7 +8,7 @@ using FluentValidation;
 namespace BeanMind.Application.Topics.Commands.CreateTopic;
 public class CreateTopicCommandsValidator : AbstractValidator<CreateTopicCommands>
 {
-    CreateTopicCommandsValidator()
+    public CreateTopicCommandsValidator()
     {
 
     }

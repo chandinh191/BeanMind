@@ -8,7 +8,7 @@ using FluentValidation;
 namespace BeanMind.Application.ActivityTypes.Queries.GetActivityTypeWithPagination;
 public class GetActivityTypeWithPaginationQueriesValidator : AbstractValidator<GetActivityTypeWithPaginationQueries>
 {
-    GetActivityTypeWithPaginationQueriesValidator()
+    public GetActivityTypeWithPaginationQueriesValidator()
     {
         RuleFor(x => x.PageNumber)
             .GreaterThanOrEqualTo(1).WithMessage("PageNumber at least greater than or equal to 1.");

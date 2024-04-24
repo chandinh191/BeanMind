@@ -8,7 +8,7 @@ using FluentValidation;
 namespace BeanMind.Application.Questions.Queries.GetQuestionWithPagination;
 public class GetQuestionWithPaginationQueriesValidator : AbstractValidator<GetQuestionWithPaginationQueries>
 {
-    GetQuestionWithPaginationQueriesValidator()
+    public GetQuestionWithPaginationQueriesValidator()
     {
         RuleFor(x => x.PageNumber)
             .GreaterThanOrEqualTo(1).WithMessage("PageNumber at least greater than or equal to 1.");
