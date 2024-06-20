@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AutoMapper" Version="13.0.1" />
+		<PackageReference Include="MediatR" Version="12.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Enrollments\Commands\" />
+	  <Folder Include="Participants\Commands\" />
+	  <Folder Include="Participants\Queries\" />
+	  <Folder Include="SessionGroupRecords\Commands\" />
+	  <Folder Include="SessionGroupRecords\Queries\" />
+	  <Folder Include="SessionGroups\Commands\" />
+	  <Folder Include="SessionGroups\Queries\" />
+	  <Folder Include="Sessions\Commands\" />
+	  <Folder Include="Sessions\Queries\" />
+	  <Folder Include="Slots\Commands\" />
+	  <Folder Include="Slots\Queries\" />
+	  <Folder Include="Teachables\Commands\" />
+	  <Folder Include="Teachables\Queries\" />
+	</ItemGroup>
+
+</Project>
