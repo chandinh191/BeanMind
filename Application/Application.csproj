@@ -18,7 +18,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Enrollments\Commands\" />
 	  <Folder Include="Participants\Commands\" />
 	  <Folder Include="Participants\Queries\" />
 	  <Folder Include="SessionGroupRecords\Commands\" />

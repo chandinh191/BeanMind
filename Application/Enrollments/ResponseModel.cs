@@ -20,7 +20,7 @@ namespace Application.Enrollments
         public Guid CourseId { get; set; }
         public Course Course { get; set; }
         public Guid SessionGroupId { get; set; }
-        public SessionGroup? SessionGroup { get; set; }
+        public SessionGroup SessionGroup { get; set; }
         public bool Status { get; set; }
     }
 
