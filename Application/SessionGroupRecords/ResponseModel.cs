@@ -17,8 +17,7 @@ namespace Application.SessionGroupRecords
         public Guid SessionGroupId { get; set; }
         public SessionGroup SessionGroup { get; set; }
         public int DayInWeek { get; set; }
-        public Guid SlotId { get; set; }
-        public Slot Slot { get; set; }
+        public int Slot { get; set; }
     }
 
     [AutoMap(typeof(Domain.Entities.SessionGroupRecord))]
@@ -27,8 +26,6 @@ namespace Application.SessionGroupRecords
         public Guid SessionGroupId { get; set; }
         public SessionGroup SessionGroup { get; set; }
         public int DayInWeek { get; set; }
-        public Guid SlotId { get; set; }
-        public Slot Slot { get; set; }
-        public List<Session> Sessions { get; set; }
+        public int Slot { get; set; }
     }
 }

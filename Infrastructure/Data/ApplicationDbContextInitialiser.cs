@@ -355,136 +355,62 @@ public class ApplicationDbContextInitialiser
                 Title = "Tiền tiểu học, bộ giáo dục",
             });
             // -----------
-            // Slot table
-            await _context.Slot.AddAsync(new Slot
-            {
-                Id = new Guid("0fdf0d5a-9f6d-41f1-a6fa-81e8db262a23"),
-                SlotNumber = 1,
-                StartTime = new TimeOnly(7,0),
-                EndTime = new TimeOnly(9,0)
-            });
-            await _context.Slot.AddAsync(new Slot
-            {
-                Id = new Guid("1c1d13cb-68cc-44ba-a89d-68f72b1ea90e"),
-                SlotNumber = 2,
-                StartTime = new TimeOnly(9, 30),
-                EndTime = new TimeOnly(11, 30)
-            });
-            await _context.Slot.AddAsync(new Slot
-            {
-                Id = new Guid("c12f0d96-a70d-4460-a369-5c787824b51a"),
-                SlotNumber = 3,
-                StartTime = new TimeOnly(13, 0),
-                EndTime = new TimeOnly(15, 0)
-            });
-            await _context.Slot.AddAsync(new Slot
-            {
-                Id = new Guid("26e79457-6e3f-4beb-9c6b-b6dd3b6c6ab3"),
-                SlotNumber = 4,
-                StartTime = new TimeOnly(15, 30),
-                EndTime = new TimeOnly(17, 30)
-            });
-            // -----------
-            // DayInWeek table
-            /*await _context.DayInWeek.AddAsync(new DayInWeek
-            {
-                Id = new Guid("01b6494d-5d1d-41a5-82ad-636467c6fc72"),
-                DayOfTheWeek = 1,
-                Available = false
-            });
-            await _context.DayInWeek.AddAsync(new DayInWeek
-            {
-                Id = new Guid("a21006db-39ba-4148-98d4-8e9755be24a3"),
-                DayOfTheWeek = 2,
-                Available = true
-            });
-            await _context.DayInWeek.AddAsync(new DayInWeek
-            {
-                Id = new Guid("3b370ec6-b7d9-4c96-92da-a9cc92adfa34"),
-                DayOfTheWeek = 3,
-                Available = true
-            });
-            await _context.DayInWeek.AddAsync(new DayInWeek
-            {
-                Id = new Guid("b3c25590-0d74-4f62-8361-36cfd45d37e3"),
-                DayOfTheWeek = 4,
-                Available = true
-            });
-            await _context.DayInWeek.AddAsync(new DayInWeek
-            {
-                Id = new Guid("eaf7a786-2e76-4fc4-9436-ed32f02cb595"),
-                DayOfTheWeek = 5,
-                Available = true
-            });
-            await _context.DayInWeek.AddAsync(new DayInWeek
-            {
-                Id = new Guid("2018a8f2-c119-4e9d-9d42-ec10b8d86e94"),
-                DayOfTheWeek = 6,
-                Available = true
-            });
-            await _context.DayInWeek.AddAsync(new DayInWeek
-            {
-                Id = new Guid("3010f7ff-489c-4410-a949-4b45b298c83c"),
-                DayOfTheWeek = 7,
-                Available = false
-            });*/
-            // -----------
             // SessionGroupRecord table
             await _context.SessionGroupRecord.AddAsync(new SessionGroupRecord
             {
                 Id = new Guid("b0aa5504-136d-4e21-8e0c-c1f82547ead3"),
                 SessionGroupId = new Guid("d0cb5a7d-b3a3-4cd4-acf7-4393f70bee67"),
                 DayInWeek = 2,
-                SlotId = new Guid("0fdf0d5a-9f6d-41f1-a6fa-81e8db262a23"),
+                Slot = 1,
             });
             await _context.SessionGroupRecord.AddAsync(new SessionGroupRecord
             {
                 Id = new Guid("8257f6e9-8f83-4606-8100-f8a747883c4b"),
                 SessionGroupId = new Guid("d0cb5a7d-b3a3-4cd4-acf7-4393f70bee67"),
                 DayInWeek =3,
-                SlotId = new Guid("1c1d13cb-68cc-44ba-a89d-68f72b1ea90e"),
+                Slot = 1,
             });
             await _context.SessionGroupRecord.AddAsync(new SessionGroupRecord
             {
                 Id = new Guid("fc5e34af-cc89-41a9-b644-5dc87951901c"),
                 SessionGroupId = new Guid("d0cb5a7d-b3a3-4cd4-acf7-4393f70bee67"),
                 DayInWeek = 5,
-                SlotId = new Guid("1c1d13cb-68cc-44ba-a89d-68f72b1ea90e"),
+                Slot = 1,
             });
             // -----------
             // Session table
             await _context.Session.AddAsync(new Session
             {
                 Id = new Guid("c8f560be-8762-4cb6-bc1f-ad64f3dac67e"),
-                SessionGroupRecordId = new Guid("b0aa5504-136d-4e21-8e0c-c1f82547ead3"),
+                SessionGroupId = new Guid("d0cb5a7d-b3a3-4cd4-acf7-4393f70bee67"),
                 ApplicationUserId = "d7896275-9b79-4955-92f2-e1923b5fa05b",
                 Date = GetRandomDateOnly(),
             });
             await _context.Session.AddAsync(new Session
             {
                 Id = new Guid("92a70117-01f5-41c2-805a-bcacddc872c1"),
-                SessionGroupRecordId = new Guid("b0aa5504-136d-4e21-8e0c-c1f82547ead3"),
+                SessionGroupId = new Guid("d0cb5a7d-b3a3-4cd4-acf7-4393f70bee67"),
                 ApplicationUserId = "d7896275-9b79-4955-92f2-e1923b5fa05b",
                 Date = GetRandomDateOnly(),
             });
             await _context.Session.AddAsync(new Session
             {
                 Id = new Guid("501aad6e-40e9-4a4e-ba0f-247e1c7f97a0"),
-                SessionGroupRecordId = new Guid("b0aa5504-136d-4e21-8e0c-c1f82547ead3"),
+                SessionGroupId = new Guid("d0cb5a7d-b3a3-4cd4-acf7-4393f70bee67"),
                 ApplicationUserId = "d7896275-9b79-4955-92f2-e1923b5fa05b",
                 Date = GetRandomDateOnly(),
             });
             await _context.Session.AddAsync(new Session
             {
                 Id = new Guid("d4390f9a-f21a-404f-8fdc-5d4b132bb2f3"),
-                SessionGroupRecordId = new Guid("8257f6e9-8f83-4606-8100-f8a747883c4b"),
+                SessionGroupId = new Guid("d0cb5a7d-b3a3-4cd4-acf7-4393f70bee67"),
                 ApplicationUserId = "d7896275-9b79-4955-92f2-e1923b5fa05b",
                 Date = GetRandomDateOnly(),
             });
             await _context.Session.AddAsync(new Session
             {
                 Id = new Guid("26a7510c-0d5b-4b4b-9775-9578d01120b9"),
-                SessionGroupRecordId = new Guid("8257f6e9-8f83-4606-8100-f8a747883c4b"),
+                SessionGroupId = new Guid("d0cb5a7d-b3a3-4cd4-acf7-4393f70bee67"),
                 ApplicationUserId = "d7896275-9b79-4955-92f2-e1923b5fa05b",
                 Date = GetRandomDateOnly(),
             });

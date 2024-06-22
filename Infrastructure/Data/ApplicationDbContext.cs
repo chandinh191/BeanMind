@@ -27,13 +27,14 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
     public DbSet<Session> Session { get; init; }
     public DbSet<SessionGroup> SessionGroup { get; init; }
     public DbSet<SessionGroupRecord> SessionGroupRecord { get; init; }
-    //public DbSet<DayInWeek> DayInWeek { get; init; }
-    public DbSet<Slot> Slot { get; init; }
     public DbSet<Enrollment> Enrollment { get; init; }
     public DbSet<ProgramType> ProgramType { get; init; }
     public DbSet<CourseLevel> CourseLevel { get; init; }
     public DbSet<Teachable> Teachable { get; init; }
     public DbSet<ApplicationUser> ApplicationUser { get; init; }
+    public DbSet<Game> Game { get; init; }
+    public DbSet<GameHistory> GameHistory { get; init; }
+    public DbSet<ChapterGame> ChapterGame { get; init; }
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
     }

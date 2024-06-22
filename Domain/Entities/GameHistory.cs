@@ -9,18 +9,18 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class Session : BaseAuditableEntity
+    public class GameHistory : BaseAuditableEntity
     {
-        public DateOnly Date { get; set; }
+
+        [Required]
+        [ForeignKey(nameof(Game))]
+        public Guid GameId { get; set; }
+        public Game Game { get; set; }
         [Required]
         [ForeignKey(nameof(ApplicationUser))]
         public string? ApplicationUserId { get; set; }
         public ApplicationUser? ApplicationUser { get; set; }
-        [Required]
-        [ForeignKey(nameof(SessionGroup))]
-        public Guid? SessionGroupId { get; set; }
-        public SessionGroup? SessionGroup { get; set; }
 
-        public IEnumerable<Participant>? Participants { get; set; }
+        public int Point {  get; set; }
     }
 }

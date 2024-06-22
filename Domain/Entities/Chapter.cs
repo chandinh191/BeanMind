@@ -13,4 +13,5 @@ public class Chapter : BaseAuditableEntity
     public Guid CourseId { get; set; }
     public Course Course { get; set; }
     public IEnumerable<Topic> Topics { get; set; }
+    public IEnumerable<ChapterGame> ChapterGames { get; set; }
 }

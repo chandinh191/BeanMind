@@ -26,8 +26,6 @@
 	  <Folder Include="SessionGroups\Queries\" />
 	  <Folder Include="Sessions\Commands\" />
 	  <Folder Include="Sessions\Queries\" />
-	  <Folder Include="Slots\Commands\" />
-	  <Folder Include="Slots\Queries\" />
 	  <Folder Include="Teachables\Commands\" />
 	  <Folder Include="Teachables\Queries\" />
 	</ItemGroup>

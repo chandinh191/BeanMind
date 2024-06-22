@@ -21,6 +21,7 @@ public static class ControllerRouteName
     public const string EnrollmentRoute = BaseApi + "/enrollments";
     public const string CourseLevelRoute = BaseApi + "/course-levels";
     public const string ProgramTypeRoute = BaseApi + "/program-types";
+    public const string ParticipantRoute = BaseApi + "/participants";
 
 
 }

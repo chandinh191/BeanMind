@@ -24,7 +24,7 @@ namespace Domain.Entities
         [ForeignKey(nameof(ProgramType))]
         public Guid? ProgramTypeId { get; set; }
         public ProgramType? ProgramType { get; set; }
-        public IEnumerable<SessionGroupRecord>? SessionGroupRecords { get; set; }
+        public IEnumerable<Session>? Sessions { get; set; }
         public IEnumerable<Enrollment>? Enrollments { get; set; }
     }
 }
