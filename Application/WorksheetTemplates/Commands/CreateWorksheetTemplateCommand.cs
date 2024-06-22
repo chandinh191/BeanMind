@@ -11,21 +11,9 @@ namespace Application.WorksheetTemplates.Commands;
 public sealed record CreateWorksheetTemplateCommand : IRequest<BaseResponse<GetWorksheetTemplateResponseModel>>
 {
     [Required]
-    public string Classification { get; set; }
+    public string Title { get; set; }
     [Required]
-    public int EasyQuestionCount { get; set; }
-    [Required]
-    public int NormalQuestionCount { get; set; }
-    [Required]
-    public int HardQuestionCount { get; set; }
-    [Required]
-    public int TotalQuestionCount { get; set; }
-    [Required]
-    public bool Suffle { get; set; }
-    [Required]
-    public Guid SubjectId { get; set; }
-    public Guid? ChapterId { get; set; }
-    public Guid? TopicId { get; set; }
+    public int Classification { get; set; }
 }
 
 public class CreateWorksheetTemplateCommandHanler : IRequestHandler<CreateWorksheetTemplateCommand, BaseResponse<GetWorksheetTemplateResponseModel>>
@@ -41,39 +29,7 @@ public class CreateWorksheetTemplateCommandHanler : IRequestHandler<CreateWorksh
 
     public async Task<BaseResponse<GetWorksheetTemplateResponseModel>> Handle(CreateWorksheetTemplateCommand request, CancellationToken cancellationToken)
     {
-        var subject = await _context.Subject.FirstOrDefaultAsync(x => x.Id == request.SubjectId);
-
-        if (subject == null)
-        {
-            return new BaseResponse<GetWorksheetTemplateResponseModel>
-            {
-                Success = false,
-                Message = "Subject not found",
-            };
-        }
-
-        var chapter = await _context.Chapter.FirstOrDefaultAsync(x => x.Id == request.ChapterId);
-
-        if (request.ChapterId != null && chapter == null)
-        {
-            return new BaseResponse<GetWorksheetTemplateResponseModel>
-            {
-                Success = false,
-                Message = "Chapter not found",
-            };
-        }
-
-        var topic = await _context.Topic.FirstOrDefaultAsync(x => x.Id == request.TopicId);
-
-        if (request.TopicId != null && topic == null)
-        {
-            return new BaseResponse<GetWorksheetTemplateResponseModel>
-            {
-                Success = false,
-                Message = "Topic not found",
-            };
-        }
-
+       
         var worksheettemplate = _mapper.Map<Domain.Entities.WorksheetTemplate>(request);
         var createWorksheetTemplateResult = await _context.AddAsync(worksheettemplate, cancellationToken);
 

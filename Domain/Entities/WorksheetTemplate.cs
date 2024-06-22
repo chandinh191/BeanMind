@@ -6,7 +6,8 @@ namespace Domain.Entities;
 
 public class WorksheetTemplate : BaseAuditableEntity
 {
-    public string Title { get; set; }   //  0: subject, 1: chapter, 2: topic 
+    public string Title { get; set; }   
+    public int Classification { get; set; }  //  0: subject, 1: chapter, 2: topic 
     public IEnumerable<Worksheet> Worksheets { get; set; }
     public IEnumerable<LevelTemplateRelation> LevelTemplateRelations { get; set; }
 }
