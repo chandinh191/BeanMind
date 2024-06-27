@@ -8,6 +8,16 @@ public class WorksheetTemplate : BaseAuditableEntity
 {
     public string Title { get; set; }   
     public int Classification { get; set; }  //  0: subject, 1: chapter, 2: topic 
+    [ForeignKey(nameof(Subject))]
+    public Guid? SubjectId { get; set; }
+    public Subject? Subject { get; set; }
+    [ForeignKey(nameof(Chapter))]
+    public Guid? ChapterId { get; set; }
+    public Chapter? Chapter { get; set; }
+    [ForeignKey(nameof(Topic))]
+    public Guid? TopicId { get; set; }
+    public Topic? Topic { get; set; }
+
     public IEnumerable<Worksheet> Worksheets { get; set; }
     public IEnumerable<LevelTemplateRelation> LevelTemplateRelations { get; set; }
 }

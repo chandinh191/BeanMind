@@ -47,6 +47,7 @@ namespace Application.Enrollments.Queries
             var enrollments = _context.Enrollment
                 .Include(o => o.Course)
                 .Include(o => o.SessionGroup)
+                .Include(o => o.ApplicationUser)
                 .AsQueryable();
 
             // filter by course id

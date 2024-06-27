@@ -14,4 +14,5 @@ public class Chapter : BaseAuditableEntity
     public Course Course { get; set; }
     public IEnumerable<Topic> Topics { get; set; }
     public IEnumerable<ChapterGame> ChapterGames { get; set; }
+    public IEnumerable<WorksheetTemplate> WorksheetTemplates { get; set; }
 }

@@ -13,5 +13,6 @@ public class Topic : BaseAuditableEntity
     public Guid ChapterId { get; set; }
     public Chapter Chapter { get; set; }
     public IEnumerable<Question> Questions { get; set; }
-    
+    public IEnumerable<WorksheetTemplate> WorksheetTemplates { get; set; }
+
 }

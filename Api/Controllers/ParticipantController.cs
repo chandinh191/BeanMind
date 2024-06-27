@@ -1,6 +1,8 @@
 ﻿using Application.Chapters.Commands;
 using Application.Chapters.Queries;
 using Application.Common;
+using Application.Participants.Commands;
+using Application.Participants.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,7 +13,7 @@ namespace Api.Controllers
     public class ParticipantController : ControllerBase
     {
         [HttpGet]
-        public async Task<IActionResult> GetAll(ISender sender, [FromQuery] GetPaginatedListChapterQuery query)
+        public async Task<IActionResult> GetAll(ISender sender, [FromQuery] GetPaginatedListParticipantQuery query)
         {
             var result = await sender.Send(query);
             return new ObjectResult(result)
@@ -23,7 +25,7 @@ namespace Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(ISender sender, [FromRoute] Guid id)
         {
-            var result = await sender.Send(new GetChapterQuery() with { Id = id });
+            var result = await sender.Send(new GetParticipantQuery() with { Id = id });
             return new ObjectResult(result)
             {
                 StatusCode = result.Code
@@ -32,7 +34,7 @@ namespace Api.Controllers
 
         [HttpPost]
         //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<IActionResult> Create(ISender sender, [FromBody] CreateChapterCommand command)
+        public async Task<IActionResult> Create(ISender sender, [FromBody] CreateParticipantCommand command)
         {
             var result = await sender.Send(command);
             return new ObjectResult(result)
@@ -43,7 +45,7 @@ namespace Api.Controllers
 
         [HttpPut]
         //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<IActionResult> Update(ISender sender, [FromBody] UpdateChapterCommand command)
+        public async Task<IActionResult> Update(ISender sender, [FromBody] UpdateParticipantCommand command)
         {
             var result = await sender.Send(command);
             return new ObjectResult(result)
@@ -56,7 +58,7 @@ namespace Api.Controllers
         //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> Delete(ISender sender, [FromRoute] Guid id)
         {
-            var result = await sender.Send(new DeleteChapterCommand() with
+            var result = await sender.Send(new DeleteParticipantCommand() with
             {
                 Id = id
             });
