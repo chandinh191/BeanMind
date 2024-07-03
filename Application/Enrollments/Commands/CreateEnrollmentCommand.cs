@@ -22,8 +22,6 @@ namespace Application.Enrollments.Commands
         public string ApplicationUserId { get; set; }
         [Required]
         public Guid CourseId { get; set; }
-        [Required]
-        public Guid SessionGroupId { get; set; }
         public bool Status { get; set; }
     }
 
@@ -50,15 +48,6 @@ namespace Application.Enrollments.Commands
                 };
             }
 
-            var sessionGroup = await _context.SessionGroup.FirstOrDefaultAsync(x => x.Id == request.SessionGroupId);
-            if (course == null)
-            {
-                return new BaseResponse<GetEnrollmentResponseModel>
-                {
-                    Success = false,
-                    Message = "Session Group not found",
-                };
-            }
 
             var applicationUser = await _context.ApplicationUser.FirstOrDefaultAsync(x => x.Id.Equals(request.ApplicationUserId));
             if (course == null)

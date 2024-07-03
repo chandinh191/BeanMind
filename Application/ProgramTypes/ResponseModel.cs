@@ -1,6 +1,5 @@
 ﻿using Application.Common;
 using Application.Courses;
-using Application.SessionGroups;
 using Application.Teachables;
 using AutoMapper;
 using System;
@@ -25,7 +24,6 @@ namespace Application.ProgramTypes
         public string Description { get; set; }
         public List<GetBriefCourseResponseModel> Courses { get; set; }
         public List<GetBriefTeachableResponseModel> Teachables { get; set; }
-        public List<GetBriefSessionGroupResponseModel> SessionGroups { get; set; }
 
     }
 }

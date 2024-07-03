@@ -12,4 +12,5 @@ public class QuestionAnswer : BaseAuditableEntity
     [ForeignKey(nameof(Question))]
     public Guid QuestionId { get; set; }
     public Question Question { get; set; }
+    public IEnumerable<WorksheetAttemptAnswer> WorksheetAttemptAnswers { get; set; }
 }

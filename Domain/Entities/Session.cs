@@ -17,9 +17,9 @@ namespace Domain.Entities
         public string? ApplicationUserId { get; set; }
         public ApplicationUser? ApplicationUser { get; set; }
         [Required]
-        [ForeignKey(nameof(SessionGroup))]
-        public Guid? SessionGroupId { get; set; }
-        public SessionGroup? SessionGroup { get; set; }
+        [ForeignKey(nameof(TeachingSlot))]
+        public Guid TeachingSlotId { get; set; }
+        public TeachingSlot TeachingSlot { get; set; }
 
         public IEnumerable<Participant>? Participants { get; set; }
     }

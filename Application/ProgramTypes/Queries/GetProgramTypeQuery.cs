@@ -43,7 +43,6 @@ namespace Application.ProgramTypes.Queries
             }
 
             var programTypes = await _context.ProgramType
-                .Include(o => o.SessionGroups)
                 .Include(o => o.Courses)
                 .Include(o => o.Teachables)
                 .FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);

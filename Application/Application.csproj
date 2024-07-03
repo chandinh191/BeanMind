@@ -18,10 +18,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="SessionGroupRecords\Commands\" />
-	  <Folder Include="SessionGroupRecords\Queries\" />
-	  <Folder Include="SessionGroups\Commands\" />
-	  <Folder Include="SessionGroups\Queries\" />
 	  <Folder Include="Sessions\Commands\" />
 	  <Folder Include="Sessions\Queries\" />
 	  <Folder Include="Teachables\Commands\" />

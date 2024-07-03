@@ -12,7 +12,6 @@ public class ApplicationUser : IdentityUser
     public DateTime? ParticipationTime { get; set; }
 
     public IEnumerable<Session>? Sessions { get; set; }
-    public IEnumerable<SessionGroup>? SessionGroups { get; set; }
     public IEnumerable<Teachable>? Teachables { get; set; }
     public IEnumerable<Enrollment>? Enrollments { get; set; }
     public IEnumerable<GameHistory>? GameHistories { get; set; }

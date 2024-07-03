@@ -43,7 +43,6 @@ namespace Application.CourseLevels.Queries
             }
 
             var course = await _context.CourseLevel
-                .Include(o=>o.SessionGroups)
                 .Include(o=>o.Courses)
                 .Include (o=>o.Teachables)
                 .FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);

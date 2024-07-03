@@ -20,7 +20,6 @@ namespace Application.Enrollments.Queries
         public int PageIndex { get; init; }
         public int? PageSize { get; init; }
         public Guid CourseId { get; init; }
-        public Guid SessionGroupId { get; init; }
         public string? ApplicationUserId { get; init; }
         public IsDeleted IsDeleted { get; init; } = IsDeleted.All;
         public SortBy SortBy { get; init; }
@@ -46,7 +45,6 @@ namespace Application.Enrollments.Queries
             var defaultPageSize = _configuration.GetValue<int>("Pagination:PageSize");
             var enrollments = _context.Enrollment
                 .Include(o => o.Course)
-                .Include(o => o.SessionGroup)
                 .Include(o => o.ApplicationUser)
                 .AsQueryable();
 
@@ -55,11 +53,7 @@ namespace Application.Enrollments.Queries
             {
                 enrollments = enrollments.Where(x => x.CourseId == request.CourseId);
             }
-            // filter by SessionGroupId
-            if (request.SessionGroupId != Guid.Empty)
-            {
-                enrollments = enrollments.Where(x => x.SessionGroupId == request.SessionGroupId);
-            }
+
             // filter by ApplicationUserId
             if (request.ApplicationUserId != null)
             {

@@ -25,8 +25,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
     public DbSet<LevelTemplateRelation> LevelTemplateRelation { get; init; }
     public DbSet<Participant> Participant { get; init; }
     public DbSet<Session> Session { get; init; }
-    public DbSet<SessionGroup> SessionGroup { get; init; }
-    public DbSet<SessionGroupRecord> SessionGroupRecord { get; init; }
     public DbSet<Enrollment> Enrollment { get; init; }
     public DbSet<ProgramType> ProgramType { get; init; }
     public DbSet<CourseLevel> CourseLevel { get; init; }
@@ -35,6 +33,10 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
     public DbSet<Game> Game { get; init; }
     public DbSet<GameHistory> GameHistory { get; init; }
     public DbSet<ChapterGame> ChapterGame { get; init; }
+    public DbSet<WorksheetAttempt> WorksheetAttempt { get; init; }
+    public DbSet<WorksheetAttemptAnswer> WorksheetAttemptAnswer { get; init; }
+    public DbSet<TeachingSlot> TeachingSlot { get; init; }
+    public DbSet<Procession> Procession { get; init; }
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
     }
@@ -59,7 +61,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-        builder.Entity<SessionGroup>(session =>
+        /*builder.Entity<SessionGroup>(session =>
         {
             session
                 .HasOne(r => r.ProgramType)
@@ -78,7 +80,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
                 .WithMany(p => p.SessionGroups)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.NoAction);
-        });
+        });*/
         builder.Entity<Participant>(session =>
         {
             session

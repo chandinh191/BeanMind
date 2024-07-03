@@ -19,11 +19,9 @@ namespace Domain.Entities
         [ForeignKey(nameof(Course))]
         public Guid? CourseId { get; set; }
         public Course? Course { get; set; }
-        [Required]
-        [ForeignKey(nameof(SessionGroup))]
-        public Guid? SessionGroupId { get; set; }
-        public SessionGroup? SessionGroup { get; set; }
+
         public IEnumerable<Participant> Participants { get; set; }
+        public IEnumerable<WorksheetAttempt> WorksheetAttempts { get; set; }
         public bool Status { get; set; }
     }
 }

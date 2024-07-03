@@ -14,5 +14,6 @@ public class Topic : BaseAuditableEntity
     public Chapter Chapter { get; set; }
     public IEnumerable<Question> Questions { get; set; }
     public IEnumerable<WorksheetTemplate> WorksheetTemplates { get; set; }
+    public IEnumerable<Procession> Processions { get; set; }
 
 }

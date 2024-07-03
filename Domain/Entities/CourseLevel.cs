@@ -13,6 +13,5 @@ namespace Domain.Entities
         public string Description { get; set; }
         public IEnumerable<Course> Courses { get; set; }
         public IEnumerable<Teachable> Teachables { get; set; }
-        public IEnumerable<SessionGroup> SessionGroups { get; set; }
     }
 }

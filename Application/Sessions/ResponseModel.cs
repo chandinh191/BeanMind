@@ -18,8 +18,6 @@ namespace Application.Sessions
         public DateOnly Date { get; set; }
         public string ApplicationUserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
-        public Guid SessionGroupRecordId { get; set; }
-        public SessionGroupRecord SessionGroupRecord { get; set; }
     }
 
     [AutoMap(typeof(Domain.Entities.Session))]
@@ -28,9 +26,6 @@ namespace Application.Sessions
         public DateOnly Date { get; set; }
         public string ApplicationUserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
-        public Guid SessionGroupRecordId { get; set; }
-        public SessionGroupRecord SessionGroupRecord { get; set; }
-
         public List<GetBriefParticipantResponseModel> Participants { get; set; }
     }
 }

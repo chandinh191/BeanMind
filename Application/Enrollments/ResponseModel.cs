@@ -19,8 +19,6 @@ namespace Application.Enrollments
         public ApplicationUser ApplicationUser { get; set; }
         public Guid CourseId { get; set; }
         public Course Course { get; set; }
-        public Guid SessionGroupId { get; set; }
-        public SessionGroup SessionGroup { get; set; }
         public bool Status { get; set; }
     }
 
@@ -31,8 +29,6 @@ namespace Application.Enrollments
         public ApplicationUser ApplicationUser { get; set; }
         public Guid CourseId { get; set; }
         public Course Course { get; set; }
-        public Guid SessionGroupId { get; set; }
-        public SessionGroup SessionGroup { get; set; }
         public List<GetBriefParticipantResponseModel> Participants { get; set; }
         public bool Status { get; set; }
 

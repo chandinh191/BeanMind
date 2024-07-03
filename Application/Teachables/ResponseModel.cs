@@ -1,6 +1,4 @@
 ﻿using Application.Common;
-using Application.Courses;
-using Application.SessionGroups;
 using AutoMapper;
 using Domain.Entities;
 using System;

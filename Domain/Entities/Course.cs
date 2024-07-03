@@ -21,7 +21,10 @@ public class Course : BaseAuditableEntity
     [ForeignKey(nameof(CourseLevel))]
     public Guid CourseLevelId { get; set; }
     public CourseLevel CourseLevel { get; set; }
+    public IEnumerable<TeachingSlot> TeachingSlots { get; set; }
+    public IEnumerable<Teachable> Teachables { get; set; }
     public IEnumerable<Chapter> Chapters { get; set; }
     public IEnumerable<Enrollment> Enrollments { get; set; }
+    public IEnumerable<WorksheetTemplate>? WorksheetTemplates { get; set; }
 
 }

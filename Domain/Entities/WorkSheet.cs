@@ -14,4 +14,5 @@ public class Worksheet : BaseAuditableEntity
     public WorksheetTemplate? WorksheetTemplate { get; set; }
 
     public IEnumerable<WorksheetQuestion> WorksheetQuestions { get; set; }
+    public IEnumerable<WorksheetAttempt> WorksheetAttempts { get; set; }
 }

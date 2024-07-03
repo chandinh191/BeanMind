@@ -22,6 +22,7 @@ public static class ControllerRouteName
     public const string CourseLevelRoute = BaseApi + "/course-levels";
     public const string ProgramTypeRoute = BaseApi + "/program-types";
     public const string ParticipantRoute = BaseApi + "/participants";
+    public const string SessionGroupRoute = BaseApi + "/session-groups";
 
 
 }

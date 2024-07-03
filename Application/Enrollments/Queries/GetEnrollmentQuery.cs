@@ -46,7 +46,6 @@ namespace Application.Enrollments.Queries
             var enrollment = await _context.Enrollment
                 .Include(o => o.Participants)
                 .Include(o => o.ApplicationUser)
-                .Include(o => o.SessionGroup)
                 .Include(o => o.Course)
                 .FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);
 
