@@ -35,7 +35,7 @@ public class UpdateQuestionAnswerCommandHanler : IRequestHandler<UpdateQuestionA
 
     public async Task<BaseResponse<GetQuestionAnswerResponseModel>> Handle(UpdateQuestionAnswerCommand request, CancellationToken cancellationToken)
     {
-        var question = await _context.Question.FirstOrDefaultAsync(x => x.Id == request.QuestionId);
+        var question = await _context.Questions.FirstOrDefaultAsync(x => x.Id == request.QuestionId);
 
         if (question == null)
         {
@@ -46,7 +46,7 @@ public class UpdateQuestionAnswerCommandHanler : IRequestHandler<UpdateQuestionA
             };
         }
 
-        var existedQuestionAnswer = await _context.QuestionAnswer.FirstOrDefaultAsync(x => x.QuestionId == request.QuestionId &&  x.Id != request.Id);
+        var existedQuestionAnswer = await _context.QuestionAnswers.FirstOrDefaultAsync(x => x.QuestionId == request.QuestionId &&  x.Id != request.Id);
         if (existedQuestionAnswer != null)
         {
             return new BaseResponse<GetQuestionAnswerResponseModel>
@@ -56,7 +56,7 @@ public class UpdateQuestionAnswerCommandHanler : IRequestHandler<UpdateQuestionA
             };
         }
 
-        var questionanswer = await _context.QuestionAnswer.FirstOrDefaultAsync(x => x.Id == request.Id);
+        var questionanswer = await _context.QuestionAnswers.FirstOrDefaultAsync(x => x.Id == request.Id);
 
         if(questionanswer == null)
         {

@@ -26,7 +26,7 @@ public class DeleteChapterCommandHanler : IRequestHandler<DeleteChapterCommand, 
 
     public async Task<BaseResponse<GetChapterResponseModel>> Handle(DeleteChapterCommand request, CancellationToken cancellationToken)
     {
-        var chapter = await _context.Chapter.FirstOrDefaultAsync(x => x.Id == request.Id);
+        var chapter = await _context.Chapters.FirstOrDefaultAsync(x => x.Id == request.Id);
         if(chapter == null)
         {
             return new BaseResponse<GetChapterResponseModel>

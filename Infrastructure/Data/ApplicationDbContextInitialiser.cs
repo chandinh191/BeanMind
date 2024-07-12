@@ -140,7 +140,7 @@ public class ApplicationDbContextInitialiser
         try
         {
             // Application User table
-            await _context.ApplicationUser.AddAsync(new ApplicationUser
+            await _context.ApplicationUsers.AddAsync(new ApplicationUser
             {
                 Id = "d7896275-9b79-4955-92f2-e1923b5fa05a",
                 UserName = "vinhtc191@gmail.com",
@@ -150,7 +150,7 @@ public class ApplicationDbContextInitialiser
                 LockoutEnabled = false,
                 AccessFailedCount = 0,
             });
-            await _context.ApplicationUser.AddAsync(new ApplicationUser
+            await _context.ApplicationUsers.AddAsync(new ApplicationUser
             {
                 Id = "d7896275-9b79-4955-92f2-e1923b5fa05b",
                 UserName = "vinhtc192@gmail.com",
@@ -162,13 +162,13 @@ public class ApplicationDbContextInitialiser
             });
             //------------
             // Subject table
-            await _context.Subject.AddAsync(new Subject
+            await _context.Subjects.AddAsync(new Subject
             {
                 Id = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"),
                 Title = "Toán",
                 Description = "Môn Toán trẻ em giúp phát triển kỹ năng toán học cơ bản cho trẻ qua các hoạt động và trò chơi thú vị. Mục tiêu là tạo nền tảng vững chắc cho sự hiểu biết và tự tin của trẻ khi tiếp cận với toán học."
             });
-            await _context.Subject.AddAsync(new Subject
+            await _context.Subjects.AddAsync(new Subject
             {
                 Id = new Guid("d7896275-9b79-4955-92f2-e1923b5fa05f"),
                 Title = "Khoa học",
@@ -176,19 +176,19 @@ public class ApplicationDbContextInitialiser
             });
             // ------------------
             // Program type table
-            await _context.ProgramType.AddAsync(new ProgramType
+            await _context.ProgramTypes.AddAsync(new ProgramType
             {
                 Id = new Guid("ed464990-9599-4d6c-99d9-b0ff18be795a"),
                 Title = "Toán Cambridge",
                 Description = "Chương trình Toán Cambridge dành cho học sinh tiểu học tập trung vào việc phát triển hiểu biết khái niệm, kỹ năng giải quyết vấn đề và lý luận toán học. Học sinh sử dụng các vật dụng học tập như khối đếm và dải phân số để hiểu rõ hơn các khái niệm trừu tượng. Bài toán được đặt trong ngữ cảnh thực tế để làm cho việc học trở nên gần gũi và dễ hiểu hơn. Khuyến khích học sinh giải thích quá trình suy nghĩ và lý luận toán học giúp nâng cao kỹ năng trình bày và suy luận logic. Các bài tập ngắn và các thử thách có giới hạn thời gian được sử dụng để cải thiện sự lưu loát và chính xác trong tính toán."
             });
-            await _context.ProgramType.AddAsync(new ProgramType
+            await _context.ProgramTypes.AddAsync(new ProgramType
             {
                 Id = new Guid("96cd2a6c-1013-4bb9-8927-047fc25e0402"),
                 Title = "Toán Tư Duy",
                 Description = "Toán tư duy là phương pháp giảng dạy giúp học sinh phát triển khả năng suy luận logic, phân tích và giải quyết vấn đề thông qua các bài toán sáng tạo và thực tế. Thay vì chỉ tập trung vào việc học thuộc lòng các công thức, toán tư duy khuyến khích học sinh hiểu sâu các khái niệm toán học và áp dụng chúng vào các tình huống khác nhau. Phương pháp này sử dụng các bài toán mở, câu hỏi kích thích tư duy và các hoạt động nhóm để thúc đẩy sự tương tác và hợp tác giữa các học sinh. Kết quả là, học sinh không chỉ nắm vững kiến thức toán học mà còn phát triển kỹ năng tư duy phản biện và sáng tạo, chuẩn bị tốt hơn cho việc học tập và ứng dụng toán học trong cuộc sống hàng ngày.",
             });
-            await _context.ProgramType.AddAsync(new ProgramType
+            await _context.ProgramTypes.AddAsync(new ProgramType
             {
                 Id = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"),
                 Title = "Toán Bộ Giáo Dục",
@@ -196,25 +196,25 @@ public class ApplicationDbContextInitialiser
             });
             // ------------------
             // CourseLevel table
-            await _context.CourseLevel.AddAsync(new CourseLevel
+            await _context.CourseLevels.AddAsync(new CourseLevel
             {
                 Id = new Guid("b8fc90e5-a56f-4ac0-b6bb-cd3eea88d4a1"),
                 Title = "Tiền Tiểu Học",
                 Description = "Chương trình Toán tư duy dành cho cấp độ Tiền Tiểu Học tập trung vào việc phát triển khả năng suy luận và tư duy logic của trẻ nhỏ thông qua các hoạt động học tập vui nhộn và sáng tạo. Các bài học được thiết kế để khơi dậy sự tò mò và hứng thú của trẻ với toán học bằng cách sử dụng đồ chơi giáo dục, trò chơi, và các bài toán đơn giản liên quan đến cuộc sống hàng ngày. Phương pháp này giúp trẻ hiểu các khái niệm cơ bản về số đếm, hình dạng, và các mẫu hình học, đồng thời phát triển kỹ năng giải quyết vấn đề và khả năng tư duy độc lập. Việc tạo môi trường học tập tích cực và tương tác giúp trẻ không chỉ nắm bắt kiến thức toán học một cách tự nhiên mà còn xây dựng nền tảng vững chắc cho việc học tập trong các cấp học tiếp theo."
             });
-            await _context.CourseLevel.AddAsync(new CourseLevel
+            await _context.CourseLevels.AddAsync(new CourseLevel
             {
                 Id = new Guid("8a7b78a9-d209-473e-a133-919479d61d5c"),
                 Title = "Toán Lớp 1 2",
                 Description = "Chương trình Toán cho học sinh lớp 1 và lớp 2 tập trung vào việc xây dựng nền tảng toán học vững chắc và phát triển các kỹ năng toán học cơ bản. Học sinh được giảng dạy về các khái niệm số học cơ bản như số đếm, phép cộng, phép trừ và các mẫu hình học đơn giản như hình vuông, hình tròn và hình tam giác. Các bài học thường sử dụng phương pháp học tập trực quan và thực hành để giúp học sinh hiểu sâu hơn về các khái niệm toán học. Ngoài ra, việc sử dụng trò chơi, hoạt động nhóm và bài toán thực tế giúp kích thích sự hứng thú và tích cực trong việc học toán. Chương trình cũng nhấn mạnh vào việc phát triển kỹ năng giải quyết vấn đề và tư duy logic của học sinh, chuẩn bị cho họ cho những thách thức toán học phức tạp hơn ở cấp độ tiếp theo.",
             });
-            await _context.CourseLevel.AddAsync(new CourseLevel
+            await _context.CourseLevels.AddAsync(new CourseLevel
             {
                 Id = new Guid("3f6798e9-eed3-40db-ae92-7dd0da9a6435"),
                 Title = "Toán Lớp 3 4",
                 Description = "Chương trình Toán cho học sinh lớp 3 và lớp 4 tập trung vào việc củng cố và mở rộng kiến thức về các khái niệm số học cơ bản như cộng, trừ, nhân, chia, cũng như các khái niệm hình học và đo lường. Học sinh học về phép nhân đơn giản, chia không dư, và tiếp tục phát triển kỹ năng giải quyết các bài toán có liên quan. Ngoài ra, họ cũng học về các khái niệm hình học như đo đạc đơn vị, diện tích, và dựng các hình học cơ bản. Chương trình tạo cơ hội cho học sinh thực hành và áp dụng kiến thức vào các bài toán thực tế, từ đó phát triển kỹ năng tư duy logic và giải quyết vấn đề. Việc sử dụng các phương pháp giảng dạy linh hoạt như học tập trực quan, thực hành, và học tập theo nhóm giúp tăng cường sự hiểu biết và tích cực trong việc học tập toán học.",
             });
-            await _context.CourseLevel.AddAsync(new CourseLevel
+            await _context.CourseLevels.AddAsync(new CourseLevel
             {
                 Id = new Guid("9e735658-0002-45c9-a6d5-1a579dba49ee"),
                 Title = "Toán Lớp 5",
@@ -222,7 +222,7 @@ public class ApplicationDbContextInitialiser
             });
             // ------------------
             // Course table
-            await _context.Course.AddAsync(new Course
+            await _context.Courses.AddAsync(new Course
             {
                 Id = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
                 SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"),
@@ -232,7 +232,7 @@ public class ApplicationDbContextInitialiser
                 Description = "Đại số là một phần quan trọng của toán học, tập trung vào việc nghiên cứu và giải quyết các vấn đề liên quan đến biểu thức, phương trình và hệ phương trình. Trong đại số, học sinh học về cách tạo ra và giải quyết các biểu thức và phương trình để tìm ra giá trị của các biến số. Điều này có thể bao gồm cả các khái niệm như phép cộng, phép trừ, phép nhân, phép chia, cũng như các phương pháp giải các hệ phương trình.",
                 TotalSlot = 20,
             });
-            await _context.Course.AddAsync(new Course
+            await _context.Courses.AddAsync(new Course
             {
                 Id = new Guid("555a0815-d0b8-4975-8e1c-245d7acbab45"),
                 SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"),
@@ -242,7 +242,7 @@ public class ApplicationDbContextInitialiser
                 Description = "Hình học nghiên cứu về các hình học cơ bản như hình vuông, hình tròn, tam giác và các hình khác, cũng như các phép biến đổi hình học như tịnh tiến, quay và phản xạ. Học sinh được giáo dục về cách tính diện tích, chu vi và khám phá các tính chất đặc biệt của các hình học này.",
                 TotalSlot = 20,
             });
-            await _context.Course.AddAsync(new Course
+            await _context.Courses.AddAsync(new Course
             {
                 Id = new Guid("6c215522-0925-4f86-b0fd-72f746ca9fd6"),
                 SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"),
@@ -252,7 +252,7 @@ public class ApplicationDbContextInitialiser
                 Description = "Số học là nền tảng của toán học, tập trung vào việc nghiên cứu và hiểu về các số và phép tính. Trong số học, học sinh học cách thực hiện các phép toán cơ bản như cộng, trừ, nhân, chia, cũng như các khái niệm như số nguyên tố, bội số chung nhỏ nhất và cách áp dụng chúng vào các bài toán thực tế.",
                 TotalSlot = 20,
             });
-            await _context.Course.AddAsync(new Course
+            await _context.Courses.AddAsync(new Course
             {
                 Id = new Guid("c2ad8bc5-d7ef-4639-87b2-d251854656a1"),
                 SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"),
@@ -264,35 +264,35 @@ public class ApplicationDbContextInitialiser
             });
             // --------------
             // Chapter table
-            await _context.Chapter.AddAsync(new Chapter
+            await _context.Chapters.AddAsync(new Chapter
             {
                 Id = new Guid("71d018c0-c040-4116-808f-2c3ae70d9ae9"),
                 CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
                 Title = "Biểu thức đại số",
                 Description = "Giới thiệu về các biểu thức đại số, bao gồm các phép toán cơ bản như cộng, trừ, nhân và chia biểu thức.",
             });
-            await _context.Chapter.AddAsync(new Chapter
+            await _context.Chapters.AddAsync(new Chapter
             {
                 Id = new Guid("a4562cbc-b8f8-4bca-b537-77d7b5e4eacc"),
                 CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
                 Title = "Phương trình đại số cơ bản",
                 Description = "Học cách giải các phương trình đơn giản bằng cách tìm giá trị của biến số.",
             });
-            await _context.Chapter.AddAsync(new Chapter
+            await _context.Chapters.AddAsync(new Chapter
             {
                 Id = new Guid("d0f9feee-92c2-4f01-9fc7-4c801c3202c7"),
                 CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
                 Title = "Hệ phương trình đại số",
                 Description = "Giải quyết các bài toán liên quan đến hệ phương trình đại số bằng các phương pháp như phương pháp loại trừ hoặc phương pháp thế.",
             });
-            await _context.Chapter.AddAsync(new Chapter
+            await _context.Chapters.AddAsync(new Chapter
             {
                 Id = new Guid("6b760186-9678-4e66-81f1-cb3aefe56e9f"),
                 CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
                 Title = "Bất phương trình và hệ bất phương trình",
                 Description = "Nghiên cứu về cách giải và hiểu về các bất phương trình và hệ bất phương trình trong đại số.",
             });
-            await _context.Chapter.AddAsync(new Chapter
+            await _context.Chapters.AddAsync(new Chapter
             {
                 Id = new Guid("3f15e8a2-247e-4d79-85f4-d46a73f7782b"),
                 CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
@@ -301,35 +301,35 @@ public class ApplicationDbContextInitialiser
             });
             // ------------
             // Topic table
-            await _context.Topic.AddAsync(new Topic
+            await _context.Topics.AddAsync(new Topic
             {
                 Id = new Guid("6d8c088e-bc7e-409f-8c79-31066d6df42e"),
                 ChapterId = new Guid("71d018c0-c040-4116-808f-2c3ae70d9ae9"),
                 Title = "Biểu thức đại số cơ bản",
                 Description = "Giới thiệu về cấu trúc của biểu thức đại số, bao gồm các phép toán cơ bản như cộng, trừ, nhân và chia.",
             });
-            await _context.Topic.AddAsync(new Topic
+            await _context.Topics.AddAsync(new Topic
             {
                 Id = new Guid("b78c510e-f524-4a78-a8c1-58c22063e0a0"),
                 ChapterId = new Guid("71d018c0-c040-4116-808f-2c3ae70d9ae9"),
                 Title = "Rút gọn biểu thức",
                 Description = "Học cách rút gọn và đơn giản hóa các biểu thức đại số bằng cách sử dụng các quy tắc phù hợp.",
             });
-            await _context.Topic.AddAsync(new Topic
+            await _context.Topics.AddAsync(new Topic
             {
                 Id = new Guid("59ee169a-c77f-431b-9cf6-b2c36ab3a4fe"),
                 ChapterId = new Guid("71d018c0-c040-4116-808f-2c3ae70d9ae9"),
                 Title = "Phân tích và định giá trị của biểu thức",
                 Description = "Phân tích cấu trúc và tính chất của các biểu thức đại số và tìm giá trị của chúng cho các giá trị cụ thể của biến số.",
             });
-            await _context.Topic.AddAsync(new Topic
+            await _context.Topics.AddAsync(new Topic
             {
                 Id = new Guid("afb89987-0405-4641-b595-b634f422cbed"),
                 ChapterId = new Guid("71d018c0-c040-4116-808f-2c3ae70d9ae9"),
                 Title = "Biểu thức đại số có mũ và căn bậc hai",
                 Description = "Nghiên cứu về các biểu thức chứa mũ và căn bậc hai, bao gồm các quy tắc biến đổi và tính toán.",
             });
-            await _context.Topic.AddAsync(new Topic
+            await _context.Topics.AddAsync(new Topic
             {
                 Id = new Guid("3829a480-2d22-44da-82c1-38da6fd0a6c9"),
                 ChapterId = new Guid("71d018c0-c040-4116-808f-2c3ae70d9ae9"),
@@ -337,7 +337,7 @@ public class ApplicationDbContextInitialiser
                 Description = "Khám phá về cách xử lý và giải quyết các biểu thức đại số có nhiều hơn một biến số.",
             });
 
-            await _context.Topic.AddAsync(new Topic
+            await _context.Topics.AddAsync(new Topic
             {
                 Id = new Guid("b4f46040-35ea-43f3-a586-0816f17b219b"),
                 ChapterId = new Guid("71d018c0-c040-4116-808f-2c3ae70d9ae9"),
@@ -347,7 +347,7 @@ public class ApplicationDbContextInitialiser
             // -----------
 
             // TeachingSlot table
-            await _context.TeachingSlot.AddAsync(new TeachingSlot
+            await _context.TeachingSlots.AddAsync(new TeachingSlot
             {
                 Id = new Guid("3efbbaca-4aa1-45f2-98a0-12fbc2399185"),
                 Title = "TeachingSlot Tilte",
@@ -355,7 +355,7 @@ public class ApplicationDbContextInitialiser
                 DayInWeek = 3,
                 CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
             });
-            await _context.TeachingSlot.AddAsync(new TeachingSlot
+            await _context.TeachingSlots.AddAsync(new TeachingSlot
             {
                 Id = new Guid("811c17cb-527e-4658-9db4-454fdeeca3ef"),
                 Slot = 2,
@@ -363,7 +363,7 @@ public class ApplicationDbContextInitialiser
                 Title = "TeachingSlot Tilte",
                 CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
             });
-            await _context.TeachingSlot.AddAsync(new TeachingSlot
+            await _context.TeachingSlots.AddAsync(new TeachingSlot
             {
                 Id = new Guid("0471144b-8ed3-4e78-b032-d5ca3c5ddfa5"),
                 Slot = 1,
@@ -373,35 +373,35 @@ public class ApplicationDbContextInitialiser
             });
             // ------------
             // Session table
-            await _context.Session.AddAsync(new Session
+            await _context.Sessions.AddAsync(new Session
             {
                 Id = new Guid("c8f560be-8762-4cb6-bc1f-ad64f3dac67e"),
                 TeachingSlotId = new Guid("0471144b-8ed3-4e78-b032-d5ca3c5ddfa5"),
                 ApplicationUserId = "d7896275-9b79-4955-92f2-e1923b5fa05b",
                 Date = GetRandomDateOnly(),
             });
-            await _context.Session.AddAsync(new Session
+            await _context.Sessions.AddAsync(new Session
             {
                 Id = new Guid("92a70117-01f5-41c2-805a-bcacddc872c1"),
                 TeachingSlotId = new Guid("811c17cb-527e-4658-9db4-454fdeeca3ef"),
                 ApplicationUserId = "d7896275-9b79-4955-92f2-e1923b5fa05b",
                 Date = GetRandomDateOnly(),
             });
-            await _context.Session.AddAsync(new Session
+            await _context.Sessions.AddAsync(new Session
             {
                 Id = new Guid("501aad6e-40e9-4a4e-ba0f-247e1c7f97a0"),
                 TeachingSlotId = new Guid("811c17cb-527e-4658-9db4-454fdeeca3ef"),
                 ApplicationUserId = "d7896275-9b79-4955-92f2-e1923b5fa05b",
                 Date = GetRandomDateOnly(),
             });
-            await _context.Session.AddAsync(new Session
+            await _context.Sessions.AddAsync(new Session
             {
                 Id = new Guid("d4390f9a-f21a-404f-8fdc-5d4b132bb2f3"),
                 TeachingSlotId = new Guid("3efbbaca-4aa1-45f2-98a0-12fbc2399185"),
                 ApplicationUserId = "d7896275-9b79-4955-92f2-e1923b5fa05b",
                 Date = GetRandomDateOnly(),
             });
-            await _context.Session.AddAsync(new Session
+            await _context.Sessions.AddAsync(new Session
             {
                 Id = new Guid("26a7510c-0d5b-4b4b-9775-9578d01120b9"),
                 TeachingSlotId = new Guid("0471144b-8ed3-4e78-b032-d5ca3c5ddfa5"),
@@ -410,14 +410,14 @@ public class ApplicationDbContextInitialiser
             });
             // -----------
             // Enrollment table
-            await _context.Enrollment.AddAsync(new Enrollment
+            await _context.Enrollments.AddAsync(new Enrollment
             {
                 Id = new Guid("091e0476-0b32-412b-9437-e3990a6aa529"),
                 CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
                 ApplicationUserId = "d7896275-9b79-4955-92f2-e1923b5fa05a",
                 Status = true,
             });
-            await _context.Enrollment.AddAsync(new Enrollment
+            await _context.Enrollments.AddAsync(new Enrollment
             {
                 Id = new Guid("877ddfd8-2ec2-445c-aeaf-1a51a6a40cd5"),
                 CourseId = new Guid("555a0815-d0b8-4975-8e1c-245d7acbab45"),
@@ -426,14 +426,14 @@ public class ApplicationDbContextInitialiser
             });
             // -----------
             // Participant table
-            await _context.Participant.AddAsync(new Participant
+            await _context.Participants.AddAsync(new Participant
             {
                 Id = new Guid("4e21ac1d-1c74-440d-8208-df31fd60aff4"),
                 EnrollmentId = new Guid("091e0476-0b32-412b-9437-e3990a6aa529"),
                 SessionId = new Guid("c8f560be-8762-4cb6-bc1f-ad64f3dac67e"),
                 IsPresent = true,
             });
-            await _context.Participant.AddAsync(new Participant
+            await _context.Participants.AddAsync(new Participant
             {
                 Id = new Guid("99a17610-466b-403c-b161-0fd728b41dac"),
                 EnrollmentId = new Guid("091e0476-0b32-412b-9437-e3990a6aa529"),
@@ -442,14 +442,14 @@ public class ApplicationDbContextInitialiser
             });
             // -----------
             // Teachable table
-            await _context.Teachable.AddAsync(new Teachable
+            await _context.Teachables.AddAsync(new Teachable
             {
                 Id = new Guid("82cc29db-7118-40ee-b989-7fff95cc3469"),
                 CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
                 ApplicationUserId = "d7896275-9b79-4955-92f2-e1923b5fa05b",   
                 Status = true,
             });
-            await _context.Teachable.AddAsync(new Teachable
+            await _context.Teachables.AddAsync(new Teachable
             {
                 Id = new Guid("871c0c1a-63fe-42f6-87c6-6eb599ee9526"),
                 CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
@@ -458,41 +458,41 @@ public class ApplicationDbContextInitialiser
             });
             // -----------
             // QuestionLevel table
-            await _context.QuestionLevel.AddAsync(new QuestionLevel
+            await _context.QuestionLevels.AddAsync(new QuestionLevel
             {
                 Id = new Guid("26fb0c3c-2f79-4940-ac2c-6ef7ba427d92"),
                 Title = "Dễ"
             });
-            await _context.QuestionLevel.AddAsync(new QuestionLevel
+            await _context.QuestionLevels.AddAsync(new QuestionLevel
             {
                 Id = new Guid("871d2de9-cfca-4ed0-a9a9-658639d664df"),
                 Title = "Trung bình"
             });
-            await _context.QuestionLevel.AddAsync(new QuestionLevel
+            await _context.QuestionLevels.AddAsync(new QuestionLevel
             {
                 Id = new Guid("8abb4833-8443-4aab-b996-dc1eff84bd41"),
                 Title = "Khá"
             });
-            await _context.QuestionLevel.AddAsync(new QuestionLevel
+            await _context.QuestionLevels.AddAsync(new QuestionLevel
             {
                 Id = new Guid("8f45dab4-c1f8-4528-8ca4-ba5f682f847d"),
                 Title = "Khó"
             });
-            await _context.QuestionLevel.AddAsync(new QuestionLevel
+            await _context.QuestionLevels.AddAsync(new QuestionLevel
             {
                 Id = new Guid("ca44a423-5b69-4953-8e94-8e4b771bef19"),
                 Title = "Ác mộng"
             });
             // -----------
             // Question table
-            await _context.Question.AddAsync(new Question
+            await _context.Questions.AddAsync(new Question
             {
                 Id = new Guid("0b886f5c-f730-4189-a8d1-51fe4dd2081d"),
                 Content = "Câu hỏi dễ nè...",
                 TopicId = new Guid("6d8c088e-bc7e-409f-8c79-31066d6df42e"),
                 QuestionLevelId = new Guid("26fb0c3c-2f79-4940-ac2c-6ef7ba427d92")
             });
-            await _context.Question.AddAsync(new Question
+            await _context.Questions.AddAsync(new Question
             {
                 Id = new Guid("f37ae7b9-d211-487a-8f50-ace1ab5c35af"),
                 Content = "Câu hỏi khó nè...",
@@ -502,28 +502,28 @@ public class ApplicationDbContextInitialiser
             // -----------
             // QuestionAnswer table
             // câu hỏi dễ
-            await _context.QuestionAnswer.AddAsync(new QuestionAnswer
+            await _context.QuestionAnswers.AddAsync(new QuestionAnswer
             {
                 Id = new Guid("302a0c60-b02e-402f-971a-c2f46aede894"),
                 QuestionId = new Guid("0b886f5c-f730-4189-a8d1-51fe4dd2081d"),
                 Content = "Câu trả lời 1",
                 IsCorrect = false,
             });
-            await _context.QuestionAnswer.AddAsync(new QuestionAnswer
+            await _context.QuestionAnswers.AddAsync(new QuestionAnswer
             {
                 Id = new Guid("08911be8-9667-45e3-8a91-2d423246d646"),
                 QuestionId = new Guid("0b886f5c-f730-4189-a8d1-51fe4dd2081d"),
                 Content = "Câu trả lời 2",
                 IsCorrect = true,
             });
-            await _context.QuestionAnswer.AddAsync(new QuestionAnswer
+            await _context.QuestionAnswers.AddAsync(new QuestionAnswer
             {
                 Id = new Guid("d14bc339-3ac0-4571-81df-212db5977141"),
                 QuestionId = new Guid("0b886f5c-f730-4189-a8d1-51fe4dd2081d"),
                 Content = "Câu trả lời 3",
                 IsCorrect = false,
             });
-            await _context.QuestionAnswer.AddAsync(new QuestionAnswer
+            await _context.QuestionAnswers.AddAsync(new QuestionAnswer
             {
                 Id = new Guid("ed426ec9-63ed-4c3f-9cc9-538f15fec767"),
                 QuestionId = new Guid("0b886f5c-f730-4189-a8d1-51fe4dd2081d"),
@@ -531,28 +531,28 @@ public class ApplicationDbContextInitialiser
                 IsCorrect = false,
             });
             // câu hỏi khó
-            await _context.QuestionAnswer.AddAsync(new QuestionAnswer
+            await _context.QuestionAnswers.AddAsync(new QuestionAnswer
             {
                 Id = new Guid("1e198ad8-b2f6-42b2-8259-31045df4972c"),
                 QuestionId = new Guid("f37ae7b9-d211-487a-8f50-ace1ab5c35af"),
                 Content = "Câu trả lời 1",
                 IsCorrect = false,
             });
-            await _context.QuestionAnswer.AddAsync(new QuestionAnswer
+            await _context.QuestionAnswers.AddAsync(new QuestionAnswer
             {
                 Id = new Guid("73913a99-0cd9-49e4-b615-1504a29ec0ac"),
                 QuestionId = new Guid("f37ae7b9-d211-487a-8f50-ace1ab5c35af"),
                 Content = "Câu trả lời 2",
                 IsCorrect = false,
             });
-            await _context.QuestionAnswer.AddAsync(new QuestionAnswer
+            await _context.QuestionAnswers.AddAsync(new QuestionAnswer
             {
                 Id = new Guid("61062a84-4ec0-4127-825f-7e74eab0aaee"),
                 QuestionId = new Guid("f37ae7b9-d211-487a-8f50-ace1ab5c35af"),
                 Content = "Câu trả lời 3",
                 IsCorrect = true,
             });
-            await _context.QuestionAnswer.AddAsync(new QuestionAnswer
+            await _context.QuestionAnswers.AddAsync(new QuestionAnswer
             {
                 Id = new Guid("afc6229c-a9a5-442a-9b8b-6ef2ab899477"),
                 QuestionId = new Guid("f37ae7b9-d211-487a-8f50-ace1ab5c35af"),

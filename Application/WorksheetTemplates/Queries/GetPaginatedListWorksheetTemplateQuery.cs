@@ -35,7 +35,7 @@ public class GetPaginatedListWorksheetTemplateQueryHandler : IRequestHandler<Get
     public async Task<BaseResponse<Pagination<GetBriefWorksheetTemplateResponseModel>>> Handle(GetPaginatedListWorksheetTemplateQuery request, CancellationToken cancellationToken)
     {
         var defaultPageSize = _configuration.GetValue<int>("Pagination:PageSize");
-        var worksheettemplates = _context.WorksheetTemplate.AsQueryable();
+        var worksheettemplates = _context.WorksheetTemplates.AsQueryable();
 
         // filter by search Classification
         if (!string.IsNullOrEmpty(request.Term))

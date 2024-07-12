@@ -32,7 +32,7 @@ namespace Application.Enrollments.Commands
 
         public async Task<BaseResponse<GetEnrollmentResponseModel>> Handle(DeleteEnrollmentCommand request, CancellationToken cancellationToken)
         {
-            var enrollment = await _context.Enrollment.FirstOrDefaultAsync(x => x.Id == request.Id);
+            var enrollment = await _context.Enrollments.FirstOrDefaultAsync(x => x.Id == request.Id);
             if (enrollment == null)
             {
                 return new BaseResponse<GetEnrollmentResponseModel>

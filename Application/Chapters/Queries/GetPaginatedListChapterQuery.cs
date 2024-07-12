@@ -36,7 +36,7 @@ public class GetPaginatedListChapterQueryHandler : IRequestHandler<GetPaginatedL
     public async Task<BaseResponse<Pagination<GetBriefChapterResponseModel>>> Handle(GetPaginatedListChapterQuery request, CancellationToken cancellationToken)
     {
         var defaultPageSize = _configuration.GetValue<int>("Pagination:PageSize");
-        var chapters = _context.Chapter.AsQueryable();
+        var chapters = _context.Chapters.AsQueryable();
 
         // filter by search Title and description
         if (!string.IsNullOrEmpty(request.Term))

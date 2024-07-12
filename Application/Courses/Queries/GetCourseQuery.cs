@@ -36,7 +36,7 @@ public class GetCourseQueryHanler : IRequestHandler<GetCourseQuery, BaseResponse
             };
         }
 
-        var course = await _context.Course
+        var course = await _context.Courses
             .Include(x => x.Subject)
             .Include(x => x.Chapters)
             //.Include(x => x.StudentInCourses)

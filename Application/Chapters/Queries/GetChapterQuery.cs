@@ -36,7 +36,7 @@ public class GetChapterQueryHanler : IRequestHandler<GetChapterQuery, BaseRespon
             };
         }
 
-        var chapter = await _context.Chapter
+        var chapter = await _context.Chapters
             .Include(x => x.Course)
             .Include(x => x.Topics)
             .FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);

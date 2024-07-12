@@ -33,7 +33,7 @@ public class CreateTopicCommandHanler : IRequestHandler<CreateTopicCommand, Base
 
     public async Task<BaseResponse<GetTopicResponseModel>> Handle(CreateTopicCommand request, CancellationToken cancellationToken)
     {
-        var chapter = await _context.Chapter.FirstOrDefaultAsync(x => x.Id == request.ChapterId);
+        var chapter = await _context.Chapters.FirstOrDefaultAsync(x => x.Id == request.ChapterId);
 
         if(chapter == null)
         {

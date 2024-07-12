@@ -26,7 +26,7 @@ public class DeleteQuestionAnswerCommandHanler : IRequestHandler<DeleteQuestionA
 
     public async Task<BaseResponse<GetQuestionAnswerResponseModel>> Handle(DeleteQuestionAnswerCommand request, CancellationToken cancellationToken)
     {
-        var questionanswer = await _context.QuestionAnswer.FirstOrDefaultAsync(x => x.Id == request.Id);
+        var questionanswer = await _context.QuestionAnswers.FirstOrDefaultAsync(x => x.Id == request.Id);
         if(questionanswer == null)
         {
             return new BaseResponse<GetQuestionAnswerResponseModel>

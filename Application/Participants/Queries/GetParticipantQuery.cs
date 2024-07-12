@@ -42,7 +42,7 @@ namespace Application.Participants.Queries
                 };
             }
 
-            var chapter = await _context.Participant
+            var chapter = await _context.Participants
                 .Include(o => o.Session)
                 .Include(o => o.Enrollment)
                 .FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);

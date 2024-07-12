@@ -26,7 +26,7 @@ public class DeleteCourseCommandHanler : IRequestHandler<DeleteCourseCommand, Ba
 
     public async Task<BaseResponse<GetCourseResponseModel>> Handle(DeleteCourseCommand request, CancellationToken cancellationToken)
     {
-        var course = await _context.Course.FirstOrDefaultAsync(x => x.Id == request.Id);
+        var course = await _context.Courses.FirstOrDefaultAsync(x => x.Id == request.Id);
         if(course == null)
         {
             return new BaseResponse<GetCourseResponseModel>

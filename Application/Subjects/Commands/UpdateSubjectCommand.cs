@@ -33,7 +33,7 @@ public class UpdateSubjectCommandHanler : IRequestHandler<UpdateSubjectCommand, 
 
     public async Task<BaseResponse<GetSubjectResponseModel>> Handle(UpdateSubjectCommand request, CancellationToken cancellationToken)
     {
-        var subject = await _context.Subject.FirstOrDefaultAsync(x => x.Id == request.Id);
+        var subject = await _context.Subjects.FirstOrDefaultAsync(x => x.Id == request.Id);
 
         if(subject == null)
         {

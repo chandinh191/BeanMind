@@ -38,7 +38,7 @@ namespace Application.Enrollments.Commands
 
         public async Task<BaseResponse<GetEnrollmentResponseModel>> Handle(UpdateEnrollmentCommand request, CancellationToken cancellationToken)
         {
-            var course = await _context.Course.FirstOrDefaultAsync(x => x.Id == request.CourseId);
+            var course = await _context.Courses.FirstOrDefaultAsync(x => x.Id == request.CourseId);
             if (course == null)
             {
                 return new BaseResponse<GetEnrollmentResponseModel>
@@ -49,7 +49,7 @@ namespace Application.Enrollments.Commands
             }
 
 
-            var applicationUser = await _context.ApplicationUser.FirstOrDefaultAsync(x => x.Id.Equals(request.ApplicationUserId));
+            var applicationUser = await _context.ApplicationUsers.FirstOrDefaultAsync(x => x.Id.Equals(request.ApplicationUserId));
             if (course == null)
             {
                 return new BaseResponse<GetEnrollmentResponseModel>
@@ -59,7 +59,7 @@ namespace Application.Enrollments.Commands
                 };
             }
 
-            var enrollment = await _context.Enrollment.FirstOrDefaultAsync(x => x.Id == request.Id);
+            var enrollment = await _context.Enrollments.FirstOrDefaultAsync(x => x.Id == request.Id);
 
             if (enrollment == null)
             {

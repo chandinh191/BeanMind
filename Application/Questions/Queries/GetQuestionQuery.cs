@@ -36,7 +36,7 @@ public class GetQuestionQueryHanler : IRequestHandler<GetQuestionQuery, BaseResp
             };
         }
 
-        var question = await _context.Question
+        var question = await _context.Questions
             .Include(x => x.Topic)
             .Include(x => x.QuestionLevel)
             .Include(x => x.QuestionAnswers)

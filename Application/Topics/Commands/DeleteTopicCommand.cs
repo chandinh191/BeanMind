@@ -26,7 +26,7 @@ public class DeleteTopicCommandHanler : IRequestHandler<DeleteTopicCommand, Base
 
     public async Task<BaseResponse<GetTopicResponseModel>> Handle(DeleteTopicCommand request, CancellationToken cancellationToken)
     {
-        var topic = await _context.Topic.FirstOrDefaultAsync(x => x.Id == request.Id);
+        var topic = await _context.Topics.FirstOrDefaultAsync(x => x.Id == request.Id);
         if(topic == null)
         {
             return new BaseResponse<GetTopicResponseModel>

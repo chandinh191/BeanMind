@@ -40,7 +40,7 @@ public class GetPaginatedListQuestionQueryHandler : IRequestHandler<GetPaginated
     public async Task<BaseResponse<Pagination<GetBriefQuestionResponseModel>>> Handle(GetPaginatedListQuestionQuery request, CancellationToken cancellationToken)
     {
         var defaultPageSize = _configuration.GetValue<int>("Pagination:PageSize");
-        var questions = _context.Question.AsQueryable();
+        var questions = _context.Questions.AsQueryable();
 
         if (!string.IsNullOrEmpty(request.Term))
         {

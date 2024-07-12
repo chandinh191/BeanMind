@@ -36,7 +36,7 @@ public class GetTopicQueryHanler : IRequestHandler<GetTopicQuery, BaseResponse<G
             };
         }
 
-        var topic = await _context.Topic
+        var topic = await _context.Topics
             .Include(x => x.Chapter)
             .FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);
 

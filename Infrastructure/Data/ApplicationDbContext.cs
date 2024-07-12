@@ -13,30 +13,30 @@ public interface IApplicationDbContext
 public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext
 {
 
-    public DbSet<Question> Question { get; init; }
-    public DbSet<QuestionAnswer> QuestionAnswer { get; init; }
-    public DbSet<QuestionLevel> QuestionLevel { get; init; }
-    public DbSet<Subject> Subject { get; init; }
-    public DbSet<Course> Course { get; init; }
-    public DbSet<Topic> Topic { get; init; }
-    public DbSet<Chapter> Chapter { get; init; }
-    public DbSet<Worksheet> Worksheet { get; init; }
-    public DbSet<WorksheetTemplate> WorksheetTemplate { get; init; }
-    public DbSet<LevelTemplateRelation> LevelTemplateRelation { get; init; }
-    public DbSet<Participant> Participant { get; init; }
-    public DbSet<Session> Session { get; init; }
-    public DbSet<Enrollment> Enrollment { get; init; }
-    public DbSet<ProgramType> ProgramType { get; init; }
-    public DbSet<CourseLevel> CourseLevel { get; init; }
-    public DbSet<Teachable> Teachable { get; init; }
-    public DbSet<ApplicationUser> ApplicationUser { get; init; }
-    public DbSet<Game> Game { get; init; }
-    public DbSet<GameHistory> GameHistory { get; init; }
-    public DbSet<ChapterGame> ChapterGame { get; init; }
-    public DbSet<WorksheetAttempt> WorksheetAttempt { get; init; }
-    public DbSet<WorksheetAttemptAnswer> WorksheetAttemptAnswer { get; init; }
-    public DbSet<TeachingSlot> TeachingSlot { get; init; }
-    public DbSet<Procession> Procession { get; init; }
+    public DbSet<Question> Questions { get; init; }
+    public DbSet<QuestionAnswer> QuestionAnswers { get; init; }
+    public DbSet<QuestionLevel> QuestionLevels { get; init; }
+    public DbSet<Subject> Subjects { get; init; }
+    public DbSet<Course> Courses { get; init; }
+    public DbSet<Topic> Topics { get; init; }
+    public DbSet<Chapter> Chapters { get; init; }
+    public DbSet<Worksheet> Worksheets { get; init; }
+    public DbSet<WorksheetTemplate> WorksheetTemplates { get; init; }
+    public DbSet<LevelTemplateRelation> LevelTemplateRelations { get; init; }
+    public DbSet<Participant> Participants { get; init; }
+    public DbSet<Session> Sessions { get; init; }
+    public DbSet<Enrollment> Enrollments { get; init; }
+    public DbSet<ProgramType> ProgramTypes { get; init; }
+    public DbSet<CourseLevel> CourseLevels { get; init; }
+    public DbSet<Teachable> Teachables { get; init; }
+    public DbSet<ApplicationUser> ApplicationUsers { get; init; }
+    public DbSet<Game> Games { get; init; }
+    public DbSet<GameHistory> GameHistories { get; init; }
+    public DbSet<ChapterGame> ChapterGames { get; init; }
+    public DbSet<WorksheetAttempt> WorksheetAttempts { get; init; }
+    public DbSet<WorksheetAttemptAnswer> WorksheetAttemptAnswers { get; init; }
+    public DbSet<TeachingSlot> TeachingSlots { get; init; }
+    public DbSet<Procession> Processions { get; init; }
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
     }

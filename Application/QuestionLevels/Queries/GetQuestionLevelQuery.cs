@@ -36,7 +36,7 @@ public class GetQuestionLevelQueryHanler : IRequestHandler<GetQuestionLevelQuery
             };
         }
 
-        var questionlevel = await _context.QuestionLevel.Include(x => x.Questions).FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);
+        var questionlevel = await _context.QuestionLevels.Include(x => x.Questions).FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);
         var mappedQuestionLevel = _mapper.Map<GetQuestionLevelResponseModel>(questionlevel);
 
         return new BaseResponse<GetQuestionLevelResponseModel>

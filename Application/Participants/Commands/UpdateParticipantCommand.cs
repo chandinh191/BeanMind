@@ -40,7 +40,7 @@ namespace Application.Participants.Commands
 
         public async Task<BaseResponse<GetParticipantResponseModel>> Handle(UpdateParticipantCommand request, CancellationToken cancellationToken)
         {
-            var enrollment = await _context.Enrollment.FirstOrDefaultAsync(x => x.Id == request.EnrollmentId);
+            var enrollment = await _context.Enrollments.FirstOrDefaultAsync(x => x.Id == request.EnrollmentId);
 
             if (enrollment == null)
             {
@@ -50,7 +50,7 @@ namespace Application.Participants.Commands
                     Message = "Enrollment not found",
                 };
             }
-            var session = await _context.Session.FirstOrDefaultAsync(x => x.Id == request.SessionId);
+            var session = await _context.Sessions.FirstOrDefaultAsync(x => x.Id == request.SessionId);
 
             if (session == null)
             {
@@ -61,7 +61,7 @@ namespace Application.Participants.Commands
                 };
             }
 
-            var participant = await _context.Participant.FirstOrDefaultAsync(x => x.Id == request.Id);
+            var participant = await _context.Participants.FirstOrDefaultAsync(x => x.Id == request.Id);
 
             if (participant == null)
             {

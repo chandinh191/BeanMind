@@ -40,7 +40,7 @@ namespace Application.ProgramTypes.Commands
         public async Task<BaseResponse<GetProgramTypeResponseModel>> Handle(UpdateProgramTypeCommand request, CancellationToken cancellationToken)
         {
 
-            var programType = await _context.ProgramType.FirstOrDefaultAsync(x => x.Id == request.Id);
+            var programType = await _context.ProgramTypes.FirstOrDefaultAsync(x => x.Id == request.Id);
 
             if (programType == null)
             {

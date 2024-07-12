@@ -37,7 +37,7 @@ namespace Application.Participants.Commands
 
         public async Task<BaseResponse<GetParticipantResponseModel>> Handle(CreateParticipantCommand request, CancellationToken cancellationToken)
         {
-            var enrollment = await _context.Enrollment.FirstOrDefaultAsync(x => x.Id == request.EnrollmentId);
+            var enrollment = await _context.Enrollments.FirstOrDefaultAsync(x => x.Id == request.EnrollmentId);
 
             if (enrollment == null)
             {
@@ -47,7 +47,7 @@ namespace Application.Participants.Commands
                     Message = "Enrollment not found",
                 };
             }
-            var session = await _context.Session.FirstOrDefaultAsync(x => x.Id == request.SessionId);
+            var session = await _context.Sessions.FirstOrDefaultAsync(x => x.Id == request.SessionId);
 
             if (session == null)
             {

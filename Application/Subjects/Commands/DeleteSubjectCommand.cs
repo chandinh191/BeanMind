@@ -26,7 +26,7 @@ public class DeleteSubjectCommandHanler : IRequestHandler<DeleteSubjectCommand, 
 
     public async Task<BaseResponse<GetSubjectResponseModel>> Handle(DeleteSubjectCommand request, CancellationToken cancellationToken)
     {
-        var subject = await _context.Subject.FirstOrDefaultAsync(x => x.Id == request.Id);
+        var subject = await _context.Subjects.FirstOrDefaultAsync(x => x.Id == request.Id);
         if(subject == null)
         {
             return new BaseResponse<GetSubjectResponseModel>

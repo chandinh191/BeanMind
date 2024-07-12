@@ -32,7 +32,7 @@ namespace Application.Participants.Commands
 
         public async Task<BaseResponse<GetParticipantResponseModel>> Handle(DeleteParticipantCommand request, CancellationToken cancellationToken)
         {
-            var participant = await _context.Participant.FirstOrDefaultAsync(x => x.Id == request.Id);
+            var participant = await _context.Participants.FirstOrDefaultAsync(x => x.Id == request.Id);
             if (participant == null)
             {
                 return new BaseResponse<GetParticipantResponseModel>

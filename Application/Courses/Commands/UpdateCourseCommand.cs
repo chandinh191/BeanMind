@@ -35,7 +35,7 @@ public class UpdateCourseCommandHanler : IRequestHandler<UpdateCourseCommand, Ba
 
     public async Task<BaseResponse<GetCourseResponseModel>> Handle(UpdateCourseCommand request, CancellationToken cancellationToken)
     {
-        var subject = await _context.Subject.FirstOrDefaultAsync(x => x.Id == request.SubjectId);
+        var subject = await _context.Subjects.FirstOrDefaultAsync(x => x.Id == request.SubjectId);
 
         if (subject == null)
         {
@@ -46,7 +46,7 @@ public class UpdateCourseCommandHanler : IRequestHandler<UpdateCourseCommand, Ba
             };
         }
 
-        var course = await _context.Course.FirstOrDefaultAsync(x => x.Id == request.Id);
+        var course = await _context.Courses.FirstOrDefaultAsync(x => x.Id == request.Id);
 
         if(course == null)
         {

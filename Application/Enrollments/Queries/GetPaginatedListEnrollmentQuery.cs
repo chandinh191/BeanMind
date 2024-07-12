@@ -43,7 +43,7 @@ namespace Application.Enrollments.Queries
         public async Task<BaseResponse<Pagination<GetBriefEnrollmentResponseModel>>> Handle(GetPaginatedListEnrollmentQuery request, CancellationToken cancellationToken)
         {
             var defaultPageSize = _configuration.GetValue<int>("Pagination:PageSize");
-            var enrollments = _context.Enrollment
+            var enrollments = _context.Enrollments
                 .Include(o => o.Course)
                 .Include(o => o.ApplicationUser)
                 .AsQueryable();

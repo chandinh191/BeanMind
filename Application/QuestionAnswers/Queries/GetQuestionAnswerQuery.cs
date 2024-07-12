@@ -36,7 +36,7 @@ public class GetQuestionAnswerQueryHanler : IRequestHandler<GetQuestionAnswerQue
             };
         }
 
-        var questionanswer = await _context.QuestionAnswer
+        var questionanswer = await _context.QuestionAnswers
             .Include(x => x.Question)
             .FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);
 

@@ -35,7 +35,7 @@ public class UpdateChapterCommandHanler : IRequestHandler<UpdateChapterCommand, 
 
     public async Task<BaseResponse<GetChapterResponseModel>> Handle(UpdateChapterCommand request, CancellationToken cancellationToken)
     {
-        var course = await _context.Course.FirstOrDefaultAsync(x => x.Id == request.CourseId);
+        var course = await _context.Courses.FirstOrDefaultAsync(x => x.Id == request.CourseId);
 
         if (course == null)
         {
@@ -46,7 +46,7 @@ public class UpdateChapterCommandHanler : IRequestHandler<UpdateChapterCommand, 
             };
         }
 
-        var chapter = await _context.Chapter.FirstOrDefaultAsync(x => x.Id == request.Id);
+        var chapter = await _context.Chapters.FirstOrDefaultAsync(x => x.Id == request.Id);
 
         if(chapter == null)
         {

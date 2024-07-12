@@ -36,7 +36,7 @@ public class GetWorksheetTemplateQueryHanler : IRequestHandler<GetWorksheetTempl
             };
         }
 
-        var worksheettemplate = await _context.WorksheetTemplate
+        var worksheettemplate = await _context.WorksheetTemplates
             
             .Include(x => x.Worksheets)
             .FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);

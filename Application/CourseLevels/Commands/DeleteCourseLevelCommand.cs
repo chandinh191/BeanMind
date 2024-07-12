@@ -32,7 +32,7 @@ namespace Application.CourseLevels.Commands
 
         public async Task<BaseResponse<GetCourseLevelResponseModel>> Handle(DeleteCourseLevelCommand request, CancellationToken cancellationToken)
         {
-            var courseLevel = await _context.CourseLevel.FirstOrDefaultAsync(x => x.Id == request.Id);
+            var courseLevel = await _context.CourseLevels.FirstOrDefaultAsync(x => x.Id == request.Id);
             if (courseLevel == null)
             {
                 return new BaseResponse<GetCourseLevelResponseModel>

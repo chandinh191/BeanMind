@@ -32,7 +32,7 @@ namespace Application.ProgramTypes.Commands
 
         public async Task<BaseResponse<GetProgramTypeResponseModel>> Handle(DeleteProgramTypeCommand request, CancellationToken cancellationToken)
         {
-            var programType = await _context.ProgramType.FirstOrDefaultAsync(x => x.Id == request.Id);
+            var programType = await _context.ProgramTypes.FirstOrDefaultAsync(x => x.Id == request.Id);
             if (programType == null)
             {
                 return new BaseResponse<GetProgramTypeResponseModel>

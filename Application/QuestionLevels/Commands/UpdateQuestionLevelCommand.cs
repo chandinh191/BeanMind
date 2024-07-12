@@ -31,7 +31,7 @@ public class UpdateQuestionLevelCommandHanler : IRequestHandler<UpdateQuestionLe
 
     public async Task<BaseResponse<GetQuestionLevelResponseModel>> Handle(UpdateQuestionLevelCommand request, CancellationToken cancellationToken)
     {
-        var questionlevel = await _context.QuestionLevel.FirstOrDefaultAsync(x => x.Id == request.Id);
+        var questionlevel = await _context.QuestionLevels.FirstOrDefaultAsync(x => x.Id == request.Id);
 
         if(questionlevel == null)
         {

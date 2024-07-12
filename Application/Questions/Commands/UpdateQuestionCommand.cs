@@ -38,7 +38,7 @@ public class UpdateQuestionCommandHanler : IRequestHandler<UpdateQuestionCommand
 
     public async Task<BaseResponse<GetQuestionResponseModel>> Handle(UpdateQuestionCommand request, CancellationToken cancellationToken)
     {
-        var topic = await _context.Topic.FirstOrDefaultAsync(x => x.Id == request.TopicId);
+        var topic = await _context.Topics.FirstOrDefaultAsync(x => x.Id == request.TopicId);
 
         if (topic == null)
         {
@@ -49,7 +49,7 @@ public class UpdateQuestionCommandHanler : IRequestHandler<UpdateQuestionCommand
             };
         }
 
-        var questionLevel = await _context.QuestionLevel.FirstOrDefaultAsync(x => x.Id == request.QuestionLevelId);
+        var questionLevel = await _context.QuestionLevels.FirstOrDefaultAsync(x => x.Id == request.QuestionLevelId);
 
         if (questionLevel == null)
         {
@@ -64,7 +64,7 @@ public class UpdateQuestionCommandHanler : IRequestHandler<UpdateQuestionCommand
 
 
 
-        var question = await _context.Subject.FirstOrDefaultAsync(x => x.Id == request.Id);
+        var question = await _context.Subjects.FirstOrDefaultAsync(x => x.Id == request.Id);
 
         if(question == null)
         {

@@ -33,7 +33,7 @@ public class CreateChapterCommandHanler : IRequestHandler<CreateChapterCommand, 
 
     public async Task<BaseResponse<GetChapterResponseModel>> Handle(CreateChapterCommand request, CancellationToken cancellationToken)
     {
-        var course = await _context.Course.FirstOrDefaultAsync(x => x.Id == request.CourseId);
+        var course = await _context.Courses.FirstOrDefaultAsync(x => x.Id == request.CourseId);
 
         if (course == null)
         {

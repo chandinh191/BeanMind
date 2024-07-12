@@ -26,7 +26,7 @@ public class DeleteQuestionLevelCommandHanler : IRequestHandler<DeleteQuestionLe
 
     public async Task<BaseResponse<GetQuestionLevelResponseModel>> Handle(DeleteQuestionLevelCommand request, CancellationToken cancellationToken)
     {
-        var questionlevel = await _context.QuestionLevel.FirstOrDefaultAsync(x => x.Id == request.Id);
+        var questionlevel = await _context.QuestionLevels.FirstOrDefaultAsync(x => x.Id == request.Id);
         if(questionlevel == null)
         {
             return new BaseResponse<GetQuestionLevelResponseModel>

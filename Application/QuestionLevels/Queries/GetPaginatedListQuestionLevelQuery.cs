@@ -37,7 +37,7 @@ public class GetPaginatedListQuestionLevelQueryHandler : IRequestHandler<GetPagi
     public async Task<BaseResponse<Pagination<GetBriefQuestionLevelResponseModel>>> Handle(GetPaginatedListQuestionLevelQuery request, CancellationToken cancellationToken)
     {
         var defaultPageSize = _configuration.GetValue<int>("Pagination:PageSize");
-        var questionlevels = _context.QuestionLevel.AsQueryable();
+        var questionlevels = _context.QuestionLevels.AsQueryable();
 
         // filter by search name
         if (!string.IsNullOrEmpty(request.Term))

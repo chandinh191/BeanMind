@@ -42,7 +42,7 @@ namespace Application.ProgramTypes.Queries
                 };
             }
 
-            var programTypes = await _context.ProgramType
+            var programTypes = await _context.ProgramTypes
                 .Include(o => o.Courses)
                 .Include(o => o.Teachables)
                 .FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);

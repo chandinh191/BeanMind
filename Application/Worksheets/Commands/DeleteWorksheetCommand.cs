@@ -26,7 +26,7 @@ public class DeleteWorksheetCommandHanler : IRequestHandler<DeleteWorksheetComma
 
     public async Task<BaseResponse<GetWorksheetResponseModel>> Handle(DeleteWorksheetCommand request, CancellationToken cancellationToken)
     {
-        var worksheet = await _context.Worksheet.FirstOrDefaultAsync(x => x.Id == request.Id);
+        var worksheet = await _context.Worksheets.FirstOrDefaultAsync(x => x.Id == request.Id);
         if(worksheet == null)
         {
             return new BaseResponse<GetWorksheetResponseModel>

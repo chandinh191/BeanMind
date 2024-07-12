@@ -33,7 +33,7 @@ public class CreateCourseCommandHanler : IRequestHandler<CreateCourseCommand, Ba
 
     public async Task<BaseResponse<GetCourseResponseModel>> Handle(CreateCourseCommand request, CancellationToken cancellationToken)
     {
-        var subject = await _context.Subject.AsNoTracking().FirstOrDefaultAsync(x => x.Id == request.SubjectId);
+        var subject = await _context.Subjects.AsNoTracking().FirstOrDefaultAsync(x => x.Id == request.SubjectId);
 
         if (subject == null)
         {

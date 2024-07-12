@@ -39,7 +39,7 @@ namespace Application.CourseLevels.Queries
         public async Task<BaseResponse<Pagination<GetBriefCourseLevelResponseModel>>> Handle(GetPaginatedListCourseLevelQuery request, CancellationToken cancellationToken)
         {
             var defaultPageSize = _configuration.GetValue<int>("Pagination:PageSize");
-            var programTypes = _context.CourseLevel.AsQueryable();
+            var programTypes = _context.CourseLevels.AsQueryable();
 
             // filter by search Title and description
             if (!string.IsNullOrEmpty(request.Term))

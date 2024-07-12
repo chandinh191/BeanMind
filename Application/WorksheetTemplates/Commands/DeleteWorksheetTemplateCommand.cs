@@ -26,7 +26,7 @@ public class DeleteWorksheetTemplateCommandHanler : IRequestHandler<DeleteWorksh
 
     public async Task<BaseResponse<GetWorksheetTemplateResponseModel>> Handle(DeleteWorksheetTemplateCommand request, CancellationToken cancellationToken)
     {
-        var worksheettemplate = await _context.WorksheetTemplate.FirstOrDefaultAsync(x => x.Id == request.Id);
+        var worksheettemplate = await _context.WorksheetTemplates.FirstOrDefaultAsync(x => x.Id == request.Id);
         if(worksheettemplate == null)
         {
             return new BaseResponse<GetWorksheetTemplateResponseModel>

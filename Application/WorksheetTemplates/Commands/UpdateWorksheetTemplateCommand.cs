@@ -32,7 +32,7 @@ public class UpdateWorksheetTemplateCommandHanler : IRequestHandler<UpdateWorksh
     public async Task<BaseResponse<GetWorksheetTemplateResponseModel>> Handle(UpdateWorksheetTemplateCommand request, CancellationToken cancellationToken)
     {
 
-        var worksheettemplate = await _context.WorksheetTemplate.FirstOrDefaultAsync(x => x.Id == request.Id);
+        var worksheettemplate = await _context.WorksheetTemplates.FirstOrDefaultAsync(x => x.Id == request.Id);
 
         if(worksheettemplate == null)
         {

@@ -39,7 +39,7 @@ public class UpdateWorksheetCommandHanler : IRequestHandler<UpdateWorksheetComma
     {
         
 
-        var worksheetTemplate = await _context.WorksheetTemplate.FirstOrDefaultAsync(x => x.Id == request.WorksheetTemplateId);
+        var worksheetTemplate = await _context.WorksheetTemplates.FirstOrDefaultAsync(x => x.Id == request.WorksheetTemplateId);
 
         if (worksheetTemplate == null)
         {
@@ -50,7 +50,7 @@ public class UpdateWorksheetCommandHanler : IRequestHandler<UpdateWorksheetComma
             };
         }
 
-        var worksheet = await _context.Worksheet.FirstOrDefaultAsync(x => x.Id == request.Id);
+        var worksheet = await _context.Worksheets.FirstOrDefaultAsync(x => x.Id == request.Id);
 
         if(worksheet == null)
         {

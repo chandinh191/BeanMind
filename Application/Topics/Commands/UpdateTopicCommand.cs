@@ -35,7 +35,7 @@ public class UpdateTopicCommandHanler : IRequestHandler<UpdateTopicCommand, Base
 
     public async Task<BaseResponse<GetTopicResponseModel>> Handle(UpdateTopicCommand request, CancellationToken cancellationToken)
     {
-        var chapter = await _context.Chapter.FirstOrDefaultAsync(x => x.Id == request.ChapterId);
+        var chapter = await _context.Chapters.FirstOrDefaultAsync(x => x.Id == request.ChapterId);
 
         if (chapter == null)
         {
@@ -46,7 +46,7 @@ public class UpdateTopicCommandHanler : IRequestHandler<UpdateTopicCommand, Base
             };
         }
 
-        var topic = await _context.Topic.FirstOrDefaultAsync(x => x.Id == request.Id);
+        var topic = await _context.Topics.FirstOrDefaultAsync(x => x.Id == request.Id);
 
         if(topic == null)
         {

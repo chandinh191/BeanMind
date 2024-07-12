@@ -37,7 +37,7 @@ public class CreateWorksheetCommandHanler : IRequestHandler<CreateWorksheetComma
     {
        
 
-        var worksheetTemplate = await _context.WorksheetTemplate.FirstOrDefaultAsync(x => x.Id == request.WorksheetTemplateId);
+        var worksheetTemplate = await _context.WorksheetTemplates.FirstOrDefaultAsync(x => x.Id == request.WorksheetTemplateId);
 
         if (worksheetTemplate == null)
         {
