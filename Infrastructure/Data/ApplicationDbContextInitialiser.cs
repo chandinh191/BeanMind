@@ -345,51 +345,83 @@ public class ApplicationDbContextInitialiser
                 Description = "Áp dụng kiến thức về biểu thức đại số vào các bài toán thực tế trong các lĩnh vực như kinh tế, khoa học, và kỹ thuật.",
             });
             // -----------
-            
+
+            // TeachingSlot table
+            await _context.TeachingSlot.AddAsync(new TeachingSlot
+            {
+                Id = new Guid("3efbbaca-4aa1-45f2-98a0-12fbc2399185"),
+                Title = "TeachingSlot Tilte",
+                Slot = 1,
+                DayInWeek = 3,
+                CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
+            });
+            await _context.TeachingSlot.AddAsync(new TeachingSlot
+            {
+                Id = new Guid("811c17cb-527e-4658-9db4-454fdeeca3ef"),
+                Slot = 2,
+                DayInWeek = 5,
+                Title = "TeachingSlot Tilte",
+                CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
+            });
+            await _context.TeachingSlot.AddAsync(new TeachingSlot
+            {
+                Id = new Guid("0471144b-8ed3-4e78-b032-d5ca3c5ddfa5"),
+                Slot = 1,
+                DayInWeek = 6,
+                Title = "TeachingSlot Tilte",
+                CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
+            });
+            // ------------
             // Session table
             await _context.Session.AddAsync(new Session
             {
                 Id = new Guid("c8f560be-8762-4cb6-bc1f-ad64f3dac67e"),
-               
+                TeachingSlotId = new Guid("0471144b-8ed3-4e78-b032-d5ca3c5ddfa5"),
                 ApplicationUserId = "d7896275-9b79-4955-92f2-e1923b5fa05b",
                 Date = GetRandomDateOnly(),
             });
             await _context.Session.AddAsync(new Session
             {
                 Id = new Guid("92a70117-01f5-41c2-805a-bcacddc872c1"),
-               
+                TeachingSlotId = new Guid("811c17cb-527e-4658-9db4-454fdeeca3ef"),
                 ApplicationUserId = "d7896275-9b79-4955-92f2-e1923b5fa05b",
                 Date = GetRandomDateOnly(),
             });
             await _context.Session.AddAsync(new Session
             {
                 Id = new Guid("501aad6e-40e9-4a4e-ba0f-247e1c7f97a0"),
-   
+                TeachingSlotId = new Guid("811c17cb-527e-4658-9db4-454fdeeca3ef"),
                 ApplicationUserId = "d7896275-9b79-4955-92f2-e1923b5fa05b",
                 Date = GetRandomDateOnly(),
             });
             await _context.Session.AddAsync(new Session
             {
                 Id = new Guid("d4390f9a-f21a-404f-8fdc-5d4b132bb2f3"),
-               
+                TeachingSlotId = new Guid("3efbbaca-4aa1-45f2-98a0-12fbc2399185"),
                 ApplicationUserId = "d7896275-9b79-4955-92f2-e1923b5fa05b",
                 Date = GetRandomDateOnly(),
             });
             await _context.Session.AddAsync(new Session
             {
                 Id = new Guid("26a7510c-0d5b-4b4b-9775-9578d01120b9"),
-  
+                TeachingSlotId = new Guid("0471144b-8ed3-4e78-b032-d5ca3c5ddfa5"),
                 ApplicationUserId = "d7896275-9b79-4955-92f2-e1923b5fa05b",
                 Date = GetRandomDateOnly(),
             });
             // -----------
-            // Enroll table
+            // Enrollment table
             await _context.Enrollment.AddAsync(new Enrollment
             {
                 Id = new Guid("091e0476-0b32-412b-9437-e3990a6aa529"),
                 CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
                 ApplicationUserId = "d7896275-9b79-4955-92f2-e1923b5fa05a",
-                //SessionGroupId = new Guid("d0cb5a7d-b3a3-4cd4-acf7-4393f70bee67"),
+                Status = true,
+            });
+            await _context.Enrollment.AddAsync(new Enrollment
+            {
+                Id = new Guid("877ddfd8-2ec2-445c-aeaf-1a51a6a40cd5"),
+                CourseId = new Guid("555a0815-d0b8-4975-8e1c-245d7acbab45"),
+                ApplicationUserId = "d7896275-9b79-4955-92f2-e1923b5fa05b",
                 Status = true,
             });
             // -----------
@@ -413,10 +445,15 @@ public class ApplicationDbContextInitialiser
             await _context.Teachable.AddAsync(new Teachable
             {
                 Id = new Guid("82cc29db-7118-40ee-b989-7fff95cc3469"),
-               
-                ApplicationUserId = "d7896275-9b79-4955-92f2-e1923b5fa05b",
-   
-                //Title = "Tiền tiểu học, bộ giáo dục",
+                CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
+                ApplicationUserId = "d7896275-9b79-4955-92f2-e1923b5fa05b",   
+                Status = true,
+            });
+            await _context.Teachable.AddAsync(new Teachable
+            {
+                Id = new Guid("871c0c1a-63fe-42f6-87c6-6eb599ee9526"),
+                CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
+                ApplicationUserId = "d7896275-9b79-4955-92f2-e1923b5fa05a",
                 Status = true,
             });
             // -----------

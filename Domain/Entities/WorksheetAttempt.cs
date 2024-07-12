@@ -10,6 +10,7 @@ namespace Domain.Entities
 {
     public class WorksheetAttempt : BaseAuditableEntity
     {
+        public string Title { get; set; }
         [ForeignKey(nameof(Enrollment))]
         public Guid EnrollmentId { get; set; }
         public Enrollment Enrollment { get; set; }

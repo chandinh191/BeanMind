@@ -11,6 +11,8 @@ namespace Domain.Entities
     public class TeachingSlot : BaseAuditableEntity
     {
         public string Title { get; set; }
+        public int DayInWeek { get; set; }
+        public int Slot { get; set; }
 
         [ForeignKey(nameof(Course))]
         public Guid CourseId { get; set; }

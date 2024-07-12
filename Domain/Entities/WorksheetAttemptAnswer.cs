@@ -13,6 +13,7 @@ namespace Domain.Entities
         [ForeignKey(nameof(WorksheetAttempt))]
         public Guid? WorksheetAttemptId { get; set; }
         public WorksheetAttempt? WorksheetAttempt { get; set; }
+
         [ForeignKey(nameof(QuestionAnswer))]
         public Guid QuestionAnswerId { get; set; }
         public QuestionAnswer QuestionAnswer { get; set; }
