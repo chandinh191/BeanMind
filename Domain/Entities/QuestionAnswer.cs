@@ -6,11 +6,11 @@ namespace Domain.Entities;
 
 public class QuestionAnswer : BaseAuditableEntity
 {
-    public string Content { get; set; }
-    public bool IsCorrect { get; set; }
     [Required]
     [ForeignKey(nameof(Question))]
     public Guid QuestionId { get; set; }
     public Question Question { get; set; }
+    public string Content { get; set; }
+    public bool IsCorrect { get; set; }
     public IEnumerable<WorksheetAttemptAnswer> WorksheetAttemptAnswers { get; set; }
 }

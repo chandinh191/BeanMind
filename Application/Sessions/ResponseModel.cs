@@ -9,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Application.Participants;
+using Application.ApplicationUsers;
+using Application.TeachingSlots;
 
 namespace Application.Sessions
 {
@@ -16,16 +18,20 @@ namespace Application.Sessions
     public class GetBriefSessionResponseModel : BaseResponseModel
     {
         public DateOnly Date { get; set; }
-        public string ApplicationUserId { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
+        public string? ApplicationUserId { get; set; }
+        public GetBriefApplicationUserResponseModel? ApplicationUser { get; set; }
+        public Guid TeachingSlotId { get; set; }
+        public GetBriefTeachingSlotResponseModel TeachingSlot { get; set; }
     }
 
     [AutoMap(typeof(Domain.Entities.Session))]
     public class GetSessionResponseModel : BaseResponseModel
     {
         public DateOnly Date { get; set; }
-        public string ApplicationUserId { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
-        public List<GetBriefParticipantResponseModel> Participants { get; set; }
+        public string? ApplicationUserId { get; set; }
+        public GetBriefApplicationUserResponseModel? ApplicationUser { get; set; }
+        public Guid TeachingSlotId { get; set; }
+        public GetBriefTeachingSlotResponseModel TeachingSlot { get; set; }
+        public List<GetBriefParticipantResponseModel>? Participants { get; set; }
     }
 }

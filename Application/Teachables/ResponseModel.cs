@@ -8,32 +8,27 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Application.ProgramTypes;
-using Application.CourseLevels;
-
+using Application.Courses;
+using Application.ApplicationUsers;
 namespace Application.Teachables
 {
     [AutoMap(typeof(Domain.Entities.Teachable))]
     public class GetBriefTeachableResponseModel : BaseResponseModel
     {
-        public string ApplicationUserId { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
-        public Guid CourseLevelId { get; set; }
-        public CourseLevel CourseLevel { get; set; }
-        public Guid ProgramTypeId { get; set; }
-        public ProgramType ProgramType { get; set; }
+        public string? ApplicationUserId { get; set; }
+        public GetBriefApplicationUserResponseModel? ApplicationUser { get; set; }
+        public Guid CourseId { get; set; }
+        public GetBriefCourseResponseModel Course { get; set; }
         public bool Status { get; set; }
     }
 
     [AutoMap(typeof(Domain.Entities.Teachable))]
     public class GetTeachableResponseModel : BaseResponseModel
     {
-        public string ApplicationUserId { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
-        public Guid CourseLevelId { get; set; }
-        public CourseLevel CourseLevel { get; set; }
-        public Guid ProgramTypeId { get; set; }
-        public ProgramType ProgramType { get; set; }
+        public string? ApplicationUserId { get; set; }
+        public GetBriefApplicationUserResponseModel? ApplicationUser { get; set; }
+        public Guid CourseId { get; set; }
+        public GetBriefCourseResponseModel Course { get; set; }
         public bool Status { get; set; }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using Application.Common;
+using Application.LevelTemplateRelations;
+using Application.Questions;
 using AutoMapper;
 using Domain.Entities;
 
@@ -14,6 +16,7 @@ public class GetBriefQuestionLevelResponseModel : BaseResponseModel
 public class GetQuestionLevelResponseModel : BaseResponseModel
 {
     public string Title { get; set; }
-    public List<Question> Questions { get; set; }
+    public IEnumerable<GetBriefQuestionResponseModel> Questions { get; set; }
+    public IEnumerable<GetBriefLevelTemplateRelationResponseModel> LevelTemplateRelation { get; set; }
 }
 

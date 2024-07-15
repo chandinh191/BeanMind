@@ -9,6 +9,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Application.ApplicationUsers;
+using Application.Courses;
 
 namespace Application.Enrollments
 {
@@ -16,9 +18,9 @@ namespace Application.Enrollments
     public class GetBriefEnrollmentResponseModel : BaseResponseModel
     {
         public string ApplicationUserId { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
+        public GetBriefApplicationUserResponseModel ApplicationUser { get; set; }
         public Guid CourseId { get; set; }
-        public Course Course { get; set; }
+        public GetBriefCourseResponseModel Course { get; set; }
         public bool Status { get; set; }
     }
 
@@ -26,9 +28,9 @@ namespace Application.Enrollments
     public class GetEnrollmentResponseModel : BaseResponseModel
     {
         public string ApplicationUserId { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
+        public GetBriefApplicationUserResponseModel ApplicationUser { get; set; }
         public Guid CourseId { get; set; }
-        public Course Course { get; set; }
+        public GetBriefCourseResponseModel Course { get; set; }
         public List<GetBriefParticipantResponseModel> Participants { get; set; }
         public bool Status { get; set; }
 

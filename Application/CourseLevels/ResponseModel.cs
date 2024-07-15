@@ -1,6 +1,7 @@
 ﻿using Application.Chapters;
 using Application.Common;
 using Application.Courses;
+using Application.Teachables;
 using AutoMapper;
 using Domain.Entities;
 using System;
@@ -25,9 +26,6 @@ namespace Application.CourseLevels
         public string Title { get; set; }
         public string Description { get; set; }
         public List<GetBriefCourseResponseModel> Courses { get; set; }
-        //public List<Teachable> Teachables { get; set; }
-        //public List<SessionGroup> SessionGroups { get; set; }
-
+        public List<GetBriefTeachableResponseModel> Teachables { get; set; }
     }
-
 }

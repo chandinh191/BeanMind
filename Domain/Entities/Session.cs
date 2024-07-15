@@ -20,7 +20,6 @@ namespace Domain.Entities
         [ForeignKey(nameof(TeachingSlot))]
         public Guid TeachingSlotId { get; set; }
         public TeachingSlot TeachingSlot { get; set; }
-
         public IEnumerable<Participant>? Participants { get; set; }
     }
 }

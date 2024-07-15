@@ -18,10 +18,30 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Folder Include="ApplicationUsers\Commands\" />
+	  <Folder Include="ApplicationUsers\Queries\" />
+	  <Folder Include="ChapterGames\Commands\" />
+	  <Folder Include="ChapterGames\Queries\" />
+	  <Folder Include="GameHistories\Commands\" />
+	  <Folder Include="GameHistories\Queries\" />
+	  <Folder Include="Games\Commands\" />
+	  <Folder Include="Games\Queries\" />
+	  <Folder Include="LevelTemplateRelations\Commands\" />
+	  <Folder Include="LevelTemplateRelations\Queries\" />
+	  <Folder Include="Processions\Commands\" />
+	  <Folder Include="Processions\Queries\" />
 	  <Folder Include="Sessions\Commands\" />
 	  <Folder Include="Sessions\Queries\" />
 	  <Folder Include="Teachables\Commands\" />
 	  <Folder Include="Teachables\Queries\" />
+	  <Folder Include="TeachingSlots\Commands\" />
+	  <Folder Include="TeachingSlots\Queries\" />
+	  <Folder Include="WorksheetAttemptAnswers\Commands\" />
+	  <Folder Include="WorksheetAttemptAnswers\Queries\" />
+	  <Folder Include="WorksheetAttempts\Commands\" />
+	  <Folder Include="WorksheetAttempts\Queries\" />
+	  <Folder Include="WorksheetQuestions\Commands\" />
+	  <Folder Include="WorksheetQuestions\Queries\" />
 	</ItemGroup>
 
 </Project>

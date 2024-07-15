@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Application.Sessions;
 using Application.Enrollments;
+using Application.Processions;
 
 namespace Application.Participants
 {
@@ -28,9 +29,10 @@ namespace Application.Participants
     public class GetParticipantResponseModel : BaseResponseModel
     {
         public Guid EnrollmentId { get; set; }
-        public GetEnrollmentResponseModel Enrollment { get; set; }
+        public GetBriefEnrollmentResponseModel Enrollment { get; set; }
         public Guid SessionId { get; set; }
-        public GetSessionResponseModel Session { get; set; }
+        public GetBriefSessionResponseModel Session { get; set; }
+        public List<GetBriefProcessionResponseModel> Processions { get; set; }
         public bool IsPresent { get; set; }
     }
 

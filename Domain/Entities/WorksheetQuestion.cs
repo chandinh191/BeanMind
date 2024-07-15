@@ -19,7 +19,5 @@ namespace Domain.Entities
         [ForeignKey(nameof(Worksheet))]
         public Guid WorksheetId { get; set; }
         public Worksheet Worksheet { get; set; }
-
-
     }
 }
