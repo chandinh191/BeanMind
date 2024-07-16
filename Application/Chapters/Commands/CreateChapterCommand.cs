@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Application.Chapters.Commands;
 
 [AutoMap(typeof(Domain.Entities.Chapter), ReverseMap = true)]
-public sealed record CreateChapterCommand : IRequest<BaseResponse<GetChapterResponseModel>>
+public sealed record CreateChapterCommand : IRequest<BaseResponse<GetBriefChapterResponseModel>>
 {
     [Required]
     [StringLength(maximumLength: 50, MinimumLength = 4, ErrorMessage = "Title must be at least 4 characters long.")]
@@ -20,7 +20,7 @@ public sealed record CreateChapterCommand : IRequest<BaseResponse<GetChapterResp
     public Guid CourseId { get; set; }
 }
 
-public class CreateChapterCommandHanler : IRequestHandler<CreateChapterCommand, BaseResponse<GetChapterResponseModel>>
+public class CreateChapterCommandHanler : IRequestHandler<CreateChapterCommand, BaseResponse<GetBriefChapterResponseModel>>
 {
     private readonly ApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -31,13 +31,13 @@ public class CreateChapterCommandHanler : IRequestHandler<CreateChapterCommand, 
         _mapper = mapper;
     }
 
-    public async Task<BaseResponse<GetChapterResponseModel>> Handle(CreateChapterCommand request, CancellationToken cancellationToken)
+    public async Task<BaseResponse<GetBriefChapterResponseModel>> Handle(CreateChapterCommand request, CancellationToken cancellationToken)
     {
         var course = await _context.Courses.FirstOrDefaultAsync(x => x.Id == request.CourseId);
 
         if (course == null)
         {
-            return new BaseResponse<GetChapterResponseModel>
+            return new BaseResponse<GetBriefChapterResponseModel>
             {
                 Success = false,
                 Message = "Course not found",
@@ -49,7 +49,7 @@ public class CreateChapterCommandHanler : IRequestHandler<CreateChapterCommand, 
 
         if(createChapterResult.Entity == null)
         {
-            return new BaseResponse<GetChapterResponseModel>
+            return new BaseResponse<GetBriefChapterResponseModel>
             {
                 Success = false,
                 Message = "Create chapter failed",
@@ -58,9 +58,9 @@ public class CreateChapterCommandHanler : IRequestHandler<CreateChapterCommand, 
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        var mappedChapterResult = _mapper.Map<GetChapterResponseModel>(createChapterResult.Entity);
+        var mappedChapterResult = _mapper.Map<GetBriefChapterResponseModel>(createChapterResult.Entity);
 
-        return new BaseResponse<GetChapterResponseModel>
+        return new BaseResponse<GetBriefChapterResponseModel>
         {
             Success = true,
             Message = "Create chapter successful",

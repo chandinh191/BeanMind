@@ -21,11 +21,11 @@ public class GetBriefCourseResponseModel : BaseResponseModel
     public string Description { get; set; }
     public int TotalSlot { get; set; }
     public Guid SubjectId { get; set; }
-    public GetBriefSubjectResponseModel Subject { get; set; }
+    //public GetBriefSubjectResponseModel Subject { get; set; }
     public Guid ProgramTypeId { get; set; }
-    public GetBriefProgramTypeResponseModel ProgramType { get; set; }
+    //public GetBriefProgramTypeResponseModel ProgramType { get; set; }
     public Guid CourseLevelId { get; set; }
-    public GetBriefCourseLevelResponseModel CourseLevel { get; set; }
+    //public GetBriefCourseLevelResponseModel CourseLevel { get; set; }
 }
 
 [AutoMap(typeof(Domain.Entities.Course))]

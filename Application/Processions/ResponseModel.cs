@@ -18,9 +18,9 @@ namespace Application.Processions
     public class GetBriefProcessionResponseModel : BaseResponseModel
     {
         public Guid ParticipantId { get; set; }
-        public GetBriefParticipantResponseModel Participant { get; set; }
+        //public GetBriefParticipantResponseModel Participant { get; set; }
         public Guid? TopicId { get; set; }
-        public GetBriefTopicResponseModel? Topic { get; set; }
+        //public GetBriefTopicResponseModel? Topic { get; set; }
         public bool Status { get; set; }
     }
 

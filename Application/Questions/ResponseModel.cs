@@ -18,9 +18,9 @@ public class GetBriefQuestionResponseModel : BaseResponseModel
     public string Content { get; set; }
     public string? ImageUrl { get; set; }
     public Guid TopicId { get; set; }
-    public GetBriefTopicResponseModel Topic { get; set; }
+    //public GetBriefTopicResponseModel Topic { get; set; }
     public Guid QuestionLevelId { get; set; }
-    public GetBriefQuestionLevelResponseModel QuestionLevel { get; set; }
+    //public GetBriefQuestionLevelResponseModel QuestionLevel { get; set; }
 }
 
 [AutoMap(typeof(Domain.Entities.Question))]

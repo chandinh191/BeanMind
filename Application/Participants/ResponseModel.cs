@@ -19,9 +19,9 @@ namespace Application.Participants
     public class GetBriefParticipantResponseModel : BaseResponseModel
     {
         public Guid EnrollmentId { get; set; }
-        public GetBriefEnrollmentResponseModel Enrollment { get; set; }
+        //public GetBriefEnrollmentResponseModel Enrollment { get; set; }
         public Guid SessionId { get; set; }
-        public GetBriefSessionResponseModel Session { get; set; }
+        //public GetBriefSessionResponseModel Session { get; set; }
         public bool IsPresent { get; set; }
     }
 

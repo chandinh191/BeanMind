@@ -17,9 +17,9 @@ namespace Application.WorksheetAttemptAnswers
     public class GetBriefWorksheetAttemptAnswerResponseModel : BaseResponseModel
     {
         public Guid? WorksheetAttemptId { get; set; }
-        public GetBriefWorksheetAttemptResponseModel? WorksheetAttempt { get; set; }
+        //public GetBriefWorksheetAttemptResponseModel? WorksheetAttempt { get; set; }
         public Guid QuestionAnswerId { get; set; }
-        public GetBriefQuestionAnswerResponseModel QuestionAnswer { get; set; }
+        //public GetBriefQuestionAnswerResponseModel QuestionAnswer { get; set; }
 
     }
 

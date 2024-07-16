@@ -17,9 +17,9 @@ namespace Application.LevelTemplateRelations
     public class GetBriefLevelTemplateRelationResponseModel : BaseResponseModel
     {
         public Guid QuestionLevelId { get; set; }
-        public GetBriefQuestionLevelResponseModel QuestionLevel { get; set; }
+        //public GetBriefQuestionLevelResponseModel QuestionLevel { get; set; }
         public Guid WorksheetTemplateId { get; set; }
-        public GetBriefWorksheetTemplateResponseModel WorksheetTemplate { get; set; }
+        //public GetBriefWorksheetTemplateResponseModel WorksheetTemplate { get; set; }
         public int QuestionCount { get; set; }
     }
 

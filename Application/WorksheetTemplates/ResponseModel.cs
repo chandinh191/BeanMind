@@ -17,11 +17,11 @@ public class GetBriefWorksheetTemplateResponseModel : BaseResponseModel
     public string Title { get; set; }
     public int Classification { get; set; }  //  0: course, 1: chapter, 2: topic 
     public Guid? CourseId { get; set; }
-    public GetBriefCourseResponseModel? Course { get; set; }
+    //public GetBriefCourseResponseModel? Course { get; set; }
     public Guid? ChapterId { get; set; }
-    public GetBriefChapterResponseModel? Chapter { get; set; }
+    //public GetBriefChapterResponseModel? Chapter { get; set; }
     public Guid? TopicId { get; set; }
-    public GetBriefTopicResponseModel? Topic { get; set; }
+    //public GetBriefTopicResponseModel? Topic { get; set; }
 }
 
 [AutoMap(typeof(Domain.Entities.WorksheetTemplate))]

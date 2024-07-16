@@ -18,9 +18,9 @@ namespace Application.Enrollments
     public class GetBriefEnrollmentResponseModel : BaseResponseModel
     {
         public string ApplicationUserId { get; set; }
-        public GetBriefApplicationUserResponseModel ApplicationUser { get; set; }
+        //public GetBriefApplicationUserResponseModel ApplicationUser { get; set; }
         public Guid CourseId { get; set; }
-        public GetBriefCourseResponseModel Course { get; set; }
+        //public GetBriefCourseResponseModel Course { get; set; }
         public bool Status { get; set; }
     }
 

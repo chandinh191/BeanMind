@@ -15,7 +15,7 @@ public class GetBriefWorksheetResponseModel : BaseResponseModel
     public string Title { get; set; }
     public string Description { get; set; }
     public Guid? WorksheetTemplateId { get; set; }
-    public GetBriefWorksheetTemplateResponseModel? WorksheetTemplate { get; set; }
+    //public GetBriefWorksheetTemplateResponseModel? WorksheetTemplate { get; set; }
 
 }
 

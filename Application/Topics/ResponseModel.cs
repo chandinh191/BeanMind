@@ -18,7 +18,7 @@ public class GetBriefTopicResponseModel : BaseResponseModel
     public string Title { get; set; }
     public string Description { get; set; }
     public Guid ChapterId { get; set; }
-    public GetBriefChapterResponseModel Chapter { get; set; }
+    //public GetBriefChapterResponseModel Chapter { get; set; }
 }
 
 [AutoMap(typeof(Domain.Entities.Topic))]
