@@ -43,8 +43,8 @@ namespace Application.CourseLevels.Queries
             }
 
             var course = await _context.CourseLevels
-                .Include(o=>o.Courses)
-                .Include (o=>o.Teachables)
+                .Include(o => o.Courses)
+                .Include (o => o.Teachables)
                 .FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);
 
             var mappedCourse = _mapper.Map<GetCourseLevelResponseModel>(course);

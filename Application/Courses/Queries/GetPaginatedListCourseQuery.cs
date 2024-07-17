@@ -14,6 +14,8 @@ public sealed record GetPaginatedListCourseQuery : IRequest<BaseResponse<Paginat
     public int? PageSize { get; init; }
     public string? Term { get; init; }
     public Guid SubjectId { get; init; }
+    public Guid ProgramTypeId { get; init; }
+    public Guid CourseLevelId { get; init; }
     public IsDeleted IsDeleted { get; init; } = IsDeleted.All;
     public SortBy SortBy { get; init; } 
     public DateTime StartTime { get; init; } = DateTime.MinValue;
@@ -38,16 +40,28 @@ public class GetPaginatedListCourseQueryHandler : IRequestHandler<GetPaginatedLi
         var defaultPageSize = _configuration.GetValue<int>("Pagination:PageSize");
         var courses = _context.Courses.Include(o=>o.ProgramType).Include(o=>o.CourseLevel).Include(o=>o.Subject).AsQueryable();
 
-        // filter by search Title and description
-        if (!string.IsNullOrEmpty(request.Term))
-        {
-            courses = courses.Where(x => x.Title.Contains(request.Term) || x.Description.Contains(request.Term));
-        }
-
         // filter by subject id
         if (request.SubjectId != Guid.Empty)
         {
             courses = courses.Where(x => x.SubjectId == request.SubjectId);
+        }
+
+        // filter by ProgramType Id
+        if (request.ProgramTypeId != Guid.Empty)
+        {
+            courses = courses.Where(x => x.ProgramTypeId == request.ProgramTypeId);
+        }
+
+        // filter by CourseLevel Id
+        if (request.CourseLevelId != Guid.Empty)
+        {
+            courses = courses.Where(x => x.CourseLevelId == request.CourseLevelId);
+        }
+
+        // filter by search Title and description
+        if (!string.IsNullOrEmpty(request.Term))
+        {
+            courses = courses.Where(x => x.Title.Contains(request.Term) || x.Description.Contains(request.Term));
         }
 
         // filter by isdeleted

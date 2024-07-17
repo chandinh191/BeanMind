@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Application.Courses.Commands;
 
 [AutoMap(typeof(Domain.Entities.Course), ReverseMap = true)]
-public sealed record CreateCourseCommand : IRequest<BaseResponse<GetCourseResponseModel>>
+public sealed record CreateCourseCommand : IRequest<BaseResponse<GetBriefCourseResponseModel>>
 {
     [Required]
     [StringLength(maximumLength: 50, MinimumLength = 4, ErrorMessage = "Title must be at least 4 characters long.")]
@@ -17,10 +17,16 @@ public sealed record CreateCourseCommand : IRequest<BaseResponse<GetCourseRespon
     [Required]
     public string Description { get; init; }
     [Required]
+    public int TotalSlot { get; set; }
+    [Required]
     public Guid SubjectId { get; set; }
+    [Required]
+    public Guid ProgramTypeId { get; set; }
+    [Required]
+    public Guid CourseLevelId { get; set; }
 }
 
-public class CreateCourseCommandHanler : IRequestHandler<CreateCourseCommand, BaseResponse<GetCourseResponseModel>>
+public class CreateCourseCommandHanler : IRequestHandler<CreateCourseCommand, BaseResponse<GetBriefCourseResponseModel>>
 {
     private readonly ApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -31,16 +37,33 @@ public class CreateCourseCommandHanler : IRequestHandler<CreateCourseCommand, Ba
         _mapper = mapper;
     }
 
-    public async Task<BaseResponse<GetCourseResponseModel>> Handle(CreateCourseCommand request, CancellationToken cancellationToken)
+    public async Task<BaseResponse<GetBriefCourseResponseModel>> Handle(CreateCourseCommand request, CancellationToken cancellationToken)
     {
         var subject = await _context.Subjects.AsNoTracking().FirstOrDefaultAsync(x => x.Id == request.SubjectId);
-
         if (subject == null)
         {
-            return new BaseResponse<GetCourseResponseModel>
+            return new BaseResponse<GetBriefCourseResponseModel>
             {
                 Success = false,
                 Message = "Subject not found",
+            };
+        }
+        var programType = await _context.ProgramTypes.AsNoTracking().FirstOrDefaultAsync(x => x.Id == request.ProgramTypeId);
+        if (programType == null)
+        {
+            return new BaseResponse<GetBriefCourseResponseModel>
+            {
+                Success = false,
+                Message = "Program type not found",
+            };
+        }
+        var courseLevel = await _context.CourseLevels.AsNoTracking().FirstOrDefaultAsync(x => x.Id == request.CourseLevelId);
+        if (courseLevel == null)
+        {
+            return new BaseResponse<GetBriefCourseResponseModel>
+            {
+                Success = false,
+                Message = "Course level not found",
             };
         }
 
@@ -49,20 +72,18 @@ public class CreateCourseCommandHanler : IRequestHandler<CreateCourseCommand, Ba
 
         if (createCourseResult.Entity == null)
         {
-            return new BaseResponse<GetCourseResponseModel>
+            return new BaseResponse<GetBriefCourseResponseModel>
             {
                 Success = false,
                 Message = "Create course failed",
             };
         }
 
-        var state = _context.Entry(course).State;
-
         await _context.SaveChangesAsync(cancellationToken);
 
-        var mappedCourseResult = _mapper.Map<GetCourseResponseModel>(createCourseResult.Entity);
+        var mappedCourseResult = _mapper.Map<GetBriefCourseResponseModel>(createCourseResult.Entity);
 
-        return new BaseResponse<GetCourseResponseModel>
+        return new BaseResponse<GetBriefCourseResponseModel>
         {
             Success = true,
             Message = "Create course successful",

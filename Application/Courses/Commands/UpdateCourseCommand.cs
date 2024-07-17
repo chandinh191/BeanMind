@@ -4,25 +4,24 @@ using Infrastructure.Data;
 using Application.Common;
 using AutoMapper;
 using MediatR;
+using Domain.Entities;
 
 namespace Application.Courses.Commands;
 
 [AutoMap(typeof(Domain.Entities.Course), ReverseMap = true)]
-public sealed record UpdateCourseCommand : IRequest<BaseResponse<GetCourseResponseModel>>
+public sealed record UpdateCourseCommand : IRequest<BaseResponse<GetBriefCourseResponseModel>>
 {
     [Required]
     public Guid Id { get; init; }
-    [Required]
     [StringLength(maximumLength: 50, MinimumLength = 4, ErrorMessage = "Title must be at least 4 characters long.")]
-    // //[RegularExpression(@"^(?:[A-Z][a-z0-9]*)(?: [A-Z][a-z0-9]*)*$", ErrorMessage = "Title must have the first word capitalized, following words separated by a space, and only contain characters and numbers.")]
     public string? Title { get; init; }
-    [Required]
     public string? Description { get; init; }
-    [Required]
-    public Guid SubjectId { get; set; }
+    public Guid? SubjectId { get; set; }
+    public Guid? ProgramTypeId { get; set; }
+    public Guid? CourseLevelId { get; set; }
 }
 
-public class UpdateCourseCommandHanler : IRequestHandler<UpdateCourseCommand, BaseResponse<GetCourseResponseModel>>
+public class UpdateCourseCommandHanler : IRequestHandler<UpdateCourseCommand, BaseResponse<GetBriefCourseResponseModel>>
 {
     private readonly ApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -33,24 +32,50 @@ public class UpdateCourseCommandHanler : IRequestHandler<UpdateCourseCommand, Ba
         _mapper = mapper;
     }
 
-    public async Task<BaseResponse<GetCourseResponseModel>> Handle(UpdateCourseCommand request, CancellationToken cancellationToken)
+    public async Task<BaseResponse<GetBriefCourseResponseModel>> Handle(UpdateCourseCommand request, CancellationToken cancellationToken)
     {
-        var subject = await _context.Subjects.FirstOrDefaultAsync(x => x.Id == request.SubjectId);
-
-        if (subject == null)
+        if (request.SubjectId != null)
         {
-            return new BaseResponse<GetCourseResponseModel>
+            var subject = await _context.Subjects.FirstOrDefaultAsync(x => x.Id == request.SubjectId);
+            if (subject == null)
             {
-                Success = false,
-                Message = "Subject not found",
-            };
+                return new BaseResponse<GetBriefCourseResponseModel>
+                {
+                    Success = false,
+                    Message = "Subject not found",
+                };
+            }
+        }
+        if (request.ProgramTypeId != null)
+        {
+            var programType = await _context.ProgramTypes.FirstOrDefaultAsync(x => x.Id == request.ProgramTypeId);
+            if (programType == null)
+            {
+                return new BaseResponse<GetBriefCourseResponseModel>
+                {
+                    Success = false,
+                    Message = "Program type not found",
+                };
+            }
+        }
+        if (request.CourseLevelId != null)
+        {
+            var courseLevel = await _context.CourseLevels.FirstOrDefaultAsync(x => x.Id == request.CourseLevelId);
+            if (courseLevel == null)
+            {
+                return new BaseResponse<GetBriefCourseResponseModel>
+                {
+                    Success = false,
+                    Message = "Course level not found",
+                };
+            }
         }
 
         var course = await _context.Courses.FirstOrDefaultAsync(x => x.Id == request.Id);
 
         if(course == null)
         {
-            return new BaseResponse<GetCourseResponseModel>
+            return new BaseResponse<GetBriefCourseResponseModel>
             {
                 Success = false,
                 Message = "Course is not found",
@@ -58,13 +83,26 @@ public class UpdateCourseCommandHanler : IRequestHandler<UpdateCourseCommand, Ba
             };
         }
 
-        _mapper.Map(request, course);
+        //_mapper.Map(request, course);
+        // Use reflection to update non-null properties
+        foreach (var property in request.GetType().GetProperties())
+        {
+            var requestValue = property.GetValue(request);
+            if (requestValue != null)
+            {
+                var courseProperty = course.GetType().GetProperty(property.Name);
+                if (courseProperty != null)
+                {
+                    courseProperty.SetValue(course, requestValue);
+                }
+            }
+        }
 
         var updateCourseResult = _context.Update(course);
 
         if (updateCourseResult.Entity == null)
         {
-            return new BaseResponse<GetCourseResponseModel>
+            return new BaseResponse<GetBriefCourseResponseModel>
             {
                 Success = false,
                 Message = "Update course failed",
@@ -73,9 +111,9 @@ public class UpdateCourseCommandHanler : IRequestHandler<UpdateCourseCommand, Ba
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        var mappedCourseResult = _mapper.Map<GetCourseResponseModel>(updateCourseResult.Entity);
+        var mappedCourseResult = _mapper.Map<GetBriefCourseResponseModel>(updateCourseResult.Entity);
 
-        return new BaseResponse<GetCourseResponseModel>
+        return new BaseResponse<GetBriefCourseResponseModel>
         {
             Success = true,
             Message = "Update course successful",
