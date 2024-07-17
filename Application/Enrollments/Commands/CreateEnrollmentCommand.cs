@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Domain.Entities;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using Domain.Enums;
 
 namespace Application.Enrollments.Commands
 {
@@ -22,7 +23,7 @@ namespace Application.Enrollments.Commands
         public string ApplicationUserId { get; set; }
         [Required]
         public Guid CourseId { get; set; }
-        public bool Status { get; set; }
+        public bool Status { get; set; } = true;
     }
 
     public class CreateEnrollmentCommandHanler : IRequestHandler<CreateEnrollmentCommand, BaseResponse<GetEnrollmentResponseModel>>
@@ -50,7 +51,7 @@ namespace Application.Enrollments.Commands
 
 
             var applicationUser = await _context.ApplicationUsers.FirstOrDefaultAsync(x => x.Id.Equals(request.ApplicationUserId));
-            if (course == null)
+            if (applicationUser == null)
             {
                 return new BaseResponse<GetEnrollmentResponseModel>
                 {
@@ -83,5 +84,4 @@ namespace Application.Enrollments.Commands
             };
         }
     }
-
 }

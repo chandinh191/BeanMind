@@ -105,14 +105,14 @@ public class GetPaginatedListCourseQueryHandler : IRequestHandler<GetPaginatedLi
             return new BaseResponse<Pagination<GetBriefCourseResponseModel>>
             {
                 Success = false,
-                Message = "Get PaginatedList course failed",
+                Message = "Get paginated list course failed",
             };
         }
 
         return new BaseResponse<Pagination<GetBriefCourseResponseModel>>
         {
             Success = true,
-            Message = "Get PaginatedList course successful",
+            Message = "Get paginated list course successful",
             Data = createPaginatedListResult,
         };
     }

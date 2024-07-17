@@ -44,7 +44,6 @@ namespace Application.Enrollments.Queries
             }
 
             var enrollment = await _context.Enrollments
-                .Include(o => o.Participants)
                 .Include(o => o.ApplicationUser)
                 .Include(o => o.Course)
                 .FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);
@@ -59,5 +58,4 @@ namespace Application.Enrollments.Queries
             };
         }
     }
-
 }

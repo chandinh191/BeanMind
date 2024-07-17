@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Domain.Entities;
 
 namespace Application.Enrollments.Commands
 {
@@ -18,11 +19,9 @@ namespace Application.Enrollments.Commands
     {
         [Required]
         public Guid Id { get; set; }
-        [Required]
-        public string ApplicationUserId { get; set; }
-        [Required]
-        public Guid CourseId { get; set; }
-        public bool Status { get; set; }
+        public string? ApplicationUserId { get; set; }
+        public Guid? CourseId { get; set; }
+        public bool? Status { get; set; }
     }
 
     public class UpdateEnrollmentCommandHanler : IRequestHandler<UpdateEnrollmentCommand, BaseResponse<GetEnrollmentResponseModel>>
@@ -38,25 +37,30 @@ namespace Application.Enrollments.Commands
 
         public async Task<BaseResponse<GetEnrollmentResponseModel>> Handle(UpdateEnrollmentCommand request, CancellationToken cancellationToken)
         {
-            var course = await _context.Courses.FirstOrDefaultAsync(x => x.Id == request.CourseId);
-            if (course == null)
+            if (request.CourseId != null)
             {
-                return new BaseResponse<GetEnrollmentResponseModel>
+                var course = await _context.Courses.FirstOrDefaultAsync(x => x.Id == request.CourseId);
+                if (course == null)
                 {
-                    Success = false,
-                    Message = "Course not found",
-                };
+                    return new BaseResponse<GetEnrollmentResponseModel>
+                    {
+                        Success = false,
+                        Message = "Course not found",
+                    };
+                }
             }
 
-
-            var applicationUser = await _context.ApplicationUsers.FirstOrDefaultAsync(x => x.Id.Equals(request.ApplicationUserId));
-            if (course == null)
+            if (request.ApplicationUserId != null)
             {
-                return new BaseResponse<GetEnrollmentResponseModel>
+                var applicationUser = await _context.ApplicationUsers.FirstOrDefaultAsync(x => x.Id.Equals(request.ApplicationUserId));
+                if (applicationUser == null)
                 {
-                    Success = false,
-                    Message = "User not found",
-                };
+                    return new BaseResponse<GetEnrollmentResponseModel>
+                    {
+                        Success = false,
+                        Message = "User not found",
+                    };
+                }
             }
 
             var enrollment = await _context.Enrollments.FirstOrDefaultAsync(x => x.Id == request.Id);
@@ -71,7 +75,20 @@ namespace Application.Enrollments.Commands
                 };
             }
 
-            _mapper.Map(request, enrollment);
+            //_mapper.Map(request, enrollment);
+            // Use reflection to update non-null properties
+            foreach (var property in request.GetType().GetProperties())
+            {
+                var requestValue = property.GetValue(request);
+                if (requestValue != null)
+                {
+                    var chapterProperty = enrollment.GetType().GetProperty(property.Name);
+                    if (chapterProperty != null)
+                    {
+                        chapterProperty.SetValue(enrollment, requestValue);
+                    }
+                }
+            }
 
             var updateEnrollmentResult = _context.Update(enrollment);
 
@@ -80,7 +97,7 @@ namespace Application.Enrollments.Commands
                 return new BaseResponse<GetEnrollmentResponseModel>
                 {
                     Success = false,
-                    Message = "Update Enrollment failed",
+                    Message = "Update enrollment failed",
                 };
             }
 
@@ -96,5 +113,4 @@ namespace Application.Enrollments.Commands
             };
         }
     }
-
 }

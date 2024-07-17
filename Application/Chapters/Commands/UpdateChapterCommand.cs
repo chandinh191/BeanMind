@@ -12,7 +12,7 @@ public sealed record UpdateChapterCommand : IRequest<BaseResponse<GetBriefChapte
 {
     [Required]
     public Guid Id { get; init; }
-    [StringLength(maximumLength: 50, MinimumLength = 4, ErrorMessage = "Title must be at least 4 characters long.")]
+    [StringLength(maximumLength: 50, MinimumLength = 4, ErrorMessage = "Title must be at least 4 characters long and at most 40 characters")]
     // //[RegularExpression(@"^(?:[A-Z][a-z0-9]*)(?: [A-Z][a-z0-9]*)*$", ErrorMessage = "Title must have the first word capitalized, following words separated by a space, and only contain characters and numbers.")]
     public string? Title { get; init; }
     public string? Description { get; init; }

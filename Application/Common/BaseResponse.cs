@@ -4,7 +4,6 @@ namespace Application.Common;
 
 public class BaseResponse<T> where T : class
 {
-
     public required string Message { get; set; }
     public required bool Success { get; set; }
     public int? Code { get; set; } = StatusCodes.Status200OK;

@@ -15,7 +15,7 @@ public class ValidationErrorResponseFactory
         {
             Success = false,
             Message = "One or more validation errors occured",
-            // FieldErrors = errors
+            FieldErrors = errors.ToDictionary(kvp => kvp.Key, kvp => kvp.Value)
         };
 
         return new BadRequestObjectResult(response);
