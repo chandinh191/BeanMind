@@ -7,13 +7,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Application.Chapters.Commands;
 
-public sealed record DeleteChapterCommand : IRequest<BaseResponse<GetChapterResponseModel>>
+public sealed record DeleteChapterCommand : IRequest<BaseResponse<GetBriefChapterResponseModel>>
 {
     [Required]
     public Guid Id { get; init; }
 }
 
-public class DeleteChapterCommandHanler : IRequestHandler<DeleteChapterCommand, BaseResponse<GetChapterResponseModel>>
+public class DeleteChapterCommandHanler : IRequestHandler<DeleteChapterCommand, BaseResponse<GetBriefChapterResponseModel>>
 {
     private readonly ApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -24,12 +24,12 @@ public class DeleteChapterCommandHanler : IRequestHandler<DeleteChapterCommand, 
         _mapper = mapper;
     }
 
-    public async Task<BaseResponse<GetChapterResponseModel>> Handle(DeleteChapterCommand request, CancellationToken cancellationToken)
+    public async Task<BaseResponse<GetBriefChapterResponseModel>> Handle(DeleteChapterCommand request, CancellationToken cancellationToken)
     {
         var chapter = await _context.Chapters.FirstOrDefaultAsync(x => x.Id == request.Id);
         if(chapter == null)
         {
-            return new BaseResponse<GetChapterResponseModel>
+            return new BaseResponse<GetBriefChapterResponseModel>
             {
                 Success = false,
                 Message = "Chapter not found",
@@ -42,7 +42,7 @@ public class DeleteChapterCommandHanler : IRequestHandler<DeleteChapterCommand, 
 
         if (updateChapterResult.Entity == null)
         {
-            return new BaseResponse<GetChapterResponseModel>
+            return new BaseResponse<GetBriefChapterResponseModel>
             {
                 Success = false,
                 Message = "Delete chapter failed",
@@ -51,9 +51,9 @@ public class DeleteChapterCommandHanler : IRequestHandler<DeleteChapterCommand, 
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        var mappedChapterResult = _mapper.Map<GetChapterResponseModel>(updateChapterResult.Entity);
+        var mappedChapterResult = _mapper.Map<GetBriefChapterResponseModel>(updateChapterResult.Entity);
 
-        return new BaseResponse<GetChapterResponseModel>
+        return new BaseResponse<GetBriefChapterResponseModel>
         {
             Success = true,
             Message = "Delete chapter successful",
