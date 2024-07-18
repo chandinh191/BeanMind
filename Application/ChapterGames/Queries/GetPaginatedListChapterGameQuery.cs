@@ -79,15 +79,13 @@ namespace Application.ChapterGames.Queries
             // filter by start time and end time
             if (request.StartTime != DateTime.MinValue)
             {
-                chapterGames = chapterGames.Where(chapter =>
-                    chapter.Created >= request.StartTime);
+                chapterGames = chapterGames.Where(o => o.Created >= request.StartTime);
             }
 
             // filter by start time and end time
             if (request.EndTime != DateTime.MinValue)
             {
-                chapterGames = chapterGames.Where(chapter =>
-                     chapter.Created <= request.EndTime);
+                chapterGames = chapterGames.Where(o => o.Created <= request.EndTime);
             }
 
             // convert the list of item to list of response model

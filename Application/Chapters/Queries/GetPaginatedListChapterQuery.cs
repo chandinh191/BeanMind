@@ -5,6 +5,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Domain.Enums;
+using Domain.Entities;
 
 namespace Application.Chapters.Queries;
 
@@ -71,17 +72,15 @@ public class GetPaginatedListChapterQueryHandler : IRequestHandler<GetPaginatedL
         }
 
         // filter by start time and end time
-        if (request.StartTime != DateTime.MinValue )
+        if (request.StartTime != DateTime.MinValue)
         {
-            chapters = chapters.Where(chapter =>
-                chapter.Created >= request.StartTime);
+            chapters = chapters.Where(o => o.Created >= request.StartTime);
         }
 
         // filter by start time and end time
-        if ( request.EndTime != DateTime.MinValue)
+        if (request.EndTime != DateTime.MinValue)
         {
-            chapters = chapters.Where(chapter =>
-                 chapter.Created <= request.EndTime);
+            chapters = chapters.Where(o => o.Created <= request.EndTime);
         }
 
         // convert the list of item to list of response model

@@ -14,7 +14,6 @@ using System.Threading.Tasks;
 
 namespace Application.Games.Queries
 {
-
     public sealed record GetPaginatedListGameQuery : IRequest<BaseResponse<Pagination<GetBriefGameResponseModel>>>
     {
         public int PageIndex { get; init; }
@@ -105,4 +104,4 @@ namespace Application.Games.Queries
             };
         }
     }
-    }
+}

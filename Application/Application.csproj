@@ -20,8 +20,6 @@
 	<ItemGroup>
 	  <Folder Include="ApplicationUsers\Commands\" />
 	  <Folder Include="ApplicationUsers\Queries\" />
-	  <Folder Include="GameHistories\Commands\" />
-	  <Folder Include="GameHistories\Queries\" />
 	  <Folder Include="LevelTemplateRelations\Commands\" />
 	  <Folder Include="LevelTemplateRelations\Queries\" />
 	  <Folder Include="Processions\Commands\" />

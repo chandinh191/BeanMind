@@ -83,15 +83,13 @@ namespace Application.Enrollments.Queries
             // filter by start time and end time
             if (request.StartTime != DateTime.MinValue)
             {
-                enrollments = enrollments.Where(enroll =>
-                    enroll.Created >= request.StartTime);
+                enrollments = enrollments.Where(o => o.Created >= request.StartTime);
             }
 
             // filter by start time and end time
             if (request.EndTime != DateTime.MinValue)
             {
-                enrollments = enrollments.Where(enroll =>
-                     enroll.Created <= request.EndTime);
+                enrollments = enrollments.Where(o => o.Created <= request.EndTime);
             }
 
             // convert the list of item to list of response model

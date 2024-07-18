@@ -1,5 +1,6 @@
 ﻿using Application.Common;
 using AutoMapper;
+using Domain.Entities;
 using Domain.Enums;
 using Infrastructure.Data;
 using MediatR;
@@ -70,15 +71,15 @@ namespace Application.CourseLevels.Queries
             // filter by start time and end time
             if (request.StartTime != DateTime.MinValue)
             {
-                courseLevels = courseLevels.Where(course =>
-                    course.Created >= request.StartTime);
+                courseLevels = courseLevels.Where(o => o.Created >= request.StartTime);
             }
+
             // filter by start time and end time
             if (request.EndTime != DateTime.MinValue)
             {
-                courseLevels = courseLevels.Where(course =>
-                    course.Created <= request.EndTime);
+                courseLevels = courseLevels.Where(o => o.Created <= request.EndTime);
             }
+
             // convert the list of item to list of response model
             var mappedCourseLevels = _mapper.Map<List<GetBriefCourseLevelResponseModel>>(courseLevels);
             var createPaginatedListResult = Pagination<GetBriefCourseLevelResponseModel>.Create(mappedCourseLevels.AsQueryable(), request.PageIndex, request.PageSize ?? defaultPageSize);

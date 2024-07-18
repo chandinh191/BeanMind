@@ -67,6 +67,5 @@ namespace Api.Controllers
                 StatusCode = result.Code
             };
         }
-
     }
 }

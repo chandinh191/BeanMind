@@ -85,17 +85,17 @@ public class GetPaginatedListCourseQueryHandler : IRequestHandler<GetPaginatedLi
         }
 
         // filter by start time and end time
-        if (request.StartTime != DateTime.MinValue )
+        if (request.StartTime != DateTime.MinValue)
         {
-            courses = courses.Where(course =>
-                course.Created >= request.StartTime );
+            courses = courses.Where(o => o.Created >= request.StartTime);
         }
+
         // filter by start time and end time
         if (request.EndTime != DateTime.MinValue)
         {
-            courses = courses.Where(course =>
-                course.Created <= request.EndTime);
+            courses = courses.Where(o => o.Created <= request.EndTime);
         }
+
         // convert the list of item to list of response model
         var mappedCourses = _mapper.Map<List<GetBriefCourseResponseModel>>(courses);
         var createPaginatedListResult = Pagination<GetBriefCourseResponseModel>.Create(mappedCourses.AsQueryable(), request.PageIndex, request.PageSize ?? defaultPageSize);
