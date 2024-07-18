@@ -10,6 +10,7 @@ using MediatR;
 using Application.Courses.Queries;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Api.Controllers;
 
@@ -25,33 +26,25 @@ public class AuthController : ControllerBase
     }
 
 
-    [HttpGet]
-    [Route("login-google")]
+    [HttpGet("login")]
     public IActionResult Login()
     {
-        var properties = new AuthenticationProperties { RedirectUri = Url.Action("GoogleResponse") };
-        return Challenge(properties, GoogleDefaults.AuthenticationScheme);
+        var props = new AuthenticationProperties { RedirectUri = "/api/v1/auth/login-google" };
+        return Challenge(props, GoogleDefaults.AuthenticationScheme);
     }
-
-
-    [HttpGet]
-    [Route("google-response")]
-    public async Task<IActionResult> GoogleResponse()
+    [HttpGet("login-google")]
+    public async Task<IActionResult> GoogleLogin()
     {
-        var result = await HttpContext.AuthenticateAsync(GoogleDefaults.AuthenticationScheme);
-        if (!result.Succeeded)
-            return BadRequest(); // Handle error
+        var response = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        if (response.Principal == null) return BadRequest();
 
-        var claims = result.Principal.Identities
-            .FirstOrDefault()?.Claims
-            .Select(claim => new
-            {
-                claim.Type,
-                claim.Value
-            });
+        var name = response.Principal.FindFirstValue(ClaimTypes.Name);
+        var givenName = response.Principal.FindFirstValue(ClaimTypes.GivenName);
+        var email = response.Principal.FindFirstValue(ClaimTypes.Email);
+        //Do something with the claims
+        // var user = await UserService.FindOrCreate(new { name, givenName, email});
 
-        // Handle the authentication result (e.g., create a user session, generate a JWT, etc.)
-        return Ok(claims);
+        return Ok(response);
     }
 
     [HttpGet]

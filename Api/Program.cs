@@ -1,6 +1,7 @@
 using Application;
 using Infrastructure;
 using Infrastructure.Data;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 namespace Api;
 
@@ -26,17 +27,24 @@ public class Program
         //builder.Services.AddControllers();
 
         // Add authentication services
-    /*    builder.Services.AddAuthentication(options =>
+        /*builder.Services.AddAuthentication().AddGoogle(googleOptions =>
         {
-            options.DefaultAuthenticateScheme = GoogleDefaults.AuthenticationScheme;
+            googleOptions.ClientId = builder.Configuration.GetSection("GoogleKeys:ClientId").Value;
+            googleOptions.ClientSecret = builder.Configuration.GetSection("GoogleKeys:ClientSecret").Value;
+        });*/
+
+        builder.Services.AddAuthentication(options =>
+        {
+            options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
             options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
         })
+        .AddCookie()
         .AddGoogle(options =>
         {
-            options.ClientId = builder.Configuration.GetSection("GoogleKeys:ClientId").Value;
-            options.ClientSecret = builder.Configuration.GetSection("GoogleKeys:ClientSecret").Value;
+            options.ClientId = "946893556110-t1eeqp6hdc5rg7ehpbihm2e0jpm67al9.apps.googleusercontent.com";
+            options.ClientSecret = "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";
         });
-*/
+
 
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
@@ -48,12 +56,6 @@ public class Program
 
         await InitialiserExtensions.InitialiseDatabaseAsync(app.Services);
 
-  /*      app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-        { 
-            ClientId = "987146834868-oatrvf1gf2d0sevte0uum9ik0jtq3bsm.apps.googleusercontent.com",
-            ClientSecret = "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"
-        });*/
-
         app.UseCors(cfg =>
         {
             cfg.AllowAnyHeader();
@@ -61,6 +63,7 @@ public class Program
             cfg.AllowAnyOrigin();
         });
 
+        app.UseAuthentication();
         app.UseAuthorization();
 
         app.MapControllers();
