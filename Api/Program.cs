@@ -33,7 +33,18 @@ public class Program
             googleOptions.ClientSecret = builder.Configuration.GetSection("GoogleKeys:ClientSecret").Value;
         });*/
 
-        
+        builder.Services.AddAuthentication(options =>
+        {
+            options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+        })
+        .AddCookie()
+        .AddGoogle(options =>
+        {
+            options.ClientId = builder.Configuration.GetSection("GoogleKeys:ClientId").Value;
+            options.ClientSecret = builder.Configuration.GetSection("GoogleKeys:ClientSecret").Value;
+        });
+
 
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
