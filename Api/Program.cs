@@ -1,6 +1,7 @@
 using Application;
 using Infrastructure;
 using Infrastructure.Data;
+using Microsoft.AspNetCore.Authentication.Google;
 namespace Api;
 
 public class Program
@@ -24,18 +25,34 @@ public class Program
         // register default Api Service
         //builder.Services.AddControllers();
 
+        // Add authentication services
+    /*    builder.Services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = GoogleDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+        })
+        .AddGoogle(options =>
+        {
+            options.ClientId = builder.Configuration.GetSection("GoogleKeys:ClientId").Value;
+            options.ClientSecret = builder.Configuration.GetSection("GoogleKeys:ClientSecret").Value;
+        });
+*/
+
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
         var app = builder.Build();
 
-
         app.UseSwagger();
         app.UseSwaggerUI();
-        //await InitialiserExtensions.InitialiseDatabaseAsync(app.Services);
 
+        await InitialiserExtensions.InitialiseDatabaseAsync(app.Services);
 
-        //app.UseHttpsRedirection();
+  /*      app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+        { 
+            ClientId = "987146834868-oatrvf1gf2d0sevte0uum9ik0jtq3bsm.apps.googleusercontent.com",
+            ClientSecret = "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"
+        });*/
 
         app.UseCors(cfg =>
         {

@@ -8,6 +8,8 @@ using Application.Common;
 using Application.Users;
 using MediatR;
 using Application.Courses.Queries;
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authentication;
 
 namespace Api.Controllers;
 
@@ -22,6 +24,36 @@ public class AuthController : ControllerBase
         _configuration = configuration;
     }
 
+
+    [HttpGet]
+    [Route("login-google")]
+    public IActionResult Login()
+    {
+        var properties = new AuthenticationProperties { RedirectUri = Url.Action("GoogleResponse") };
+        return Challenge(properties, GoogleDefaults.AuthenticationScheme);
+    }
+
+
+    [HttpGet]
+    [Route("google-response")]
+    public async Task<IActionResult> GoogleResponse()
+    {
+        var result = await HttpContext.AuthenticateAsync(GoogleDefaults.AuthenticationScheme);
+        if (!result.Succeeded)
+            return BadRequest(); // Handle error
+
+        var claims = result.Principal.Identities
+            .FirstOrDefault()?.Claims
+            .Select(claim => new
+            {
+                claim.Type,
+                claim.Value
+            });
+
+        // Handle the authentication result (e.g., create a user session, generate a JWT, etc.)
+        return Ok(claims);
+    }
+
     [HttpGet]
     //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("get-all")]
@@ -33,10 +65,6 @@ public class AuthController : ControllerBase
             StatusCode = result.Code
         };
     }
-
-
-
-
 
     [HttpGet]
     //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]

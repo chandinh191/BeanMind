@@ -1,10 +1,12 @@
 ﻿using Domain.Constants;
 using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.VisualBasic;
 
 namespace Infrastructure.Data;
 
@@ -14,12 +16,19 @@ public static class InitialiserExtensions
     {
         using (var scope = provider.CreateScope())
         {
-            // access Service provider from scope to get instance of ApplicationDbContextInitialiser
-            var initialiser = scope.ServiceProvider.GetRequiredService<ApplicationDbContextInitialiser>();
+            try
+            {
+                // access Service provider from scope to get instance of ApplicationDbContextInitialiser
+                var initialiser = scope.ServiceProvider.GetRequiredService<ApplicationDbContextInitialiser>();
 
-            await initialiser.InitialiseAsync();
-
-            await initialiser.SeedAsync();
+                await initialiser.InitialiseAsync();
+            
+                await initialiser.SeedAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while seeding the database: {ex.Message}");
+            }
         }
     }
 }
