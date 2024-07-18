@@ -41,8 +41,8 @@ public class Program
         .AddCookie()
         .AddGoogle(options =>
         {
-            options.ClientId = builder.Configuration.GetSection("GoogleKeys:ClientId").Value;
-            options.ClientSecret = builder.Configuration.GetSection("GoogleKeys:ClientSecret").Value;
+            //options.ClientId = builder.Configuration.GetSection("GoogleKeys:ClientId").Value;
+            //options.ClientSecret = builder.Configuration.GetSection("GoogleKeys:ClientSecret").Value;
         });
 
 
