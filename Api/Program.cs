@@ -43,6 +43,7 @@ public class Program
         {
             options.ClientId = builder.Configuration.GetSection("GoogleKeys:ClientId").Value;
             options.ClientSecret = builder.Configuration.GetSection("GoogleKeys:ClientSecret").Value;
+            options.SaveTokens = true;
         });
 
 

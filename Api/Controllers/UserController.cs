@@ -11,6 +11,10 @@ using Application.Courses.Queries;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
+using Domain.Entities;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using Application.QuestionLevels.Queries;
 
 namespace Api.Controllers;
 
@@ -19,32 +23,66 @@ namespace Api.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly IConfiguration _configuration;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public AuthController(IConfiguration configuration)
+    public AuthController(IConfiguration configuration, UserManager<ApplicationUser> userManager)
     {
         _configuration = configuration;
+        _userManager = userManager;
     }
 
 
-    [HttpGet("login")]
-    public IActionResult Login()
+    [HttpGet("login-google")]
+    public IActionResult LoginGoogle()
     {
-        var props = new AuthenticationProperties { RedirectUri = "/api/v1/auth/login-google" };
+        var props = new AuthenticationProperties { RedirectUri = "/api/v1/auth/google-response" };
         return Challenge(props, GoogleDefaults.AuthenticationScheme);
     }
-    [HttpGet("login-google")]
-    public async Task<IActionResult> GoogleLogin()
+    [HttpGet("google-response")]
+    public async Task<IActionResult> LoginGoogleResponse(ISender sender)
     {
         var response = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-        if (response.Principal == null) return BadRequest();
+        if (response.Principal == null)
+        {
+            return BadRequest("Authentication failed");
+        }
 
         var name = response.Principal.FindFirstValue(ClaimTypes.Name);
         var givenName = response.Principal.FindFirstValue(ClaimTypes.GivenName);
         var email = response.Principal.FindFirstValue(ClaimTypes.Email);
-        //Do something with the claims
-        // var user = await UserService.FindOrCreate(new { name, givenName, email});
 
-        return Ok(response);
+        //Do something with the claims
+        //Default User
+        var defaultUser = new ApplicationUser
+        {
+            Email = email,
+            UserName = email,
+            EmailConfirmed = true
+        };
+
+        var defaultPassword = _configuration.GetValue<string>("DefaultSettingAccount:Password");
+        var defaultUserRole = _configuration.GetValue<string>("DefaultSettingAccount:Role");
+
+        if (_userManager.Users.FirstOrDefault(u => u.Email.Equals(defaultUser.Email)) == null)
+        {
+            await _userManager.CreateAsync(defaultUser, defaultPassword);
+            if (!string.IsNullOrWhiteSpace(defaultUserRole))
+            {
+                await _userManager.AddToRolesAsync(defaultUser, new[] { defaultUserRole });
+            }
+        }
+
+        var result = await sender.Send(new LoginCommand() with
+        {
+            Email = email,
+            Password = defaultPassword
+        }); 
+        return new ObjectResult(result)
+        {
+            StatusCode = result.Code
+        };
+        //var accessToken = response.Properties.GetTokenValue("access_token");
+        //return Ok(accessToken);
     }
 
     [HttpGet]

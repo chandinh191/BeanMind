@@ -5,13 +5,16 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System.ComponentModel.DataAnnotations;
 
 namespace Application.Users.Commands;
 
 public record class LoginCommand : IRequest<BaseResponse<AccessTokenResponseModel>>
 {
-    public required string Email { get; init; }
-    public required string Password { get; init; }
+    [Required]
+    public string Email { get; init; }
+    [Required]
+    public string Password { get; init; }
 }
 
 public class LoginCommandHandler : IRequestHandler<LoginCommand, BaseResponse<AccessTokenResponseModel>>
