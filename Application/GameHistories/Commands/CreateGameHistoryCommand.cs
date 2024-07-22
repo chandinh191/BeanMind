@@ -1,8 +1,10 @@
 ﻿using Application.Common;
+using Application.Enrollments;
 using Application.GameHistories;
 using AutoMapper;
 using Infrastructure.Data;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -36,6 +38,27 @@ namespace Application.GameHistories.Commands
 
         public async Task<BaseResponse<GetBriefGameHistoryResponseModel>> Handle(CreateGameHistoryCommand request, CancellationToken cancellationToken)
         {
+
+            var game = await _context.Games.FirstOrDefaultAsync(x => x.Id == request.GameId);
+            if (game == null)
+            {
+                return new BaseResponse<GetBriefGameHistoryResponseModel>
+                {
+                    Success = false,
+                    Message = "Game not found",
+                };
+            }
+
+            var applicationUser = await _context.ApplicationUsers.FirstOrDefaultAsync(x => x.Id.Equals(request.ApplicationUserId));
+            if (applicationUser == null)
+            {
+                return new BaseResponse<GetBriefGameHistoryResponseModel>
+                {
+                    Success = false,
+                    Message = "User not found",
+                };
+            }
+
             var gameHistory = _mapper.Map<Domain.Entities.GameHistory>(request);
             var createGameHistoryResult = await _context.AddAsync(gameHistory, cancellationToken);
 

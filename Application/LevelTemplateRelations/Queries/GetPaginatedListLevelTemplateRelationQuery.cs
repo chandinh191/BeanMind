@@ -78,15 +78,15 @@ namespace Application.LevelTemplateRelations.Queries
             // filter by start time and end time
             if (request.StartTime != DateTime.MinValue)
             {
-                levelTemplateRelations = levelTemplateRelations.Where(enroll =>
-                    enroll.Created >= request.StartTime);
+                levelTemplateRelations = levelTemplateRelations.Where(o =>
+                    o.Created >= request.StartTime);
             }
 
             // filter by start time and end time
             if (request.EndTime != DateTime.MinValue)
             {
-                levelTemplateRelations = levelTemplateRelations.Where(enroll =>
-                     enroll.Created <= request.EndTime);
+                levelTemplateRelations = levelTemplateRelations.Where(o =>
+                     o.Created <= request.EndTime);
             }
 
             // convert the list of item to list of response model

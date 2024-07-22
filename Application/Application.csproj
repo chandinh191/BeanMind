@@ -20,7 +20,6 @@
 	<ItemGroup>
 	  <Folder Include="ApplicationUsers\Commands\" />
 	  <Folder Include="ApplicationUsers\Queries\" />
-	  <Folder Include="LevelTemplateRelations\Commands\" />
 	  <Folder Include="Processions\Commands\" />
 	  <Folder Include="Processions\Queries\" />
 	  <Folder Include="Sessions\Commands\" />
