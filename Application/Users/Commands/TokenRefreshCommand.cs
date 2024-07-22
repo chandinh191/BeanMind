@@ -67,11 +67,11 @@ public class TokenRefreshCommandHandler : IRequestHandler<TokenRefreshCommand, B
         await _userManager.RemoveAuthenticationTokenAsync(user, applicationName, "refreshToken");
 
         // generate access token
-        var nextAccessToken = JwtHelper.generateAccessToken(user, _configuration);
+        var nextAccessToken = JwtHelper.generateAccessToken(user, _configuration, _userManager);
 
         // create new refresh token
         //var nextRefreshToken = await _userManager.GenerateUserTokenAsync(user, applicationName, "refreshToken");
-        var nextRefreshToken = JwtHelper.generateRefreshToken(user, _configuration);
+        var nextRefreshToken = JwtHelper.generateRefreshToken(user, _configuration, _userManager);
 
         // set token 
         await _userManager.SetAuthenticationTokenAsync(user, applicationName, "refreshToken", nextRefreshToken);

@@ -91,10 +91,10 @@ public class LoginGoogleCommandHandler : IRequestHandler<LoginGoogleCommand, Bas
 
     private async Task<BaseResponse<AccessTokenResponseModel>> GenerateTokenAndRespond(ApplicationUser user, string applicationName, int jwtExpiresIn, string successMessage)
     {
-        var accessTokenForUser = JwtHelper.generateAccessToken(user, _configuration);
+        var accessTokenForUser = JwtHelper.generateAccessToken(user, _configuration, _userManager);
         await _userManager.RemoveAuthenticationTokenAsync(user, applicationName, "refreshToken");
         //var refreshTokenForUser = await _userManager.GenerateUserTokenAsync(user, applicationName, "refreshToken");
-        var refreshTokenForUser = JwtHelper.generateRefreshToken(user, _configuration);
+        var refreshTokenForUser = JwtHelper.generateRefreshToken(user, _configuration, _userManager);
         await _userManager.SetAuthenticationTokenAsync(user, applicationName, "refreshToken", refreshTokenForUser);
 
         return new BaseResponse<AccessTokenResponseModel>

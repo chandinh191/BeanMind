@@ -59,7 +59,7 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, BaseResponse<Ac
         }
 
         // generate access token
-        var accessToken = JwtHelper.generateAccessToken(user, _configuration);
+        var accessToken = JwtHelper.generateAccessToken(user, _configuration,_userManager);
 
 
         // remove old refresh token
@@ -67,7 +67,7 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, BaseResponse<Ac
 
         // generate new token
         //var refreshToken = await _userManager.GenerateUserTokenAsync(user, applicationName, "refreshToken");
-        var refreshToken = JwtHelper.generateRefreshToken(user, _configuration);
+        var refreshToken = JwtHelper.generateRefreshToken(user, _configuration, _userManager);
 
         // set token 
         await _userManager.SetAuthenticationTokenAsync(user, applicationName, "refreshToken", refreshToken);
