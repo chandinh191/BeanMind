@@ -42,20 +42,20 @@ namespace Application.Participants.Queries
                 };
             }
 
-            var chapter = await _context.Participants
+            var participant = await _context.Participants
                 .Include(o => o.Session)
                 .Include(o => o.Enrollment)
+                .Include(o => o.Processions)
                 .FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);
 
-            var mappedChapter = _mapper.Map<GetParticipantResponseModel>(chapter);
+            var mappedParticipant = _mapper.Map<GetParticipantResponseModel>(participant);
 
             return new BaseResponse<GetParticipantResponseModel>
             {
                 Success = true,
                 Message = "Get participant successful",
-                Data = mappedChapter
+                Data = mappedParticipant
             };
         }
     }
-
 }

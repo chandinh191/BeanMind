@@ -1,6 +1,7 @@
 ﻿using Application.Common;
 using Application.Participants.Commands;
 using Application.Participants.Queries;
+using Application.Processions.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,7 +12,7 @@ namespace Api.Controllers
     public class ProcessionController : ControllerBase
     {
         [HttpGet]
-        public async Task<IActionResult> GetAll(ISender sender, [FromQuery] GetPaginatedListParticipantQuery query)
+        public async Task<IActionResult> GetAll(ISender sender, [FromQuery] GetPaginatedListProcessionQuery query)
         {
             var result = await sender.Send(query);
             return new ObjectResult(result)
@@ -23,7 +24,7 @@ namespace Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(ISender sender, [FromRoute] Guid id)
         {
-            var result = await sender.Send(new GetParticipantQuery() with { Id = id });
+            var result = await sender.Send(new GetProcessionQuery() with { Id = id });
             return new ObjectResult(result)
             {
                 StatusCode = result.Code

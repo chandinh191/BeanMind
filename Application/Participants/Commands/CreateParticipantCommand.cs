@@ -15,16 +15,16 @@ using System.ComponentModel.DataAnnotations;
 namespace Application.Participants.Commands
 {
     [AutoMap(typeof(Domain.Entities.Participant), ReverseMap = true)]
-    public sealed record CreateParticipantCommand : IRequest<BaseResponse<GetParticipantResponseModel>>
+    public sealed record CreateParticipantCommand : IRequest<BaseResponse<GetBriefParticipantResponseModel>>
     {
         [Required]
         public Guid EnrollmentId { get; set; }
         [Required]
         public Guid SessionId { get; set; }
-        public bool IsPresent { get; set; }
+        public bool IsPresent { get; set; } = true;
     }
 
-    public class CreateParticipantCommandHanler : IRequestHandler<CreateParticipantCommand, BaseResponse<GetParticipantResponseModel>>
+    public class CreateParticipantCommandHanler : IRequestHandler<CreateParticipantCommand, BaseResponse<GetBriefParticipantResponseModel>>
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -35,13 +35,13 @@ namespace Application.Participants.Commands
             _mapper = mapper;
         }
 
-        public async Task<BaseResponse<GetParticipantResponseModel>> Handle(CreateParticipantCommand request, CancellationToken cancellationToken)
+        public async Task<BaseResponse<GetBriefParticipantResponseModel>> Handle(CreateParticipantCommand request, CancellationToken cancellationToken)
         {
             var enrollment = await _context.Enrollments.FirstOrDefaultAsync(x => x.Id == request.EnrollmentId);
 
             if (enrollment == null)
             {
-                return new BaseResponse<GetParticipantResponseModel>
+                return new BaseResponse<GetBriefParticipantResponseModel>
                 {
                     Success = false,
                     Message = "Enrollment not found",
@@ -51,7 +51,7 @@ namespace Application.Participants.Commands
 
             if (session == null)
             {
-                return new BaseResponse<GetParticipantResponseModel>
+                return new BaseResponse<GetBriefParticipantResponseModel>
                 {
                     Success = false,
                     Message = "Session not found",
@@ -63,7 +63,7 @@ namespace Application.Participants.Commands
 
             if (createParticipantResult.Entity == null)
             {
-                return new BaseResponse<GetParticipantResponseModel>
+                return new BaseResponse<GetBriefParticipantResponseModel>
                 {
                     Success = false,
                     Message = "Create participant failed",
@@ -72,9 +72,9 @@ namespace Application.Participants.Commands
 
             await _context.SaveChangesAsync(cancellationToken);
 
-            var mappedParticipantResult = _mapper.Map<GetParticipantResponseModel>(createParticipantResult.Entity);
+            var mappedParticipantResult = _mapper.Map<GetBriefParticipantResponseModel>(createParticipantResult.Entity);
 
-            return new BaseResponse<GetParticipantResponseModel>
+            return new BaseResponse<GetBriefParticipantResponseModel>
             {
                 Success = true,
                 Message = "Create participant successful",
@@ -82,5 +82,4 @@ namespace Application.Participants.Commands
             };
         }
     }
-
 }

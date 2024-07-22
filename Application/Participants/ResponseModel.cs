@@ -22,7 +22,7 @@ namespace Application.Participants
         //public GetBriefEnrollmentResponseModel Enrollment { get; set; }
         public Guid SessionId { get; set; }
         //public GetBriefSessionResponseModel Session { get; set; }
-        public bool IsPresent { get; set; }
+        public bool IsPresent { get; set; } = true;
     }
 
     [AutoMap(typeof(Domain.Entities.Participant))]

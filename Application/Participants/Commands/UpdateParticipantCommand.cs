@@ -12,22 +12,21 @@ using System.Threading.Tasks;
 using Application.Enrollments;
 using Application.Sessions;
 using Microsoft.EntityFrameworkCore;
+using Domain.Entities;
 
 namespace Application.Participants.Commands
 {
     [AutoMap(typeof(Domain.Entities.Participant), ReverseMap = true)]
-    public sealed record UpdateParticipantCommand : IRequest<BaseResponse<GetParticipantResponseModel>>
+    public sealed record UpdateParticipantCommand : IRequest<BaseResponse<GetBriefParticipantResponseModel>>
     {
         [Required]
         public Guid Id { get; set; }
-        [Required]
-        public Guid EnrollmentId { get; set; }
-        [Required]
-        public Guid SessionId { get; set; }
-        public bool IsPresent { get; set; }
+        public Guid? EnrollmentId { get; set; }
+        public Guid? SessionId { get; set; }
+        public bool? IsPresent { get; set; }
     }
 
-    public class UpdateParticipantCommandHanler : IRequestHandler<UpdateParticipantCommand, BaseResponse<GetParticipantResponseModel>>
+    public class UpdateParticipantCommandHanler : IRequestHandler<UpdateParticipantCommand, BaseResponse<GetBriefParticipantResponseModel>>
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -38,34 +37,38 @@ namespace Application.Participants.Commands
             _mapper = mapper;
         }
 
-        public async Task<BaseResponse<GetParticipantResponseModel>> Handle(UpdateParticipantCommand request, CancellationToken cancellationToken)
+        public async Task<BaseResponse<GetBriefParticipantResponseModel>> Handle(UpdateParticipantCommand request, CancellationToken cancellationToken)
         {
-            var enrollment = await _context.Enrollments.FirstOrDefaultAsync(x => x.Id == request.EnrollmentId);
-
-            if (enrollment == null)
+            if (request.EnrollmentId != null)
             {
-                return new BaseResponse<GetParticipantResponseModel>
+                var enrollment = await _context.Enrollments.FirstOrDefaultAsync(x => x.Id == request.EnrollmentId);
+                if (enrollment == null)
                 {
-                    Success = false,
-                    Message = "Enrollment not found",
-                };
+                    return new BaseResponse<GetBriefParticipantResponseModel>
+                    {
+                        Success = false,
+                        Message = "Enrollment not found",
+                    };
+                }
             }
-            var session = await _context.Sessions.FirstOrDefaultAsync(x => x.Id == request.SessionId);
-
-            if (session == null)
+            if (request.SessionId != null)
             {
-                return new BaseResponse<GetParticipantResponseModel>
+                var session = await _context.Sessions.FirstOrDefaultAsync(x => x.Id == request.SessionId);
+                if (session == null)
                 {
-                    Success = false,
-                    Message = "Session not found",
-                };
+                    return new BaseResponse<GetBriefParticipantResponseModel>
+                    {
+                        Success = false,
+                        Message = "Session not found",
+                    };
+                }
             }
 
             var participant = await _context.Participants.FirstOrDefaultAsync(x => x.Id == request.Id);
 
             if (participant == null)
             {
-                return new BaseResponse<GetParticipantResponseModel>
+                return new BaseResponse<GetBriefParticipantResponseModel>
                 {
                     Success = false,
                     Message = "Participant is not found",
@@ -73,13 +76,26 @@ namespace Application.Participants.Commands
                 };
             }
 
-            _mapper.Map(request, participant);
+            //_mapper.Map(request, participant);
+            // Use reflection to update non-null properties
+            foreach (var property in request.GetType().GetProperties())
+            {
+                var requestValue = property.GetValue(request);
+                if (requestValue != null)
+                {
+                    var chapterProperty = participant.GetType().GetProperty(property.Name);
+                    if (chapterProperty != null)
+                    {
+                        chapterProperty.SetValue(participant, requestValue);
+                    }
+                }
+            }
 
             var updateParticipantResult = _context.Update(participant);
 
             if (updateParticipantResult.Entity == null)
             {
-                return new BaseResponse<GetParticipantResponseModel>
+                return new BaseResponse<GetBriefParticipantResponseModel>
                 {
                     Success = false,
                     Message = "Update participant failed",
@@ -88,9 +104,9 @@ namespace Application.Participants.Commands
 
             await _context.SaveChangesAsync(cancellationToken);
 
-            var mappedParticipantResult = _mapper.Map<GetParticipantResponseModel>(updateParticipantResult.Entity);
+            var mappedParticipantResult = _mapper.Map<GetBriefParticipantResponseModel>(updateParticipantResult.Entity);
 
-            return new BaseResponse<GetParticipantResponseModel>
+            return new BaseResponse<GetBriefParticipantResponseModel>
             {
                 Success = true,
                 Message = "Update participant successful",

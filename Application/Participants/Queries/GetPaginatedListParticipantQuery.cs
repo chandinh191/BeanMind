@@ -42,10 +42,7 @@ namespace Application.Participants.Queries
         public async Task<BaseResponse<Pagination<GetBriefParticipantResponseModel>>> Handle(GetPaginatedListParticipantQuery request, CancellationToken cancellationToken)
         {
             var defaultPageSize = _configuration.GetValue<int>("Pagination:PageSize");
-            var participants = _context.Participants
-                .Include(o => o.Session)
-                .Include(o => o.Enrollment)
-                .AsQueryable();
+            var participants = _context.Participants.AsQueryable();
 
             // filter by EnrollmentId 
             if (request.EnrollmentId != Guid.Empty)
@@ -101,17 +98,16 @@ namespace Application.Participants.Queries
                 return new BaseResponse<Pagination<GetBriefParticipantResponseModel>>
                 {
                     Success = false,
-                    Message = "Get PaginatedList participant failed",
+                    Message = "Get paginated list participant failed",
                 };
             }
 
             return new BaseResponse<Pagination<GetBriefParticipantResponseModel>>
             {
                 Success = true,
-                Message = "Get PaginatedList participant successful",
+                Message = "Get paginated list participant successful",
                 Data = createPaginatedListResult,
             };
         }
     }
-
 }
