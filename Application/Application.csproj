@@ -20,8 +20,6 @@
 	<ItemGroup>
 	  <Folder Include="ApplicationUsers\Commands\" />
 	  <Folder Include="ApplicationUsers\Queries\" />
-	  <Folder Include="Sessions\Commands\" />
-	  <Folder Include="Sessions\Queries\" />
 	  <Folder Include="Teachables\Commands\" />
 	  <Folder Include="Teachables\Queries\" />
 	  <Folder Include="TeachingSlots\Commands\" />

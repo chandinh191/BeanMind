@@ -9,7 +9,7 @@ using Domain.Entities;
 namespace Application.Questions.Commands;
 
 [AutoMap(typeof(Domain.Entities.Question), ReverseMap = true)]
-public sealed record UpdateQuestionCommand : IRequest<BaseResponse<GetQuestionResponseModel>>
+public sealed record UpdateQuestionCommand : IRequest<BaseResponse<GetBriefQuestionResponseModel>>
 {
     [Required]
     public Guid Id { get; init; }
@@ -19,7 +19,7 @@ public sealed record UpdateQuestionCommand : IRequest<BaseResponse<GetQuestionRe
     public Guid? QuestionLevelId { get; set; }
 }
 
-public class UpdateQuestionCommandHanler : IRequestHandler<UpdateQuestionCommand, BaseResponse<GetQuestionResponseModel>>
+public class UpdateQuestionCommandHanler : IRequestHandler<UpdateQuestionCommand, BaseResponse<GetBriefQuestionResponseModel>>
 {
     private readonly ApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -30,14 +30,14 @@ public class UpdateQuestionCommandHanler : IRequestHandler<UpdateQuestionCommand
         _mapper = mapper;
     }
 
-    public async Task<BaseResponse<GetQuestionResponseModel>> Handle(UpdateQuestionCommand request, CancellationToken cancellationToken)
+    public async Task<BaseResponse<GetBriefQuestionResponseModel>> Handle(UpdateQuestionCommand request, CancellationToken cancellationToken)
     {
         if (request.TopicId != null)
         {
             var topic = await _context.Topics.FirstOrDefaultAsync(x => x.Id == request.TopicId);
             if (topic == null)
             {
-                return new BaseResponse<GetQuestionResponseModel>
+                return new BaseResponse<GetBriefQuestionResponseModel>
                 {
                     Success = false,
                     Message = "Topic not found",
@@ -49,7 +49,7 @@ public class UpdateQuestionCommandHanler : IRequestHandler<UpdateQuestionCommand
             var questionLevel = await _context.QuestionLevels.FirstOrDefaultAsync(x => x.Id == request.QuestionLevelId);
             if (questionLevel == null)
             {
-                return new BaseResponse<GetQuestionResponseModel>
+                return new BaseResponse<GetBriefQuestionResponseModel>
                 {
                     Success = false,
                     Message = "Question level not found",
@@ -61,7 +61,7 @@ public class UpdateQuestionCommandHanler : IRequestHandler<UpdateQuestionCommand
 
         if(question == null)
         {
-            return new BaseResponse<GetQuestionResponseModel>
+            return new BaseResponse<GetBriefQuestionResponseModel>
             {
                 Success = false,
                 Message = "Question is not found",
@@ -88,7 +88,7 @@ public class UpdateQuestionCommandHanler : IRequestHandler<UpdateQuestionCommand
 
         if (updateQuestionResult.Entity == null)
         {
-            return new BaseResponse<GetQuestionResponseModel>
+            return new BaseResponse<GetBriefQuestionResponseModel>
             {
                 Success = false,
                 Message = "Update question failed",
@@ -97,9 +97,9 @@ public class UpdateQuestionCommandHanler : IRequestHandler<UpdateQuestionCommand
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        var mappedQuestionResult = _mapper.Map<GetQuestionResponseModel>(updateQuestionResult.Entity);
+        var mappedQuestionResult = _mapper.Map<GetBriefQuestionResponseModel>(updateQuestionResult.Entity);
 
-        return new BaseResponse<GetQuestionResponseModel>
+        return new BaseResponse<GetBriefQuestionResponseModel>
         {
             Success = true,
             Message = "Update question successful",

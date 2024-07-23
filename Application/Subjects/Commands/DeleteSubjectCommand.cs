@@ -7,13 +7,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Application.Subjects.Commands;
 
-public sealed record DeleteSubjectCommand : IRequest<BaseResponse<GetSubjectResponseModel>>
+public sealed record DeleteSubjectCommand : IRequest<BaseResponse<GetBriefSubjectResponseModel>>
 {
     [Required]
     public Guid Id { get; init; }
 }
 
-public class DeleteSubjectCommandHanler : IRequestHandler<DeleteSubjectCommand, BaseResponse<GetSubjectResponseModel>>
+public class DeleteSubjectCommandHanler : IRequestHandler<DeleteSubjectCommand, BaseResponse<GetBriefSubjectResponseModel>>
 {
     private readonly ApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -24,12 +24,12 @@ public class DeleteSubjectCommandHanler : IRequestHandler<DeleteSubjectCommand, 
         _mapper = mapper;
     }
 
-    public async Task<BaseResponse<GetSubjectResponseModel>> Handle(DeleteSubjectCommand request, CancellationToken cancellationToken)
+    public async Task<BaseResponse<GetBriefSubjectResponseModel>> Handle(DeleteSubjectCommand request, CancellationToken cancellationToken)
     {
         var subject = await _context.Subjects.FirstOrDefaultAsync(x => x.Id == request.Id);
         if(subject == null)
         {
-            return new BaseResponse<GetSubjectResponseModel>
+            return new BaseResponse<GetBriefSubjectResponseModel>
             {
                 Success = false,
                 Message = "Subject not found",
@@ -42,7 +42,7 @@ public class DeleteSubjectCommandHanler : IRequestHandler<DeleteSubjectCommand, 
 
         if (updateSubjectResult.Entity == null)
         {
-            return new BaseResponse<GetSubjectResponseModel>
+            return new BaseResponse<GetBriefSubjectResponseModel>
             {
                 Success = false,
                 Message = "Update subject failed",
@@ -51,9 +51,9 @@ public class DeleteSubjectCommandHanler : IRequestHandler<DeleteSubjectCommand, 
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        var mappedSubjectResult = _mapper.Map<GetSubjectResponseModel>(updateSubjectResult.Entity);
+        var mappedSubjectResult = _mapper.Map<GetBriefSubjectResponseModel>(updateSubjectResult.Entity);
 
-        return new BaseResponse<GetSubjectResponseModel>
+        return new BaseResponse<GetBriefSubjectResponseModel>
         {
             Success = true,
             Message = "Update subject successful",

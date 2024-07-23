@@ -87,14 +87,14 @@ public class GetPaginatedListSubjectQueryHandler : IRequestHandler<GetPaginatedL
             return new BaseResponse<Pagination<GetBriefSubjectResponseModel>>
             {
                 Success = false,
-                Message = "Get PaginatedList subject failed",
+                Message = "Get paginated list subject failed",
             };
         }
 
         return new BaseResponse<Pagination<GetBriefSubjectResponseModel>>
         {
             Success = true,
-            Message = "Get PaginatedList subject successful",
+            Message = "Get  paginated list subject successful",
             Data = createPaginatedListResult,
         };
     }

@@ -8,13 +8,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Application.QuestionLevels.Commands;
 
-public sealed record DeleteQuestionLevelCommand : IRequest<BaseResponse<GetQuestionLevelResponseModel>>
+public sealed record DeleteQuestionLevelCommand : IRequest<BaseResponse<GetBriefQuestionLevelResponseModel>>
 {
     [Required]
     public Guid Id { get; init; }
 }
 
-public class DeleteQuestionLevelCommandHanler : IRequestHandler<DeleteQuestionLevelCommand, BaseResponse<GetQuestionLevelResponseModel>>
+public class DeleteQuestionLevelCommandHanler : IRequestHandler<DeleteQuestionLevelCommand, BaseResponse<GetBriefQuestionLevelResponseModel>>
 {
     private readonly ApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -25,12 +25,12 @@ public class DeleteQuestionLevelCommandHanler : IRequestHandler<DeleteQuestionLe
         _mapper = mapper;
     }
 
-    public async Task<BaseResponse<GetQuestionLevelResponseModel>> Handle(DeleteQuestionLevelCommand request, CancellationToken cancellationToken)
+    public async Task<BaseResponse<GetBriefQuestionLevelResponseModel>> Handle(DeleteQuestionLevelCommand request, CancellationToken cancellationToken)
     {
         var questionLevel = await _context.QuestionLevels.FirstOrDefaultAsync(x => x.Id == request.Id);
         if(questionLevel == null)
         {
-            return new BaseResponse<GetQuestionLevelResponseModel>
+            return new BaseResponse<GetBriefQuestionLevelResponseModel>
             {
                 Success = false,
                 Message = "Question level not found",
@@ -43,7 +43,7 @@ public class DeleteQuestionLevelCommandHanler : IRequestHandler<DeleteQuestionLe
 
         if (updateQuestionLevelResult.Entity == null)
         {
-            return new BaseResponse<GetQuestionLevelResponseModel>
+            return new BaseResponse<GetBriefQuestionLevelResponseModel>
             {
                 Success = false,
                 Message = "Delete question level failed",
@@ -52,9 +52,9 @@ public class DeleteQuestionLevelCommandHanler : IRequestHandler<DeleteQuestionLe
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        var mappedQuestionLevelResult = _mapper.Map<GetQuestionLevelResponseModel>(updateQuestionLevelResult.Entity);
+        var mappedQuestionLevelResult = _mapper.Map<GetBriefQuestionLevelResponseModel>(updateQuestionLevelResult.Entity);
 
-        return new BaseResponse<GetQuestionLevelResponseModel>
+        return new BaseResponse<GetBriefQuestionLevelResponseModel>
         {
             Success = true,
             Message = "Delete question level successful",

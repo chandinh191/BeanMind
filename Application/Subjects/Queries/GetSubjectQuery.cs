@@ -36,7 +36,10 @@ public class GetSubjectQueryHanler : IRequestHandler<GetSubjectQuery, BaseRespon
             };
         }
 
-        var subject = await _context.Subjects.Include(x => x.Courses).FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);
+        var subject = await _context.Subjects
+            .Include(x => x.Courses)
+            .Include(x => x.WorksheetTemplates)
+            .FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);
         var mappedSubject = _mapper.Map<GetSubjectResponseModel>(subject);
 
         return new BaseResponse<GetSubjectResponseModel>

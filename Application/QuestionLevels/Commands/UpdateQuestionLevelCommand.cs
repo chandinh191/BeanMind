@@ -9,14 +9,14 @@ using Domain.Entities;
 namespace Application.QuestionLevels.Commands;
 
 [AutoMap(typeof(Domain.Entities.QuestionLevel), ReverseMap = true)]
-public sealed record UpdateQuestionLevelCommand : IRequest<BaseResponse<GetQuestionLevelResponseModel>>
+public sealed record UpdateQuestionLevelCommand : IRequest<BaseResponse<GetBriefQuestionLevelResponseModel>>
 {
     [Required]
     public Guid Id { get; init; }
     public string? Title { get; init; }
 }
 
-public class UpdateQuestionLevelCommandHanler : IRequestHandler<UpdateQuestionLevelCommand, BaseResponse<GetQuestionLevelResponseModel>>
+public class UpdateQuestionLevelCommandHanler : IRequestHandler<UpdateQuestionLevelCommand, BaseResponse<GetBriefQuestionLevelResponseModel>>
 {
     private readonly ApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -27,13 +27,13 @@ public class UpdateQuestionLevelCommandHanler : IRequestHandler<UpdateQuestionLe
         _mapper = mapper;
     }
 
-    public async Task<BaseResponse<GetQuestionLevelResponseModel>> Handle(UpdateQuestionLevelCommand request, CancellationToken cancellationToken)
+    public async Task<BaseResponse<GetBriefQuestionLevelResponseModel>> Handle(UpdateQuestionLevelCommand request, CancellationToken cancellationToken)
     {
         var questionLevel = await _context.QuestionLevels.FirstOrDefaultAsync(x => x.Id == request.Id);
 
         if(questionLevel == null)
         {
-            return new BaseResponse<GetQuestionLevelResponseModel>
+            return new BaseResponse<GetBriefQuestionLevelResponseModel>
             {
                 Success = false,
                 Message = "Question level is not found",
@@ -60,7 +60,7 @@ public class UpdateQuestionLevelCommandHanler : IRequestHandler<UpdateQuestionLe
 
         if (updateQuestionLevelResult.Entity == null)
         {
-            return new BaseResponse<GetQuestionLevelResponseModel>
+            return new BaseResponse<GetBriefQuestionLevelResponseModel>
             {
                 Success = false,
                 Message = "Update questionlevel failed",
@@ -69,9 +69,9 @@ public class UpdateQuestionLevelCommandHanler : IRequestHandler<UpdateQuestionLe
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        var mappedQuestionLevelResult = _mapper.Map<GetQuestionLevelResponseModel>(updateQuestionLevelResult.Entity);
+        var mappedQuestionLevelResult = _mapper.Map<GetBriefQuestionLevelResponseModel>(updateQuestionLevelResult.Entity);
 
-        return new BaseResponse<GetQuestionLevelResponseModel>
+        return new BaseResponse<GetBriefQuestionLevelResponseModel>
         {
             Success = true,
             Message = "Update questionlevel successful",

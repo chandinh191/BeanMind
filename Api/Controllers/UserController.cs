@@ -86,7 +86,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpGet]
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    //[Authorize(Roles ="Student")]
     [Route("get-all")]
     public async Task<IActionResult> GetAll(ISender sender, [FromQuery] GetPaginatedListUserQuery query)
     {

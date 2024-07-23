@@ -7,13 +7,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Application.Questions.Commands;
 
-public sealed record DeleteQuestionCommand : IRequest<BaseResponse<GetQuestionResponseModel>>
+public sealed record DeleteQuestionCommand : IRequest<BaseResponse<GetBriefQuestionResponseModel>>
 {
     [Required]
     public Guid Id { get; init; }
 }
 
-public class DeleteQuestionCommandHanler : IRequestHandler<DeleteQuestionCommand, BaseResponse<GetQuestionResponseModel>>
+public class DeleteQuestionCommandHanler : IRequestHandler<DeleteQuestionCommand, BaseResponse<GetBriefQuestionResponseModel>>
 {
     private readonly ApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -24,12 +24,12 @@ public class DeleteQuestionCommandHanler : IRequestHandler<DeleteQuestionCommand
         _mapper = mapper;
     }
 
-    public async Task<BaseResponse<GetQuestionResponseModel>> Handle(DeleteQuestionCommand request, CancellationToken cancellationToken)
+    public async Task<BaseResponse<GetBriefQuestionResponseModel>> Handle(DeleteQuestionCommand request, CancellationToken cancellationToken)
     {
         var question = await _context.Questions.FirstOrDefaultAsync(x => x.Id == request.Id);
         if(question == null)
         {
-            return new BaseResponse<GetQuestionResponseModel>
+            return new BaseResponse<GetBriefQuestionResponseModel>
             {
                 Success = false,
                 Message = "Question not found",
@@ -42,7 +42,7 @@ public class DeleteQuestionCommandHanler : IRequestHandler<DeleteQuestionCommand
 
         if (updateQuestionResult.Entity == null)
         {
-            return new BaseResponse<GetQuestionResponseModel>
+            return new BaseResponse<GetBriefQuestionResponseModel>
             {
                 Success = false,
                 Message = "Delete question failed",
@@ -51,9 +51,9 @@ public class DeleteQuestionCommandHanler : IRequestHandler<DeleteQuestionCommand
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        var mappedQuestionResult = _mapper.Map<GetQuestionResponseModel>(updateQuestionResult.Entity);
+        var mappedQuestionResult = _mapper.Map<GetBriefQuestionResponseModel>(updateQuestionResult.Entity);
 
-        return new BaseResponse<GetQuestionResponseModel>
+        return new BaseResponse<GetBriefQuestionResponseModel>
         {
             Success = true,
             Message = "Delete question successful",
