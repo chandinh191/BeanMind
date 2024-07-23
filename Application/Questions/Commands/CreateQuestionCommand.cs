@@ -9,21 +9,18 @@ using Microsoft.EntityFrameworkCore;
 namespace Application.Questions.Commands;
 
 [AutoMap(typeof(Domain.Entities.Question), ReverseMap = true)]
-public sealed record CreateQuestionCommand : IRequest<BaseResponse<GetQuestionResponseModel>>
+public sealed record CreateQuestionCommand : IRequest<BaseResponse<GetBriefQuestionResponseModel>>
 {
     [Required]
-    public string Text { get; set; }
-    [Required]
+    public string Content { get; set; }
     public string ImageUrl { get; set; }
     [Required]
     public Guid TopicId { get; set; }
     [Required]
     public Guid QuestionLevelId { get; set; }
-    [Required]
-    public Guid QuestionTypeId { get; set; }
 }
 
-public class CreateQuestionCommandHanler : IRequestHandler<CreateQuestionCommand, BaseResponse<GetQuestionResponseModel>>
+public class CreateQuestionCommandHanler : IRequestHandler<CreateQuestionCommand, BaseResponse<GetBriefQuestionResponseModel>>
 {
     private readonly ApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -34,13 +31,13 @@ public class CreateQuestionCommandHanler : IRequestHandler<CreateQuestionCommand
         _mapper = mapper;
     }
 
-    public async Task<BaseResponse<GetQuestionResponseModel>> Handle(CreateQuestionCommand request, CancellationToken cancellationToken)
+    public async Task<BaseResponse<GetBriefQuestionResponseModel>> Handle(CreateQuestionCommand request, CancellationToken cancellationToken)
     {
         var topic = await _context.Topics.FirstOrDefaultAsync(x => x.Id == request.TopicId);
 
         if (topic == null)
         {
-            return new BaseResponse<GetQuestionResponseModel>
+            return new BaseResponse<GetBriefQuestionResponseModel>
             {
                 Success = false,
                 Message = "Topic not found",
@@ -51,23 +48,19 @@ public class CreateQuestionCommandHanler : IRequestHandler<CreateQuestionCommand
 
         if (questionLevel == null)
         {
-            return new BaseResponse<GetQuestionResponseModel>
+            return new BaseResponse<GetBriefQuestionResponseModel>
             {
                 Success = false,
-                Message = "QuestionLevel not found",
+                Message = "Question level not found",
             };
         }
-
-        
-
-
 
         var question = _mapper.Map<Domain.Entities.Question>(request);
         var createQuestionResult = await _context.AddAsync(question, cancellationToken);
 
         if(createQuestionResult.Entity == null)
         {
-            return new BaseResponse<GetQuestionResponseModel>
+            return new BaseResponse<GetBriefQuestionResponseModel>
             {
                 Success = false,
                 Message = "Create question failed",
@@ -76,9 +69,9 @@ public class CreateQuestionCommandHanler : IRequestHandler<CreateQuestionCommand
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        var mappedQuestionResult = _mapper.Map<GetQuestionResponseModel>(createQuestionResult.Entity);
+        var mappedQuestionResult = _mapper.Map<GetBriefQuestionResponseModel>(createQuestionResult.Entity);
 
-        return new BaseResponse<GetQuestionResponseModel>
+        return new BaseResponse<GetBriefQuestionResponseModel>
         {
             Success = true,
             Message = "Create question successful",

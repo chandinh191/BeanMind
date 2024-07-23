@@ -17,7 +17,6 @@ public sealed record GetPaginatedListQuestionQuery : IRequest<BaseResponse<Pagin
     public string? Term { get; init; }
     public Guid TopicId { get; init; }
     public Guid QuestionLevelId { get; init; }
-    public Guid QuestionTypeId { get; init; }
     public IsDeleted IsDeleted { get; init; } = IsDeleted.All;
     public SortBy SortBy { get; init; } 
     public DateTime StartTime { get; init; } = DateTime.MinValue;
@@ -55,9 +54,7 @@ public class GetPaginatedListQuestionQueryHandler : IRequestHandler<GetPaginated
         if (request.QuestionLevelId != Guid.Empty)
         {
             questions = questions.Where(x => x.QuestionLevelId == request.QuestionLevelId);
-        }
-
-       
+        }       
 
         // isdeleted filter
         if (request.IsDeleted.Equals(IsDeleted.Inactive))
@@ -101,14 +98,14 @@ public class GetPaginatedListQuestionQueryHandler : IRequestHandler<GetPaginated
             return new BaseResponse<Pagination<GetBriefQuestionResponseModel>>
             {
                 Success = false,
-                Message = "Get PaginatedList question failed",
+                Message = "Get paginated list question failed",
             };
         }
 
         return new BaseResponse<Pagination<GetBriefQuestionResponseModel>>
         {
             Success = true,
-            Message = "Get PaginatedList question successful",
+            Message = "Get paginated list question successful",
             Data = createPaginatedListResult,
         };
     }

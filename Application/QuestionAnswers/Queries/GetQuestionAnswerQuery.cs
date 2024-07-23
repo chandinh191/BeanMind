@@ -31,13 +31,14 @@ public class GetQuestionAnswerQueryHanler : IRequestHandler<GetQuestionAnswerQue
             return new BaseResponse<GetQuestionAnswerResponseModel>
             {
                 Success = false,
-                Message = "Get questionanswer failed",
+                Message = "Get question answer failed",
                 Errors = ["Id required"],
             };
         }
 
         var questionanswer = await _context.QuestionAnswers
             .Include(x => x.Question)
+            .Include(x => x.WorksheetAttemptAnswers)
             .FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);
 
         var mappedQuestionAnswer = _mapper.Map<GetQuestionAnswerResponseModel>(questionanswer);
@@ -45,7 +46,7 @@ public class GetQuestionAnswerQueryHanler : IRequestHandler<GetQuestionAnswerQue
         return new BaseResponse<GetQuestionAnswerResponseModel>
         {
             Success = true,
-            Message = "Get questionanswer successful",
+            Message = "Get question answer successful",
             Data = mappedQuestionAnswer
         };
     }

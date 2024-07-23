@@ -4,6 +4,7 @@ using Infrastructure.Data;
 using Application.Common;
 using AutoMapper;
 using MediatR;
+using Domain.Entities;
 
 namespace Application.Questions.Commands;
 
@@ -12,17 +13,10 @@ public sealed record UpdateQuestionCommand : IRequest<BaseResponse<GetQuestionRe
 {
     [Required]
     public Guid Id { get; init; }
-    [Required]
-    public string Text { get; set; }
-    [Required]
-    public string ImageUrl { get; set; }
-
-    [Required]
-    public Guid TopicId { get; set; }
-    [Required]
-    public Guid QuestionLevelId { get; set; }
-    [Required]
-    public Guid QuestionTypeId { get; set; }
+    public string? Content { get; set; }
+    public string? ImageUrl { get; set; }
+    public Guid? TopicId { get; set; }
+    public Guid? QuestionLevelId { get; set; }
 }
 
 public class UpdateQuestionCommandHanler : IRequestHandler<UpdateQuestionCommand, BaseResponse<GetQuestionResponseModel>>
@@ -38,33 +32,32 @@ public class UpdateQuestionCommandHanler : IRequestHandler<UpdateQuestionCommand
 
     public async Task<BaseResponse<GetQuestionResponseModel>> Handle(UpdateQuestionCommand request, CancellationToken cancellationToken)
     {
-        var topic = await _context.Topics.FirstOrDefaultAsync(x => x.Id == request.TopicId);
-
-        if (topic == null)
+        if (request.TopicId != null)
         {
-            return new BaseResponse<GetQuestionResponseModel>
+            var topic = await _context.Topics.FirstOrDefaultAsync(x => x.Id == request.TopicId);
+            if (topic == null)
             {
-                Success = false,
-                Message = "Topic not found",
-            };
+                return new BaseResponse<GetQuestionResponseModel>
+                {
+                    Success = false,
+                    Message = "Topic not found",
+                };
+            }
+        }
+        if (request.QuestionLevelId != null)
+        {
+            var questionLevel = await _context.QuestionLevels.FirstOrDefaultAsync(x => x.Id == request.QuestionLevelId);
+            if (questionLevel == null)
+            {
+                return new BaseResponse<GetQuestionResponseModel>
+                {
+                    Success = false,
+                    Message = "Question level not found",
+                };
+            }
         }
 
-        var questionLevel = await _context.QuestionLevels.FirstOrDefaultAsync(x => x.Id == request.QuestionLevelId);
-
-        if (questionLevel == null)
-        {
-            return new BaseResponse<GetQuestionResponseModel>
-            {
-                Success = false,
-                Message = "QuestionLevel not found",
-            };
-        }
-
-        
-
-
-
-        var question = await _context.Subjects.FirstOrDefaultAsync(x => x.Id == request.Id);
+        var question = await _context.Questions.FirstOrDefaultAsync(x => x.Id == request.Id);
 
         if(question == null)
         {
@@ -76,7 +69,20 @@ public class UpdateQuestionCommandHanler : IRequestHandler<UpdateQuestionCommand
             };
         }
 
-        _mapper.Map(request, question);
+        //_mapper.Map(request, question);
+        // Use reflection to update non-null properties
+        foreach (var property in request.GetType().GetProperties())
+        {
+            var requestValue = property.GetValue(request);
+            if (requestValue != null)
+            {
+                var targetProperty = question.GetType().GetProperty(property.Name);
+                if (targetProperty != null)
+                {
+                    targetProperty.SetValue(question, requestValue);
+                }
+            }
+        }
 
         var updateQuestionResult = _context.Update(question);
 

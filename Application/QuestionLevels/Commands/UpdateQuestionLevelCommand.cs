@@ -4,6 +4,7 @@ using Infrastructure.Data;
 using Application.Common;
 using AutoMapper;
 using MediatR;
+using Domain.Entities;
 
 namespace Application.QuestionLevels.Commands;
 
@@ -12,10 +13,7 @@ public sealed record UpdateQuestionLevelCommand : IRequest<BaseResponse<GetQuest
 {
     [Required]
     public Guid Id { get; init; }
-    [Required]
-    [StringLength(maximumLength: 50, MinimumLength = 4, ErrorMessage = "Name must be at least 4 characters long.")]
-    //[RegularExpression(@"^(?:[A-Z][a-z0-9]*)(?: [A-Z][a-z0-9]*)*$", ErrorMessage = "Title must have the first word capitalized, following words separated by a space, and only contain characters and numbers.")]
-    public string? Name { get; init; }
+    public string? Title { get; init; }
 }
 
 public class UpdateQuestionLevelCommandHanler : IRequestHandler<UpdateQuestionLevelCommand, BaseResponse<GetQuestionLevelResponseModel>>
@@ -31,21 +29,34 @@ public class UpdateQuestionLevelCommandHanler : IRequestHandler<UpdateQuestionLe
 
     public async Task<BaseResponse<GetQuestionLevelResponseModel>> Handle(UpdateQuestionLevelCommand request, CancellationToken cancellationToken)
     {
-        var questionlevel = await _context.QuestionLevels.FirstOrDefaultAsync(x => x.Id == request.Id);
+        var questionLevel = await _context.QuestionLevels.FirstOrDefaultAsync(x => x.Id == request.Id);
 
-        if(questionlevel == null)
+        if(questionLevel == null)
         {
             return new BaseResponse<GetQuestionLevelResponseModel>
             {
                 Success = false,
-                Message = "QuestionLevel is not found",
-                Errors = ["QuestionLevel is not found"]
+                Message = "Question level is not found",
+                Errors = ["Question level is not found"]
             };
         }
 
-        _mapper.Map(request, questionlevel);
+        //_mapper.Map(request, questionlevel);
+        // Use reflection to update non-null properties
+        foreach (var property in request.GetType().GetProperties())
+        {
+            var requestValue = property.GetValue(request);
+            if (requestValue != null)
+            {
+                var targetProperty = questionLevel.GetType().GetProperty(property.Name);
+                if (targetProperty != null)
+                {
+                    targetProperty.SetValue(questionLevel, requestValue);
+                }
+            }
+        }
 
-        var updateQuestionLevelResult = _context.Update(questionlevel);
+        var updateQuestionLevelResult = _context.Update(questionLevel);
 
         if (updateQuestionLevelResult.Entity == null)
         {

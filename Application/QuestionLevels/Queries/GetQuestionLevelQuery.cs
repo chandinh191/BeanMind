@@ -31,18 +31,22 @@ public class GetQuestionLevelQueryHanler : IRequestHandler<GetQuestionLevelQuery
             return new BaseResponse<GetQuestionLevelResponseModel>
             {
                 Success = false,
-                Message = "Get questionlevel failed",
+                Message = "Get question level failed",
                 Errors = ["Id required"],
             };
         }
 
-        var questionlevel = await _context.QuestionLevels.Include(x => x.Questions).FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);
+        var questionlevel = await _context.QuestionLevels
+            .Include(x => x.Questions)
+            .Include(x => x.LevelTemplateRelations)
+            .FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);
+
         var mappedQuestionLevel = _mapper.Map<GetQuestionLevelResponseModel>(questionlevel);
 
         return new BaseResponse<GetQuestionLevelResponseModel>
         {
             Success = true,
-            Message = "Get questionlevel successful",
+            Message = "Get question level successful",
             Data = mappedQuestionLevel
         };
     }

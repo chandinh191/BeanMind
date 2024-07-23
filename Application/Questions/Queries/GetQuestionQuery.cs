@@ -40,7 +40,7 @@ public class GetQuestionQueryHanler : IRequestHandler<GetQuestionQuery, BaseResp
             .Include(x => x.Topic)
             .Include(x => x.QuestionLevel)
             .Include(x => x.QuestionAnswers)
-
+            .Include(x => x.WorksheetQuestions)
             .FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);
 
         var mappedQuestion = _mapper.Map<GetQuestionResponseModel>(question);

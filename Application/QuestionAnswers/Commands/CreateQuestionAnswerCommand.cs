@@ -8,18 +8,17 @@ using Microsoft.EntityFrameworkCore;
 namespace Application.QuestionAnswers.Commands;
 
 [AutoMap(typeof(Domain.Entities.QuestionAnswer), ReverseMap = true)]
-public sealed record CreateQuestionAnswerCommand : IRequest<BaseResponse<GetQuestionAnswerResponseModel>>
+public sealed record CreateQuestionAnswerCommand : IRequest<BaseResponse<GetBriefQuestionAnswerResponseModel>>
 {
     [Required]
+    public Guid QuestionId { get; set; }
+    [Required]
     public string Text { get; set; }
-
     [Required]
     public bool IsCorrect { get; set; }
-    [Required]
-    public Guid QuestionId { get; set; }
 }
 
-public class CreateQuestionAnswerCommandHanler : IRequestHandler<CreateQuestionAnswerCommand, BaseResponse<GetQuestionAnswerResponseModel>>
+public class CreateQuestionAnswerCommandHanler : IRequestHandler<CreateQuestionAnswerCommand, BaseResponse<GetBriefQuestionAnswerResponseModel>>
 {
     private readonly ApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -30,49 +29,39 @@ public class CreateQuestionAnswerCommandHanler : IRequestHandler<CreateQuestionA
         _mapper = mapper;
     }
 
-    public async Task<BaseResponse<GetQuestionAnswerResponseModel>> Handle(CreateQuestionAnswerCommand request, CancellationToken cancellationToken)
+    public async Task<BaseResponse<GetBriefQuestionAnswerResponseModel>> Handle(CreateQuestionAnswerCommand request, CancellationToken cancellationToken)
     {
         var question = await _context.Questions.FirstOrDefaultAsync(x => x.Id == request.QuestionId);
 
         if (question == null)
         {
-            return new BaseResponse<GetQuestionAnswerResponseModel>
+            return new BaseResponse<GetBriefQuestionAnswerResponseModel>
             {
                 Success = false,
                 Message = "Question not found",
             };
         }
 
-        var existedQuestionAnswer = await _context.QuestionAnswers.FirstOrDefaultAsync(x =>  x.QuestionId == request.QuestionId);
-        if (existedQuestionAnswer != null)
-        {
-            return new BaseResponse<GetQuestionAnswerResponseModel>
-            {
-                Success = false,
-                Message = "QuestionAnswer existed",
-            };
-        }
-
-        var questionanswer = _mapper.Map<Domain.Entities.QuestionAnswer>(request);
-        var createQuestionAnswerResult = await _context.AddAsync(questionanswer, cancellationToken);
+        var questionAnswer = _mapper.Map<Domain.Entities.QuestionAnswer>(request);
+        var createQuestionAnswerResult = await _context.AddAsync(questionAnswer, cancellationToken);
 
         if(createQuestionAnswerResult.Entity == null)
         {
-            return new BaseResponse<GetQuestionAnswerResponseModel>
+            return new BaseResponse<GetBriefQuestionAnswerResponseModel>
             {
                 Success = false,
-                Message = "Create questionanswer failed",
+                Message = "Create question answer failed",
             };
         }
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        var mappedQuestionAnswerResult = _mapper.Map<GetQuestionAnswerResponseModel>(createQuestionAnswerResult.Entity);
+        var mappedQuestionAnswerResult = _mapper.Map<GetBriefQuestionAnswerResponseModel>(createQuestionAnswerResult.Entity);
 
-        return new BaseResponse<GetQuestionAnswerResponseModel>
+        return new BaseResponse<GetBriefQuestionAnswerResponseModel>
         {
             Success = true,
-            Message = "Create questionanswer successful",
+            Message = "Create question answer successful",
             Data = mappedQuestionAnswerResult
         };
     }

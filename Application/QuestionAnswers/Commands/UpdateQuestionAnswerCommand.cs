@@ -4,25 +4,21 @@ using Infrastructure.Data;
 using Application.Common;
 using AutoMapper;
 using MediatR;
+using Domain.Entities;
 
 namespace Application.QuestionAnswers.Commands;
 
 [AutoMap(typeof(Domain.Entities.QuestionAnswer), ReverseMap = true)]
-public sealed record UpdateQuestionAnswerCommand : IRequest<BaseResponse<GetQuestionAnswerResponseModel>>
+public sealed record UpdateQuestionAnswerCommand : IRequest<BaseResponse<GetBriefQuestionAnswerResponseModel>>
 {
     [Required]
     public Guid Id { get; init; }
-    [Required]
-    public string Text { get; set; }
-    [Required]
-    public int OrderIndex { get; set; }
-    [Required]
-    public bool IsCorrect { get; set; }
-    [Required]
-    public Guid QuestionId { get; set; }
+    public Guid? QuestionId { get; set; }
+    public string? Content { get; set; }
+    public bool? IsCorrect { get; set; }
 }
 
-public class UpdateQuestionAnswerCommandHanler : IRequestHandler<UpdateQuestionAnswerCommand, BaseResponse<GetQuestionAnswerResponseModel>>
+public class UpdateQuestionAnswerCommandHanler : IRequestHandler<UpdateQuestionAnswerCommand, BaseResponse<GetBriefQuestionAnswerResponseModel>>
 {
     private readonly ApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -33,34 +29,26 @@ public class UpdateQuestionAnswerCommandHanler : IRequestHandler<UpdateQuestionA
         _mapper = mapper;
     }
 
-    public async Task<BaseResponse<GetQuestionAnswerResponseModel>> Handle(UpdateQuestionAnswerCommand request, CancellationToken cancellationToken)
+    public async Task<BaseResponse<GetBriefQuestionAnswerResponseModel>> Handle(UpdateQuestionAnswerCommand request, CancellationToken cancellationToken)
     {
-        var question = await _context.Questions.FirstOrDefaultAsync(x => x.Id == request.QuestionId);
-
-        if (question == null)
+        if (request.QuestionId != null)
         {
-            return new BaseResponse<GetQuestionAnswerResponseModel>
+            var question = await _context.Questions.FirstOrDefaultAsync(x => x.Id == request.QuestionId);
+            if (question == null)
             {
-                Success = false,
-                Message = "Question not found",
-            };
+                return new BaseResponse<GetBriefQuestionAnswerResponseModel>
+                {
+                    Success = false,
+                    Message = "Question not found",
+                };
+            }
         }
 
-        var existedQuestionAnswer = await _context.QuestionAnswers.FirstOrDefaultAsync(x => x.QuestionId == request.QuestionId &&  x.Id != request.Id);
-        if (existedQuestionAnswer != null)
-        {
-            return new BaseResponse<GetQuestionAnswerResponseModel>
-            {
-                Success = false,
-                Message = "QuestionAnswer existed",
-            };
-        }
+        var questionAnswer = await _context.QuestionAnswers.FirstOrDefaultAsync(x => x.Id == request.Id);
 
-        var questionanswer = await _context.QuestionAnswers.FirstOrDefaultAsync(x => x.Id == request.Id);
-
-        if(questionanswer == null)
+        if(questionAnswer == null)
         {
-            return new BaseResponse<GetQuestionAnswerResponseModel>
+            return new BaseResponse<GetBriefQuestionAnswerResponseModel>
             {
                 Success = false,
                 Message = "QuestionAnswer is not found",
@@ -68,27 +56,40 @@ public class UpdateQuestionAnswerCommandHanler : IRequestHandler<UpdateQuestionA
             };
         }
 
-        _mapper.Map(request, questionanswer);
+        //_mapper.Map(request, questionAnswer);
+        // Use reflection to update non-null properties
+        foreach (var property in request.GetType().GetProperties())
+        {
+            var requestValue = property.GetValue(request);
+            if (requestValue != null)
+            {
+                var targetProperty = questionAnswer.GetType().GetProperty(property.Name);
+                if (targetProperty != null)
+                {
+                    targetProperty.SetValue(questionAnswer, requestValue);
+                }
+            }
+        }
 
-        var updateQuestionAnswerResult = _context.Update(questionanswer);
+        var updateQuestionAnswerResult = _context.Update(questionAnswer);
 
         if (updateQuestionAnswerResult.Entity == null)
         {
-            return new BaseResponse<GetQuestionAnswerResponseModel>
+            return new BaseResponse<GetBriefQuestionAnswerResponseModel>
             {
                 Success = false,
-                Message = "Update questionanswer failed",
+                Message = "Update question answer failed",
             };
         }
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        var mappedQuestionAnswerResult = _mapper.Map<GetQuestionAnswerResponseModel>(updateQuestionAnswerResult.Entity);
+        var mappedQuestionAnswerResult = _mapper.Map<GetBriefQuestionAnswerResponseModel>(updateQuestionAnswerResult.Entity);
 
-        return new BaseResponse<GetQuestionAnswerResponseModel>
+        return new BaseResponse<GetBriefQuestionAnswerResponseModel>
         {
             Success = true,
-            Message = "Update questionanswer successful",
+            Message = "Update question answer successful",
             Data = mappedQuestionAnswerResult
         };
     }

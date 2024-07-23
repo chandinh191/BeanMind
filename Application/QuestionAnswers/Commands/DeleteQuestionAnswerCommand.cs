@@ -7,13 +7,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Application.QuestionAnswers.Commands;
 
-public sealed record DeleteQuestionAnswerCommand : IRequest<BaseResponse<GetQuestionAnswerResponseModel>>
+public sealed record DeleteQuestionAnswerCommand : IRequest<BaseResponse<GetBriefQuestionAnswerResponseModel>>
 {
     [Required]
     public Guid Id { get; init; }
 }
 
-public class DeleteQuestionAnswerCommandHanler : IRequestHandler<DeleteQuestionAnswerCommand, BaseResponse<GetQuestionAnswerResponseModel>>
+public class DeleteQuestionAnswerCommandHanler : IRequestHandler<DeleteQuestionAnswerCommand, BaseResponse<GetBriefQuestionAnswerResponseModel>>
 {
     private readonly ApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -24,39 +24,39 @@ public class DeleteQuestionAnswerCommandHanler : IRequestHandler<DeleteQuestionA
         _mapper = mapper;
     }
 
-    public async Task<BaseResponse<GetQuestionAnswerResponseModel>> Handle(DeleteQuestionAnswerCommand request, CancellationToken cancellationToken)
+    public async Task<BaseResponse<GetBriefQuestionAnswerResponseModel>> Handle(DeleteQuestionAnswerCommand request, CancellationToken cancellationToken)
     {
-        var questionanswer = await _context.QuestionAnswers.FirstOrDefaultAsync(x => x.Id == request.Id);
-        if(questionanswer == null)
+        var questionAnswer = await _context.QuestionAnswers.FirstOrDefaultAsync(x => x.Id == request.Id);
+        if(questionAnswer == null)
         {
-            return new BaseResponse<GetQuestionAnswerResponseModel>
+            return new BaseResponse<GetBriefQuestionAnswerResponseModel>
             {
                 Success = false,
                 Message = "QuestionAnswer not found",
             };
         }
 
-        questionanswer.IsDeleted = true;
+        questionAnswer.IsDeleted = true;
 
-        var updateQuestionAnswerResult = _context.Update(questionanswer);
+        var updateQuestionAnswerResult = _context.Update(questionAnswer);
 
         if (updateQuestionAnswerResult.Entity == null)
         {
-            return new BaseResponse<GetQuestionAnswerResponseModel>
+            return new BaseResponse<GetBriefQuestionAnswerResponseModel>
             {
                 Success = false,
-                Message = "Delete questionanswer failed",
+                Message = "Delete question answer failed",
             };
         }
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        var mappedQuestionAnswerResult = _mapper.Map<GetQuestionAnswerResponseModel>(updateQuestionAnswerResult.Entity);
+        var mappedQuestionAnswerResult = _mapper.Map<GetBriefQuestionAnswerResponseModel>(updateQuestionAnswerResult.Entity);
 
-        return new BaseResponse<GetQuestionAnswerResponseModel>
+        return new BaseResponse<GetBriefQuestionAnswerResponseModel>
         {
             Success = true,
-            Message = "Delete questionanswer successful",
+            Message = "Delete question answer successful",
             Data = mappedQuestionAnswerResult
         };
     }

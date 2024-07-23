@@ -25,5 +25,5 @@ public class GetQuestionAnswerResponseModel : BaseResponseModel
     public GetBriefQuestionResponseModel Question { get; set; }
     public string Content { get; set; }
     public bool IsCorrect { get; set; }
-    public IEnumerable<GetBriefWorksheetAttemptAnswerResponseModel> WorksheetAttemptAnswers { get; set; }
+    public List<GetBriefWorksheetAttemptAnswerResponseModel> WorksheetAttemptAnswers { get; set; }
 }
