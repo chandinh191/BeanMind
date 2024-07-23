@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace Application.ProgramTypes.Commands
 {
     [AutoMap(typeof(Domain.Entities.ProgramType), ReverseMap = true)]
-    public sealed record CreateProgramTypeCommand : IRequest<BaseResponse<GetProgramTypeResponseModel>>
+    public sealed record CreateProgramTypeCommand : IRequest<BaseResponse<GetBriefProgramTypeResponseModel>>
     {
         [Required]
         [StringLength(maximumLength: 50, MinimumLength = 4, ErrorMessage = "Title must be at least 4 characters long.")]
@@ -22,7 +22,7 @@ namespace Application.ProgramTypes.Commands
 
     }
 
-    public class CreateProgramTypeCommandHanler : IRequestHandler<CreateProgramTypeCommand, BaseResponse<GetProgramTypeResponseModel>>
+    public class CreateProgramTypeCommandHanler : IRequestHandler<CreateProgramTypeCommand, BaseResponse<GetBriefProgramTypeResponseModel>>
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -33,30 +33,28 @@ namespace Application.ProgramTypes.Commands
             _mapper = mapper;
         }
 
-        public async Task<BaseResponse<GetProgramTypeResponseModel>> Handle(CreateProgramTypeCommand request, CancellationToken cancellationToken)
+        public async Task<BaseResponse<GetBriefProgramTypeResponseModel>> Handle(CreateProgramTypeCommand request, CancellationToken cancellationToken)
         {
             var programType = _mapper.Map<Domain.Entities.ProgramType>(request);
             var createProgramTypeResult = await _context.AddAsync(programType, cancellationToken);
 
             if (createProgramTypeResult.Entity == null)
             {
-                return new BaseResponse<GetProgramTypeResponseModel>
+                return new BaseResponse<GetBriefProgramTypeResponseModel>
                 {
                     Success = false,
-                    Message = "Create Program Type failed",
+                    Message = "Create program type failed",
                 };
             }
 
-            var state = _context.Entry(programType).State;
-
             await _context.SaveChangesAsync(cancellationToken);
 
-            var mappedProgramTypeResult = _mapper.Map<GetProgramTypeResponseModel>(createProgramTypeResult.Entity);
+            var mappedProgramTypeResult = _mapper.Map<GetBriefProgramTypeResponseModel>(createProgramTypeResult.Entity);
 
-            return new BaseResponse<GetProgramTypeResponseModel>
+            return new BaseResponse<GetBriefProgramTypeResponseModel>
             {
                 Success = true,
-                Message = "Create Program Type successful",
+                Message = "Create program type successful",
                 Data = mappedProgramTypeResult
             };
         }

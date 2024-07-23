@@ -66,5 +66,4 @@ namespace Application.Participants.Commands
             };
         }
     }
-
 }

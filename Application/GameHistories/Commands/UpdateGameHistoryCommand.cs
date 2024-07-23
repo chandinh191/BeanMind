@@ -83,10 +83,10 @@ namespace Application.GameHistories.Commands
                 var requestValue = property.GetValue(request);
                 if (requestValue != null)
                 {
-                    var chapterProperty = gameHistory.GetType().GetProperty(property.Name);
-                    if (chapterProperty != null)
+                    var targetProperty = gameHistory.GetType().GetProperty(property.Name);
+                    if (targetProperty != null)
                     {
-                        chapterProperty.SetValue(gameHistory, requestValue);
+                        targetProperty.SetValue(gameHistory, requestValue);
                     }
                 }
             }

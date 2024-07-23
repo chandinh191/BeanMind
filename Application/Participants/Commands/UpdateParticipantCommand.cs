@@ -83,10 +83,10 @@ namespace Application.Participants.Commands
                 var requestValue = property.GetValue(request);
                 if (requestValue != null)
                 {
-                    var chapterProperty = participant.GetType().GetProperty(property.Name);
-                    if (chapterProperty != null)
+                    var targetProperty = participant.GetType().GetProperty(property.Name);
+                    if (targetProperty != null)
                     {
-                        chapterProperty.SetValue(participant, requestValue);
+                        targetProperty.SetValue(participant, requestValue);
                     }
                 }
             }

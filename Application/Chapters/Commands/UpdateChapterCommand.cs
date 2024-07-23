@@ -63,10 +63,10 @@ public class UpdateChapterCommandHanler : IRequestHandler<UpdateChapterCommand, 
             var requestValue = property.GetValue(request);
             if (requestValue != null)
             {
-                var chapterProperty = chapter.GetType().GetProperty(property.Name);
-                if (chapterProperty != null)
+                var targetProperty = chapter.GetType().GetProperty(property.Name);
+                if (targetProperty != null)
                 {
-                    chapterProperty.SetValue(chapter, requestValue);
+                    targetProperty.SetValue(chapter, requestValue);
                 }
             }
         }

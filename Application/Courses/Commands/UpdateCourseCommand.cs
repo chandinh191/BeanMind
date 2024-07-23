@@ -90,10 +90,10 @@ public class UpdateCourseCommandHanler : IRequestHandler<UpdateCourseCommand, Ba
             var requestValue = property.GetValue(request);
             if (requestValue != null)
             {
-                var courseProperty = course.GetType().GetProperty(property.Name);
-                if (courseProperty != null)
+                var targetProperty = course.GetType().GetProperty(property.Name);
+                if (targetProperty != null)
                 {
-                    courseProperty.SetValue(course, requestValue);
+                    targetProperty.SetValue(course, requestValue);
                 }
             }
         }

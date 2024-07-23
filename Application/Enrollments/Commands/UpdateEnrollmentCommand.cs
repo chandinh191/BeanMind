@@ -82,10 +82,10 @@ namespace Application.Enrollments.Commands
                 var requestValue = property.GetValue(request);
                 if (requestValue != null)
                 {
-                    var chapterProperty = enrollment.GetType().GetProperty(property.Name);
-                    if (chapterProperty != null)
+                    var targetProperty = enrollment.GetType().GetProperty(property.Name);
+                    if (targetProperty != null)
                     {
-                        chapterProperty.SetValue(enrollment, requestValue);
+                        targetProperty.SetValue(enrollment, requestValue);
                     }
                 }
             }

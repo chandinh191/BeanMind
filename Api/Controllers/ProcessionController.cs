@@ -1,6 +1,7 @@
 ﻿using Application.Common;
 using Application.Participants.Commands;
 using Application.Participants.Queries;
+using Application.Processions.Commands;
 using Application.Processions.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +34,7 @@ namespace Api.Controllers
 
         [HttpPost]
         //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<IActionResult> Create(ISender sender, [FromBody] CreateParticipantCommand command)
+        public async Task<IActionResult> Create(ISender sender, [FromBody] CreateProcessionCommand command)
         {
             var result = await sender.Send(command);
             return new ObjectResult(result)
@@ -44,7 +45,7 @@ namespace Api.Controllers
 
         [HttpPut]
         //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<IActionResult> Update(ISender sender, [FromBody] UpdateParticipantCommand command)
+        public async Task<IActionResult> Update(ISender sender, [FromBody] UpdateProcessionCommand command)
         {
             var result = await sender.Send(command);
             return new ObjectResult(result)
@@ -57,7 +58,7 @@ namespace Api.Controllers
         //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> Delete(ISender sender, [FromRoute] Guid id)
         {
-            var result = await sender.Send(new DeleteParticipantCommand() with
+            var result = await sender.Send(new DeleteProcessionCommand() with
             {
                 Id = id
             });

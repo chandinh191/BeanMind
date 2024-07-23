@@ -58,10 +58,10 @@ namespace Application.CourseLevels.Commands
                 var requestValue = property.GetValue(request);
                 if (requestValue != null)
                 {
-                    var courseProperty = courseLevel.GetType().GetProperty(property.Name);
-                    if (courseProperty != null)
+                    var targetProperty = courseLevel.GetType().GetProperty(property.Name);
+                    if (targetProperty != null)
                     {
-                        courseProperty.SetValue(courseLevel, requestValue);
+                        targetProperty.SetValue(courseLevel, requestValue);
                     }
                 }
             }

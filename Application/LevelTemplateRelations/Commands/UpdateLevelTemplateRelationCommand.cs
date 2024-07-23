@@ -83,10 +83,10 @@ namespace Application.LevelTemplateRelations.Commands
                 var requestValue = property.GetValue(request);
                 if (requestValue != null)
                 {
-                    var chapterProperty = levelTemplateRelation.GetType().GetProperty(property.Name);
-                    if (chapterProperty != null)
+                    var targetProperty = levelTemplateRelation.GetType().GetProperty(property.Name);
+                    if (targetProperty != null)
                     {
-                        chapterProperty.SetValue(levelTemplateRelation, requestValue);
+                        targetProperty.SetValue(levelTemplateRelation, requestValue);
                     }
                 }
             }

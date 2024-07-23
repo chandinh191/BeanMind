@@ -13,13 +13,13 @@ using System.Threading.Tasks;
 
 namespace Application.ProgramTypes.Commands
 {
-    public sealed record DeleteProgramTypeCommand : IRequest<BaseResponse<GetProgramTypeResponseModel>>
+    public sealed record DeleteProgramTypeCommand : IRequest<BaseResponse<GetBriefProgramTypeResponseModel>>
     {
         [Required]
         public Guid Id { get; init; }
     }
 
-    public class DeleteProgramTypeCommandHanler : IRequestHandler<DeleteProgramTypeCommand, BaseResponse<GetProgramTypeResponseModel>>
+    public class DeleteProgramTypeCommandHanler : IRequestHandler<DeleteProgramTypeCommand, BaseResponse<GetBriefProgramTypeResponseModel>>
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -30,12 +30,12 @@ namespace Application.ProgramTypes.Commands
             _mapper = mapper;
         }
 
-        public async Task<BaseResponse<GetProgramTypeResponseModel>> Handle(DeleteProgramTypeCommand request, CancellationToken cancellationToken)
+        public async Task<BaseResponse<GetBriefProgramTypeResponseModel>> Handle(DeleteProgramTypeCommand request, CancellationToken cancellationToken)
         {
             var programType = await _context.ProgramTypes.FirstOrDefaultAsync(x => x.Id == request.Id);
             if (programType == null)
             {
-                return new BaseResponse<GetProgramTypeResponseModel>
+                return new BaseResponse<GetBriefProgramTypeResponseModel>
                 {
                     Success = false,
                     Message = "Program type not found",
@@ -46,21 +46,21 @@ namespace Application.ProgramTypes.Commands
 
             if (updateProgramTypeResult.Entity == null)
             {
-                return new BaseResponse<GetProgramTypeResponseModel>
+                return new BaseResponse<GetBriefProgramTypeResponseModel>
                 {
                     Success = false,
-                    Message = "Delete Program type failed",
+                    Message = "Delete program type failed",
                 };
             }
 
             await _context.SaveChangesAsync(cancellationToken);
 
-            var mappedProgramTypeResult = _mapper.Map<GetProgramTypeResponseModel>(updateProgramTypeResult.Entity);
+            var mappedProgramTypeResult = _mapper.Map<GetBriefProgramTypeResponseModel>(updateProgramTypeResult.Entity);
 
-            return new BaseResponse<GetProgramTypeResponseModel>
+            return new BaseResponse<GetBriefProgramTypeResponseModel>
             {
                 Success = true,
-                Message = "Delete Program type successful",
+                Message = "Delete program type successful",
                 Data = mappedProgramTypeResult
             };
         }

@@ -80,10 +80,10 @@ namespace Application.ChapterGames.Commands
                 var requestValue = property.GetValue(request);
                 if (requestValue != null)
                 {
-                    var chapterProperty = chapterGame.GetType().GetProperty(property.Name);
-                    if (chapterProperty != null)
+                    var targetProperty = chapterGame.GetType().GetProperty(property.Name);
+                    if (targetProperty != null)
                     {
-                        chapterProperty.SetValue(chapterGame, requestValue);
+                        targetProperty.SetValue(chapterGame, requestValue);
                     }
                 }
             }

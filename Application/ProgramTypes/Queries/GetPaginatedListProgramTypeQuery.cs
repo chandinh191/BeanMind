@@ -71,14 +71,14 @@ namespace Application.ProgramTypes.Queries
             // filter by start time and end time
             if (request.StartTime != DateTime.MinValue)
             {
-                courselevels = courselevels.Where(course =>
-                    course.Created >= request.StartTime);
+                courselevels = courselevels.Where(o =>
+                    o.Created >= request.StartTime);
             }
             // filter by start time and end time
             if (request.EndTime != DateTime.MinValue)
             {
-                courselevels = courselevels.Where(course =>
-                    course.Created <= request.EndTime);
+                courselevels = courselevels.Where(o =>
+                    o.Created <= request.EndTime);
             }
             // convert the list of item to list of response model
             var mappedCourses = _mapper.Map<List<GetBriefProgramTypeResponseModel>>(courselevels);
@@ -89,14 +89,14 @@ namespace Application.ProgramTypes.Queries
                 return new BaseResponse<Pagination<GetBriefProgramTypeResponseModel>>
                 {
                     Success = false,
-                    Message = "Get PaginatedList Program Types failed",
+                    Message = "Get paginated list program type failed",
                 };
             }
 
             return new BaseResponse<Pagination<GetBriefProgramTypeResponseModel>>
             {
                 Success = true,
-                Message = "Get PaginatedList Program Types successful",
+                Message = "Get paginated list program type successful",
                 Data = createPaginatedListResult,
             };
         }

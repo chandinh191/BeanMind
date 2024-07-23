@@ -55,10 +55,10 @@ namespace Application.Games.Commands
                 var requestValue = property.GetValue(request);
                 if (requestValue != null)
                 {
-                    var chapterProperty = game.GetType().GetProperty(property.Name);
-                    if (chapterProperty != null)
+                    var targetProperty = game.GetType().GetProperty(property.Name);
+                    if (targetProperty != null)
                     {
-                        chapterProperty.SetValue(game, requestValue);
+                        targetProperty.SetValue(game, requestValue);
                     }
                 }
             }
