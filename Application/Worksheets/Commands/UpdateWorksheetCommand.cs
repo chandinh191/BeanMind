@@ -4,27 +4,21 @@ using Infrastructure.Data;
 using Application.Common;
 using AutoMapper;
 using MediatR;
+using Domain.Entities;
 
 namespace Application.Worksheets.Commands;
 
 [AutoMap(typeof(Domain.Entities.Worksheet), ReverseMap = true)]
-public sealed record UpdateWorksheetCommand : IRequest<BaseResponse<GetWorksheetResponseModel>>
+public sealed record UpdateWorksheetCommand : IRequest<BaseResponse<GetBriefWorksheetResponseModel>>
 {
     [Required]
     public Guid Id { get; init; }
-    [Required]
-    [StringLength(maximumLength: 50, MinimumLength = 4, ErrorMessage = "Title must be at least 4 characters long.")]
-    //[RegularExpression(@"^(?:[A-Z][a-z0-9]*)(?: [A-Z][a-z0-9]*)*$", ErrorMessage = "Title must have the first word capitalized, following words separated by a space, and only contain characters and numbers.")]
-    public string Title { get; init; }
-    [Required]
-    public string Description { get; init; }
-    [Required]
-    public Guid ActivityId { get; set; }
-    [Required]
+    public string? Title { get; init; }
+    public string? Description { get; init; }
     public Guid? WorksheetTemplateId { get; set; }
 }
 
-public class UpdateWorksheetCommandHanler : IRequestHandler<UpdateWorksheetCommand, BaseResponse<GetWorksheetResponseModel>>
+public class UpdateWorksheetCommandHanler : IRequestHandler<UpdateWorksheetCommand, BaseResponse<GetBriefWorksheetResponseModel>>
 {
     private readonly ApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -35,26 +29,28 @@ public class UpdateWorksheetCommandHanler : IRequestHandler<UpdateWorksheetComma
         _mapper = mapper;
     }
 
-    public async Task<BaseResponse<GetWorksheetResponseModel>> Handle(UpdateWorksheetCommand request, CancellationToken cancellationToken)
+    public async Task<BaseResponse<GetBriefWorksheetResponseModel>> Handle(UpdateWorksheetCommand request, CancellationToken cancellationToken)
     {
-        
 
-        var worksheetTemplate = await _context.WorksheetTemplates.FirstOrDefaultAsync(x => x.Id == request.WorksheetTemplateId);
-
-        if (worksheetTemplate == null)
+        if (request.WorksheetTemplateId != null)
         {
-            return new BaseResponse<GetWorksheetResponseModel>
+            var worksheetTemplate = await _context.WorksheetTemplates.FirstOrDefaultAsync(x => x.Id == request.WorksheetTemplateId);
+
+            if (worksheetTemplate == null)
             {
-                Success = false,
-                Message = "WorksheetTemplate not found",
-            };
+                return new BaseResponse<GetBriefWorksheetResponseModel>
+                {
+                    Success = false,
+                    Message = "Worksheet template not found",
+                };
+            }
         }
 
         var worksheet = await _context.Worksheets.FirstOrDefaultAsync(x => x.Id == request.Id);
 
         if(worksheet == null)
         {
-            return new BaseResponse<GetWorksheetResponseModel>
+            return new BaseResponse<GetBriefWorksheetResponseModel>
             {
                 Success = false,
                 Message = "Worksheet is not found",
@@ -62,13 +58,26 @@ public class UpdateWorksheetCommandHanler : IRequestHandler<UpdateWorksheetComma
             };
         }
 
-        _mapper.Map(request, worksheet);
+        //_mapper.Map(request, worksheet);
+        // Use reflection to update non-null properties
+        foreach (var property in request.GetType().GetProperties())
+        {
+            var requestValue = property.GetValue(request);
+            if (requestValue != null)
+            {
+                var targetProperty = worksheet.GetType().GetProperty(property.Name);
+                if (targetProperty != null)
+                {
+                    targetProperty.SetValue(worksheet, requestValue);
+                }
+            }
+        }
 
         var updateWorksheetResult = _context.Update(worksheet);
 
         if (updateWorksheetResult.Entity == null)
         {
-            return new BaseResponse<GetWorksheetResponseModel>
+            return new BaseResponse<GetBriefWorksheetResponseModel>
             {
                 Success = false,
                 Message = "Update worksheet failed",
@@ -77,9 +86,9 @@ public class UpdateWorksheetCommandHanler : IRequestHandler<UpdateWorksheetComma
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        var mappedWorksheetResult = _mapper.Map<GetWorksheetResponseModel>(updateWorksheetResult.Entity);
+        var mappedWorksheetResult = _mapper.Map<GetBriefWorksheetResponseModel>(updateWorksheetResult.Entity);
 
-        return new BaseResponse<GetWorksheetResponseModel>
+        return new BaseResponse<GetBriefWorksheetResponseModel>
         {
             Success = true,
             Message = "Update worksheet successful",

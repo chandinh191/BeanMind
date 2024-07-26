@@ -7,13 +7,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Application.WorksheetTemplates.Commands;
 
-public sealed record DeleteWorksheetTemplateCommand : IRequest<BaseResponse<GetWorksheetTemplateResponseModel>>
+public sealed record DeleteWorksheetTemplateCommand : IRequest<BaseResponse<GetBriefWorksheetTemplateResponseModel>>
 {
     [Required]
     public Guid Id { get; init; }
 }
 
-public class DeleteWorksheetTemplateCommandHanler : IRequestHandler<DeleteWorksheetTemplateCommand, BaseResponse<GetWorksheetTemplateResponseModel>>
+public class DeleteWorksheetTemplateCommandHanler : IRequestHandler<DeleteWorksheetTemplateCommand, BaseResponse<GetBriefWorksheetTemplateResponseModel>>
 {
     private readonly ApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -24,15 +24,15 @@ public class DeleteWorksheetTemplateCommandHanler : IRequestHandler<DeleteWorksh
         _mapper = mapper;
     }
 
-    public async Task<BaseResponse<GetWorksheetTemplateResponseModel>> Handle(DeleteWorksheetTemplateCommand request, CancellationToken cancellationToken)
+    public async Task<BaseResponse<GetBriefWorksheetTemplateResponseModel>> Handle(DeleteWorksheetTemplateCommand request, CancellationToken cancellationToken)
     {
         var worksheettemplate = await _context.WorksheetTemplates.FirstOrDefaultAsync(x => x.Id == request.Id);
         if(worksheettemplate == null)
         {
-            return new BaseResponse<GetWorksheetTemplateResponseModel>
+            return new BaseResponse<GetBriefWorksheetTemplateResponseModel>
             {
                 Success = false,
-                Message = "WorksheetTemplate not found",
+                Message = "Worksheet template not found",
             };
         }
 
@@ -42,21 +42,21 @@ public class DeleteWorksheetTemplateCommandHanler : IRequestHandler<DeleteWorksh
 
         if (updateWorksheetTemplateResult.Entity == null)
         {
-            return new BaseResponse<GetWorksheetTemplateResponseModel>
+            return new BaseResponse<GetBriefWorksheetTemplateResponseModel>
             {
                 Success = false,
-                Message = "Update worksheettemplate failed",
+                Message = "Update worksheet template failed",
             };
         }
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        var mappedWorksheetTemplateResult = _mapper.Map<GetWorksheetTemplateResponseModel>(updateWorksheetTemplateResult.Entity);
+        var mappedWorksheetTemplateResult = _mapper.Map<GetBriefWorksheetTemplateResponseModel>(updateWorksheetTemplateResult.Entity);
 
-        return new BaseResponse<GetWorksheetTemplateResponseModel>
+        return new BaseResponse<GetBriefWorksheetTemplateResponseModel>
         {
             Success = true,
-            Message = "Update worksheettemplate successful",
+            Message = "Update worksheet template successful",
             Data = mappedWorksheetTemplateResult
         };
     }

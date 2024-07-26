@@ -34,6 +34,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
     public DbSet<GameHistory> GameHistories { get; init; }
     public DbSet<ChapterGame> ChapterGames { get; init; }
     public DbSet<WorksheetAttempt> WorksheetAttempts { get; init; }
+    public DbSet<WorksheetQuestion> WorksheetQuestions { get; init; }
     public DbSet<WorksheetAttemptAnswer> WorksheetAttemptAnswers { get; init; }
     public DbSet<TeachingSlot> TeachingSlots { get; init; }
     public DbSet<Procession> Processions { get; init; }

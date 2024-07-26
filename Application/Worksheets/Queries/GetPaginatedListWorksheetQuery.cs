@@ -13,7 +13,6 @@ public sealed record GetPaginatedListWorksheetQuery : IRequest<BaseResponse<Pagi
     public int PageIndex { get; init; }
     public int? PageSize { get; init; }
     public string? Term { get; init; }
-    public Guid ActivityId { get; init; }
     public Guid WorksheetTemplateId { get; init; }
     public IsDeleted IsDeleted { get; init; } = IsDeleted.All;
     public SortBy SortBy { get; init; } 
@@ -44,8 +43,6 @@ public class GetPaginatedListWorksheetQueryHandler : IRequestHandler<GetPaginate
         {
             worksheets = worksheets.Where(x => x.Title.Contains(request.Term) || x.Description.Contains(request.Term));
         }
-
-        
 
         // filter by WorksheetTemplateId
         if (request.WorksheetTemplateId != Guid.Empty)
@@ -95,14 +92,14 @@ public class GetPaginatedListWorksheetQueryHandler : IRequestHandler<GetPaginate
             return new BaseResponse<Pagination<GetBriefWorksheetResponseModel>>
             {
                 Success = false,
-                Message = "Get PaginatedList worksheet failed",
+                Message = "Get paginated list worksheet failed",
             };
         }
 
         return new BaseResponse<Pagination<GetBriefWorksheetResponseModel>>
         {
             Success = true,
-            Message = "Get PaginatedList worksheet successful",
+            Message = "Get paginated list worksheet successful",
             Data = createPaginatedListResult,
         };
     }

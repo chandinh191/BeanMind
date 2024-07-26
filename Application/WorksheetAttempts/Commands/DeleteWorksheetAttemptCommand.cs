@@ -31,7 +31,7 @@ namespace Application.WorksheetAttempts.Commands
 
         public async Task<BaseResponse<GetBriefWorksheetAttemptResponseModel>> Handle(DeleteWorksheetAttemptCommand request, CancellationToken cancellationToken)
         {
-            var worksheetAttempt = await _context.WorksheetAttemptAnswers.FirstOrDefaultAsync(x => x.Id == request.Id);
+            var worksheetAttempt = await _context.WorksheetAttempts.FirstOrDefaultAsync(x => x.Id == request.Id);
             if (worksheetAttempt == null)
             {
                 return new BaseResponse<GetBriefWorksheetAttemptResponseModel>

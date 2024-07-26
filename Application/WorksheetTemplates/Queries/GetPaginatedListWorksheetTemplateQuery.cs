@@ -5,6 +5,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Domain.Enums;
+using Domain.Entities;
 
 namespace Application.WorksheetTemplates.Queries;
 
@@ -12,6 +13,9 @@ public sealed record GetPaginatedListWorksheetTemplateQuery : IRequest<BaseRespo
 {
     public int PageIndex { get; init; }
     public int? PageSize { get; init; }
+    public Guid CourseId { get; set; }
+    public Guid ChapterId { get; set; }
+    public Guid TopicId { get; set; }
     public string? Term { get; init; }
     public IsDeleted IsDeleted { get; init; } = IsDeleted.All;
     public SortBy SortBy { get; init; } 
@@ -35,50 +39,67 @@ public class GetPaginatedListWorksheetTemplateQueryHandler : IRequestHandler<Get
     public async Task<BaseResponse<Pagination<GetBriefWorksheetTemplateResponseModel>>> Handle(GetPaginatedListWorksheetTemplateQuery request, CancellationToken cancellationToken)
     {
         var defaultPageSize = _configuration.GetValue<int>("Pagination:PageSize");
-        var worksheettemplates = _context.WorksheetTemplates.AsQueryable();
+        var worksheetTemplates = _context.WorksheetTemplates.AsQueryable();
+
+        // filter by CourseId
+        if (request.CourseId != Guid.Empty)
+        {
+            worksheetTemplates = worksheetTemplates.Where(x => x.CourseId == request.CourseId);
+        }
+
+        // filter by ChapterId
+        if (request.ChapterId != Guid.Empty)
+        {
+            worksheetTemplates = worksheetTemplates.Where(x => x.ChapterId == request.ChapterId);
+        }
+
+        // filter by TopicId
+        if (request.TopicId != Guid.Empty)
+        {
+            worksheetTemplates = worksheetTemplates.Where(x => x.TopicId == request.TopicId);
+        }
 
         // filter by search Classification
         if (!string.IsNullOrEmpty(request.Term))
         {
-            worksheettemplates = worksheettemplates.Where(x => x.Title.Contains(request.Term));
+            worksheetTemplates = worksheetTemplates.Where(x => x.Title.Contains(request.Term));
         }
-
        
         // filter by isDeleted
         if (request.IsDeleted.Equals(IsDeleted.Inactive))
         {
-            worksheettemplates = worksheettemplates.Where(x => x.IsDeleted == true);
+            worksheetTemplates = worksheetTemplates.Where(x => x.IsDeleted == true);
         }
         else if (request.IsDeleted.Equals(IsDeleted.Active))
         {
-            worksheettemplates = worksheettemplates.Where(x => x.IsDeleted == false);
+            worksheetTemplates = worksheetTemplates.Where(x => x.IsDeleted == false);
         }
 
         // filter by filterDate
         if (request.SortBy == SortBy.Ascending)
         {
-            worksheettemplates = worksheettemplates.OrderBy(x => x.Created);
+            worksheetTemplates = worksheetTemplates.OrderBy(x => x.Created);
         }
         else if (request.SortBy == SortBy.Descending)
         {
-            worksheettemplates = worksheettemplates.OrderByDescending(x => x.Created);
+            worksheetTemplates = worksheetTemplates.OrderByDescending(x => x.Created);
         }
 
         // filter by start time and end time
         if (request.StartTime != DateTime.MinValue)
         {
-            worksheettemplates = worksheettemplates.Where(worksheettemplate =>
+            worksheetTemplates = worksheetTemplates.Where(worksheettemplate =>
                 worksheettemplate.Created >= request.StartTime );
         }
         // filter by start time and end time
         if ( request.EndTime != DateTime.MinValue)
         {
-            worksheettemplates = worksheettemplates.Where(worksheettemplate =>
+            worksheetTemplates = worksheetTemplates.Where(worksheettemplate =>
                 worksheettemplate.Created <= request.EndTime);
         }
 
         // convert the list of item to list of response model
-        var mappedWorksheetTemplates = _mapper.Map<List<GetBriefWorksheetTemplateResponseModel>>(worksheettemplates);
+        var mappedWorksheetTemplates = _mapper.Map<List<GetBriefWorksheetTemplateResponseModel>>(worksheetTemplates);
         var createPaginatedListResult = Pagination<GetBriefWorksheetTemplateResponseModel>.Create(mappedWorksheetTemplates.AsQueryable(), request.PageIndex, request.PageSize ?? defaultPageSize);
 
         if(createPaginatedListResult == null)

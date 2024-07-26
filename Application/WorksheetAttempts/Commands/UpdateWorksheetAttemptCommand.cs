@@ -62,7 +62,7 @@ namespace Application.WorksheetAttempts.Commands
                 }
             }
 
-            var worksheetAttempt = await _context.WorksheetAttemptAnswers.FirstOrDefaultAsync(x => x.Id == request.Id);
+            var worksheetAttempt = await _context.WorksheetAttempts.FirstOrDefaultAsync(x => x.Id == request.Id);
 
             if (worksheetAttempt== null)
             {

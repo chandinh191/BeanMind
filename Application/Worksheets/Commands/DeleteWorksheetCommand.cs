@@ -7,13 +7,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Application.Worksheets.Commands;
 
-public sealed record DeleteWorksheetCommand : IRequest<BaseResponse<GetWorksheetResponseModel>>
+public sealed record DeleteWorksheetCommand : IRequest<BaseResponse<GetBriefWorksheetResponseModel>>
 {
     [Required]
     public Guid Id { get; init; }
 }
 
-public class DeleteWorksheetCommandHanler : IRequestHandler<DeleteWorksheetCommand, BaseResponse<GetWorksheetResponseModel>>
+public class DeleteWorksheetCommandHanler : IRequestHandler<DeleteWorksheetCommand, BaseResponse<GetBriefWorksheetResponseModel>>
 {
     private readonly ApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -24,12 +24,12 @@ public class DeleteWorksheetCommandHanler : IRequestHandler<DeleteWorksheetComma
         _mapper = mapper;
     }
 
-    public async Task<BaseResponse<GetWorksheetResponseModel>> Handle(DeleteWorksheetCommand request, CancellationToken cancellationToken)
+    public async Task<BaseResponse<GetBriefWorksheetResponseModel>> Handle(DeleteWorksheetCommand request, CancellationToken cancellationToken)
     {
         var worksheet = await _context.Worksheets.FirstOrDefaultAsync(x => x.Id == request.Id);
         if(worksheet == null)
         {
-            return new BaseResponse<GetWorksheetResponseModel>
+            return new BaseResponse<GetBriefWorksheetResponseModel>
             {
                 Success = false,
                 Message = "Worksheet not found",
@@ -42,7 +42,7 @@ public class DeleteWorksheetCommandHanler : IRequestHandler<DeleteWorksheetComma
 
         if (updateWorksheetResult.Entity == null)
         {
-            return new BaseResponse<GetWorksheetResponseModel>
+            return new BaseResponse<GetBriefWorksheetResponseModel>
             {
                 Success = false,
                 Message = "Update worksheet failed",
@@ -51,9 +51,9 @@ public class DeleteWorksheetCommandHanler : IRequestHandler<DeleteWorksheetComma
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        var mappedWorksheetResult = _mapper.Map<GetWorksheetResponseModel>(updateWorksheetResult.Entity);
+        var mappedWorksheetResult = _mapper.Map<GetBriefWorksheetResponseModel>(updateWorksheetResult.Entity);
 
-        return new BaseResponse<GetWorksheetResponseModel>
+        return new BaseResponse<GetBriefWorksheetResponseModel>
         {
             Success = true,
             Message = "Update worksheet successful",

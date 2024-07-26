@@ -8,21 +8,16 @@ using Microsoft.EntityFrameworkCore;
 namespace Application.Worksheets.Commands;
 
 [AutoMap(typeof(Domain.Entities.Worksheet), ReverseMap = true)]
-public sealed record CreateWorksheetCommand : IRequest<BaseResponse<GetWorksheetResponseModel>>
+public sealed record CreateWorksheetCommand : IRequest<BaseResponse<GetBriefWorksheetResponseModel>>
 {
     [Required]
-    [StringLength(maximumLength: 50, MinimumLength = 4, ErrorMessage = "Title must be at least 4 characters long.")]
-    //[RegularExpression(@"^(?:[A-Z][a-z0-9]*)(?: [A-Z][a-z0-9]*)*$", ErrorMessage = "Title must have the first word capitalized, following words separated by a space, and only contain characters and numbers.")]
     public string Title { get; init; }
-    [Required]
     public string Description { get; init; }
-    [Required]
-    public Guid ActivityId { get; set; }
     [Required]
     public Guid? WorksheetTemplateId { get; set; }
 }
 
-public class CreateWorksheetCommandHanler : IRequestHandler<CreateWorksheetCommand, BaseResponse<GetWorksheetResponseModel>>
+public class CreateWorksheetCommandHanler : IRequestHandler<CreateWorksheetCommand, BaseResponse<GetBriefWorksheetResponseModel>>
 {
     private readonly ApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -33,7 +28,7 @@ public class CreateWorksheetCommandHanler : IRequestHandler<CreateWorksheetComma
         _mapper = mapper;
     }
 
-    public async Task<BaseResponse<GetWorksheetResponseModel>> Handle(CreateWorksheetCommand request, CancellationToken cancellationToken)
+    public async Task<BaseResponse<GetBriefWorksheetResponseModel>> Handle(CreateWorksheetCommand request, CancellationToken cancellationToken)
     {
        
 
@@ -41,7 +36,7 @@ public class CreateWorksheetCommandHanler : IRequestHandler<CreateWorksheetComma
 
         if (worksheetTemplate == null)
         {
-            return new BaseResponse<GetWorksheetResponseModel>
+            return new BaseResponse<GetBriefWorksheetResponseModel>
             {
                 Success = false,
                 Message = "WorksheetTemplate not found",
@@ -53,7 +48,7 @@ public class CreateWorksheetCommandHanler : IRequestHandler<CreateWorksheetComma
 
         if(createWorksheetResult.Entity == null)
         {
-            return new BaseResponse<GetWorksheetResponseModel>
+            return new BaseResponse<GetBriefWorksheetResponseModel>
             {
                 Success = false,
                 Message = "Create worksheet failed",
@@ -62,9 +57,9 @@ public class CreateWorksheetCommandHanler : IRequestHandler<CreateWorksheetComma
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        var mappedWorksheetResult = _mapper.Map<GetWorksheetResponseModel>(createWorksheetResult.Entity);
+        var mappedWorksheetResult = _mapper.Map<GetBriefWorksheetResponseModel>(createWorksheetResult.Entity);
 
-        return new BaseResponse<GetWorksheetResponseModel>
+        return new BaseResponse<GetBriefWorksheetResponseModel>
         {
             Success = true,
             Message = "Create worksheet successful",

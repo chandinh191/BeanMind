@@ -1,4 +1,5 @@
-﻿using Application.Teachables.Commands;
+﻿using Application.Common;
+using Application.Teachables.Commands;
 using Application.Teachables.Queries;
 using Application.TeachingSlots;
 using Application.TeachingSlots.Commands;
@@ -8,6 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
+    [ApiController]
+    [Route(ControllerRouteName.TeachingSlotRoute)]
     public class TeachingSlotController : ControllerBase
     {
         [HttpGet]

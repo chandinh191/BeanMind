@@ -20,8 +20,6 @@
 	<ItemGroup>
 	  <Folder Include="ApplicationUsers\Commands\" />
 	  <Folder Include="ApplicationUsers\Queries\" />
-	  <Folder Include="WorksheetQuestions\Commands\" />
-	  <Folder Include="WorksheetQuestions\Queries\" />
 	</ItemGroup>
 
 </Project>

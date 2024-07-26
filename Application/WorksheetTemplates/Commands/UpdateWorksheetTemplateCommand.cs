@@ -4,6 +4,8 @@ using Infrastructure.Data;
 using Application.Common;
 using AutoMapper;
 using MediatR;
+using Application.Worksheets;
+using Domain.Entities;
 
 namespace Application.WorksheetTemplates.Commands;
 
@@ -12,10 +14,11 @@ public sealed record UpdateWorksheetTemplateCommand : IRequest<BaseResponse<GetW
 {
     [Required]
     public Guid Id { get; init; }
-    [Required]
-    public string Title { get; set; }
-    [Required]
-    public int Classification { get; set; }
+    public string? Title { get; set; }
+    public int? Classification { get; set; }
+    public Guid? CourseId { get; set; }
+    public Guid? ChapterId { get; set; }
+    public Guid? TopicId { get; set; }
 }
 
 public class UpdateWorksheetTemplateCommandHanler : IRequestHandler<UpdateWorksheetTemplateCommand, BaseResponse<GetWorksheetTemplateResponseModel>>
@@ -31,29 +34,83 @@ public class UpdateWorksheetTemplateCommandHanler : IRequestHandler<UpdateWorksh
 
     public async Task<BaseResponse<GetWorksheetTemplateResponseModel>> Handle(UpdateWorksheetTemplateCommand request, CancellationToken cancellationToken)
     {
+        if (request.CourseId != null)
+        {
+            var course = await _context.Courses.FirstOrDefaultAsync(x => x.Id == request.CourseId);
 
-        var worksheettemplate = await _context.WorksheetTemplates.FirstOrDefaultAsync(x => x.Id == request.Id);
+            if (course == null)
+            {
+                return new BaseResponse<GetWorksheetTemplateResponseModel>
+                {
+                    Success = false,
+                    Message = "Course not found",
+                };
+            }
+        }
 
-        if(worksheettemplate == null)
+        if (request.ChapterId != null)
+        {
+            var chapter = await _context.Chapters.FirstOrDefaultAsync(x => x.Id == request.ChapterId);
+
+            if (chapter == null)
+            {
+                return new BaseResponse<GetWorksheetTemplateResponseModel>
+                {
+                    Success = false,
+                    Message = "Chapter not found",
+                };
+            }
+        }
+
+        if (request.TopicId != null)
+        {
+            var topic = await _context.Topics.FirstOrDefaultAsync(x => x.Id == request.TopicId);
+
+            if (topic == null)
+            {
+                return new BaseResponse<GetWorksheetTemplateResponseModel>
+                {
+                    Success = false,
+                    Message = "Topic not found",
+                };
+            }
+        }
+
+        var worksheetTemplate = await _context.WorksheetTemplates.FirstOrDefaultAsync(x => x.Id == request.Id);
+
+        if(worksheetTemplate == null)
         {
             return new BaseResponse<GetWorksheetTemplateResponseModel>
             {
                 Success = false,
-                Message = "WorksheetTemplate is not found",
-                Errors = ["WorksheetTemplate is not found"]
+                Message = "Worksheet template is not found",
+                Errors = ["Worksheet template is not found"]
             };
         }
 
-        _mapper.Map(request, worksheettemplate);
+        //_mapper.Map(request, worksheettemplate);
+        // Use reflection to update non-null properties
+        foreach (var property in request.GetType().GetProperties())
+        {
+            var requestValue = property.GetValue(request);
+            if (requestValue != null)
+            {
+                var targetProperty = worksheetTemplate.GetType().GetProperty(property.Name);
+                if (targetProperty != null)
+                {
+                    targetProperty.SetValue(worksheetTemplate, requestValue);
+                }
+            }
+        }
 
-        var updateWorksheetTemplateResult = _context.Update(worksheettemplate);
+        var updateWorksheetTemplateResult = _context.Update(worksheetTemplate);
 
         if (updateWorksheetTemplateResult.Entity == null)
         {
             return new BaseResponse<GetWorksheetTemplateResponseModel>
             {
                 Success = false,
-                Message = "Update worksheettemplate failed",
+                Message = "Update worksheet template failed",
             };
         }
 
@@ -64,7 +121,7 @@ public class UpdateWorksheetTemplateCommandHanler : IRequestHandler<UpdateWorksh
         return new BaseResponse<GetWorksheetTemplateResponseModel>
         {
             Success = true,
-            Message = "Update worksheettemplate successful",
+            Message = "Update worksheet template successful",
             Data = mappedWorksheetTemplateResult
         };
     }

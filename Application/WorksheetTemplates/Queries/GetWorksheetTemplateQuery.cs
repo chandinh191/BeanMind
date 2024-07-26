@@ -31,21 +31,24 @@ public class GetWorksheetTemplateQueryHanler : IRequestHandler<GetWorksheetTempl
             return new BaseResponse<GetWorksheetTemplateResponseModel>
             {
                 Success = false,
-                Message = "Get worksheettemplate failed",
+                Message = "Get worksheet template failed",
                 Errors = ["Id required"],
             };
         }
 
-        var worksheettemplate = await _context.WorksheetTemplates
-            
+        var worksheetTemplate = await _context.WorksheetTemplates
+            .Include(x => x.Course)
+            .Include(x => x.Chapter)
+            .Include(x => x.Topic)
             .Include(x => x.Worksheets)
+            .Include(x => x.LevelTemplateRelations)
             .FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);
-        var mappedWorksheetTemplate = _mapper.Map<GetWorksheetTemplateResponseModel>(worksheettemplate);
+        var mappedWorksheetTemplate = _mapper.Map<GetWorksheetTemplateResponseModel>(worksheetTemplate);
 
         return new BaseResponse<GetWorksheetTemplateResponseModel>
         {
             Success = true,
-            Message = "Get worksheettemplate successful",
+            Message = "Get worksheet template successful",
             Data = mappedWorksheetTemplate
         };
     }
