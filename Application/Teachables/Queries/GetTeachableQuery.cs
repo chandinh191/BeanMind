@@ -56,5 +56,4 @@ namespace Application.Teachables.Queries
             };
         }
     }
-
 }

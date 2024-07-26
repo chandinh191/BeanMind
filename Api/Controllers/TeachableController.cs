@@ -1,4 +1,5 @@
-﻿using Application.Subjects.Commands;
+﻿using Application.Common;
+using Application.Subjects.Commands;
 using Application.Subjects.Queries;
 using Application.Teachables.Commands;
 using Application.Teachables.Queries;
@@ -7,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
+    [ApiController]
+    [Route(ControllerRouteName.TeachableRoute)]
     public class TeachableController : ControllerBase
     {
         [HttpGet]
@@ -67,6 +70,5 @@ namespace Api.Controllers
                 StatusCode = result.Code
             };
         }
-
     }
 }

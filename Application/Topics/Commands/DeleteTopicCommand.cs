@@ -7,13 +7,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Application.Topics.Commands;
 
-public sealed record DeleteTopicCommand : IRequest<BaseResponse<GetTopicResponseModel>>
+public sealed record DeleteTopicCommand : IRequest<BaseResponse<GetBriefTopicResponseModel>>
 {
     [Required]
     public Guid Id { get; init; }
 }
 
-public class DeleteTopicCommandHanler : IRequestHandler<DeleteTopicCommand, BaseResponse<GetTopicResponseModel>>
+public class DeleteTopicCommandHanler : IRequestHandler<DeleteTopicCommand, BaseResponse<GetBriefTopicResponseModel>>
 {
     private readonly ApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -24,12 +24,12 @@ public class DeleteTopicCommandHanler : IRequestHandler<DeleteTopicCommand, Base
         _mapper = mapper;
     }
 
-    public async Task<BaseResponse<GetTopicResponseModel>> Handle(DeleteTopicCommand request, CancellationToken cancellationToken)
+    public async Task<BaseResponse<GetBriefTopicResponseModel>> Handle(DeleteTopicCommand request, CancellationToken cancellationToken)
     {
         var topic = await _context.Topics.FirstOrDefaultAsync(x => x.Id == request.Id);
         if(topic == null)
         {
-            return new BaseResponse<GetTopicResponseModel>
+            return new BaseResponse<GetBriefTopicResponseModel>
             {
                 Success = false,
                 Message = "Topic not found",
@@ -42,7 +42,7 @@ public class DeleteTopicCommandHanler : IRequestHandler<DeleteTopicCommand, Base
 
         if (updateTopicResult.Entity == null)
         {
-            return new BaseResponse<GetTopicResponseModel>
+            return new BaseResponse<GetBriefTopicResponseModel>
             {
                 Success = false,
                 Message = "Delete topic failed",
@@ -51,9 +51,9 @@ public class DeleteTopicCommandHanler : IRequestHandler<DeleteTopicCommand, Base
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        var mappedTopicResult = _mapper.Map<GetTopicResponseModel>(updateTopicResult.Entity);
+        var mappedTopicResult = _mapper.Map<GetBriefTopicResponseModel>(updateTopicResult.Entity);
 
-        return new BaseResponse<GetTopicResponseModel>
+        return new BaseResponse<GetBriefTopicResponseModel>
         {
             Success = true,
             Message = "Delete topic successful",

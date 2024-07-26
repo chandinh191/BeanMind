@@ -38,6 +38,9 @@ public class GetTopicQueryHanler : IRequestHandler<GetTopicQuery, BaseResponse<G
 
         var topic = await _context.Topics
             .Include(x => x.Chapter)
+            .Include(x => x.Questions)
+            .Include(x => x.WorksheetTemplates)
+            .Include(x => x.Processions)
             .FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);
 
         var mappedTopic = _mapper.Map<GetTopicResponseModel>(topic);

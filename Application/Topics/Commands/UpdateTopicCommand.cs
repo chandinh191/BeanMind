@@ -4,11 +4,12 @@ using Infrastructure.Data;
 using Application.Common;
 using AutoMapper;
 using MediatR;
+using Domain.Entities;
 
 namespace Application.Topics.Commands;
 
 [AutoMap(typeof(Domain.Entities.Topic), ReverseMap = true)]
-public sealed record UpdateTopicCommand : IRequest<BaseResponse<GetTopicResponseModel>>
+public sealed record UpdateTopicCommand : IRequest<BaseResponse<GetBriefTopicResponseModel>>
 {
     [Required]
     public Guid Id { get; init; }
@@ -22,7 +23,7 @@ public sealed record UpdateTopicCommand : IRequest<BaseResponse<GetTopicResponse
     public Guid ChapterId { get; set; }
 }
 
-public class UpdateTopicCommandHanler : IRequestHandler<UpdateTopicCommand, BaseResponse<GetTopicResponseModel>>
+public class UpdateTopicCommandHanler : IRequestHandler<UpdateTopicCommand, BaseResponse<GetBriefTopicResponseModel>>
 {
     private readonly ApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -33,13 +34,13 @@ public class UpdateTopicCommandHanler : IRequestHandler<UpdateTopicCommand, Base
         _mapper = mapper;
     }
 
-    public async Task<BaseResponse<GetTopicResponseModel>> Handle(UpdateTopicCommand request, CancellationToken cancellationToken)
+    public async Task<BaseResponse<GetBriefTopicResponseModel>> Handle(UpdateTopicCommand request, CancellationToken cancellationToken)
     {
         var chapter = await _context.Chapters.FirstOrDefaultAsync(x => x.Id == request.ChapterId);
 
         if (chapter == null)
         {
-            return new BaseResponse<GetTopicResponseModel>
+            return new BaseResponse<GetBriefTopicResponseModel>
             {
                 Success = false,
                 Message = "Chapter not found",
@@ -50,7 +51,7 @@ public class UpdateTopicCommandHanler : IRequestHandler<UpdateTopicCommand, Base
 
         if(topic == null)
         {
-            return new BaseResponse<GetTopicResponseModel>
+            return new BaseResponse<GetBriefTopicResponseModel>
             {
                 Success = false,
                 Message = "Topic is not found",
@@ -58,13 +59,26 @@ public class UpdateTopicCommandHanler : IRequestHandler<UpdateTopicCommand, Base
             };
         }
 
-        _mapper.Map(request, topic);
+        //_mapper.Map(request, topic);
+        // Use reflection to update non-null properties
+        foreach (var property in request.GetType().GetProperties())
+        {
+            var requestValue = property.GetValue(request);
+            if (requestValue != null)
+            {
+                var targetProperty = topic.GetType().GetProperty(property.Name);
+                if (targetProperty != null)
+                {
+                    targetProperty.SetValue(topic, requestValue);
+                }
+            }
+        }
 
         var updateTopicResult = _context.Update(topic);
 
         if (updateTopicResult.Entity == null)
         {
-            return new BaseResponse<GetTopicResponseModel>
+            return new BaseResponse<GetBriefTopicResponseModel>
             {
                 Success = false,
                 Message = "Update topic failed",
@@ -73,9 +87,9 @@ public class UpdateTopicCommandHanler : IRequestHandler<UpdateTopicCommand, Base
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        var mappedTopicResult = _mapper.Map<GetTopicResponseModel>(updateTopicResult.Entity);
+        var mappedTopicResult = _mapper.Map<GetBriefTopicResponseModel>(updateTopicResult.Entity);
 
-        return new BaseResponse<GetTopicResponseModel>
+        return new BaseResponse<GetBriefTopicResponseModel>
         {
             Success = true,
             Message = "Update topic successful",

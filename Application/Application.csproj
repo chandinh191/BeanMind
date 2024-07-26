@@ -20,10 +20,6 @@
 	<ItemGroup>
 	  <Folder Include="ApplicationUsers\Commands\" />
 	  <Folder Include="ApplicationUsers\Queries\" />
-	  <Folder Include="TeachingSlots\Commands\" />
-	  <Folder Include="TeachingSlots\Queries\" />
-	  <Folder Include="WorksheetAttemptAnswers\Commands\" />
-	  <Folder Include="WorksheetAttemptAnswers\Queries\" />
 	  <Folder Include="WorksheetAttempts\Commands\" />
 	  <Folder Include="WorksheetAttempts\Queries\" />
 	  <Folder Include="WorksheetQuestions\Commands\" />

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Application.Topics.Commands;
 
 [AutoMap(typeof(Domain.Entities.Topic), ReverseMap = true)]
-public sealed record CreateTopicCommand : IRequest<BaseResponse<GetTopicResponseModel>>
+public sealed record CreateTopicCommand : IRequest<BaseResponse<GetBriefTopicResponseModel>>
 {
     [Required]
     [StringLength(maximumLength: 50, MinimumLength = 4, ErrorMessage = "Title must be at least 4 characters long.")]
@@ -20,7 +20,7 @@ public sealed record CreateTopicCommand : IRequest<BaseResponse<GetTopicResponse
     public Guid ChapterId { get; set; }
 }
 
-public class CreateTopicCommandHanler : IRequestHandler<CreateTopicCommand, BaseResponse<GetTopicResponseModel>>
+public class CreateTopicCommandHanler : IRequestHandler<CreateTopicCommand, BaseResponse<GetBriefTopicResponseModel>>
 {
     private readonly ApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -31,13 +31,13 @@ public class CreateTopicCommandHanler : IRequestHandler<CreateTopicCommand, Base
         _mapper = mapper;
     }
 
-    public async Task<BaseResponse<GetTopicResponseModel>> Handle(CreateTopicCommand request, CancellationToken cancellationToken)
+    public async Task<BaseResponse<GetBriefTopicResponseModel>> Handle(CreateTopicCommand request, CancellationToken cancellationToken)
     {
         var chapter = await _context.Chapters.FirstOrDefaultAsync(x => x.Id == request.ChapterId);
 
         if(chapter == null)
         {
-            return new BaseResponse<GetTopicResponseModel>
+            return new BaseResponse<GetBriefTopicResponseModel>
             {
                 Success = false,
                 Message = "Chapter not found",
@@ -49,7 +49,7 @@ public class CreateTopicCommandHanler : IRequestHandler<CreateTopicCommand, Base
 
         if(createTopicResult.Entity == null)
         {
-            return new BaseResponse<GetTopicResponseModel>
+            return new BaseResponse<GetBriefTopicResponseModel>
             {
                 Success = false,
                 Message = "Create topic failed",
@@ -58,9 +58,9 @@ public class CreateTopicCommandHanler : IRequestHandler<CreateTopicCommand, Base
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        var mappedTopicResult = _mapper.Map<GetTopicResponseModel>(createTopicResult.Entity);
+        var mappedTopicResult = _mapper.Map<GetBriefTopicResponseModel>(createTopicResult.Entity);
 
-        return new BaseResponse<GetTopicResponseModel>
+        return new BaseResponse<GetBriefTopicResponseModel>
         {
             Success = true,
             Message = "Create topic successful",
