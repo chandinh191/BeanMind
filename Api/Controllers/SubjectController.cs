@@ -37,7 +37,6 @@ public class SubjectController : ControllerBase
     }
 
     [HttpPost]
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> Create(ISender sender, [FromBody] CreateSubjectCommand command)
     {
         var result = await sender.Send(command);
@@ -48,7 +47,6 @@ public class SubjectController : ControllerBase
     }
 
     [HttpPut]
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> Update(ISender sender, [FromBody] UpdateSubjectCommand command)
     {
         var result = await sender.Send(command);
@@ -59,7 +57,6 @@ public class SubjectController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> Delete(ISender sender, [FromRoute] Guid id)
     {
         var result = await sender.Send(new DeleteSubjectCommand() with

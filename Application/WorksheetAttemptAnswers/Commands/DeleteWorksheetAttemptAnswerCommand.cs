@@ -31,8 +31,8 @@ namespace Application.WorksheetAttemptAnswers.Commands
 
         public async Task<BaseResponse<GetBriefWorksheetAttemptAnswerResponseModel>> Handle(DeleteWorksheetAttemptAnswerCommand request, CancellationToken cancellationToken)
         {
-            var WorksheetAttemptAnswer = await _context.WorksheetAttemptAnswers.FirstOrDefaultAsync(x => x.Id == request.Id);
-            if (WorksheetAttemptAnswer == null)
+            var worksheetAttemptAnswer = await _context.WorksheetAttemptAnswers.FirstOrDefaultAsync(x => x.Id == request.Id);
+            if (worksheetAttemptAnswer == null)
             {
                 return new BaseResponse<GetBriefWorksheetAttemptAnswerResponseModel>
                 {
@@ -41,9 +41,9 @@ namespace Application.WorksheetAttemptAnswers.Commands
                 };
             }
 
-            WorksheetAttemptAnswer.IsDeleted = true;
+            worksheetAttemptAnswer.IsDeleted = true;
 
-            var updateWorksheetAttemptAnswerResult = _context.Update(WorksheetAttemptAnswer);
+            var updateWorksheetAttemptAnswerResult = _context.Update(worksheetAttemptAnswer);
 
             if (updateWorksheetAttemptAnswerResult.Entity == null)
             {

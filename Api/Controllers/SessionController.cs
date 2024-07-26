@@ -36,7 +36,6 @@ namespace Api.Controllers
         }
 
         [HttpPost]
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> Create(ISender sender, [FromBody] CreateSessionCommand command)
         {
             var result = await sender.Send(command);
@@ -47,7 +46,6 @@ namespace Api.Controllers
         }
 
         [HttpPut]
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> Update(ISender sender, [FromBody] UpdateSessionCommand command)
         {
             var result = await sender.Send(command);
@@ -58,7 +56,6 @@ namespace Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> Delete(ISender sender, [FromRoute] Guid id)
         {
             var result = await sender.Send(new DeleteSessionCommand() with
