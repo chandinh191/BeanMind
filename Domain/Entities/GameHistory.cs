@@ -22,5 +22,6 @@ namespace Domain.Entities
         public ApplicationUser? ApplicationUser { get; set; }
 
         public int Point {  get; set; }
+        public TimeOnly Duration { get; set; }
     }
 }

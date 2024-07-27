@@ -7,13 +7,17 @@ using System.Text;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.AspNetCore.Routing;
 using Infrastructure.Services;
+using System.Text.RegularExpressions;
+using Domain.Constants;
 
 namespace Application.Users.Commands;
 
 public record class RegisterUserCommand : IRequest<BaseResponse<string>>
 {
-    public required string Email { get; init; }
+    public required string Username { get; init; }
     public required string Password { get; init; }
+    public required List<string> Roles { get; init; }
+
 }
 public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, BaseResponse<string>>
 {
@@ -33,82 +37,105 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, B
 
     public async Task<BaseResponse<string>> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
     {
-        // find user with email in database
-        var existedUser = await _userManager.FindByEmailAsync(request.Email);
-
-        // user with email already existed
-        if (existedUser is not null)
-        {
-            return new BaseResponse<string>()
-            {
-                Success = false,
-                Message = "Email already eixsted",
-                Errors = ["Email already eixsted"]
-            };
-        }
-
-        // create new user with hashed password (generated)
-        var user = new ApplicationUser { Email = request.Email, UserName = request.Email };
-        var createUserResult = await _userManager.CreateAsync(user, request.Password);
-
-        // create new user fail
-        if (!createUserResult.Succeeded)
-        {
-            return new BaseResponse<string>()
-            {
-                Success = false,
-                Message = "Create user failed",
-                Errors = createUserResult.Errors.Select(e => e.Description).ToList()
-            };
-        }
-
-        // add user to role
-        // default role (for testing only) = admin, manager
-        await _userManager.AddToRoleAsync(user, Domain.Constants.Roles.Manager);
-        await _userManager.AddToRoleAsync(user, Domain.Constants.Roles.Administrator);
-
-        // generate new confirmation token and encode it
-        var token = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(await _userManager.GenerateEmailConfirmationTokenAsync(user)));
-
-        // build route query by RouteValueDictionary
-        //var routeValues = new RouteValueDictionary()
-        //{
-        //    ["userId"] = user.Id,
-        //    ["code"] = token
-        //};
-
-        // build confirm email url
-        //var confirmEmailEndpointName = RouteNameValues.ConfirmEmail;
-        //var confirmEmailUrl = _linkGenerator.GetUriByName(_contextAccessor.HttpContext, confirmEmailEndpointName, routeValues)
-        //    ?? throw new NotSupportedException($"Could not find endpoint named '{confirmEmailEndpointName}'.");
-
-        var queryParams = new Dictionary<string, string>()
-        {
-            { "userId", user.Id },
-            { "email", user.Email},
-            { "code", token },
-        };
-        var mailConfirmationEndpoint = _configuration.GetValue<string>("MailConfirmationUrl") ?? throw new NotSupportedException("MailConfirmationUrl is not existed");
-        var confirmEmailUrl = QueryHelpers.AddQueryString(mailConfirmationEndpoint ?? "", queryParams);
-
-        // send email
         try
         {
-            await _emailService.SendConfirmMailAsync(user.Email, confirmEmailUrl);
-        }
-        catch
-        {
-            new BaseResponse<string>()
+            // checking role name invalid
+            foreach (var role in request.Roles)
             {
-                Success = false,
-                Message = "There is some problem at mail service, please contact with admin at (+84)9276122811",
+                if (!Roles.AllRoles.Contains(role.ToString()))
+                {
+                    return new BaseResponse<string>()
+                    {
+                        Success = false,
+                        Message = "Invalid role: " + role,
+                        Errors = ["Invalid role: " + role]
+                    };
+                }
+            }
+
+            // find user with username in database
+            var existedUser = await _userManager.FindByEmailAsync(request.Username);
+
+            // user with username already existed
+            if (existedUser is not null)
+            {
+                return new BaseResponse<string>()
+                {
+                    Success = false,
+                    Message = "Username already eixsted",
+                    Errors = ["Username already eixsted"]
+                };
+            }
+
+            // create new user
+            var user = new ApplicationUser { Email = request.Username, UserName = request.Username };
+            var createUserResult = await _userManager.CreateAsync(user, request.Password);
+
+            // create new user fail
+            if (!createUserResult.Succeeded)
+            {
+                return new BaseResponse<string>()
+                {
+                    Success = false,
+                    Message = "Create user failed",
+                    Errors = createUserResult.Errors.Select(e => e.Description).ToList()
+                };
+            }
+
+            // add role to user
+            foreach (var role in request.Roles)
+            {
+                await _userManager.AddToRoleAsync(user, role.ToString());
+            }
+
+            // if register by email
+            if (IsEmail(request.Username))
+            {
+                // generate new confirmation token and encode it
+                var token = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(await _userManager.GenerateEmailConfirmationTokenAsync(user)));
+
+                var queryParams = new Dictionary<string, string>()
+            {
+                { "userId", user.Id },
+                { "email", user.Email},
+                { "code", token },
+            };
+                var mailConfirmationEndpoint = _configuration.GetValue<string>("MailConfirmationUrl") ?? throw new NotSupportedException("MailConfirmationUrl is not existed");
+                var confirmEmailUrl = QueryHelpers.AddQueryString(mailConfirmationEndpoint ?? "", queryParams);
+
+                // send email
+                try
+                {
+                    await _emailService.SendConfirmMailAsync(user.Email, confirmEmailUrl);
+                }
+                catch
+                {
+                    new BaseResponse<string>()
+                    {
+                        Success = false,
+                        Message = "There is some problem at mail service, please contact with admin at (+84)9276122811",
+                    };
+                }
+            }
+            return new BaseResponse<string>()
+            {
+                Success = true,
+                Message = "User registered successfully, Please click link on your email to complete registration process"
             };
         }
-
-        return new BaseResponse<string>()
+        catch (Exception ex)
         {
-            Success = true,
-            Message = "User registered successfully, Please click link on your email to complete registration process"
-        };
+            return new BaseResponse<string>()
+            {
+                Success = false,
+                Message = ex.Message,
+            };
+        }
+    }
+    bool IsEmail(string email)
+    {
+        // Simple regex pattern for validating email addresses
+        string emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+        return Regex.IsMatch(email, emailPattern);
     }
 }

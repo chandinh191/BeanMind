@@ -26,13 +26,6 @@ public class Program
         // register default Api Service
         //builder.Services.AddControllers();
 
-        // Add authentication services
-        /*builder.Services.AddAuthentication().AddGoogle(googleOptions =>
-        {
-            googleOptions.ClientId = builder.Configuration.GetSection("GoogleKeys:ClientId").Value;
-            googleOptions.ClientSecret = builder.Configuration.GetSection("GoogleKeys:ClientSecret").Value;
-        });*/
-
         builder.Services.AddAuthentication(options =>
         {
             options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;

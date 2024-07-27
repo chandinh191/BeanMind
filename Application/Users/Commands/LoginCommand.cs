@@ -6,13 +6,15 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.Eventing.Reader;
+using System.Text.RegularExpressions;
 
 namespace Application.Users.Commands;
 
 public record class LoginCommand : IRequest<BaseResponse<AccessTokenResponseModel>>
 {
     [Required]
-    public string Email { get; init; }
+    public string Username { get; init; }
     [Required]
     public string Password { get; init; }
 }
@@ -33,9 +35,16 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, BaseResponse<Ac
     public async Task<BaseResponse<AccessTokenResponseModel>> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
         var applicationName = _configuration.GetValue<string>("ApplicationName") ?? "MyApp";
-
+        var user = new ApplicationUser();
         // find user in database
-        var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
+        if (IsEmail(request.Username))
+        {
+            user = await _userManager.Users.FirstOrDefaultAsync(u => u.Email == request.Username);
+        }
+        else
+        {
+            user = await _userManager.Users.FirstOrDefaultAsync(u => u.UserName == request.Username);
+        }
 
         // user is not existed
         if (user == null)
@@ -44,13 +53,13 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, BaseResponse<Ac
         }
 
         // user is not confirm mail yet
-        if(!await _userManager.IsEmailConfirmedAsync(user))
+        if(IsEmail(request.Username) && !await _userManager.IsEmailConfirmedAsync(user))
         {
             return new BaseResponse<AccessTokenResponseModel> { Success = false, Message = "User is not confirm mail yet" };
         }
 
         // perform sign-in
-        var result = await _signInManager.PasswordSignInAsync(request.Email, request.Password, false, lockoutOnFailure: true);
+        var result = await _signInManager.PasswordSignInAsync(request.Username, request.Password, false, lockoutOnFailure: true);
 
         // sign-in failed
         if (!result.Succeeded)
@@ -86,5 +95,11 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, BaseResponse<Ac
                 ExpiresIn = jwtExpiresIn
             }
         };
+    }
+    bool IsEmail(string email)
+    {
+        // Simple regex pattern for validating email addresses
+        string emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+        return Regex.IsMatch(email, emailPattern);
     }
 }

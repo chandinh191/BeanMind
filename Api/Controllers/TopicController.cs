@@ -2,6 +2,7 @@
 using Application.Topics.Commands;
 using Application.Topics.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -11,6 +12,7 @@ namespace Api.Controllers;
 public class TopicController : ControllerBase
 {
     [HttpGet]
+    //[Authorize(Roles = "Manager")]
     public async Task<IActionResult> GetAll(ISender sender, [FromQuery] GetPaginatedListTopicQuery query)
     {
         var result = await sender.Send(query);

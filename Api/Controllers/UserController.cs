@@ -31,13 +31,13 @@ public class AuthController : ControllerBase
         _userManager = userManager;
     }
 
-
     [HttpGet("login-google")]
     public IActionResult LoginGoogle()
     {
         var props = new AuthenticationProperties { RedirectUri = "/api/v1/auth/google-response" };
         return Challenge(props, GoogleDefaults.AuthenticationScheme);
     }
+
     [HttpGet("google-response")]
     public async Task<IActionResult> LoginGoogleResponse(ISender sender)
     {
@@ -71,18 +71,15 @@ public class AuthController : ControllerBase
                 await _userManager.AddToRolesAsync(defaultUser, new[] { defaultUserRole });
             }
         }
-
         var result = await sender.Send(new LoginCommand() with
         {
-            Email = email,
+            Username = email,
             Password = defaultPassword
         }); 
         return new ObjectResult(result)
         {
             StatusCode = result.Code
         };
-        //var accessToken = response.Properties.GetTokenValue("access_token");
-        //return Ok(accessToken);
     }
 
     [HttpGet]
@@ -98,7 +95,6 @@ public class AuthController : ControllerBase
     }
 
     [HttpGet]
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route(RouteNameValues.Info, Name = RouteNameValues.Info)]
     public async Task<BaseResponse<GetUserInfoResponseModel>> UserInfo(ISender sender)
     {

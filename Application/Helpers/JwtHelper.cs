@@ -8,6 +8,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Domain.Constants;
 using System.Data;
+using Application.Users;
 
 namespace Application.Helpers;
 
@@ -33,8 +34,14 @@ public static class JwtHelper
             new Claim(ClaimTypes.NameIdentifier, user.Id),
             new Claim(ClaimTypes.Name, "AccessToken"),
             new Claim(ClaimTypes.Email, user.Email),
-            new Claim(ClaimTypes.Role, roles.FirstOrDefault() ?? string.Empty)
+            //new Claim(ClaimTypes.Role, roles.FirstOrDefault() ?? string.Empty)
         });
+
+        // Add all role 
+        foreach (var role in roles)
+        {
+            claims.AddClaim(new Claim(ClaimTypes.Role, role));
+        }
 
         // encoding key and create sign in credential
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecretKey));
@@ -70,8 +77,14 @@ public static class JwtHelper
             new Claim(ClaimTypes.NameIdentifier, user.Id),
             new Claim(ClaimTypes.Name, "RefreshToken"),
             new Claim(ClaimTypes.Email, user.Email),
-            new Claim(ClaimTypes.Role, roles.FirstOrDefault() ?? string.Empty)
+            //new Claim(ClaimTypes.Role, roles.FirstOrDefault() ?? string.Empty)  
         });
+
+        // Add all role 
+        foreach (var role in roles)
+        {
+            claims.AddClaim(new Claim(ClaimTypes.Role, role));
+        }
 
         // encoding key and create sign in credential
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecretKey));
