@@ -25,7 +25,7 @@ namespace Application.GameHistories
         public TimeOnly Duration { get; set; }
     }
 
-    [AutoMap(typeof(Domain.Entities.Game))]
+    [AutoMap(typeof(Domain.Entities.GameHistory))]
     public class GetGameHistoryResponseModel : BaseResponseModel
     {
         public Guid GameId { get; set; }

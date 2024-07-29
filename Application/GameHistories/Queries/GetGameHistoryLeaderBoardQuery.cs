@@ -55,7 +55,7 @@ namespace Application.GameHistories.Queries
                 .Include(o => o.Game)
                 .AsQueryable();
 
-            // filter by course id
+            // filter by GameId
             if (request.GameId != Guid.Empty)
             {
                 gameHistories = gameHistories.Where(x => x.GameId == request.GameId);
@@ -64,11 +64,11 @@ namespace Application.GameHistories.Queries
             // filter by filter date
             if (request.SortBy == SortBy.Ascending)
             {
-                gameHistories = gameHistories.OrderBy(x => x.Created);
+                gameHistories = gameHistories.OrderBy(x => x.Point);
             }
             else if (request.SortBy == SortBy.Descending)
             {
-                gameHistories = gameHistories.OrderByDescending(x => x.Created);
+                gameHistories = gameHistories.OrderByDescending(x => x.Point);
             }
 
             // filter by start time and end time
