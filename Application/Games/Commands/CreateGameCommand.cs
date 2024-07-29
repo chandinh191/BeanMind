@@ -19,6 +19,8 @@ namespace Application.Games.Commands
         [Required]
         public string Name { get; set; }
         public string Description { get; set; }
+        public string ItemStoreJson { get; set; }
+        public string AnimalJson { get; set; }
     }
 
     public class CreateGameCommandHanler : IRequestHandler<CreateGameCommand, BaseResponse<GetBriefGameResponseModel>>

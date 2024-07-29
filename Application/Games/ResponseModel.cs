@@ -18,6 +18,8 @@ namespace Application.Games
     {
         public string Name { get; set; }
         public string Description { get; set; }
+        public string ItemStoreJson { get; set; }
+        public string AnimalJson { get; set; }
     }
 
     [AutoMap(typeof(Domain.Entities.Game))]
@@ -25,6 +27,8 @@ namespace Application.Games
     {
         public string Name { get; set; }
         public string Description { get; set; }
+        public string ItemStoreJson { get; set; }
+        public string AnimalJson { get; set; }
         public List<GetBriefChapterGameResponseModel> ChapterGames { get; set; }
         public List<GetBriefGameHistoryResponseModel>? GameHistories { get; set; }
 

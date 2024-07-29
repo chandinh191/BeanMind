@@ -22,6 +22,7 @@ namespace Application.GameHistories
         public string? ApplicationUserId { get; set; }
         //public GetBriefApplicationUserResponseModel? ApplicationUser { get; set; }
         public int Point { get; set; }
+        public TimeOnly Duration { get; set; }
     }
 
     [AutoMap(typeof(Domain.Entities.Game))]
@@ -32,6 +33,6 @@ namespace Application.GameHistories
         public string? ApplicationUserId { get; set; }
         public GetBriefApplicationUserResponseModel? ApplicationUser { get; set; }
         public int Point { get; set; }
-
+        public TimeOnly Duration { get; set; }
     }
 }

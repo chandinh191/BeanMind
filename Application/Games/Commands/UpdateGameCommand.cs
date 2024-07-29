@@ -18,8 +18,10 @@ namespace Application.Games.Commands
     {
         [Required]
         public Guid Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public string? Name { get; set; }
+        public string? Description { get; set; }
+        public string? ItemStoreJson { get; set; }
+        public string? AnimalJson { get; set; }
     }
 
     public class UpdateGameCommandHanler : IRequestHandler<UpdateGameCommand, BaseResponse<GetBriefGameResponseModel>>

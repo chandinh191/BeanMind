@@ -31,6 +31,15 @@ namespace Api.Controllers
                 StatusCode = result.Code
             };
         }
+        [HttpGet("leader-board")]
+        public async Task<IActionResult> GetLeaderBoard(ISender sender, [FromQuery] GetGameHistoryLeaderBoardQuery query)
+        {
+            var result = await sender.Send(query);
+            return new ObjectResult(result)
+            {
+                StatusCode = result.Code
+            };
+        }
 
         [HttpPost]
         public async Task<IActionResult> Create(ISender sender, [FromBody] CreateGameHistoryCommand command)
