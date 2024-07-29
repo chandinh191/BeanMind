@@ -18,6 +18,7 @@ namespace Application.Games
     {
         public string Name { get; set; }
         public string Description { get; set; }
+        public string Image { get; set; }
         public string ItemStoreJson { get; set; }
         public string AnimalJson { get; set; }
     }
@@ -27,6 +28,7 @@ namespace Application.Games
     {
         public string Name { get; set; }
         public string Description { get; set; }
+        public string Image { get; set; }
         public string ItemStoreJson { get; set; }
         public string AnimalJson { get; set; }
         public List<GetBriefChapterGameResponseModel> ChapterGames { get; set; }

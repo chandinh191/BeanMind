@@ -19,6 +19,7 @@ namespace Application.Games.Commands
         [Required]
         public string Name { get; set; }
         public string Description { get; set; }
+        public string Image { get; set; }
         public string ItemStoreJson { get; set; }
         public string AnimalJson { get; set; }
     }

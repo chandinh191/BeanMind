@@ -15,6 +15,7 @@ namespace Domain.Entities
         public string Description { get; set; }
         public string ItemStoreJson { get; set; }
         public string AnimalJson { get; set; }
+        public string Image { get; set; }
         public IEnumerable<ChapterGame> ChapterGames { get; set; }
         public IEnumerable<GameHistory>? GameHistories { get; set; }
     }
