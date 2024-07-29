@@ -38,6 +38,8 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
     public DbSet<WorksheetAttemptAnswer> WorksheetAttemptAnswers { get; init; }
     public DbSet<TeachingSlot> TeachingSlots { get; init; }
     public DbSet<Procession> Processions { get; init; }
+    public DbSet<Teacher> Teachers { get; init; }
+    public DbSet<Student> Students { get; init; }
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
     }

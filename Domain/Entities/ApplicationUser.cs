@@ -10,9 +10,16 @@ public class ApplicationUser : IdentityUser
     public string? FirstName { get; set; }
     public int? YearOfBirth { get; set; }
     public DateTime? ParticipationTime { get; set; }
-
     public IEnumerable<Session>? Sessions { get; set; }
     public IEnumerable<Teachable>? Teachables { get; set; }
     public IEnumerable<Enrollment>? Enrollments { get; set; }
     public IEnumerable<GameHistory>? GameHistories { get; set; }
+    public IEnumerable<ApplicationUser>? ApplicationUsers { get; set; }
+
+    [ForeignKey(nameof(Student))]
+    public Guid? StudentId { get; set; }
+    public Student? Student { get; set; }
+    [ForeignKey(nameof(Teacher))]
+    public Guid? TeacherId { get; set; }
+    public Teacher? Teacher { get; set; }
 }
