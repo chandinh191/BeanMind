@@ -141,6 +141,40 @@ public class ApplicationDbContextInitialiser
                 await _userManager.AddToRolesAsync(defaultStudentUser, new[] { studentRole.Name });
             }
         }
+
+        // Teacher Account User
+        var levels = new List<string> { "Thạc sĩ", "Tiến sĩ" , "Giáo sư" , "Thực tập viên" , "Giảng viên" };
+        var experiences = new List<string> { "Đang giảng dạy tại FPT University",
+            "Đã giảng dạy tại FPT University ở các vị trí tương đương", 
+            "8 năm kinh nghiệm giảng dạy cho trẻ nhỏ", 
+            "Làm việc cho Nasa 12 năm", 
+            "Tốt nghiệp khóa đào tạo giảng dạy chuyên nghiệp" };
+        var random = new Random();
+        for (int i = 1; i <= 5; i++)
+        {
+            var user = new ApplicationUser
+            {
+                Email = "TeacherTesting" + i + "@localhost.com",
+                UserName = "TeacherTesting" + i + "@localhost.com",
+                EmailConfirmed = true
+            };
+            if (_userManager.Users.FirstOrDefault(u => u.Email.Equals(user.Email)) == null)
+            {
+                await _userManager.CreateAsync(user, "Abc@123!");
+                if (!string.IsNullOrWhiteSpace(teacherRole.Name))
+                {
+                    await _userManager.AddToRolesAsync(defaultStudentUser, new[] { teacherRole.Name });
+                }
+            }
+            await _context.Teachers.AddAsync(new Teacher
+            {
+                Id = new Guid(),
+                ApplicationUserId = user.Id,
+                Image = "https://static.vecteezy.com/system/resources/previews/019/153/517/original/avatar-of-a-teacher-character-free-vector.jpg",
+                Experience = experiences[random.Next(experiences.Count)],
+                Level = levels[random.Next(levels.Count)]
+            });
+        }
     }
 
     public async Task SeedingData()

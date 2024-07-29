@@ -7,6 +7,7 @@ namespace Domain.Entities;
 public class Course : BaseAuditableEntity
 {
     public string Title { get; set; }
+    public string Image { get; set; }
     public string Description { get; set; }
     public int TotalSlot { get; set; }
     [Required]
