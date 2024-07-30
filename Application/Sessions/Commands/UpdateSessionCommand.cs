@@ -1,5 +1,6 @@
 ﻿using Application.Common;
 using AutoMapper;
+using Domain.Entities;
 using Infrastructure.Data;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -35,18 +36,19 @@ namespace Application.Sessions.Commands
 
         public async Task<BaseResponse<GetBriefSessionResponseModel>> Handle(UpdateSessionCommand request, CancellationToken cancellationToken)
         {
-            if (request.TeachingSlotId != null)
+            var session = await _context.Sessions.FirstOrDefaultAsync(x => x.Id == request.Id);
+            if (session == null)
             {
-                var teachingSlot = await _context.TeachingSlots.FirstOrDefaultAsync(x => x.Id == request.TeachingSlotId);
-                if (teachingSlot == null)
+                return new BaseResponse<GetBriefSessionResponseModel>
                 {
-                    return new BaseResponse<GetBriefSessionResponseModel>
-                    {
-                        Success = false,
-                        Message = "Teaching slot not found",
-                    };
-                }
+                    Success = false,
+                    Message = "Session is not found",
+                    Errors = ["Session is not found"]
+                };
             }
+            string applicationUserId = "";
+            Guid? courseId = new Guid();
+
             if (request.ApplicationUserId != null)
             {
                 var applicationUser = await _context.ApplicationUsers.FirstOrDefaultAsync(x => x.Id == request.ApplicationUserId);
@@ -58,17 +60,42 @@ namespace Application.Sessions.Commands
                         Message = "User not found",
                     };
                 }
+                applicationUserId = request.ApplicationUserId;
+            }
+            else
+            {
+                applicationUserId = session.ApplicationUserId;
             }
 
-            var session = await _context.Sessions.FirstOrDefaultAsync(x => x.Id == request.Id);
+            if (request.TeachingSlotId != null)
+            {
+                var teachingSlot = await _context.TeachingSlots.FirstOrDefaultAsync(x => x.Id == request.TeachingSlotId);
+                if (teachingSlot == null)
+                {
+                    return new BaseResponse<GetBriefSessionResponseModel>
+                    {
+                        Success = false,
+                        Message = "Teaching slot not found",
+                    };
+                }
+                courseId = teachingSlot.CourseId;
+            }
+            else
+            {
+                var teachingSlot = await _context.TeachingSlots.FirstOrDefaultAsync(x => x.Id == session.TeachingSlotId);
+                courseId = teachingSlot.CourseId;
+            }
 
-            if (session == null)
+            //Check User Teachable
+            var teachable = await _context.Teachables
+                    .Where(o => o.Status == true)
+                    .FirstOrDefaultAsync(x => x.ApplicationUserId == applicationUserId && x.CourseId == courseId);
+            if (teachable == null)
             {
                 return new BaseResponse<GetBriefSessionResponseModel>
                 {
                     Success = false,
-                    Message = "Session is not found",
-                    Errors = ["Session is not found"]
+                    Message = "User are not able to teach this course",
                 };
             }
 

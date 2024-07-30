@@ -31,5 +31,7 @@
         public const string WorksheetQuestionRoute = BaseApi + "/worksheet-questions";
         public const string WorksheetTemplateRoute = BaseApi + "/worksheet-templates";
 
+        public const string TeacherRoute = BaseApi + "/teachers";
+        public const string StudentRoute = BaseApi + "/students";
     }
 }

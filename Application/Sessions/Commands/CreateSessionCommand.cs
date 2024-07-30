@@ -37,7 +37,6 @@ namespace Application.Sessions.Commands
         public async Task<BaseResponse<GetBriefSessionResponseModel>> Handle(CreateSessionCommand request, CancellationToken cancellationToken)
         {
             var applicationUser = await _context.ApplicationUsers.FirstOrDefaultAsync(x => x.Id == request.ApplicationUserId);
-
             if (applicationUser == null)
             {
                 return new BaseResponse<GetBriefSessionResponseModel>
@@ -48,7 +47,6 @@ namespace Application.Sessions.Commands
             }
 
             var teachingSlot = await _context.TeachingSlots.FirstOrDefaultAsync(x => x.Id == request.TeachingSlotId);
-
             if (teachingSlot == null)
             {
                 return new BaseResponse<GetBriefSessionResponseModel>
@@ -56,6 +54,20 @@ namespace Application.Sessions.Commands
                     Success = false,
                     Message = "Teaching slot not found",
                 };
+            }
+            else
+            {
+                var teachable = await _context.Teachables
+                    .Where(o => o.Status == true)
+                    .FirstOrDefaultAsync(x => x.ApplicationUserId == request.ApplicationUserId && x.CourseId == teachingSlot.CourseId);
+                if (teachable == null)
+                {
+                    return new BaseResponse<GetBriefSessionResponseModel>
+                    {
+                        Success = false,
+                        Message = "User are not able to teach this course",
+                    };
+                }
             }
 
             var session = _mapper.Map<Domain.Entities.Session>(request);

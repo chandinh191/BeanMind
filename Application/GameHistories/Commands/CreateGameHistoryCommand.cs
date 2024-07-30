@@ -23,7 +23,7 @@ namespace Application.GameHistories.Commands
         public string? ApplicationUserId { get; set; }
         [Required]
         public int Point { get; set; }
-        public TimeOnly Duration { get; set; }
+        public int Duration { get; set; }
     }
 
     public class CreateGameHistoryCommandHanler : IRequestHandler<CreateGameHistoryCommand, BaseResponse<GetBriefGameHistoryResponseModel>>

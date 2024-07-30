@@ -51,14 +51,14 @@ namespace Application.Users.Queries
                 return new BaseResponse<Pagination<GetUserInfoResponseModel>>
                 {
                     Success = false,
-                    Message = "Get PaginatedList user failed",
+                    Message = "Get paginated list user failed",
                 };
             }
 
             return new BaseResponse<Pagination<GetUserInfoResponseModel>>
             {
                 Success = true,
-                Message = "Get PaginatedList course successful",
+                Message = "Get paginated list user successful",
                 Data = createPaginatedListResult,
             };
         }
