@@ -1,7 +1,6 @@
 ﻿using Application.Common;
 using Infrastructure.Common.Email;
 using Infrastructure.Services;
-using Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -10,6 +9,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using System.Text;
 using System.Text.Encodings.Web;
 using Microsoft.Extensions.Configuration;
+using Domain.Entities.UserEntities;
 
 namespace Application.Users.Commands;
 

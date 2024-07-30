@@ -1,6 +1,6 @@
 ﻿using Application.Common;
 using Application.Helpers;
-using Domain.Entities;
+using Domain.Entities.UserEntities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

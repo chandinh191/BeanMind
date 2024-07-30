@@ -1,12 +1,12 @@
 ﻿using Application.Common;
 using Infrastructure.Services;
-using Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Configuration;
 using System.Net;
 using System.Text;
+using Domain.Entities.UserEntities;
 
 namespace Application.Users.Commands;
 

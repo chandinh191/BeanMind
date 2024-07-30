@@ -1,5 +1,4 @@
-﻿using Domain.Entities;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -9,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Domain.Constants;
 using System.Data;
 using Application.Users;
+using Domain.Entities.UserEntities;
 
 namespace Application.Helpers;
 

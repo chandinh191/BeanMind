@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Entities
+namespace Domain.Entities.UserEntities
 {
     public class Teacher : BaseAuditableEntity
     {
@@ -16,7 +16,7 @@ namespace Domain.Entities
         public string ApplicationUserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
         public string Experience { get; set; }
-        public string Image {  get; set; }
+        public string Image { get; set; }
         public string Level { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Application.Common;
 using AutoMapper;
-using Domain.Entities;
+using Domain.Entities.UserEntities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 

@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace Domain.Entities;
+namespace Domain.Entities.UserEntities;
 
 public class ApplicationUser : IdentityUser
 {
@@ -14,7 +14,7 @@ public class ApplicationUser : IdentityUser
     public IEnumerable<Teachable>? Teachables { get; set; }
     public IEnumerable<Enrollment>? Enrollments { get; set; }
     public IEnumerable<GameHistory>? GameHistories { get; set; }
-    public IEnumerable<ApplicationUser>? ApplicationUsers { get; set; }
+    //public IEnumerable<ApplicationUser>? ApplicationUsers { get; set; }
 
     [ForeignKey(nameof(Student))]
     public Guid? StudentId { get; set; }
@@ -22,4 +22,7 @@ public class ApplicationUser : IdentityUser
     [ForeignKey(nameof(Teacher))]
     public Guid? TeacherId { get; set; }
     public Teacher? Teacher { get; set; }
+    [ForeignKey(nameof(Parent))]
+    public Guid? ParentId { get; set; }
+    public Parent? Parent { get; set; }
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Domain.Entities.UserEntities;
 
 namespace Application.Users;
 
@@ -10,7 +11,7 @@ public sealed record class AccessTokenResponseModel
     public required string RefreshToken { get; init; }
 }
 
-[AutoMap(typeof(Domain.Entities.ApplicationUser))]
+[AutoMap(typeof(ApplicationUser))]
 public sealed record class GetUserInfoResponseModel
 {
     public required string Id { get; set; }

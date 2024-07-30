@@ -1,7 +1,7 @@
 ﻿using Application.Common;
 using Application.Courses;
 using AutoMapper;
-using Domain.Entities;
+using Domain.Entities.UserEntities;
 using Domain.Enums;
 using Infrastructure.Data;
 using MediatR;

@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Application.Common;
-using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using System.Text;
@@ -9,6 +8,7 @@ using Microsoft.AspNetCore.Routing;
 using Infrastructure.Services;
 using System.Text.RegularExpressions;
 using Domain.Constants;
+using Domain.Entities.UserEntities;
 
 namespace Application.Users.Commands;
 

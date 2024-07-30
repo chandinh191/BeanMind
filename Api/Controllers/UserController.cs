@@ -12,9 +12,9 @@ using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
-using Domain.Entities;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using Application.QuestionLevels.Queries;
+using Domain.Entities.UserEntities;
 
 namespace Api.Controllers;
 

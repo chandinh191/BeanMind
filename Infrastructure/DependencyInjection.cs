@@ -1,12 +1,12 @@
 ﻿using Infrastructure.Common.Email;
 using Infrastructure.Data;
-using Domain.Entities;
 using Infrastructure.Services.Impl;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Domain.Entities.UserEntities;
 
 namespace Infrastructure;
 
