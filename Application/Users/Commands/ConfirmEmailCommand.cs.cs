@@ -40,9 +40,9 @@ public class ConfirmEmailCommandHandler : IRequestHandler<ConfirmEmailCommand, B
         {
             decodedToken = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(request.Code));
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            return new BaseResponse<string> { Success = false, Message = "Token is not valid" };
+            return new BaseResponse<string> { Success = false, Message = "Token is not valid \n" + ex.Message};
         }
 
         // confirm email

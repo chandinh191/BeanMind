@@ -2,6 +2,7 @@
 using Application.Common;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.WebUtilities;
 using System.Text;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.AspNetCore.Routing;
@@ -9,6 +10,7 @@ using Infrastructure.Services;
 using System.Text.RegularExpressions;
 using Domain.Constants;
 using Domain.Entities.UserEntities;
+using Microsoft.AspNetCore.Http;
 
 namespace Application.Users.Commands;
 
@@ -22,17 +24,19 @@ public record class RegisterUserCommand : IRequest<BaseResponse<string>>
 public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, BaseResponse<string>>
 {
     private readonly UserManager<ApplicationUser> _userManager;
-    //private readonly IHttpContextAccessor _contextAccessor;
+    private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IConfiguration _configuration;
     private readonly LinkGenerator _linkGenerator;
     private readonly IEmailService _emailService;
 
-    public RegisterUserCommandHandler(UserManager<ApplicationUser> userManager, IConfiguration configuration, LinkGenerator linkGenerator, IEmailService emailService)
+    public RegisterUserCommandHandler(UserManager<ApplicationUser> userManager, IConfiguration configuration, LinkGenerator linkGenerator, 
+        IEmailService emailService, IHttpContextAccessor httpContextAccessor)
     {
         _userManager = userManager;
         _configuration = configuration;
         _linkGenerator = linkGenerator;
         _emailService = emailService;
+        _httpContextAccessor = httpContextAccessor;
     }
 
     public async Task<BaseResponse<string>> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
@@ -100,8 +104,13 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, B
                 { "email", user.Email},
                 { "code", token },
             };
-                var mailConfirmationEndpoint = _configuration.GetValue<string>("MailConfirmationUrl") ?? throw new NotSupportedException("MailConfirmationUrl is not existed");
-                var confirmEmailUrl = QueryHelpers.AddQueryString(mailConfirmationEndpoint ?? "", queryParams);
+                // Ensure HttpContext is available
+                var Request = _httpContextAccessor.HttpContext.Request;
+                var baseUrl = $"{Request.Scheme}://{Request.Host}{Request.PathBase}"+ "/api/v1/auth/confirmEmail";
+
+                //var mailConfirmationEndpoint = _configuration.GetValue<string>("MailConfirmationUrl") ?? throw new NotSupportedException("MailConfirmationUrl is not existed");
+
+                var confirmEmailUrl = QueryHelpers.AddQueryString(baseUrl ?? "", queryParams);
 
                 // send email
                 try

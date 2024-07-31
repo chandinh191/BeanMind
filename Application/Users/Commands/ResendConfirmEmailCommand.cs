@@ -21,17 +21,19 @@ public record class ResendConfirmEmailCommand : IRequest<BaseResponse<string>>
 public class ResendConfirmEmailCommandHandler : IRequestHandler<ResendConfirmEmailCommand, BaseResponse<string>>
 {
     private readonly UserManager<ApplicationUser> _userManager;
-    //private readonly IHttpContextAccessor _contextAccessor;
+    private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IConfiguration _configuration;
     private readonly LinkGenerator _linkGenerator;
     private readonly IEmailService _emailService;
 
-    public ResendConfirmEmailCommandHandler(UserManager<ApplicationUser> userManager, IConfiguration configuration, LinkGenerator linkGenerator, IEmailService emailService)
+    public ResendConfirmEmailCommandHandler(UserManager<ApplicationUser> userManager, IConfiguration configuration, LinkGenerator linkGenerator, 
+        IEmailService emailService, IHttpContextAccessor httpContextAccessor)
     {
         _userManager = userManager;
         _configuration = configuration;
         _linkGenerator = linkGenerator;
         _emailService = emailService;
+        _httpContextAccessor = httpContextAccessor;
     }
 
     public async Task<BaseResponse<string>> Handle(ResendConfirmEmailCommand request, CancellationToken cancellationToken)
@@ -65,8 +67,10 @@ public class ResendConfirmEmailCommandHandler : IRequestHandler<ResendConfirmEma
             { "email", token },
             { "code", token },
         };
-        var mailConfirmationEndpoint = _configuration.GetValue<string>("MailConfirmationUrl") ?? throw new NotSupportedException("MailConfirmationUrl is not existed");
-        var confirmEmailUrl = QueryHelpers.AddQueryString(mailConfirmationEndpoint ?? "" , queryParams);
+        var Request = _httpContextAccessor.HttpContext.Request;
+        var baseUrl = $"{Request.Scheme}://{Request.Host}{Request.PathBase}" + "/api/v1/auth/confirmEmail";
+        //var mailConfirmationEndpoint = _configuration.GetValue<string>("MailConfirmationUrl") ?? throw new NotSupportedException("MailConfirmationUrl is not existed");
+        var confirmEmailUrl = QueryHelpers.AddQueryString(baseUrl ?? "" , queryParams);
 
         // send email
         try

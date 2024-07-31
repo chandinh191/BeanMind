@@ -19,7 +19,7 @@ public static class DependencyInjection
             //    "Infrastructure"
             //});
         });
-
+        services.AddHttpContextAccessor();
         // register mediator service
         services.AddMediatR(cfg =>
         {

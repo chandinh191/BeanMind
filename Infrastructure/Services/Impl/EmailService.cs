@@ -68,7 +68,12 @@ public class EmailService : IEmailService
     public async Task SendConfirmMailAsync(string email, string confirmationlink)
     {
         var subject = "Confirmation Your Email Address";
-        var body = $"<p>Dear User,</p>\r\n    <p>Thank you for registering. Please click on the link below to confirm your email address and complete your registration:</p>\r\n    <a href=\"{HtmlEncoder.Default.Encode(confirmationlink)}\">Confirm Email</a>\r\n    <p>If you did not register for our service, please ignore this email.</p>\r\n    <p>Best,</p>\r\n    <p>RaeKyo Inc.</p>";
+        var body = $"<p>Dear User,</p>\r\n    " +
+            $"<p>Thank you for registering. Please click on the link below to confirm your email address and complete your registration:</p>\r\n    " +
+            $"<a href=\"{HtmlEncoder.Default.Encode(confirmationlink)}\">Confirm Email</a>\r\n    " +
+            $"<p>If you did not register for our service, please ignore this email.</p>\r\n    " +
+            $"<p>Best,</p>\r\n    " +
+            $"<p>RaeKyo Inc.</p>";
         await SendEmailAsync(EmailMessage.Create(email, body, subject));
     }
 

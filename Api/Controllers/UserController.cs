@@ -16,6 +16,7 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using Application.QuestionLevels.Queries;
 using Domain.Entities.UserEntities;
 using Application.Topics.Queries;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Api.Controllers;
 
@@ -122,9 +123,16 @@ public class AuthController : ControllerBase
 
     [HttpGet]
     [Route(RouteNameValues.ConfirmEmail, Name = RouteNameValues.ConfirmEmail)]
-    public async Task<BaseResponse<string>> ConfirmEmailAccount(ISender sender, [FromQuery] ConfirmEmailCommand command)
+    public async Task<IActionResult> ConfirmEmailAccount(ISender sender, [FromQuery] ConfirmEmailCommand command)
     {
-        return await sender.Send(command);
+        var result = await sender.Send(command);
+        if (result.Success) {
+            return Redirect("https://www.sender.net/wp-content/uploads/2023/09/b0205-email-confirmation-small.webp");
+        }
+        return new ObjectResult(result)
+        {
+            StatusCode = result.Code
+        };
     }
 
     [HttpPost]
@@ -136,9 +144,13 @@ public class AuthController : ControllerBase
 
     [HttpPost]
     [Route(RouteNameValues.Login, Name = RouteNameValues.Login)]
-    public async Task<BaseResponse<AccessTokenResponseModel>> Login(ISender sender, [FromBody] LoginCommand command)
+    public async Task<IActionResult> Login(ISender sender, [FromBody] LoginCommand command)
     {
-        return await sender.Send(command);
+        var result = await sender.Send(command);
+        return new ObjectResult(result)
+        {
+            StatusCode = result.Code
+        };
     }
 
     [HttpPost]
@@ -150,9 +162,13 @@ public class AuthController : ControllerBase
 
     [HttpPost]
     [Route(RouteNameValues.ResendConfirmEmail, Name = RouteNameValues.ResendConfirmEmail)]
-    public async Task<BaseResponse<string>> ResendConfirmEmail(ISender sender, [FromBody] ResendConfirmEmailCommand command)
+    public async Task<IActionResult> ResendConfirmEmail(ISender sender, [FromBody] ResendConfirmEmailCommand command)
     {
-        return await sender.Send(command);
+        var result = await sender.Send(command);
+        return new ObjectResult(result)
+        {
+            StatusCode = result.Code
+        };
     }
 
     [HttpPost]
