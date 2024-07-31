@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Identity;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using Application.QuestionLevels.Queries;
 using Domain.Entities.UserEntities;
+using Application.Topics.Queries;
 
 namespace Api.Controllers;
 
@@ -95,19 +96,27 @@ public class AuthController : ControllerBase
     }
 
     [HttpGet]
+    [Route("info/{id}")]
+    public async Task<BaseResponse<GetUserInfoResponseModel>> UserInfoById(ISender sender, [FromRoute] string id)
+    {
+        var query = new GetUserInfoQuery
+        {
+            UserId = id,
+        };
+        return await sender.Send(query);
+    }
+
+    [HttpGet]
     [Route(RouteNameValues.Info, Name = RouteNameValues.Info)]
     public async Task<BaseResponse<GetUserInfoResponseModel>> UserInfo(ISender sender)
     {
         // get claim from user object
         var claimIdentity = HttpContext.User.Identity as ClaimsIdentity;
-
         var userId = claimIdentity.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
         var query = new GetUserInfoQuery
         {
             UserId = userId,
         };
-
         return await sender.Send(query);
     }
 

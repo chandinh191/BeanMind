@@ -1,5 +1,9 @@
-﻿using AutoMapper;
+﻿using Application.Parents;
+using Application.Students;
+using Application.Teachers;
+using AutoMapper;
 using Domain.Entities.UserEntities;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Application.Users;
 
@@ -16,11 +20,17 @@ public sealed record class GetUserInfoResponseModel
 {
     public required string Id { get; set; }
     public required string UserName { get; set; }
+    public string LastName { get; set; }
+    public string FirstName { get; set; }
+    public int YearOfBirth { get; set; }
     public required string PhoneNumber { get; set; }
     public required string Email { get; set; }
     public required bool EmailConfirmed { get; set; }
-
-
-    // custom attrib
+    public Guid StudentId { get; set; }
+    public GetBriefStudentResponseModel Student { get; set; }
+    public Guid TeacherId { get; set; }
+    public GetBriefTeacherResponseModel Teacher { get; set; }
+    public Guid ParentId { get; set; }
+    public GetBriefParentResponseModel Parent { get; set; }
     public required List<string> Roles { get; set; }
 }
