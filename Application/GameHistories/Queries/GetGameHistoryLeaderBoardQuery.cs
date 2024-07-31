@@ -1,5 +1,6 @@
 ﻿using Application.Common;
 using AutoMapper;
+using Domain.Entities;
 using Domain.Enums;
 using Infrastructure.Data;
 using MediatR;
@@ -61,16 +62,6 @@ namespace Application.GameHistories.Queries
                 gameHistories = gameHistories.Where(x => x.GameId == request.GameId);
             }
 
-            // filter by filter date
-            if (request.SortBy == SortBy.Ascending)
-            {
-                gameHistories = gameHistories.OrderBy(x => x.Point);
-            }
-            else if (request.SortBy == SortBy.Descending)
-            {
-                gameHistories = gameHistories.OrderByDescending(x => x.Point);
-            }
-
             // filter by start time and end time
             if (request.StartTime != DateTime.MinValue)
             {
@@ -83,11 +74,27 @@ namespace Application.GameHistories.Queries
                 gameHistories = gameHistories.Where(o => o.Created <= request.EndTime);
             }
 
-            // Get top gameHistories
-            gameHistories = gameHistories.Take(request.Top);           
+            // Filter duplicate users, selecting the one with the highest points
+            List<GameHistory> topGameHistories;
+            if (request.SortBy == SortBy.Ascending)
+            {
+                topGameHistories = gameHistories
+                    .GroupBy(x => x.ApplicationUserId)
+                    .Select(g => g.OrderBy(x => x.Point).First())
+                    .Take(request.Top)
+                    .ToList();
+            }
+            else
+            {
+                topGameHistories = gameHistories
+                    .GroupBy(x => x.ApplicationUserId)
+                    .Select(g => g.OrderByDescending(x => x.Point).First())
+                    .Take(request.Top)
+                    .ToList();
+            }
 
             // convert the list of item to list of response model
-            var mappedGameHistories = _mapper.Map<List<GetGameHistoryResponseModel>>(gameHistories);
+            var mappedGameHistories = _mapper.Map<List<GetGameHistoryResponseModel>>(topGameHistories);
 
             if (mappedGameHistories == null)
             {

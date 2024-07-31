@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualBasic;
 using System.ComponentModel;
+using Newtonsoft.Json;
 
 namespace Infrastructure.Data;
 
@@ -169,39 +170,8 @@ public class ApplicationDbContextInitialiser
                 Id = new Guid(),
                 ApplicationUserId = user.Id,
                 Image = "https://static.vecteezy.com/system/resources/previews/019/153/517/original/avatar-of-a-teacher-character-free-vector.jpg",
-                //Experience = experiences[random.Next(experiences.Count)],
                 Experience = experiences[i],
-                //Level = levels[random.Next(levels.Count)]
                 Level = levels[i]
-            });
-        }
-        // Student Account User
-        var schools = new List<string> { "Tiểu học Việt Anh", "Tiểu học Quốc tế Hà Nội", "Tiểu học Nam Việt", "Tiểu Học Marie Curie", "Tiểu học Đinh Thiện Lý" };
-        var classes = new List<string> { "Lớp 1", "Lớp 2", "Lớp 3", "Lớp 4", "Lớp 5", };
-        for (int i = 0; i < 5; i++)
-        {
-            var user = new ApplicationUser
-            {
-                Id = "954b8b1b-1b5f-42f6-9e27-4aa65cc7e4b" + i.ToString(),
-                Email = "StudentTesting" + i + "@localhost.com",
-                UserName = "StudentTesting" + i + "@localhost.com",
-                EmailConfirmed = true
-            };
-            if (_userManager.Users.FirstOrDefault(u => u.Email.Equals(user.Email)) == null)
-            {
-                await _userManager.CreateAsync(user, "Abc@123!");
-                if (!string.IsNullOrWhiteSpace(studentRole.Name))
-                {
-                    await _userManager.AddToRolesAsync(user, new[] { studentRole.Name });
-                }
-            }
-            await _context.Students.AddAsync(new Student
-            {
-                Id = new Guid(),
-                ApplicationUserId = user.Id,
-                Image = i,
-                School = schools[i],
-                Class = classes[i]
             });
         }
         // Parent Account User
@@ -232,8 +202,39 @@ public class ApplicationDbContextInitialiser
                 Gender = (Domain.Enums.Gender)(i % 3)
             });
         }
+        // Student Account User
+        var schools = new List<string> { "Tiểu học Việt Anh", "Tiểu học Quốc tế Hà Nội", "Tiểu học Nam Việt", "Tiểu Học Marie Curie", "Tiểu học Đinh Thiện Lý" };
+        var classes = new List<string> { "Lớp 1", "Lớp 2", "Lớp 3", "Lớp 4", "Lớp 5", };
+        for (int i = 0; i < 5; i++)
+        {
+            var user = new ApplicationUser
+            {
+                Id = "954b8b1b-1b5f-42f6-9e27-4aa65cc7e4b" + i.ToString(),
+                Email = "StudentTesting" + i + "@localhost.com",
+                UserName = "StudentTesting" + i + "@localhost.com",
+                EmailConfirmed = true
+            };
+            if (_userManager.Users.FirstOrDefault(u => u.Email.Equals(user.Email)) == null)
+            {
+                await _userManager.CreateAsync(user, "Abc@123!");
+                if (!string.IsNullOrWhiteSpace(studentRole.Name))
+                {
+                    await _userManager.AddToRolesAsync(user, new[] { studentRole.Name });
+                }
+            }
+            await _context.Students.AddAsync(new Student
+            {
+                Id = new Guid(),
+                ApplicationUserId = user.Id,
+                //ParentId = new Guid("ae8ab566-70fb-445a-81da-a414f04462c"+i.ToString()),
+                Image = i,
+                School = schools[i],
+                Class = classes[i]
+            });
+        }
     }
-
+  
+     
     public async Task SeedingData()
     {
         await _context.Database.BeginTransactionAsync();
@@ -697,51 +698,8 @@ public class ApplicationDbContextInitialiser
             });
             // -----------
             // Game table
-            await _context.Games.AddAsync(new Game
-            {
-                Id = new Guid("3ae42c10-7dbe-4e71-a52c-c19c44e3c4a0"),
-                Name = "Khám phá đại dương",
-                Description = "Description Game",
-                Image = "https://t4.ftcdn.net/jpg/04/42/21/53/360_F_442215355_AjiR6ogucq3vPzjFAAEfwbPXYGqYVAap.jpg",
-                ItemStoreJson = "",
-                AnimalJson = ""
-            });
-            await _context.Games.AddAsync(new Game
-            {
-                Id = new Guid("49299e7c-fa16-45fd-84e4-1a725c118a9f"),
-                Name = "Nông trại vui vẻ",
-                Description = "Description Game",
-                Image = "https://img.freepik.com/free-photo/man-neon-suit-sits-chair-with-neon-sign-that-says-word-it_188544-27011.jpg?size=626&ext=jpg&ga=GA1.1.2008272138.1722124800&semt=sph",
-                ItemStoreJson = "",
-                AnimalJson = ""
-            });
-            await _context.Games.AddAsync(new Game
-            {
-                Id = new Guid("ead13199-827d-4c48-5d08-08dcafad932c"),
-                Name = "Sắp xếp số",
-                Description = "Description Game",
-                Image = "https://img.freepik.com/free-photo/man-neon-suit-sits-chair-with-neon-sign-that-says-word-it_188544-27011.jpg?size=626&ext=jpg&ga=GA1.1.2008272138.1722124800&semt=sph",
-                ItemStoreJson = "",
-                AnimalJson = ""
-            });
-            await _context.Games.AddAsync(new Game
-            {
-                Id = new Guid("c296495f-342e-4fd6-5d09-08dcafad932c"),
-                Name = "Trò chơi mua sắm",
-                Description = "Description Game",
-                Image = "https://img.freepik.com/free-photo/man-neon-suit-sits-chair-with-neon-sign-that-says-word-it_188544-27011.jpg?size=626&ext=jpg&ga=GA1.1.2008272138.1722124800&semt=sph",
-                ItemStoreJson = "",
-                AnimalJson = ""
-            });
-            await _context.Games.AddAsync(new Game
-            {
-                Id = new Guid("59141c9e-7dd3-4c76-5d0a-08dcafad932c"),
-                Name = "Số lẻ và số chẵn",
-                Description = "Description Game",
-                Image = "https://img.freepik.com/free-photo/man-neon-suit-sits-chair-with-neon-sign-that-says-word-it_188544-27011.jpg?size=626&ext=jpg&ga=GA1.1.2008272138.1722124800&semt=sph",
-                ItemStoreJson = "",
-                AnimalJson = ""
-            });
+            await ContextInitializerHelper.SeedGamesAsync(_context);
+
             // -----------
             // GameHistories table
             await _context.GameHistories.AddAsync(new GameHistory
@@ -810,4 +768,18 @@ public class ApplicationDbContextInitialiser
         int range = (DateTime.Today - start.ToDateTime(TimeOnly.MinValue)).Days;
         return start.AddDays(random.Next(range));
     }
-} 
+
+
+    public class GameSeed
+    {
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string Image { get; set; }
+        public string ItemStoreJson { get; set; }
+        public string AnimalJson { get; set; }
+        public Guid Id { get; set; }
+        public bool IsDeleted { get; set; }
+    }
+
+   
+}
