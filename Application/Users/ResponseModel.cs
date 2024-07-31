@@ -34,3 +34,18 @@ public sealed record class GetUserInfoResponseModel
     public GetBriefParentResponseModel Parent { get; set; }
     public required List<string> Roles { get; set; }
 }
+[AutoMap(typeof(ApplicationUser))]
+public sealed record class GetParentUserInfoResponseModel
+{
+    public required string Id { get; set; }
+    public required string UserName { get; set; }
+    public string LastName { get; set; }
+    public string FirstName { get; set; }
+    public int YearOfBirth { get; set; }
+    public required string PhoneNumber { get; set; }
+    public required string Email { get; set; }
+    public required bool EmailConfirmed { get; set; }
+    public Guid ParentId { get; set; }
+    public GetParentResponseModel Parent { get; set; }
+    public required List<string> Roles { get; set; }
+}

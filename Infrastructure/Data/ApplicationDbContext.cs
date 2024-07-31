@@ -66,24 +66,11 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-        /*builder.Entity<SessionGroup>(session =>
+/*        builder.Entity<Student>(student =>
         {
-            session
-                .HasOne(r => r.ProgramType)
-                .WithMany(c => c.SessionGroups)
-                .IsRequired()
-                .OnDelete(DeleteBehavior.NoAction);
-
-            session
-                .HasOne(r => r.CourseLevel)
-                .WithMany(p => p.SessionGroups)
-                .IsRequired()
-                .OnDelete(DeleteBehavior.NoAction);
-
-            session
-                .HasOne(r => r.ApplicationUser)
-                .WithMany(p => p.SessionGroups)
-                .IsRequired()
+            student
+                .HasOne(r => r.Parent)
+                .WithMany(p => p.Students)
                 .OnDelete(DeleteBehavior.NoAction);
         });*/
         builder.Entity<Participant>(session =>

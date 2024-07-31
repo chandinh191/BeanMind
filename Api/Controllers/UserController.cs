@@ -17,6 +17,7 @@ using Application.QuestionLevels.Queries;
 using Domain.Entities.UserEntities;
 using Application.Topics.Queries;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using Application.Parents;
 
 namespace Api.Controllers;
 
@@ -101,6 +102,16 @@ public class AuthController : ControllerBase
     public async Task<BaseResponse<GetUserInfoResponseModel>> UserInfoById(ISender sender, [FromRoute] string id)
     {
         var query = new GetUserInfoQuery
+        {
+            UserId = id,
+        };
+        return await sender.Send(query);
+    }
+    [HttpGet]
+    [Route("parentinfo/{id}")]
+    public async Task<BaseResponse<GetParentUserInfoResponseModel>> UserInfoByParent(ISender sender, [FromRoute] string id)
+    {
+        var query = new GetParentUserInfoQuery
         {
             UserId = id,
         };

@@ -21,7 +21,6 @@
 	  <Folder Include="ApplicationUsers\Commands\" />
 	  <Folder Include="ApplicationUsers\Queries\" />
 	  <Folder Include="Parents\Commands\" />
-	  <Folder Include="Parents\Queries\" />
 	  <Folder Include="Students\Commands\" />
 	  <Folder Include="Students\Queries\" />
 	</ItemGroup>

@@ -31,6 +31,7 @@ public static class InitialiserExtensions
             catch (Exception ex)
             {
                 Console.WriteLine($"An error occurred while seeding the database: {ex.Message}");
+                //throw new Exception(ex.Message, ex);
             }
         }
     }
@@ -194,7 +195,7 @@ public class ApplicationDbContextInitialiser
             }
             await _context.Parents.AddAsync(new Parent
             {
-                Id = new Guid(),
+                Id = new Guid("4977e82e-9592-475b-a6fa-10942721c6d"+i.ToString()),
                 ApplicationUserId = user.Id,
                 Address = "Lô E2a-7, Đường D1, Đ. D1, Long Thạnh Mỹ, Thành Phố Thủ Đức, Hồ Chí Minh 700000, Việt Nam",
                 Phone = "0987654321",
@@ -209,7 +210,7 @@ public class ApplicationDbContextInitialiser
         {
             var user = new ApplicationUser
             {
-                Id = "954b8b1b-1b5f-42f6-9e27-4aa65cc7e4b" + i.ToString(),
+                Id = "954b8b1b-1b5f-42f6-9e27-4aa65cc7e7b" + i.ToString(),
                 Email = "StudentTesting" + i + "@localhost.com",
                 UserName = "StudentTesting" + i + "@localhost.com",
                 EmailConfirmed = true
@@ -226,7 +227,7 @@ public class ApplicationDbContextInitialiser
             {
                 Id = new Guid(),
                 ApplicationUserId = user.Id,
-                //ParentId = new Guid("ae8ab566-70fb-445a-81da-a414f04462c"+i.ToString()),
+                ParentId = new Guid("4977e82e-9592-475b-a6fa-10942721c6d" + i.ToString()),
                 Image = i,
                 School = schools[i],
                 Class = classes[i]

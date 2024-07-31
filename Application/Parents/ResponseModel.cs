@@ -1,5 +1,6 @@
 ﻿using Application.ApplicationUsers;
 using Application.Common;
+using Application.Students;
 using AutoMapper;
 using Domain.Entities.UserEntities;
 using Domain.Enums;
@@ -28,6 +29,7 @@ namespace Application.Parents
     {
         public string ApplicationUserId { get; set; }
         public GetBriefApplicationUserResponseModel ApplicationUser { get; set; }
+        public List<GetBriefStudentResponseModel> Students { get; set; }
         public string Address { get; set; }
         public string Address1 { get; set; }
         public string Address2 { get; set; }
