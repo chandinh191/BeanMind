@@ -1,4 +1,5 @@
-﻿using Application.Common;
+﻿using Application.ApplicationUsers;
+using Application.Common;
 using AutoMapper;
 using Domain.Entities.UserEntities;
 using Domain.Enums;
@@ -26,7 +27,7 @@ namespace Application.Parents
     public class GetParentResponseModel : BaseResponseModel
     {
         public string ApplicationUserId { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
+        public GetBriefApplicationUserResponseModel ApplicationUser { get; set; }
         public string Address { get; set; }
         public string Address1 { get; set; }
         public string Address2 { get; set; }

@@ -26,7 +26,7 @@ namespace Application.Teachers
     public class GetTeacherResponseModel : BaseResponseModel
     {
         public string ApplicationUserId { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
+        public GetBriefApplicationUserResponseModel ApplicationUser { get; set; }
         public string Experience { get; set; }
         public string Image { get; set; }
         public string Level { get; set; }
