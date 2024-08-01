@@ -1,6 +1,8 @@
 ﻿using Application.Common;
 using Application.Sessions.Commands;
 using Application.Sessions.Queries;
+using Application.Students.Commands;
+using Application.Students.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,7 +13,7 @@ namespace Api.Controllers
     public class StudentController : Controller
     {
         [HttpGet]
-        public async Task<IActionResult> GetAll(ISender sender, [FromQuery] GetPaginatedListSessionQuery query)
+        public async Task<IActionResult> GetAll(ISender sender, [FromQuery] GetPaginatedListStudentQuery query)
         {
             var result = await sender.Send(query);
             return new ObjectResult(result)
@@ -23,7 +25,7 @@ namespace Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(ISender sender, [FromRoute] Guid id)
         {
-            var result = await sender.Send(new GetSessionQuery() with
+            var result = await sender.Send(new GetStudentQuery() with
             {
                 Id = id
             });
@@ -34,7 +36,7 @@ namespace Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(ISender sender, [FromBody] CreateSessionCommand command)
+        public async Task<IActionResult> Create(ISender sender, [FromBody] CreateStudentCommand command)
         {
             var result = await sender.Send(command);
             return new ObjectResult(result)
@@ -44,7 +46,7 @@ namespace Api.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(ISender sender, [FromBody] UpdateSessionCommand command)
+        public async Task<IActionResult> Update(ISender sender, [FromBody] UpdateStudentCommand command)
         {
             var result = await sender.Send(command);
             return new ObjectResult(result)
@@ -56,7 +58,7 @@ namespace Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(ISender sender, [FromRoute] Guid id)
         {
-            var result = await sender.Send(new DeleteSessionCommand() with
+            var result = await sender.Send(new DeleteStudentCommand() with
             {
                 Id = id
             });
