@@ -276,8 +276,7 @@ public class ApplicationDbContextInitialiser
         catch (System.Exception ex)
         {
             await _context.Database.RollbackTransactionAsync();
-            //throw;
-            throw new Exception(ex.Message);
+            //throw new Exception(ex.Message);
         }
     } 
 }

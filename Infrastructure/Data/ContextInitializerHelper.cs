@@ -243,8 +243,9 @@ namespace Infrastructure.Data
                     AnimalJson = game.AnimalJson,
                     IsDeleted = game.IsDeleted
                 });
+                await context.SaveChangesAsync();
             }
-            await context.SaveChangesAsync();
+            //await context.SaveChangesAsync();
             //await SeedGameHistoryAsync(context);
         }
 
@@ -631,27 +632,32 @@ namespace Infrastructure.Data
             await _context.QuestionLevels.AddAsync(new QuestionLevel
             {
                 Id = new Guid("26fb0c3c-2f79-4940-ac2c-6ef7ba427d92"),
-                Title = "Dễ"
+                Title = "Dễ",
+                Description ="Dễ"
             });
             await _context.QuestionLevels.AddAsync(new QuestionLevel
             {
                 Id = new Guid("871d2de9-cfca-4ed0-a9a9-658639d664df"),
-                Title = "Trung bình"
+                Title = "Trung bình",
+                Description = "Trung bình"
             });
             await _context.QuestionLevels.AddAsync(new QuestionLevel
             {
                 Id = new Guid("8abb4833-8443-4aab-b996-dc1eff84bd41"),
-                Title = "Khá"
+                Title = "Khá",
+                Description = "Khá"
             });
             await _context.QuestionLevels.AddAsync(new QuestionLevel
             {
                 Id = new Guid("8f45dab4-c1f8-4528-8ca4-ba5f682f847d"),
-                Title = "Khó"
+                Title = "Khó",
+                Description = "Khó"
             });
             await _context.QuestionLevels.AddAsync(new QuestionLevel
             {
                 Id = new Guid("ca44a423-5b69-4953-8e94-8e4b771bef19"),
-                Title = "Cực khó"
+                Title = "Cực khó",
+                Description = "Cực khó"
             });
             // -----------
         }
