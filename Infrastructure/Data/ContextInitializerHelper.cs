@@ -13,7 +13,7 @@ namespace Infrastructure.Data
 {
     public static class ContextInitializerHelper
     {
-        public async static Task SeedGamesAsync(DbContext context)
+        public async static Task Seed_Game_Async(DbContext context)
         {
             var jsonString = @"
         [
@@ -247,14 +247,15 @@ namespace Infrastructure.Data
             await context.SaveChangesAsync();
             //await SeedGameHistoryAsync(context);
         }
-        public async static Task SeedGameHistoryAsync(ApplicationDbContext _context)
+
+        public async static Task Seed_GameHistory_Async(ApplicationDbContext _context)
         {
             // GameHistories table
             await _context.GameHistories.AddAsync(new GameHistory
             {
                 Id = new Guid("f9033f16-8f40-4cce-a687-ac1fac7712a7"),
                 GameId = new Guid("3ae42c10-7dbe-4e71-a52c-c19c44e3c4a0"),
-                ApplicationUserId = "d7896275-9b79-4955-92f2-e1923b5fa05a",
+                ApplicationUserId = "954b8b1b-1b5f-42f6-9e27-4aa65cc7e7b1",
                 Point = 10,
                 Duration = 8
             });
@@ -262,7 +263,7 @@ namespace Infrastructure.Data
             {
                 Id = new Guid("cb23cacd-7e73-4c32-a488-6ea58f1beacf"),
                 GameId = new Guid("3ae42c10-7dbe-4e71-a52c-c19c44e3c4a0"),
-                ApplicationUserId = "d7896275-9b79-4955-92f2-e1923b5fa05b",
+                ApplicationUserId = "954b8b1b-1b5f-42f6-9e27-4aa65cc7e7b2",
                 Point = 14,
                 Duration = 8
             });
@@ -270,7 +271,7 @@ namespace Infrastructure.Data
             {
                 Id = new Guid("352a4f2a-13a7-4ac7-a92e-3cf900ac4425"),
                 GameId = new Guid("3ae42c10-7dbe-4e71-a52c-c19c44e3c4a0"),
-                ApplicationUserId = "d7896275-9b79-4955-92f2-e1923b5fa05a",
+                ApplicationUserId = "954b8b1b-1b5f-42f6-9e27-4aa65cc7e7b2",
                 Point = 95,
                 Duration = 4
             });
@@ -278,7 +279,7 @@ namespace Infrastructure.Data
             {
                 Id = new Guid("6c78454f-f667-4d4c-949a-d81aa082df44"),
                 GameId = new Guid("3ae42c10-7dbe-4e71-a52c-c19c44e3c4a0"),
-                ApplicationUserId = "d7896275-9b79-4955-92f2-e1923b5fa05b",
+                ApplicationUserId = "954b8b1b-1b5f-42f6-9e27-4aa65cc7e7b1",
                 Point = 34,
                 Duration = 2
             });
@@ -286,7 +287,7 @@ namespace Infrastructure.Data
             {
                 Id = new Guid("5d1addc2-56b0-4c8e-81ee-9049facac523"),
                 GameId = new Guid("49299e7c-fa16-45fd-84e4-1a725c118a9f"),
-                ApplicationUserId = "d7896275-9b79-4955-92f2-e1923b5fa05a",
+                ApplicationUserId = "954b8b1b-1b5f-42f6-9e27-4aa65cc7e7b0",
                 Point = 34,
                 Duration = 3
             });
@@ -294,13 +295,108 @@ namespace Infrastructure.Data
             {
                 Id = new Guid("2c8fb39d-1112-403e-8eb3-2252b21f3307"),
                 GameId = new Guid("49299e7c-fa16-45fd-84e4-1a725c118a9f"),
-                ApplicationUserId = "d7896275-9b79-4955-92f2-e1923b5fa05b",
+                ApplicationUserId = "954b8b1b-1b5f-42f6-9e27-4aa65cc7e7b3",
                 Point = 34,
                 Duration = 1
             });
         }
 
-        public async static Task SeedCourseChapterTopicAsync(ApplicationDbContext _context)
+        public async static Task Seed_Subject_CourseLevel_ProgamType_Async(ApplicationDbContext _context)
+        {
+            // Subject table
+            await _context.Subjects.AddAsync(new Subject
+            {
+                Id = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"),
+                Title = "Toán",
+                Description = "Môn Toán trẻ em giúp phát triển kỹ năng toán học cơ bản cho trẻ qua các hoạt động và trò chơi thú vị. Mục tiêu là tạo nền tảng vững chắc cho sự hiểu biết và tự tin của trẻ khi tiếp cận với toán học."
+            });
+            await _context.Subjects.AddAsync(new Subject
+            {
+                Id = new Guid("d7896275-9b79-4955-92f2-e1923b5fa05f"),
+                Title = "Khoa học",
+                Description = "Môn Khoa học là một phần quan trọng của chương trình giáo dục, giúp học sinh hiểu về thế giới xung quanh thông qua việc nghiên cứu và khám phá các hiện tượng tự nhiên và khoa học. Trong môn này, học sinh được khuyến khích tìm hiểu về các nguyên lý cơ bản của khoa học thông qua các thí nghiệm, quan sát và thảo luận. Mục tiêu của môn Khoa học là khơi dậy sự tò mò, tạo ra nền tảng kiến thức vững chắc và phát triển kỹ năng tư duy logic và phân tích cho học sinh, từ đó giúp họ hiểu biết sâu hơn về thế giới và thúc đẩy sự phát triển cá nhân và xã hội.",
+            });
+            await _context.Subjects.AddAsync(new Subject
+            {
+                Id = new Guid("16179b1e-335c-4594-bf15-156e799aa0c5"),
+                Title = "Tiếng Việt",
+                Description = "Môn Tiếng Việt là một môn học nhằm phát triển các kỹ năng ngôn ngữ như đọc, viết, nghe và nói bằng tiếng Việt. Học sinh sẽ được học về ngữ pháp, từ vựng, chính tả, và cấu trúc câu. Ngoài ra, môn học còn giúp học sinh hiểu sâu hơn về văn hóa, lịch sử và văn học Việt Nam thông qua các tác phẩm văn học, bài báo và các tài liệu khác. Môn Tiếng Việt góp phần nâng cao khả năng giao tiếp và tư duy ngôn ngữ của học sinh.",
+            });
+            await _context.Subjects.AddAsync(new Subject
+            {
+                Id = new Guid("80b9f97d-6281-4893-be0c-ae41f8ad8444"),
+                Title = "Tiếng Anh",
+                Description = "Môn Tiếng Anh là một môn học tập trung vào việc phát triển các kỹ năng ngôn ngữ như đọc, viết, nghe và nói bằng tiếng Anh. Học sinh sẽ học về ngữ pháp, từ vựng, chính tả và cấu trúc câu. Ngoài ra, môn học còn giúp học sinh hiểu rõ hơn về văn hóa, lịch sử và văn học của các nước nói tiếng Anh thông qua các tác phẩm văn học, bài báo và các tài liệu khác. Môn Tiếng Anh nhằm nâng cao khả năng giao tiếp và tư duy ngôn ngữ của học sinh.",
+            });
+            // ------------------
+            // Program type table
+            await _context.ProgramTypes.AddAsync(new ProgramType
+            {
+                Id = new Guid("ed464990-9599-4d6c-99d9-b0ff18be795a"),
+                Title = "Toán Cambridge",
+                Description = "Chương trình Toán Cambridge dành cho học sinh tiểu học tập trung vào việc phát triển hiểu biết khái niệm, kỹ năng giải quyết vấn đề và lý luận toán học. Học sinh sử dụng các vật dụng học tập như khối đếm và dải phân số để hiểu rõ hơn các khái niệm trừu tượng. Bài toán được đặt trong ngữ cảnh thực tế để làm cho việc học trở nên gần gũi và dễ hiểu hơn. Khuyến khích học sinh giải thích quá trình suy nghĩ và lý luận toán học giúp nâng cao kỹ năng trình bày và suy luận logic. Các bài tập ngắn và các thử thách có giới hạn thời gian được sử dụng để cải thiện sự lưu loát và chính xác trong tính toán."
+            });
+            await _context.ProgramTypes.AddAsync(new ProgramType
+            {
+                Id = new Guid("96cd2a6c-1013-4bb9-8927-047fc25e0402"),
+                Title = "Toán Tư Duy",
+                Description = "Toán tư duy là phương pháp giảng dạy giúp học sinh phát triển khả năng suy luận logic, phân tích và giải quyết vấn đề thông qua các bài toán sáng tạo và thực tế. Thay vì chỉ tập trung vào việc học thuộc lòng các công thức, toán tư duy khuyến khích học sinh hiểu sâu các khái niệm toán học và áp dụng chúng vào các tình huống khác nhau. Phương pháp này sử dụng các bài toán mở, câu hỏi kích thích tư duy và các hoạt động nhóm để thúc đẩy sự tương tác và hợp tác giữa các học sinh. Kết quả là, học sinh không chỉ nắm vững kiến thức toán học mà còn phát triển kỹ năng tư duy phản biện và sáng tạo, chuẩn bị tốt hơn cho việc học tập và ứng dụng toán học trong cuộc sống hàng ngày.",
+            });
+            await _context.ProgramTypes.AddAsync(new ProgramType
+            {
+                Id = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"),
+                Title = "Toán Bộ Giáo Dục",
+                Description = "Chương trình Toán học của Bộ Giáo dục và Đào tạo Việt Nam dành cho học sinh tiểu học tập trung vào việc xây dựng nền tảng vững chắc về các khái niệm toán học cơ bản như số học, hình học, đo lường và đại số đơn giản. Học sinh được khuyến khích sử dụng các vật dụng học tập và phương pháp trực quan như khối đếm, bảng biểu và sơ đồ để hiểu rõ hơn về các khái niệm trừu tượng. Bên cạnh đó, chương trình cũng chú trọng đến việc phát triển kỹ năng giải quyết vấn đề thông qua các bài toán thực tế và các hoạt động nhóm, giúp học sinh rèn luyện khả năng tư duy logic và sáng tạo. Việc thực hành thường xuyên và liên tục được ưu tiên nhằm nâng cao sự chính xác và lưu loát trong các phép tính toán học. Chương trình còn khuyến khích sự tham gia của phụ huynh trong quá trình học tập của con em, tạo môi trường học tập tích cực và hỗ trợ tối đa cho học sinh.",
+            });
+            // ------------------
+            // CourseLevel table
+            await _context.CourseLevels.AddAsync(new CourseLevel
+            {
+                Id = new Guid("b8fc90e5-a56f-4ac0-b6bb-cd3eea88d4a1"),
+                Title = "Tiền Tiểu Học",
+                Description = "Chương trình Toán tư duy cấp Tiền Tiểu Học tập trung vào việc phát triển khả năng tư duy và suy luận logic của trẻ nhỏ thông qua các hoạt động học tập vui nhộn và sáng tạo. Trẻ sẽ học các khái niệm cơ bản về số đếm, hình dạng và mẫu hình học, đồng thời phát triển kỹ năng giải quyết vấn đề qua các trò chơi và bài toán đơn giản liên quan đến cuộc sống hàng ngày."
+            });
+            await _context.CourseLevels.AddAsync(new CourseLevel
+            {
+                Id = new Guid("8a7b78a9-d209-473e-a133-919479d61d5c"),
+                Title = "Lớp 1",
+                Description = "Chương trình Toán cho học sinh lớp 1 tập trung vào việc xây dựng nền tảng toán học vững chắc với các khái niệm số học cơ bản như số đếm, phép cộng và phép trừ. Các bài học sử dụng phương pháp học tập trực quan và thực hành để giúp học sinh hiểu sâu hơn về các khái niệm toán học, kích thích sự hứng thú và tích cực trong việc học toán qua các trò chơi và bài toán thực tế."
+            });
+            await _context.CourseLevels.AddAsync(new CourseLevel
+            {
+                Id = new Guid("dd885d8d-0ea4-4c19-9b06-5e02bb44e7bb"),
+                Title = "Lớp 2",
+                Description = "Chương trình Toán cho học sinh lớp 2 tiếp tục củng cố nền tảng toán học cơ bản với các phép cộng, trừ và các mẫu hình học đơn giản. Các bài học sử dụng phương pháp học tập trực quan, thực hành và trò chơi để phát triển kỹ năng giải quyết vấn đề và tư duy logic của học sinh, chuẩn bị cho những thách thức toán học phức tạp hơn."
+            });
+            await _context.CourseLevels.AddAsync(new CourseLevel
+            {
+                Id = new Guid("3f6798e9-eed3-40db-ae92-7dd0da9a6435"),
+                Title = "Lớp 3",
+                Description = "Chương trình Toán cho học sinh lớp 3 tập trung vào việc mở rộng kiến thức số học với các phép nhân, chia không dư, và các khái niệm hình học như đo đạc đơn vị và diện tích. Học sinh sẽ thực hành và áp dụng kiến thức vào các bài toán thực tế, phát triển kỹ năng tư duy logic và giải quyết vấn đề qua các phương pháp giảng dạy linh hoạt và học tập theo nhóm."
+            });
+            await _context.CourseLevels.AddAsync(new CourseLevel
+            {
+                Id = new Guid("6e4cf1a0-6e6b-4b08-a76c-11d3c51d3bea"),
+                Title = "Lớp 4",
+                Description = "Chương trình Toán cho học sinh lớp 4 tập trung vào việc củng cố và mở rộng kiến thức số học, bao gồm các phép nhân, chia không dư và các khái niệm hình học như diện tích và thể tích. Học sinh sẽ tiếp tục phát triển kỹ năng giải quyết bài toán phức tạp, sử dụng các phương pháp học tập trực quan, thực hành và học tập theo nhóm để tăng cường sự hiểu biết và tích cực trong học tập toán học."
+            });
+            await _context.CourseLevels.AddAsync(new CourseLevel
+            {
+                Id = new Guid("9e735658-0002-45c9-a6d5-1a579dba49ee"),
+                Title = "Lớp 5",
+                Description = "Chương trình Toán cho học sinh lớp 5 tập trung vào việc mở rộng kiến thức số học, hình học và đại số. Học sinh sẽ học về phép nhân, chia với dư, tỉ lệ, phần trăm, và các khái niệm đại số đơn giản. Họ cũng sẽ nghiên cứu về diện tích, thể tích và các hình học không gian. Chương trình giúp học sinh phát triển kỹ năng giải quyết vấn đề, phân tích và tự tin áp dụng kiến thức toán học vào các tình huống thực tế."
+            });
+            await _context.CourseLevels.AddAsync(new CourseLevel
+            {
+                Id = new Guid("b7b9648d-5e45-4f96-a22a-cfe447ed9b33"),
+                Title = "Lớp nâng cao",
+                Description = "Chương trình Toán nâng cao dành cho học sinh có năng lực và đam mê Toán học, giúp họ phát triển kiến thức và kỹ năng ở mức độ cao hơn. Học sinh sẽ được học các khái niệm nâng cao trong đại số, hình học, và xác suất thống kê. Chương trình còn bao gồm các chủ đề toán học hiện đại và ứng dụng thực tiễn, nhằm rèn luyện tư duy logic, khả năng phân tích và giải quyết vấn đề phức tạp. Mục tiêu là chuẩn bị cho học sinh những nền tảng vững chắc để tiếp cận các kỳ thi Toán học quốc gia và quốc tế, cũng như các môn học Toán ở cấp độ cao hơn."
+            });
+
+            // ------------------
+        }
+
+        public async static Task Seed_Course_TeachingSlot_Chapter_Topic_Async(ApplicationDbContext _context)
         {
             // Course table
             await _context.Courses.AddAsync(new Course
@@ -348,6 +444,107 @@ namespace Infrastructure.Data
                 TotalSlot = 24,
             });
             // --------------
+            // TeachingSlot table
+            await _context.TeachingSlots.AddAsync(new TeachingSlot
+            {
+                Id = new Guid("3efbbaca-4aa1-45f2-98a0-12fbc2399185"),
+                Title = "TeachingSlot Tilte",
+                Slot = 1,
+                DayInWeek = 3,
+                CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
+            });
+            await _context.TeachingSlots.AddAsync(new TeachingSlot
+            {
+                Id = new Guid("811c17cb-527e-4658-9db4-454fdeeca3ef"),
+                Slot = 2,
+                DayInWeek = 5,
+                Title = "TeachingSlot Tilte",
+                CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
+            });
+            await _context.TeachingSlots.AddAsync(new TeachingSlot
+            {
+                Id = new Guid("0471144b-8ed3-4e78-b032-d5ca3c5ddfa5"),
+                Slot = 1,
+                DayInWeek = 6,
+                Title = "TeachingSlot Tilte",
+                CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
+            });
+            //-----
+            await _context.TeachingSlots.AddAsync(new TeachingSlot
+            {
+                Id = new Guid("c608dd61-9076-4181-9786-6c6b211b0bbd"),
+                Title = "TeachingSlot Tilte",
+                Slot = 2,
+                DayInWeek = 3,
+                CourseId = new Guid("555a0815-d0b8-4975-8e1c-245d7acbab45"),
+            });
+            await _context.TeachingSlots.AddAsync(new TeachingSlot
+            {
+                Id = new Guid("5ee277ed-5b88-4c4f-8ba6-07aac526ce60"),
+                Title = "TeachingSlot Tilte",
+                Slot = 1,
+                DayInWeek = 4,
+                CourseId = new Guid("555a0815-d0b8-4975-8e1c-245d7acbab45"),
+            });
+            await _context.TeachingSlots.AddAsync(new TeachingSlot
+            {
+                Id = new Guid("eeb6c8b1-3d26-4e3d-bf09-3c01b44d15ac"),
+                Title = "TeachingSlot Tilte",
+                Slot = 3,
+                DayInWeek = 7,
+                CourseId = new Guid("555a0815-d0b8-4975-8e1c-245d7acbab45"),
+            });
+            //------
+            await _context.TeachingSlots.AddAsync(new TeachingSlot
+            {
+                Id = new Guid("60913325-34df-4a96-956c-2a32b0fde16d"),
+                Title = "TeachingSlot Tilte",
+                Slot = 2,
+                DayInWeek = 3,
+                CourseId = new Guid("6c215522-0925-4f86-b0fd-72f746ca9fd6"),
+            });
+            await _context.TeachingSlots.AddAsync(new TeachingSlot
+            {
+                Id = new Guid("b6459368-0bc0-4632-9e73-c1009c5832c8"),
+                Title = "TeachingSlot Tilte",
+                Slot = 1,
+                DayInWeek = 5,
+                CourseId = new Guid("6c215522-0925-4f86-b0fd-72f746ca9fd6"),
+            });
+            await _context.TeachingSlots.AddAsync(new TeachingSlot
+            {
+                Id = new Guid("ce616e03-1b16-4920-8fed-822f3e274ad6"),
+                Title = "TeachingSlot Tilte",
+                Slot = 1,
+                DayInWeek = 6,
+                CourseId = new Guid("6c215522-0925-4f86-b0fd-72f746ca9fd6"),
+            });
+            //------
+            await _context.TeachingSlots.AddAsync(new TeachingSlot
+            {
+                Id = new Guid("a4f96e29-4944-4e5a-af44-8cee69660c3d"),
+                Title = "TeachingSlot Tilte",
+                Slot = 1,
+                DayInWeek = 3,
+                CourseId = new Guid("c2ad8bc5-d7ef-4639-87b2-d251854656a1"),
+            });
+            await _context.TeachingSlots.AddAsync(new TeachingSlot
+            {
+                Id = new Guid("bbd02525-16fa-46da-834b-e37f92ff4fb5"),
+                Title = "TeachingSlot Tilte",
+                Slot = 1,
+                DayInWeek = 3,
+                CourseId = new Guid("c2ad8bc5-d7ef-4639-87b2-d251854656a1"),
+            });
+            await _context.TeachingSlots.AddAsync(new TeachingSlot
+            {
+                Id = new Guid("1229415f-16fd-4e1b-b568-2218421da13a"),
+                Title = "TeachingSlot Tilte",
+                Slot = 1,
+                DayInWeek = 3,
+                CourseId = new Guid("c2ad8bc5-d7ef-4639-87b2-d251854656a1"),
+            });
+            // ------------
             // Chapter table
             await _context.Chapters.AddAsync(new Chapter
             {
@@ -459,7 +656,131 @@ namespace Infrastructure.Data
             // -----------
         }
 
-        public async static Task SeedQuestionBankAsync(ApplicationDbContext _context)
+        public async static Task Seed_Session_Enrollment_Participant_Teachable_Async(ApplicationDbContext _context)
+        {
+            // Session table
+            await _context.Sessions.AddAsync(new Session
+            {
+                Id = new Guid("c8f560be-8762-4cb6-bc1f-ad64f3dac67e"),
+                TeachingSlotId = new Guid("0471144b-8ed3-4e78-b032-d5ca3c5ddfa5"),
+                ApplicationUserId = "8e02b95e-6491-4eaf-a75a-06dae6e1ea40",
+                Date = ContextInitializerHelper.GetRandomDateOnly(),
+            });
+            await _context.Sessions.AddAsync(new Session
+            {
+                Id = new Guid("92a70117-01f5-41c2-805a-bcacddc872c1"),
+                TeachingSlotId = new Guid("811c17cb-527e-4658-9db4-454fdeeca3ef"),
+                ApplicationUserId = "8e02b95e-6491-4eaf-a75a-06dae6e1ea40",
+                Date = ContextInitializerHelper.GetRandomDateOnly(),
+            });
+            await _context.Sessions.AddAsync(new Session
+            {
+                Id = new Guid("501aad6e-40e9-4a4e-ba0f-247e1c7f97a0"),
+                TeachingSlotId = new Guid("811c17cb-527e-4658-9db4-454fdeeca3ef"),
+                ApplicationUserId = "8e02b95e-6491-4eaf-a75a-06dae6e1ea41",
+                Date = ContextInitializerHelper.GetRandomDateOnly(),
+            });
+            await _context.Sessions.AddAsync(new Session
+            {
+                Id = new Guid("d4390f9a-f21a-404f-8fdc-5d4b132bb2f3"),
+                TeachingSlotId = new Guid("3efbbaca-4aa1-45f2-98a0-12fbc2399185"),
+                ApplicationUserId = "8e02b95e-6491-4eaf-a75a-06dae6e1ea43",
+                Date = ContextInitializerHelper.GetRandomDateOnly(),
+            });
+            await _context.Sessions.AddAsync(new Session
+            {
+                Id = new Guid("26a7510c-0d5b-4b4b-9775-9578d01120b9"),
+                TeachingSlotId = new Guid("0471144b-8ed3-4e78-b032-d5ca3c5ddfa5"),
+                ApplicationUserId = "8e02b95e-6491-4eaf-a75a-06dae6e1ea44",
+                Date = ContextInitializerHelper.GetRandomDateOnly(),
+            });
+            // -----------
+            // Enrollment table
+            await _context.Enrollments.AddAsync(new Enrollment
+            {
+                Id = new Guid("091e0476-0b32-412b-9437-e3990a6aa529"),
+                CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
+                ApplicationUserId = "954b8b1b-1b5f-42f6-9e27-4aa65cc7e7b1",
+                Status = true,
+            });
+            await _context.Enrollments.AddAsync(new Enrollment
+            {
+                Id = new Guid("877ddfd8-2ec2-445c-aeaf-1a51a6a40cd5"),
+                CourseId = new Guid("555a0815-d0b8-4975-8e1c-245d7acbab45"),
+                ApplicationUserId = "954b8b1b-1b5f-42f6-9e27-4aa65cc7e7b2",
+                Status = true,
+            });
+            await _context.Enrollments.AddAsync(new Enrollment
+            {
+                Id = new Guid("5e0e13d9-ec68-4de8-8456-e6882071eb89"),
+                CourseId = new Guid("6c215522-0925-4f86-b0fd-72f746ca9fd6"),
+                ApplicationUserId = "954b8b1b-1b5f-42f6-9e27-4aa65cc7e7b2",
+                Status = true,
+            });
+            await _context.Enrollments.AddAsync(new Enrollment
+            {
+                Id = new Guid("d0d67119-944a-4ac7-a6a9-e888f50bf05c"),
+                CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
+                ApplicationUserId = "954b8b1b-1b5f-42f6-9e27-4aa65cc7e7b0",
+                Status = true,
+            });
+            // -----------
+            // Participant table
+            await _context.Participants.AddAsync(new Participant
+            {
+                Id = new Guid("4e21ac1d-1c74-440d-8208-df31fd60aff4"),
+                EnrollmentId = new Guid("091e0476-0b32-412b-9437-e3990a6aa529"),
+                SessionId = new Guid("c8f560be-8762-4cb6-bc1f-ad64f3dac67e"),
+                IsPresent = true,
+            });
+            await _context.Participants.AddAsync(new Participant
+            {
+                Id = new Guid("99a17610-466b-403c-b161-0fd728b41dac"),
+                EnrollmentId = new Guid("091e0476-0b32-412b-9437-e3990a6aa529"),
+                SessionId = new Guid("92a70117-01f5-41c2-805a-bcacddc872c1"),
+                IsPresent = true,
+            });
+            // -----------
+            // Teachable table
+            await _context.Teachables.AddAsync(new Teachable
+            {
+                Id = new Guid("82cc29db-7118-40ee-b989-7fff95cc3469"),
+                CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
+                ApplicationUserId = "8e02b95e-6491-4eaf-a75a-06dae6e1ea40",
+                Status = true,
+            });
+            await _context.Teachables.AddAsync(new Teachable
+            {
+                Id = new Guid("871c0c1a-63fe-42f6-87c6-6eb599ee9526"),
+                CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
+                ApplicationUserId = "8e02b95e-6491-4eaf-a75a-06dae6e1ea41",
+                Status = true,
+            });
+            await _context.Teachables.AddAsync(new Teachable
+            {
+                Id = new Guid("d828cbec-50e4-498d-8385-63ed13a8a558"),
+                CourseId = new Guid("555a0815-d0b8-4975-8e1c-245d7acbab45"),
+                ApplicationUserId = "8e02b95e-6491-4eaf-a75a-06dae6e1ea42",
+                Status = true,
+            });
+            await _context.Teachables.AddAsync(new Teachable
+            {
+                Id = new Guid("054d8c0c-9037-45d0-84bc-17b1bdc2f28b"),
+                CourseId = new Guid("555a0815-d0b8-4975-8e1c-245d7acbab45"),
+                ApplicationUserId = "8e02b95e-6491-4eaf-a75a-06dae6e1ea41",
+                Status = true,
+            });
+            await _context.Teachables.AddAsync(new Teachable
+            {
+                Id = new Guid("ff7a0187-c8a6-478b-aa1e-91d2e6867111"),
+                CourseId = new Guid("555a0815-d0b8-4975-8e1c-245d7acbab45"),
+                ApplicationUserId = "8e02b95e-6491-4eaf-a75a-06dae6e1ea43",
+                Status = true,
+            });
+            // -----------
+        }
+
+        public async static Task Seed_QuestionBank_Async(ApplicationDbContext _context)
         {
             var questionLevels = new Dictionary<Guid, string>
             {
@@ -509,6 +830,11 @@ namespace Infrastructure.Data
             }
         }
 
+        public async static Task Seed_Worksheet_Async(ApplicationDbContext _context)
+        {
+            
+        }
+
         public class GameSeed
         {
             public string Name { get; set; }
@@ -518,6 +844,14 @@ namespace Infrastructure.Data
             public string AnimalJson { get; set; }
             public Guid Id { get; set; }
             public bool IsDeleted { get; set; }
+        }
+
+        public static DateOnly GetRandomDateOnly()
+        {
+            Random random = new Random();
+            DateOnly start = new DateOnly(2000, 1, 1);
+            int range = (DateTime.Today - start.ToDateTime(TimeOnly.MinValue)).Days;
+            return start.AddDays(random.Next(range));
         }
     }
 }
