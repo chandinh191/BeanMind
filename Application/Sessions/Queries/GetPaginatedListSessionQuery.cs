@@ -3,6 +3,7 @@ using AutoMapper;
 using Domain.Enums;
 using Infrastructure.Data;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Application.Sessions.Queries
 {
-    public sealed record GetPaginatedListSessionQuery : IRequest<BaseResponse<Pagination<GetBriefSessionResponseModel>>>
+    public sealed record GetPaginatedListSessionQuery : IRequest<BaseResponse<Pagination<GetSessionResponseModel>>>
     {
         public int PageIndex { get; init; }
         public int? PageSize { get; init; }
@@ -24,7 +25,7 @@ namespace Application.Sessions.Queries
         public DateTime EndTime { get; init; } = DateTime.MinValue;
     }
 
-    public class GetPaginatedListSessionQueryHandler : IRequestHandler<GetPaginatedListSessionQuery, BaseResponse<Pagination<GetBriefSessionResponseModel>>>
+    public class GetPaginatedListSessionQueryHandler : IRequestHandler<GetPaginatedListSessionQuery, BaseResponse<Pagination<GetSessionResponseModel>>>
     {
         private readonly ApplicationDbContext _context;
         private readonly IConfiguration _configuration;
@@ -37,10 +38,14 @@ namespace Application.Sessions.Queries
             _mapper = mapper;
         }
 
-        public async Task<BaseResponse<Pagination<GetBriefSessionResponseModel>>> Handle(GetPaginatedListSessionQuery request, CancellationToken cancellationToken)
+        public async Task<BaseResponse<Pagination<GetSessionResponseModel>>> Handle(GetPaginatedListSessionQuery request, CancellationToken cancellationToken)
         {
             var defaultPageSize = _configuration.GetValue<int>("Pagination:PageSize");
-            var sessions = _context.Sessions.AsQueryable();
+            var sessions = _context.Sessions
+                .Include(o => o.TeachingSlot).ThenInclude(o => o.Course)
+                .Include(o => o.ApplicationUser).ThenInclude(o => o.Teacher)
+                .Include(o => o.Participants)
+                .AsQueryable();
 
             if (request.ApplicationUserId != null)
             {
@@ -86,19 +91,19 @@ namespace Application.Sessions.Queries
             }
 
             // convert the list of item to list of response model
-            var mappedSessions = _mapper.Map<List<GetBriefSessionResponseModel>>(sessions);
-            var createPaginatedListResult = Pagination<GetBriefSessionResponseModel>.Create(mappedSessions.AsQueryable(), request.PageIndex, request.PageSize ?? defaultPageSize);
+            var mappedSessions = _mapper.Map<List<GetSessionResponseModel>>(sessions);
+            var createPaginatedListResult = Pagination<GetSessionResponseModel>.Create(mappedSessions.AsQueryable(), request.PageIndex, request.PageSize ?? defaultPageSize);
 
             if (createPaginatedListResult == null)
             {
-                return new BaseResponse<Pagination<GetBriefSessionResponseModel>>
+                return new BaseResponse<Pagination<GetSessionResponseModel>>
                 {
                     Success = false,
                     Message = "Get paginated list session failed",
                 };
             }
 
-            return new BaseResponse<Pagination<GetBriefSessionResponseModel>>
+            return new BaseResponse<Pagination<GetSessionResponseModel>>
             {
                 Success = true,
                 Message = "Get paginated list session successful",

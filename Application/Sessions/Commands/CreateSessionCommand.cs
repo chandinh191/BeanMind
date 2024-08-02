@@ -9,6 +9,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Application.Sessions.Commands
 {
@@ -36,7 +37,9 @@ namespace Application.Sessions.Commands
 
         public async Task<BaseResponse<GetBriefSessionResponseModel>> Handle(CreateSessionCommand request, CancellationToken cancellationToken)
         {
-            var applicationUser = await _context.ApplicationUsers.FirstOrDefaultAsync(x => x.Id == request.ApplicationUserId);
+            var applicationUser = await _context.ApplicationUsers
+                .Include(o => o.Teacher)
+                .FirstOrDefaultAsync(x => x.Id == request.ApplicationUserId);
             if (applicationUser == null)
             {
                 return new BaseResponse<GetBriefSessionResponseModel>
@@ -44,6 +47,17 @@ namespace Application.Sessions.Commands
                     Success = false,
                     Message = "User not found",
                 };
+            }
+            else
+            {
+                if(applicationUser.Teacher == null)
+                {
+                    return new BaseResponse<GetBriefSessionResponseModel>
+                    {
+                        Success = false,
+                        Message = "Teacher not found",
+                    };
+                }
             }
 
             var teachingSlot = await _context.TeachingSlots.FirstOrDefaultAsync(x => x.Id == request.TeachingSlotId);
@@ -55,19 +69,40 @@ namespace Application.Sessions.Commands
                     Message = "Teaching slot not found",
                 };
             }
-            else
-            {
-                var teachable = await _context.Teachables
+
+            var teachable = await _context.Teachables
                     .Where(o => o.Status == true)
                     .FirstOrDefaultAsync(x => x.ApplicationUserId == request.ApplicationUserId && x.CourseId == teachingSlot.CourseId);
-                if (teachable == null)
+            if (teachable == null)
+            {
+                return new BaseResponse<GetBriefSessionResponseModel>
                 {
-                    return new BaseResponse<GetBriefSessionResponseModel>
-                    {
-                        Success = false,
-                        Message = "User are not able to teach this course",
-                    };
-                }
+                    Success = false,
+                    Message = "User are not able to teach this course",
+                };
+            }
+            int dayOfWeek = (int)request.Date.DayOfWeek;
+            if (dayOfWeek != teachingSlot.DayInWeek)
+            {
+                return new BaseResponse<GetBriefSessionResponseModel>
+                {
+                    Success = false,
+                    Message = "You need to create exactly what day of the week compared to your teaching slot data",
+                };
+            }
+
+            var checkDuplicateTime =  _context.Sessions
+                .Where(o => o.ApplicationUserId == request.ApplicationUserId 
+                && o.TeachingSlot.Slot == teachingSlot.Slot //trùng slot cái đang tạo
+                && o.Date == request.Date) //trùng ngày
+                .AsQueryable();
+            if (checkDuplicateTime != null && checkDuplicateTime.Count() > 0) //Nếu có lịch dạy trùng thời gian 
+            {
+                return new BaseResponse<GetBriefSessionResponseModel>
+                {
+                    Success = false,
+                    Message = "The lecturer have a session during this time",
+                };
             }
 
             var session = _mapper.Map<Domain.Entities.Session>(request);

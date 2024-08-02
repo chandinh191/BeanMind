@@ -18,9 +18,12 @@ namespace Application.Sessions.Commands
     {
         [Required]
         public Guid Id { get; init; }
-        public DateOnly? Date { get; set; }
-        public string? ApplicationUserId { get; set; }
-        public Guid? TeachingSlotId { get; set; }
+        [Required]
+        public DateOnly Date { get; set; }
+        [Required]
+        public string ApplicationUserId { get; set; }
+        [Required]
+        public Guid TeachingSlotId { get; set; }
     }
 
     public class UpdateSessionCommandHanler : IRequestHandler<UpdateSessionCommand, BaseResponse<GetBriefSessionResponseModel>>
@@ -46,56 +49,72 @@ namespace Application.Sessions.Commands
                     Errors = ["Session is not found"]
                 };
             }
-            string applicationUserId = "";
-            Guid? courseId = new Guid();
 
-            if (request.ApplicationUserId != null)
+            var applicationUser = await _context.ApplicationUsers
+                .Include(o => o.Teacher)
+                .FirstOrDefaultAsync(x => x.Id == request.ApplicationUserId);
+            if (applicationUser == null)
             {
-                var applicationUser = await _context.ApplicationUsers.FirstOrDefaultAsync(x => x.Id == request.ApplicationUserId);
-                if (applicationUser == null)
+                return new BaseResponse<GetBriefSessionResponseModel>
+                {
+                    Success = false,
+                    Message = "User not found",
+                };
+            }
+            else
+            {
+                if (applicationUser.Teacher == null)
                 {
                     return new BaseResponse<GetBriefSessionResponseModel>
                     {
                         Success = false,
-                        Message = "User not found",
+                        Message = "Teacher not found",
                     };
                 }
-                applicationUserId = request.ApplicationUserId;
-            }
-            else
-            {
-                applicationUserId = session.ApplicationUserId;
             }
 
-            if (request.TeachingSlotId != null)
+            var teachingSlot = await _context.TeachingSlots.FirstOrDefaultAsync(x => x.Id == request.TeachingSlotId);
+            if (teachingSlot == null)
             {
-                var teachingSlot = await _context.TeachingSlots.FirstOrDefaultAsync(x => x.Id == request.TeachingSlotId);
-                if (teachingSlot == null)
+                return new BaseResponse<GetBriefSessionResponseModel>
                 {
-                    return new BaseResponse<GetBriefSessionResponseModel>
-                    {
-                        Success = false,
-                        Message = "Teaching slot not found",
-                    };
-                }
-                courseId = teachingSlot.CourseId;
-            }
-            else
-            {
-                var teachingSlot = await _context.TeachingSlots.FirstOrDefaultAsync(x => x.Id == session.TeachingSlotId);
-                courseId = teachingSlot.CourseId;
+                    Success = false,
+                    Message = "Teaching slot not found",
+                };
             }
 
-            //Check User Teachable
             var teachable = await _context.Teachables
                     .Where(o => o.Status == true)
-                    .FirstOrDefaultAsync(x => x.ApplicationUserId == applicationUserId && x.CourseId == courseId);
+                    .FirstOrDefaultAsync(x => x.ApplicationUserId == request.ApplicationUserId && x.CourseId == teachingSlot.CourseId);
             if (teachable == null)
             {
                 return new BaseResponse<GetBriefSessionResponseModel>
                 {
                     Success = false,
                     Message = "User are not able to teach this course",
+                };
+            }
+            int dayOfWeek = (int)request.Date.DayOfWeek;
+            if (dayOfWeek != teachingSlot.DayInWeek)
+            {
+                return new BaseResponse<GetBriefSessionResponseModel>
+                {
+                    Success = false,
+                    Message = "You need to create exactly what day of the week compared to your teaching slot data",
+                };
+            }
+
+            var checkDuplicateTime = _context.Sessions
+                .Where(o => o.ApplicationUserId == request.ApplicationUserId
+                && o.TeachingSlot.Slot == teachingSlot.Slot //trùng slot cái đang tạo
+                && o.Date == request.Date) //trùng ngày
+                .AsQueryable();
+            if (checkDuplicateTime != null && checkDuplicateTime.Count() > 0) //Nếu có lịch dạy trùng thời gian 
+            {
+                return new BaseResponse<GetBriefSessionResponseModel>
+                {
+                    Success = false,
+                    Message = "The lecturer have a session during this time",
                 };
             }
 

@@ -11,6 +11,7 @@ public sealed record CreateQuestionLevelCommand : IRequest<BaseResponse<GetBrief
 {
     [Required]
     public string Title { get; init; }
+    public string Description { get; set; }
 }
 
 public class CreateQuestionLevelCommandHanler : IRequestHandler<CreateQuestionLevelCommand, BaseResponse<GetBriefQuestionLevelResponseModel>>

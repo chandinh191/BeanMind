@@ -10,7 +10,7 @@ using System.Diagnostics;
 
 namespace Application.QuestionLevels.Queries;
 
-public sealed record GetPaginatedListQuestionLevelQuery : IRequest<BaseResponse<Pagination<GetBriefQuestionLevelResponseModel>>>
+public sealed record GetPaginatedListQuestionLevelQuery : IRequest<BaseResponse<Pagination<GetQuestionLevelResponseModel>>>
 {
     public int PageIndex { get; init; }
     public int? PageSize { get; init; }
@@ -21,7 +21,7 @@ public sealed record GetPaginatedListQuestionLevelQuery : IRequest<BaseResponse<
     public DateTime EndTime { get; init; } = DateTime.MinValue;
 }
 
-public class GetPaginatedListQuestionLevelQueryHandler : IRequestHandler<GetPaginatedListQuestionLevelQuery, BaseResponse<Pagination<GetBriefQuestionLevelResponseModel>>>
+public class GetPaginatedListQuestionLevelQueryHandler : IRequestHandler<GetPaginatedListQuestionLevelQuery, BaseResponse<Pagination<GetQuestionLevelResponseModel>>>
 {
     private readonly ApplicationDbContext _context;
     private readonly IConfiguration _configuration;
@@ -34,15 +34,18 @@ public class GetPaginatedListQuestionLevelQueryHandler : IRequestHandler<GetPagi
         _mapper = mapper;
     }
 
-    public async Task<BaseResponse<Pagination<GetBriefQuestionLevelResponseModel>>> Handle(GetPaginatedListQuestionLevelQuery request, CancellationToken cancellationToken)
+    public async Task<BaseResponse<Pagination<GetQuestionLevelResponseModel>>> Handle(GetPaginatedListQuestionLevelQuery request, CancellationToken cancellationToken)
     {
         var defaultPageSize = _configuration.GetValue<int>("Pagination:PageSize");
-        var questionlevels = _context.QuestionLevels.AsQueryable();
+        var questionlevels = _context.QuestionLevels
+            .Include(o => o.Questions)
+            .Include(o => o.LevelTemplateRelations)
+            .AsQueryable();
 
         // filter by search name
         if (!string.IsNullOrEmpty(request.Term))
         {
-            questionlevels = questionlevels.Where(x => x.Title.Contains(request.Term));
+            questionlevels = questionlevels.Where(x => x.Title.Contains(request.Term) || x.Description.Contains(request.Term));
         }
 
         // isdeleted filter
@@ -79,19 +82,19 @@ public class GetPaginatedListQuestionLevelQueryHandler : IRequestHandler<GetPagi
         }
 
         // convert the list of item to list of response model
-        var mappedQuestionLevels = _mapper.Map<List<GetBriefQuestionLevelResponseModel>>(questionlevels);
-        var createPaginatedListResult = Pagination<GetBriefQuestionLevelResponseModel>.Create(mappedQuestionLevels.AsQueryable(), request.PageIndex, request.PageSize ?? defaultPageSize);
+        var mappedQuestionLevels = _mapper.Map<List<GetQuestionLevelResponseModel>>(questionlevels);
+        var createPaginatedListResult = Pagination<GetQuestionLevelResponseModel>.Create(mappedQuestionLevels.AsQueryable(), request.PageIndex, request.PageSize ?? defaultPageSize);
 
         if(createPaginatedListResult == null)
         {
-            return new BaseResponse<Pagination<GetBriefQuestionLevelResponseModel>>
+            return new BaseResponse<Pagination<GetQuestionLevelResponseModel>>
             {
                 Success = false,
                 Message = "Get paginated list question level failed",
             };
         }
 
-        return new BaseResponse<Pagination<GetBriefQuestionLevelResponseModel>>
+        return new BaseResponse<Pagination<GetQuestionLevelResponseModel>>
         {
             Success = true,
             Message = "Get paginated lis question level successful",

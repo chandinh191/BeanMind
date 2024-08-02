@@ -37,7 +37,9 @@ public class GetPaginatedListSubjectQueryHandler : IRequestHandler<GetPaginatedL
     public async Task<BaseResponse<Pagination<GetBriefSubjectResponseModel>>> Handle(GetPaginatedListSubjectQuery request, CancellationToken cancellationToken)
     {
         var defaultPageSize = _configuration.GetValue<int>("Pagination:PageSize");
-        var subjects = _context.Subjects.AsQueryable();
+        var subjects = _context.Subjects
+            .Include(o => o.Courses)
+            .AsQueryable();
 
         // filter by search Title and Description
         if (!string.IsNullOrEmpty(request.Term))

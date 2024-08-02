@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.VisualBasic;
 using System.ComponentModel;
 using Newtonsoft.Json;
+using System.Threading;
 
 namespace Infrastructure.Data;
 
@@ -170,7 +171,7 @@ public class ApplicationDbContextInitialiser
                     await _userManager.AddToRolesAsync(user, new[] { teacherRole.Name });
                 }
             }
-            await _context.Teachers.AddAsync(new Teacher
+            var teacher  = (new Teacher
             {
                 Id = new Guid(),
                 ApplicationUserId = user.Id,
@@ -178,6 +179,8 @@ public class ApplicationDbContextInitialiser
                 Experience = experiences[i],
                 Level = levels[i]
             });
+            await _context.Teachers.AddAsync(teacher);
+            user.TeacherId = teacher.Id;
         }
         // Parent Account User
         for (int i = 0; i < 5; i++)
@@ -197,7 +200,7 @@ public class ApplicationDbContextInitialiser
                     await _userManager.AddToRolesAsync(user, new[] { parentRole.Name });
                 }
             }
-            await _context.Parents.AddAsync(new Parent
+           var parent = (new Parent
             {
                 Id = new Guid("4977e82e-9592-475b-a6fa-10942721c6d"+i.ToString()),
                 ApplicationUserId = user.Id,
@@ -206,6 +209,8 @@ public class ApplicationDbContextInitialiser
                 Wallet = 0,
                 Gender = (Domain.Enums.Gender)(i % 3)
             });
+            await _context.Parents.AddAsync(parent);
+            user.ParentId = parent.Id;
         }
         // Student Account User
         var schools = new List<string> { "Tiểu học Việt Anh", "Tiểu học Quốc tế Hà Nội", "Tiểu học Nam Việt", "Tiểu Học Marie Curie", "Tiểu học Đinh Thiện Lý" };
@@ -227,7 +232,7 @@ public class ApplicationDbContextInitialiser
                     await _userManager.AddToRolesAsync(user, new[] { studentRole.Name });
                 }
             }
-            await _context.Students.AddAsync(new Student
+            var student = (new Student
             {
                 Id = new Guid(),
                 ApplicationUserId = user.Id,
@@ -236,6 +241,8 @@ public class ApplicationDbContextInitialiser
                 School = schools[i],
                 Class = classes[i]
             });
+            await _context.Students.AddAsync(student);
+            user.StudentId = student.Id;
         }
     }
   

@@ -12,7 +12,7 @@ namespace Application.QuestionAnswers;
 public class GetBriefQuestionAnswerResponseModel : BaseResponseModel
 {
     public Guid QuestionId { get; set; }
-    //public GetBriefQuestionResponseModel Question { get; set; }
+    public GetBriefQuestionResponseModel Question { get; set; }
     public string Content { get; set; }
     public bool IsCorrect { get; set; }
    

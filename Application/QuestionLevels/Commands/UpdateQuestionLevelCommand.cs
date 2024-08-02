@@ -14,6 +14,7 @@ public sealed record UpdateQuestionLevelCommand : IRequest<BaseResponse<GetBrief
     [Required]
     public Guid Id { get; init; }
     public string? Title { get; init; }
+    public string? Description { get; set; }
 }
 
 public class UpdateQuestionLevelCommandHanler : IRequestHandler<UpdateQuestionLevelCommand, BaseResponse<GetBriefQuestionLevelResponseModel>>

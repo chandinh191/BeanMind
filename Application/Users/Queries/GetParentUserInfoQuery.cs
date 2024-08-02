@@ -45,14 +45,6 @@ namespace Application.Users.Queries
                 return new BaseResponse<GetParentUserInfoResponseModel> { Success = false, Message = "User is not existed" };
             }
 
-            var parent = _context.Parents
-                .Where(o => o.ApplicationUserId == request.UserId)
-                .Include(o => o.Students)
-                .FirstOrDefault();
-
-            user.Parent = parent;
-            user.ParentId = (parent == null) ? Guid.Empty : parent.Id;
-
             var userRoles = (await _userManager.GetRolesAsync(user)).ToList();
 
             var userResponse = _mapper.Map<GetParentUserInfoResponseModel>(user);

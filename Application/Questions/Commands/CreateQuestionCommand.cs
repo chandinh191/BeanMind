@@ -4,18 +4,22 @@ using Application.Common;
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Application.QuestionAnswers;
+using Domain.Entities;
 
 
 namespace Application.Questions.Commands;
-public class QuestionAnswerModel
+public class CreateQuestionAnswerModel
 {
+    [Required]
     public string Content { get; set; }
+    [Required]
     public bool IsCorrect { get; set; }
 }
 
 
 [AutoMap(typeof(Domain.Entities.Question), ReverseMap = true)]
-public sealed record CreateQuestionCommand : IRequest<BaseResponse<GetBriefQuestionResponseModel>>
+public sealed record CreateQuestionCommand : IRequest<BaseResponse<GetQuestionResponseModel>>
 {
     [Required]
     public string Content { get; set; }
@@ -24,10 +28,10 @@ public sealed record CreateQuestionCommand : IRequest<BaseResponse<GetBriefQuest
     public Guid TopicId { get; set; }
     [Required]
     public Guid QuestionLevelId { get; set; }
-    public List<QuestionAnswerModel> QuestionAnswers { get; set; }
+    public List<CreateQuestionAnswerModel>? QuestionAnswers { get; set; }
 }
 
-public class CreateQuestionCommandHanler : IRequestHandler<CreateQuestionCommand, BaseResponse<GetBriefQuestionResponseModel>>
+public class CreateQuestionCommandHanler : IRequestHandler<CreateQuestionCommand, BaseResponse<GetQuestionResponseModel>>
 {
     private readonly ApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -38,13 +42,13 @@ public class CreateQuestionCommandHanler : IRequestHandler<CreateQuestionCommand
         _mapper = mapper;
     }
 
-    public async Task<BaseResponse<GetBriefQuestionResponseModel>> Handle(CreateQuestionCommand request, CancellationToken cancellationToken)
+    public async Task<BaseResponse<GetQuestionResponseModel>> Handle(CreateQuestionCommand request, CancellationToken cancellationToken)
     {
         var topic = await _context.Topics.FirstOrDefaultAsync(x => x.Id == request.TopicId);
 
         if (topic == null)
         {
-            return new BaseResponse<GetBriefQuestionResponseModel>
+            return new BaseResponse<GetQuestionResponseModel>
             {
                 Success = false,
                 Message = "Topic not found",
@@ -55,19 +59,26 @@ public class CreateQuestionCommandHanler : IRequestHandler<CreateQuestionCommand
 
         if (questionLevel == null)
         {
-            return new BaseResponse<GetBriefQuestionResponseModel>
+            return new BaseResponse<GetQuestionResponseModel>
             {
                 Success = false,
                 Message = "Question level not found",
             };
         }
+        var question = new Question
+        {
+            Content = request.Content,
+            ImageUrl = request.ImageUrl,
+            TopicId = request.TopicId,
+            QuestionLevelId = request.QuestionLevelId,
+        };
 
-        var question = _mapper.Map<Domain.Entities.Question>(request);
+        //var question = _mapper.Map<Domain.Entities.Question>(request);
         var createQuestionResult = await _context.AddAsync(question, cancellationToken);
 
         if(createQuestionResult.Entity == null)
         {
-            return new BaseResponse<GetBriefQuestionResponseModel>
+            return new BaseResponse<GetQuestionResponseModel>
             {
                 Success = false,
                 Message = "Create question failed",
@@ -76,9 +87,24 @@ public class CreateQuestionCommandHanler : IRequestHandler<CreateQuestionCommand
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        var mappedQuestionResult = _mapper.Map<GetBriefQuestionResponseModel>(createQuestionResult.Entity);
+        //Create Question Answer (if any)
+        if (request.QuestionAnswers != null && request.QuestionAnswers.Count > 0) {
+            foreach (var questionAnswer in request.QuestionAnswers)
+            {
+                var questionAnswerModel = new QuestionAnswer
+                {
+                    QuestionId = question.Id,
+                    Content = questionAnswer.Content,
+                    IsCorrect = questionAnswer.IsCorrect,
+                };
+                var createQuestionAnswerResult = await _context.AddAsync(questionAnswerModel, cancellationToken);
+            }
+            await _context.SaveChangesAsync(cancellationToken);
+        }
 
-        return new BaseResponse<GetBriefQuestionResponseModel>
+        var mappedQuestionResult = _mapper.Map<GetQuestionResponseModel>(createQuestionResult.Entity);
+
+        return new BaseResponse<GetQuestionResponseModel>
         {
             Success = true,
             Message = "Create question successful",

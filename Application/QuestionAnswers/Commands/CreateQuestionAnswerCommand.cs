@@ -13,7 +13,7 @@ public sealed record CreateQuestionAnswerCommand : IRequest<BaseResponse<GetBrie
     [Required]
     public Guid QuestionId { get; set; }
     [Required]
-    public string Text { get; set; }
+    public string Content { get; set; }
     [Required]
     public bool IsCorrect { get; set; }
 }

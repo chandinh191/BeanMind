@@ -7,6 +7,15 @@ using MediatR;
 using Domain.Entities;
 
 namespace Application.Questions.Commands;
+public class UpdateQuestionAnswerModel
+{
+    [Required]
+    public Guid Id { get; set; }
+    [Required]
+    public string Content { get; set; }
+    [Required]
+    public bool IsCorrect { get; set; }
+}
 
 [AutoMap(typeof(Domain.Entities.Question), ReverseMap = true)]
 public sealed record UpdateQuestionCommand : IRequest<BaseResponse<GetBriefQuestionResponseModel>>
@@ -17,6 +26,7 @@ public sealed record UpdateQuestionCommand : IRequest<BaseResponse<GetBriefQuest
     public string? ImageUrl { get; set; }
     public Guid? TopicId { get; set; }
     public Guid? QuestionLevelId { get; set; }
+    public List<UpdateQuestionAnswerModel>? QuestionAnswers { get; set; }
 }
 
 public class UpdateQuestionCommandHanler : IRequestHandler<UpdateQuestionCommand, BaseResponse<GetBriefQuestionResponseModel>>
@@ -57,7 +67,9 @@ public class UpdateQuestionCommandHanler : IRequestHandler<UpdateQuestionCommand
             }
         }
 
-        var question = await _context.Questions.FirstOrDefaultAsync(x => x.Id == request.Id);
+        var question = await _context.Questions
+            .Include(o => o.QuestionAnswers)
+            .FirstOrDefaultAsync(x => x.Id == request.Id);
 
         if(question == null)
         {
@@ -96,6 +108,27 @@ public class UpdateQuestionCommandHanler : IRequestHandler<UpdateQuestionCommand
         }
 
         await _context.SaveChangesAsync(cancellationToken);
+
+        //Update Question Answer (if any)
+        if (request.QuestionAnswers != null && request.QuestionAnswers.Count > 0)
+        {
+            foreach (var questionAnswer in request.QuestionAnswers)
+            {
+                var questionAnswerModel = new QuestionAnswer
+                {
+                    Id = questionAnswer.Id,
+                    QuestionId = question.Id,
+                    Content = questionAnswer.Content,
+                    IsCorrect = questionAnswer.IsCorrect,
+                };
+                var existedRecord = question.QuestionAnswers.FirstOrDefault(x => x.Id == questionAnswer.Id);
+                if (existedRecord != null) {
+                    existedRecord=questionAnswerModel;
+                    _context.Update(existedRecord);
+                }
+            }
+            await _context.SaveChangesAsync(cancellationToken);
+        }
 
         var mappedQuestionResult = _mapper.Map<GetBriefQuestionResponseModel>(updateQuestionResult.Entity);
 

@@ -43,9 +43,10 @@ namespace Application.Sessions.Queries
             }
 
             var session = await _context.Sessions
-                .Include(x => x.ApplicationUser)
-                .Include(x => x.TeachingSlot)
-                .Include(x => x.Participants)
+                .Include(x => x.ApplicationUser) .ThenInclude(o => o.Teacher)
+                .Include(x => x.TeachingSlot) .ThenInclude(o => o.Course)
+                .Include(x => x.Participants).ThenInclude(o =>o.Enrollment).ThenInclude(o => o.Course).ThenInclude(o => o.Chapters).ThenInclude(o => o.Topics)
+                .Include(x => x.Participants).ThenInclude(o => o.Enrollment).ThenInclude(o => o.ApplicationUser).ThenInclude(o => o.Student)
                 .FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);
 
             var mappedSession = _mapper.Map<GetSessionResponseModel>(session);
