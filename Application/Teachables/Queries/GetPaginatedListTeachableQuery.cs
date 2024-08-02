@@ -17,7 +17,7 @@ namespace Application.Teachables.Queries
     {
         public int PageIndex { get; init; }
         public int? PageSize { get; init; }
-        public string ApplicationUserId { get; set; }
+        public string? ApplicationUserId { get; set; }
         public Guid CourseId { get; set; }
         public IsDeleted IsDeleted { get; init; } = IsDeleted.All;
         public SortBy SortBy { get; init; }

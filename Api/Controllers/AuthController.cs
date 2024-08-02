@@ -107,16 +107,7 @@ public class AuthController : ControllerBase
         };
         return await sender.Send(query);
     }
-/*    [HttpGet]
-    [Route("parentinfo/{id}")]
-    public async Task<BaseResponse<GetParentUserInfoResponseModel>> UserInfoByParent(ISender sender, [FromRoute] string id)
-    {
-        var query = new GetParentUserInfoQuery
-        {
-            UserId = id,
-        };
-        return await sender.Send(query);
-    }*/
+
 
     [HttpGet]
     [Route(RouteNameValues.Info, Name = RouteNameValues.Info)]

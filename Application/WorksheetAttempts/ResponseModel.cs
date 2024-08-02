@@ -18,7 +18,7 @@ namespace Application.WorksheetAttempts
     {
         public string Title { get; set; }
         public Guid EnrollmentId { get; set; }
-        //public GetBriefEnrollmentResponseModel Enrollment { get; set; }
+        public GetBriefEnrollmentResponseModel Enrollment { get; set; }
         public Guid WorksheetId { get; set; }
         public GetBriefWorksheetResponseModel Worksheet { get; set; }
 

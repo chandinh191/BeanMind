@@ -1,7 +1,11 @@
 ﻿using Application.Common;
+using Application.Enrollments;
+using Application.GameHistories;
 using Application.Parents;
 using Application.Participants;
+using Application.Sessions;
 using Application.Students;
+using Application.Teachables;
 using Application.Teachers;
 using AutoMapper;
 using Domain.Entities;
@@ -39,10 +43,10 @@ namespace Application.ApplicationUsers
         public string? LastName { get; set; }
         public string? FirstName { get; set; }
         public string? Email { get; set; }
-        public List<Session>? Sessions { get; set; }
-        public List<Teachable>? Teachables { get; set; }
-        public List<Enrollment>? Enrollments { get; set; }
-        public List<GameHistory>? GameHistories { get; set; }
+        public List<GetBriefSessionResponseModel>? Sessions { get; set; }
+        public List<GetBriefTeachableResponseModel>? Teachables { get; set; }
+        public List<GetEnrollmentResponseModel>? Enrollments { get; set; }
+        public List<GetBriefGameHistoryResponseModel>? GameHistories { get; set; }
         public Guid? StudentId { get; set; }
         public GetBriefStudentResponseModel? Student { get; set; }
         public Guid? TeacherId { get; set; }
