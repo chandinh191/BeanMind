@@ -44,7 +44,7 @@ namespace Application.Teachables.Queries
 
             var teachable = await _context.Teachables
                 .Include(x => x.Course)
-                .Include(x => x.ApplicationUser)
+                .Include(x => x.ApplicationUser).ThenInclude(o => o.Teacher)
                 .FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);
             var mappedTeachable = _mapper.Map<GetTeachableResponseModel>(teachable);
 

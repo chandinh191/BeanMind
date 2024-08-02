@@ -3,6 +3,7 @@ using AutoMapper;
 using Domain.Enums;
 using Infrastructure.Data;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -40,7 +41,10 @@ namespace Application.Teachables.Queries
         public async Task<BaseResponse<Pagination<GetBriefTeachableResponseModel>>> Handle(GetPaginatedListTeachableQuery request, CancellationToken cancellationToken)
         {
             var defaultPageSize = _configuration.GetValue<int>("Pagination:PageSize");
-            var teachables = _context.Teachables.AsQueryable();
+            var teachables = _context.Teachables
+                .Include(x => x.Course)
+                .Include(x => x.ApplicationUser).ThenInclude(o => o.Teacher)
+                .AsQueryable();
 
             if (request.ApplicationUserId != null)
             {

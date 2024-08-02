@@ -22,7 +22,7 @@ using Application.Parents;
 namespace Api.Controllers;
 
 [ApiController]
-[Route(ControllerRouteName.UserRoute)]
+[Route(ControllerRouteName.AuthRoute)]
 public class AuthController : ControllerBase
 {
     private readonly IConfiguration _configuration;
@@ -107,7 +107,7 @@ public class AuthController : ControllerBase
         };
         return await sender.Send(query);
     }
-    [HttpGet]
+/*    [HttpGet]
     [Route("parentinfo/{id}")]
     public async Task<BaseResponse<GetParentUserInfoResponseModel>> UserInfoByParent(ISender sender, [FromRoute] string id)
     {
@@ -116,7 +116,7 @@ public class AuthController : ControllerBase
             UserId = id,
         };
         return await sender.Send(query);
-    }
+    }*/
 
     [HttpGet]
     [Route(RouteNameValues.Info, Name = RouteNameValues.Info)]

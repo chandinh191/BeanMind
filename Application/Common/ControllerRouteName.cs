@@ -5,7 +5,8 @@
         private const string ApiVersion = "v1";
         public const string BaseApi = "/api/" + ApiVersion;
 
-        public const string UserRoute = BaseApi + "/auth";
+        public const string AuthRoute = BaseApi + "/auth";
+        public const string UserRoute = BaseApi + "/users";
         public const string ChapterRoute = BaseApi + "/chapters";
         public const string ChapterGameRoute = BaseApi + "/chapter-games";
         public const string CourseRoute = BaseApi + "/courses";
