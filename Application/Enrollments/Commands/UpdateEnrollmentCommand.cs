@@ -11,20 +11,21 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
+using Domain.Enums;
 
 namespace Application.Enrollments.Commands
 {
     [AutoMap(typeof(Domain.Entities.Enrollment), ReverseMap = true)]
-    public sealed record UpdateEnrollmentCommand : IRequest<BaseResponse<GetEnrollmentResponseModel>>
+    public sealed record UpdateEnrollmentCommand : IRequest<BaseResponse<GetBriefEnrollmentResponseModel>>
     {
         [Required]
         public Guid Id { get; set; }
         public string? ApplicationUserId { get; set; }
         public Guid? CourseId { get; set; }
-        public bool? Status { get; set; }
+        public EnrollmentStatus? Status { get; set; }
     }
 
-    public class UpdateEnrollmentCommandHanler : IRequestHandler<UpdateEnrollmentCommand, BaseResponse<GetEnrollmentResponseModel>>
+    public class UpdateEnrollmentCommandHanler : IRequestHandler<UpdateEnrollmentCommand, BaseResponse<GetBriefEnrollmentResponseModel>>
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -35,14 +36,14 @@ namespace Application.Enrollments.Commands
             _mapper = mapper;
         }
 
-        public async Task<BaseResponse<GetEnrollmentResponseModel>> Handle(UpdateEnrollmentCommand request, CancellationToken cancellationToken)
+        public async Task<BaseResponse<GetBriefEnrollmentResponseModel>> Handle(UpdateEnrollmentCommand request, CancellationToken cancellationToken)
         {
             if (request.CourseId != null)
             {
                 var course = await _context.Courses.FirstOrDefaultAsync(x => x.Id == request.CourseId);
                 if (course == null)
                 {
-                    return new BaseResponse<GetEnrollmentResponseModel>
+                    return new BaseResponse<GetBriefEnrollmentResponseModel>
                     {
                         Success = false,
                         Message = "Course not found",
@@ -55,7 +56,7 @@ namespace Application.Enrollments.Commands
                 var applicationUser = await _context.ApplicationUsers.FirstOrDefaultAsync(x => x.Id.Equals(request.ApplicationUserId));
                 if (applicationUser == null)
                 {
-                    return new BaseResponse<GetEnrollmentResponseModel>
+                    return new BaseResponse<GetBriefEnrollmentResponseModel>
                     {
                         Success = false,
                         Message = "User not found",
@@ -67,7 +68,7 @@ namespace Application.Enrollments.Commands
 
             if (enrollment == null)
             {
-                return new BaseResponse<GetEnrollmentResponseModel>
+                return new BaseResponse<GetBriefEnrollmentResponseModel>
                 {
                     Success = false,
                     Message = "Enrollment is not found",
@@ -94,7 +95,7 @@ namespace Application.Enrollments.Commands
 
             if (updateEnrollmentResult.Entity == null)
             {
-                return new BaseResponse<GetEnrollmentResponseModel>
+                return new BaseResponse<GetBriefEnrollmentResponseModel>
                 {
                     Success = false,
                     Message = "Update enrollment failed",
@@ -103,9 +104,9 @@ namespace Application.Enrollments.Commands
 
             await _context.SaveChangesAsync(cancellationToken);
 
-            var mappedEnrollmentResult = _mapper.Map<GetEnrollmentResponseModel>(updateEnrollmentResult.Entity);
+            var mappedEnrollmentResult = _mapper.Map<GetBriefEnrollmentResponseModel>(updateEnrollmentResult.Entity);
 
-            return new BaseResponse<GetEnrollmentResponseModel>
+            return new BaseResponse<GetBriefEnrollmentResponseModel>
             {
                 Success = true,
                 Message = "Update enrollment successful",

@@ -20,7 +20,7 @@ namespace Application.WorksheetAttempts
         public Guid EnrollmentId { get; set; }
         //public GetBriefEnrollmentResponseModel Enrollment { get; set; }
         public Guid WorksheetId { get; set; }
-        //public GetBriefWorksheetResponseModel Worksheet { get; set; }
+        public GetBriefWorksheetResponseModel Worksheet { get; set; }
 
     }
 

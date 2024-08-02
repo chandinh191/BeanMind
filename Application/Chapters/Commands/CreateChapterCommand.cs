@@ -17,6 +17,8 @@ public sealed record CreateChapterCommand : IRequest<BaseResponse<GetBriefChapte
     [Required]
     public string Description { get; init; }
     [Required]
+    public int Order { get; init; }
+    [Required]
     public Guid CourseId { get; set; }
 }
 

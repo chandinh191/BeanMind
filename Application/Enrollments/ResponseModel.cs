@@ -11,6 +11,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Application.ApplicationUsers;
 using Application.Courses;
+using Domain.Enums;
+using Application.WorksheetAttemptAnswers;
+using Application.WorksheetAttempts;
 
 namespace Application.Enrollments
 {
@@ -18,10 +21,10 @@ namespace Application.Enrollments
     public class GetBriefEnrollmentResponseModel : BaseResponseModel
     {
         public string ApplicationUserId { get; set; }
-        //public GetBriefApplicationUserResponseModel ApplicationUser { get; set; }
+        public GetBriefApplicationUserResponseModel ApplicationUser { get; set; }
         public Guid CourseId { get; set; }
-        //public GetBriefCourseResponseModel Course { get; set; }
-        public bool Status { get; set; }
+        public GetBriefCourseResponseModel Course { get; set; }
+        public EnrollmentStatus Status { get; set; }
     }
 
     [AutoMap(typeof(Domain.Entities.Enrollment))]
@@ -32,7 +35,8 @@ namespace Application.Enrollments
         public Guid CourseId { get; set; }
         public GetBriefCourseResponseModel Course { get; set; }
         public List<GetBriefParticipantResponseModel> Participants { get; set; }
-        public bool Status { get; set; }
+        public List<GetBriefWorksheetAttemptResponseModel> WorksheetAttempts { get; set; }
+        public EnrollmentStatus Status { get; set; }
 
     }
 

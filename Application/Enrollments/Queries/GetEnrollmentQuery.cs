@@ -44,8 +44,10 @@ namespace Application.Enrollments.Queries
             }
 
             var enrollment = await _context.Enrollments
-                .Include(o => o.ApplicationUser)
+                .Include(o => o.ApplicationUser).ThenInclude(o => o.Student)
                 .Include(o => o.Course)
+                .Include(o => o.Participants)
+                .Include(o => o.WorksheetAttempts) .ThenInclude(o => o.Worksheet)
                 .FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);
 
             var mappedEnrollment= _mapper.Map<GetEnrollmentResponseModel>(enrollment);

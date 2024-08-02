@@ -8,6 +8,7 @@ public class Chapter : BaseAuditableEntity
 {
     public string Title { get; set; }
     public string Description { get; set; }
+    public int Order { get; init; }
     [Required]
     [ForeignKey(nameof(Course))]
     public Guid CourseId { get; set; }

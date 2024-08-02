@@ -406,7 +406,7 @@ namespace Infrastructure.Data
                 CourseLevelId = new Guid("b8fc90e5-a56f-4ac0-b6bb-cd3eea88d4a1"),
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"),
                 Title = "Đại số đại cương",
-                Image = "https://static.vecteezy.com/system/resources/previews/013/400/591/non_2x/education-concept-with-cartoon-students-vector.jpg",
+                ImageURL = "https://static.vecteezy.com/system/resources/previews/013/400/591/non_2x/education-concept-with-cartoon-students-vector.jpg",
                 Description = "Đại số là một phần quan trọng của toán học, tập trung vào việc nghiên cứu và giải quyết các vấn đề liên quan đến biểu thức, phương trình và hệ phương trình. Trong đại số, học sinh học về cách tạo ra và giải quyết các biểu thức và phương trình để tìm ra giá trị của các biến số. Điều này có thể bao gồm cả các khái niệm như phép cộng, phép trừ, phép nhân, phép chia, cũng như các phương pháp giải các hệ phương trình.",
                 TotalSlot = 20,
             });
@@ -417,7 +417,7 @@ namespace Infrastructure.Data
                 CourseLevelId = new Guid("dd885d8d-0ea4-4c19-9b06-5e02bb44e7bb"),
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"),
                 Title = "Hình học đại cương",
-                Image = " https://static.vecteezy.com/system/resources/thumbnails/002/399/898/small_2x/education-concept-with-funny-characters-vector.jpg",
+                ImageURL = " https://static.vecteezy.com/system/resources/thumbnails/002/399/898/small_2x/education-concept-with-funny-characters-vector.jpg",
                 Description = "Hình học nghiên cứu về các hình học cơ bản như hình vuông, hình tròn, tam giác và các hình khác, cũng như các phép biến đổi hình học như tịnh tiến, quay và phản xạ. Học sinh được giáo dục về cách tính diện tích, chu vi và khám phá các tính chất đặc biệt của các hình học này.",
                 TotalSlot = 30,
             });
@@ -428,7 +428,7 @@ namespace Infrastructure.Data
                 CourseLevelId = new Guid("9e735658-0002-45c9-a6d5-1a579dba49ee"),
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"),
                 Title = "Số học ứng dụng",
-                Image = "https://c8.alamy.com/comp/M71DKY/vector-illustration-of-three-stick-kids-jumping-together-in-the-field-M71DKY.jpg",
+                ImageURL = "https://c8.alamy.com/comp/M71DKY/vector-illustration-of-three-stick-kids-jumping-together-in-the-field-M71DKY.jpg",
                 Description = "Số học là nền tảng của toán học, tập trung vào việc nghiên cứu và hiểu về các số và phép tính. Trong số học, học sinh học cách thực hiện các phép toán cơ bản như cộng, trừ, nhân, chia, cũng như các khái niệm như số nguyên tố, bội số chung nhỏ nhất và cách áp dụng chúng vào các bài toán thực tế.",
                 TotalSlot = 20,
             });
@@ -439,7 +439,7 @@ namespace Infrastructure.Data
                 CourseLevelId = new Guid("3f6798e9-eed3-40db-ae92-7dd0da9a6435"),
                 ProgramTypeId = new Guid("96cd2a6c-1013-4bb9-8927-047fc25e0402"),
                 Title = "Tư duy Logic",
-                Image = "https://i.pinimg.com/736x/fa/3a/1a/fa3a1ac70a55ba27576e41d2335e253c.jpg",
+                ImageURL = "https://i.pinimg.com/736x/fa/3a/1a/fa3a1ac70a55ba27576e41d2335e253c.jpg",
                 Description = "Tư duy logic là khả năng quan trọng giúp con người suy luận và giải quyết vấn đề một cách có cấu trúc và logic. Trong giáo dục, việc phát triển tư duy logic không chỉ là mục tiêu của quá trình học tập mà còn là công cụ quan trọng giúp học sinh phát triển kỹ năng suy nghĩ sâu sắc, phân tích thông tin và đưa ra nhận định có chất lượng. Thông qua việc thực hành giải quyết các bài toán phức tạp và tham gia vào các hoạt động nghiên cứu và phân tích, học sinh có cơ hội rèn luyện tư duy logic và áp dụng nó vào các tình huống thực tế, từ đó phát triển sự tự tin và thành công trong học tập và cuộc sống.",
                 TotalSlot = 24,
             });
@@ -701,28 +701,28 @@ namespace Infrastructure.Data
                 Id = new Guid("091e0476-0b32-412b-9437-e3990a6aa529"),
                 CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
                 ApplicationUserId = "954b8b1b-1b5f-42f6-9e27-4aa65cc7e7b1",
-                Status = true,
+                Status = Domain.Enums.EnrollmentStatus.OnGoing,
             });
             await _context.Enrollments.AddAsync(new Enrollment
             {
                 Id = new Guid("877ddfd8-2ec2-445c-aeaf-1a51a6a40cd5"),
                 CourseId = new Guid("555a0815-d0b8-4975-8e1c-245d7acbab45"),
                 ApplicationUserId = "954b8b1b-1b5f-42f6-9e27-4aa65cc7e7b2",
-                Status = true,
+                Status = Domain.Enums.EnrollmentStatus.OnGoing,
             });
             await _context.Enrollments.AddAsync(new Enrollment
             {
                 Id = new Guid("5e0e13d9-ec68-4de8-8456-e6882071eb89"),
                 CourseId = new Guid("6c215522-0925-4f86-b0fd-72f746ca9fd6"),
                 ApplicationUserId = "954b8b1b-1b5f-42f6-9e27-4aa65cc7e7b2",
-                Status = true,
+                Status = Domain.Enums.EnrollmentStatus.OnGoing,
             });
             await _context.Enrollments.AddAsync(new Enrollment
             {
                 Id = new Guid("d0d67119-944a-4ac7-a6a9-e888f50bf05c"),
                 CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
                 ApplicationUserId = "954b8b1b-1b5f-42f6-9e27-4aa65cc7e7b0",
-                Status = true,
+                Status = Domain.Enums.EnrollmentStatus.Complete,
             });
             // -----------
             // Participant table

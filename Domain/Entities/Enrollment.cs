@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Entities.UserEntities;
+using Domain.Enums;
 
 namespace Domain.Entities
 {
@@ -23,6 +24,6 @@ namespace Domain.Entities
 
         public IEnumerable<Participant> Participants { get; set; }
         public IEnumerable<WorksheetAttempt> WorksheetAttempts { get; set; }
-        public bool Status { get; set; }
+        public EnrollmentStatus Status { get; set; }
     }
 }

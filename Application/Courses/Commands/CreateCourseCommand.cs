@@ -17,6 +17,9 @@ public sealed record CreateCourseCommand : IRequest<BaseResponse<GetBriefCourseR
     [Required]
     public string Description { get; init; }
     [Required]
+    public int Price { get; set; }
+    public string? ImageURL { get; set; }
+    [Required]
     public int TotalSlot { get; set; }
     [Required]
     public Guid SubjectId { get; set; }

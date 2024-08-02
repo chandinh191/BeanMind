@@ -44,8 +44,9 @@ namespace Application.Enrollments.Queries
         {
             var defaultPageSize = _configuration.GetValue<int>("Pagination:PageSize");
             var enrollments = _context.Enrollments
-                .Include(o => o.Course)
-                .Include(o => o.ApplicationUser)
+                .Include(o => o.Course).ThenInclude(o => o.ProgramType)
+                .Include(o => o.Course).ThenInclude(o => o.CourseLevel)
+                .Include(o => o.ApplicationUser) .ThenInclude(o => o.Student)
                 .AsQueryable();
 
             // filter by course id

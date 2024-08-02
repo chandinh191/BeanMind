@@ -9,7 +9,7 @@ using Domain.Entities;
 
 namespace Application.Chapters.Queries;
 
-public sealed record GetPaginatedListChapterQuery : IRequest<BaseResponse<Pagination<GetBriefChapterResponseModel>>>
+public sealed record GetPaginatedListChapterQuery : IRequest<BaseResponse<Pagination<GetChapterResponseModel>>>
 {
     public int PageIndex { get; init; }
     public int? PageSize { get; init; }
@@ -21,7 +21,7 @@ public sealed record GetPaginatedListChapterQuery : IRequest<BaseResponse<Pagina
     public DateTime EndTime { get; init; } = DateTime.MinValue;
 }
 
-public class GetPaginatedListChapterQueryHandler : IRequestHandler<GetPaginatedListChapterQuery, BaseResponse<Pagination<GetBriefChapterResponseModel>>>
+public class GetPaginatedListChapterQueryHandler : IRequestHandler<GetPaginatedListChapterQuery, BaseResponse<Pagination<GetChapterResponseModel>>>
 {
     private readonly ApplicationDbContext _context;
     private readonly IConfiguration _configuration;
@@ -34,10 +34,12 @@ public class GetPaginatedListChapterQueryHandler : IRequestHandler<GetPaginatedL
         _mapper = mapper;
     }
 
-    public async Task<BaseResponse<Pagination<GetBriefChapterResponseModel>>> Handle(GetPaginatedListChapterQuery request, CancellationToken cancellationToken)
+    public async Task<BaseResponse<Pagination<GetChapterResponseModel>>> Handle(GetPaginatedListChapterQuery request, CancellationToken cancellationToken)
     {
         var defaultPageSize = _configuration.GetValue<int>("Pagination:PageSize");
-        var chapters = _context.Chapters.AsQueryable();
+        var chapters = _context.Chapters
+            .Include (o => o.Course)
+            .AsQueryable();
 
         // filter by search Title and description
         if (!string.IsNullOrEmpty(request.Term))
@@ -84,19 +86,19 @@ public class GetPaginatedListChapterQueryHandler : IRequestHandler<GetPaginatedL
         }
 
         // convert the list of item to list of response model
-        var mappedChapters = _mapper.Map<List<GetBriefChapterResponseModel>>(chapters);
-        var createPaginatedListResult = Pagination<GetBriefChapterResponseModel>.Create(mappedChapters.AsQueryable(), request.PageIndex, request.PageSize ?? defaultPageSize);
+        var mappedChapters = _mapper.Map<List<GetChapterResponseModel>>(chapters);
+        var createPaginatedListResult = Pagination<GetChapterResponseModel>.Create(mappedChapters.AsQueryable(), request.PageIndex, request.PageSize ?? defaultPageSize);
 
         if(createPaginatedListResult == null)
         {
-            return new BaseResponse<Pagination<GetBriefChapterResponseModel>>
+            return new BaseResponse<Pagination<GetChapterResponseModel>>
             {
                 Success = false,
                 Message = "Get PaginatedList chapter failed",
             };
         }
 
-        return new BaseResponse<Pagination<GetBriefChapterResponseModel>>
+        return new BaseResponse<Pagination<GetChapterResponseModel>>
         {
             Success = true,
             Message = "Get PaginatedList chapter successful",

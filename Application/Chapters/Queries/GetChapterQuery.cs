@@ -38,7 +38,7 @@ public class GetChapterQueryHanler : IRequestHandler<GetChapterQuery, BaseRespon
 
         var chapter = await _context.Chapters
             .Include(x => x.Course)
-            .Include(x => x.Topics)
+            .Include(x => x.Topics) .ThenInclude(x => x.Processions)
             .Include(x => x.ChapterGames)
             .Include(x => x.WorksheetTemplates)
             .FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);

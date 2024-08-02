@@ -17,16 +17,16 @@ using Domain.Enums;
 namespace Application.Enrollments.Commands
 {
     [AutoMap(typeof(Domain.Entities.Enrollment), ReverseMap = true)]
-    public sealed record CreateEnrollmentCommand : IRequest<BaseResponse<GetEnrollmentResponseModel>>
+    public sealed record CreateEnrollmentCommand : IRequest<BaseResponse<GetBriefEnrollmentResponseModel>>
     {
         [Required]
         public string ApplicationUserId { get; set; }
         [Required]
         public Guid CourseId { get; set; }
-        public bool Status { get; set; } = true;
+        public EnrollmentStatus Status { get; set; }
     }
 
-    public class CreateEnrollmentCommandHanler : IRequestHandler<CreateEnrollmentCommand, BaseResponse<GetEnrollmentResponseModel>>
+    public class CreateEnrollmentCommandHanler : IRequestHandler<CreateEnrollmentCommand, BaseResponse<GetBriefEnrollmentResponseModel>>
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -37,12 +37,12 @@ namespace Application.Enrollments.Commands
             _mapper = mapper;
         }
 
-        public async Task<BaseResponse<GetEnrollmentResponseModel>> Handle(CreateEnrollmentCommand request, CancellationToken cancellationToken)
+        public async Task<BaseResponse<GetBriefEnrollmentResponseModel>> Handle(CreateEnrollmentCommand request, CancellationToken cancellationToken)
         {
             var course = await _context.Courses.FirstOrDefaultAsync(x => x.Id == request.CourseId);
             if (course == null)
             {
-                return new BaseResponse<GetEnrollmentResponseModel>
+                return new BaseResponse<GetBriefEnrollmentResponseModel>
                 {
                     Success = false,
                     Message = "Course not found",
@@ -53,7 +53,7 @@ namespace Application.Enrollments.Commands
             var applicationUser = await _context.ApplicationUsers.FirstOrDefaultAsync(x => x.Id.Equals(request.ApplicationUserId));
             if (applicationUser == null)
             {
-                return new BaseResponse<GetEnrollmentResponseModel>
+                return new BaseResponse<GetBriefEnrollmentResponseModel>
                 {
                     Success = false,
                     Message = "User not found",
@@ -65,7 +65,7 @@ namespace Application.Enrollments.Commands
 
             if (createEnrollmentResult.Entity == null)
             {
-                return new BaseResponse<GetEnrollmentResponseModel>
+                return new BaseResponse<GetBriefEnrollmentResponseModel>
                 {
                     Success = false,
                     Message = "Create enrollment failed",
@@ -74,9 +74,9 @@ namespace Application.Enrollments.Commands
 
             await _context.SaveChangesAsync(cancellationToken);
 
-            var mappedEnrollmentResult = _mapper.Map<GetEnrollmentResponseModel>(createEnrollmentResult.Entity);
+            var mappedEnrollmentResult = _mapper.Map<GetBriefEnrollmentResponseModel>(createEnrollmentResult.Entity);
 
-            return new BaseResponse<GetEnrollmentResponseModel>
+            return new BaseResponse<GetBriefEnrollmentResponseModel>
             {
                 Success = true,
                 Message = "Create enrollment successful",

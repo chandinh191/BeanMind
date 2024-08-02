@@ -16,6 +16,8 @@ public sealed record UpdateCourseCommand : IRequest<BaseResponse<GetBriefCourseR
     [StringLength(maximumLength: 50, MinimumLength = 4, ErrorMessage = "Title must be at least 4 characters long.")]
     public string? Title { get; init; }
     public string? Description { get; init; }
+    public string? ImageURL { get; set; }
+    public int? Price { get; set; }
     public Guid? SubjectId { get; set; }
     public Guid? ProgramTypeId { get; set; }
     public Guid? CourseLevelId { get; set; }

@@ -38,7 +38,12 @@ public class GetPaginatedListCourseQueryHandler : IRequestHandler<GetPaginatedLi
     public async Task<BaseResponse<Pagination<GetBriefCourseResponseModel>>> Handle(GetPaginatedListCourseQuery request, CancellationToken cancellationToken)
     {
         var defaultPageSize = _configuration.GetValue<int>("Pagination:PageSize");
-        var courses = _context.Courses.Include(o=>o.ProgramType).Include(o=>o.CourseLevel).Include(o=>o.Subject).AsQueryable();
+        var courses = _context.Courses
+            .Include(o => o.ProgramType)
+            .Include(o => o.CourseLevel)
+            .Include(o => o.Subject)
+            .Include(o => o.Teachables)
+            .AsQueryable();
 
         // filter by subject id
         if (request.SubjectId != Guid.Empty)
