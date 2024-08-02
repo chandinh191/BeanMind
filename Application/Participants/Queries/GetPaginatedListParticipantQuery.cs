@@ -42,7 +42,10 @@ namespace Application.Participants.Queries
         public async Task<BaseResponse<Pagination<GetBriefParticipantResponseModel>>> Handle(GetPaginatedListParticipantQuery request, CancellationToken cancellationToken)
         {
             var defaultPageSize = _configuration.GetValue<int>("Pagination:PageSize");
-            var participants = _context.Participants.AsQueryable();
+            var participants = _context.Participants
+                .Include(o => o.Enrollment).ThenInclude(o => o.ApplicationUser).ThenInclude(o => o.Student)
+                .Include(o => o.Session).ThenInclude(o => o.TeachingSlot).ThenInclude(o => o.Course)
+                .AsQueryable();
 
             // filter by EnrollmentId 
             if (request.EnrollmentId != Guid.Empty)

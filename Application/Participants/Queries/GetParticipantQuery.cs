@@ -45,7 +45,7 @@ namespace Application.Participants.Queries
             var participant = await _context.Participants
                 .Include(o => o.Session)
                 .Include(o => o.Enrollment)
-                .Include(o => o.Processions)
+                .Include(o => o.Processions) .ThenInclude(o => o.Topic)
                 .FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);
 
             var mappedParticipant = _mapper.Map<GetParticipantResponseModel>(participant);

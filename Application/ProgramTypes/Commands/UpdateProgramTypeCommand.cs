@@ -20,7 +20,7 @@ namespace Application.ProgramTypes.Commands
     {
         [Required]
         public Guid Id { get; init; }
-        [StringLength(maximumLength: 50, MinimumLength = 4, ErrorMessage = "Title must be at least 4 characters long.")]
+        //[StringLength(maximumLength: 50, MinimumLength = 4, ErrorMessage = "Title must be at least 4 characters long.")]
         public string? Title { get; init; }
         public string? Description { get; init; }
     }

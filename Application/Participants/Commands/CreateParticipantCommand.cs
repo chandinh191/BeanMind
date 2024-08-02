@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Application.Enrollments;
 using Application.Sessions;
 using System.ComponentModel.DataAnnotations;
+using Domain.Enums;
 
 namespace Application.Participants.Commands
 {
@@ -22,6 +23,7 @@ namespace Application.Participants.Commands
         [Required]
         public Guid SessionId { get; set; }
         public bool IsPresent { get; set; } = true;
+        public ParticipantStatus Status { get; set; }
     }
 
     public class CreateParticipantCommandHanler : IRequestHandler<CreateParticipantCommand, BaseResponse<GetBriefParticipantResponseModel>>

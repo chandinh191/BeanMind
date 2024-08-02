@@ -23,7 +23,7 @@ namespace Application.TeachingSlots
         public int DayInWeek { get; set; }
         public int Slot { get; set; }
         public Guid CourseId { get; set; }
-        //public GetBriefCourseResponseModel Course { get; set; }
+        public GetBriefCourseResponseModel Course { get; set; }
 
     }
 

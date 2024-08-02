@@ -13,6 +13,7 @@ using Application.Enrollments;
 using Application.Sessions;
 using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
+using Domain.Enums;
 
 namespace Application.Participants.Commands
 {
@@ -24,6 +25,7 @@ namespace Application.Participants.Commands
         public Guid? EnrollmentId { get; set; }
         public Guid? SessionId { get; set; }
         public bool? IsPresent { get; set; }
+        public ParticipantStatus? Status { get; set; }
     }
 
     public class UpdateParticipantCommandHanler : IRequestHandler<UpdateParticipantCommand, BaseResponse<GetBriefParticipantResponseModel>>

@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Enums;
 
 namespace Domain.Entities
 {
@@ -21,5 +22,6 @@ namespace Domain.Entities
         public Session Session { get; set; }
         public IEnumerable<Procession> Processions { get; set; }
         public bool IsPresent { get; set; }
+        public ParticipantStatus Status { get; set; }   
     }
 }

@@ -16,7 +16,7 @@ public class GetBriefChapterResponseModel : BaseResponseModel
     public string Description { get; set; }
     public int Order { get; init; }
     public Guid CourseId { get; set; }
-    //public GetBriefCourseResponseModel Course { get; set; }
+    public GetBriefCourseResponseModel Course { get; set; }
 }
 
 [AutoMap(typeof(Domain.Entities.Chapter))]

@@ -19,9 +19,9 @@ namespace Application.Sessions
     {
         public DateOnly Date { get; set; }
         public string? ApplicationUserId { get; set; }
-        //public GetBriefApplicationUserResponseModel? ApplicationUser { get; set; }
+        public GetBriefApplicationUserResponseModel? ApplicationUser { get; set; }
         public Guid TeachingSlotId { get; set; }
-        //public GetBriefTeachingSlotResponseModel TeachingSlot { get; set; }
+        public GetBriefTeachingSlotResponseModel TeachingSlot { get; set; }
     }
 
     [AutoMap(typeof(Domain.Entities.Session))]

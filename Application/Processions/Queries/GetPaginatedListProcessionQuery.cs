@@ -4,6 +4,7 @@ using AutoMapper;
 using Domain.Enums;
 using Infrastructure.Data;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -41,7 +42,10 @@ namespace Application.Processions.Queries
         public async Task<BaseResponse<Pagination<GetBriefProcessionResponseModel>>> Handle(GetPaginatedListProcessionQuery request, CancellationToken cancellationToken)
         {
             var defaultPageSize = _configuration.GetValue<int>("Pagination:PageSize");
-            var processions = _context.Processions.AsQueryable();
+            var processions = _context.Processions
+                .Include(o => o.Participant)
+                .Include(o => o.Topic)
+                .AsQueryable();
 
             // filter by ParticipantId 
             if (request.ParticipantId != Guid.Empty)

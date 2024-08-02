@@ -18,20 +18,18 @@ namespace Application.Processions
     public class GetBriefProcessionResponseModel : BaseResponseModel
     {
         public Guid ParticipantId { get; set; }
-        //public GetBriefParticipantResponseModel Participant { get; set; }
+        public GetBriefParticipantResponseModel Participant { get; set; }
         public Guid? TopicId { get; set; }
-        //public GetBriefTopicResponseModel? Topic { get; set; }
-        public bool Status { get; set; }
+        public GetBriefTopicResponseModel? Topic { get; set; }
     }
 
     [AutoMap(typeof(Domain.Entities.Procession))]
     public class GetProcessionResponseModel : BaseResponseModel
     {
         public Guid ParticipantId { get; set; }
-        public GetParticipantResponseModel Participant { get; set; }
+        public GetBriefParticipantResponseModel Participant { get; set; }
         public Guid? TopicId { get; set; }
-        public GetTopicResponseModel? Topic { get; set; }
-        public bool Status { get; set; }
+        public GetBriefTopicResponseModel? Topic { get; set; }
     }
 
 }

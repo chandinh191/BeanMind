@@ -4,6 +4,7 @@ using AutoMapper;
 using Domain.Enums;
 using Infrastructure.Data;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -42,6 +43,8 @@ namespace Application.LevelTemplateRelations.Queries
         {
             var defaultPageSize = _configuration.GetValue<int>("Pagination:PageSize");
             var levelTemplateRelations = _context.LevelTemplateRelations
+                .Include(o => o.QuestionLevel)
+                .Include(o => o.WorksheetTemplate)
                 .AsQueryable();
             // filter by QuestionLevelId
             if (request.QuestionLevelId != Guid.Empty)

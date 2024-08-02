@@ -16,7 +16,7 @@ namespace Application.ProgramTypes.Commands
     public sealed record CreateProgramTypeCommand : IRequest<BaseResponse<GetBriefProgramTypeResponseModel>>
     {
         [Required]
-        [StringLength(maximumLength: 50, MinimumLength = 4, ErrorMessage = "Title must be at least 4 characters long.")]
+        //[StringLength(maximumLength: 100, MinimumLength = 4, ErrorMessage = "Title must be at least 4 characters long.")]
         public string Title { get; init; }
         public string Description { get; init; }
 

@@ -7,6 +7,12 @@ using Microsoft.EntityFrameworkCore;
 
 
 namespace Application.Questions.Commands;
+public class QuestionAnswerModel
+{
+    public string Content { get; set; }
+    public bool IsCorrect { get; set; }
+}
+
 
 [AutoMap(typeof(Domain.Entities.Question), ReverseMap = true)]
 public sealed record CreateQuestionCommand : IRequest<BaseResponse<GetBriefQuestionResponseModel>>
@@ -18,6 +24,7 @@ public sealed record CreateQuestionCommand : IRequest<BaseResponse<GetBriefQuest
     public Guid TopicId { get; set; }
     [Required]
     public Guid QuestionLevelId { get; set; }
+    public List<QuestionAnswerModel> QuestionAnswers { get; set; }
 }
 
 public class CreateQuestionCommandHanler : IRequestHandler<CreateQuestionCommand, BaseResponse<GetBriefQuestionResponseModel>>

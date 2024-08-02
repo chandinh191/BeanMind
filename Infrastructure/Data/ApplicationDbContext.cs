@@ -95,21 +95,30 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
 
         foreach (var entry in entries)
         {
-            if(entry.State == EntityState.Added)
+            if (entry.State == EntityState.Added)
             {
                 entry.Entity.Created = DateTime.Now;
                 entry.Entity.CreatedBy = "Admin";
-            } else if (entry.State == EntityState.Modified)
+            }
+            else if (entry.State == EntityState.Modified)
             {
                 entry.Entity.LastModified = DateTime.Now;
                 entry.Entity.LastModifiedBy = "Admin";
-            } else if (entry.State == EntityState.Deleted)
+            }
+            else if (entry.State == EntityState.Deleted)
             {
-                entry.State = EntityState.Modified;
-                entry.Entity.IsDeleted = true;
-                entry.Entity.DeletedDate = DateTime.Now;
-                entry.Entity.DeletedBy = "Admin";
-            } 
+                if (entry.Entity is LevelTemplateRelation || entry.Entity is Teachable || entry.Entity is QuestionAnswer || entry.Entity is Procession)
+                {
+                    entry.State = EntityState.Deleted;
+                }
+                else
+                {
+                    entry.State = EntityState.Modified;
+                    entry.Entity.IsDeleted = true;
+                    entry.Entity.DeletedDate = DateTime.Now;
+                    entry.Entity.DeletedBy = "Admin";
+                }
+            }
         }
     }
 }

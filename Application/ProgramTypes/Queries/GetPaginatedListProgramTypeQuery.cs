@@ -4,6 +4,7 @@ using AutoMapper;
 using Domain.Enums;
 using Infrastructure.Data;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -40,49 +41,50 @@ namespace Application.ProgramTypes.Queries
         public async Task<BaseResponse<Pagination<GetBriefProgramTypeResponseModel>>> Handle(GetPaginatedListProgramTypeQuery request, CancellationToken cancellationToken)
         {
             var defaultPageSize = _configuration.GetValue<int>("Pagination:PageSize");
-            var courselevels = _context.ProgramTypes.AsQueryable();
+            var programTypes = _context.ProgramTypes
+                .AsQueryable();
 
             // filter by search Title and description
             if (!string.IsNullOrEmpty(request.Term))
             {
-                courselevels = courselevels.Where(x => x.Title.Contains(request.Term) || x.Description.Contains(request.Term));
+                programTypes = programTypes.Where(x => x.Title.Contains(request.Term) || x.Description.Contains(request.Term));
             }
 
             // filter by isdeleted
             if (request.IsDeleted.Equals(IsDeleted.Inactive))
             {
-                courselevels = courselevels.Where(x => x.IsDeleted == true);
+                programTypes = programTypes.Where(x => x.IsDeleted == true);
             }
             else if (request.IsDeleted.Equals(IsDeleted.Active))
             {
-                courselevels = courselevels.Where(x => x.IsDeleted == false);
+                programTypes = programTypes.Where(x => x.IsDeleted == false);
             }
 
             // filter by filter date
             if (request.SortBy == SortBy.Ascending)
             {
-                courselevels = courselevels.OrderBy(x => x.Created);
+                programTypes = programTypes.OrderBy(x => x.Created);
             }
             else if (request.SortBy == SortBy.Descending)
             {
-                courselevels = courselevels.OrderByDescending(x => x.Created);
+                programTypes = programTypes.OrderByDescending(x => x.Created);
             }
 
             // filter by start time and end time
             if (request.StartTime != DateTime.MinValue)
             {
-                courselevels = courselevels.Where(o =>
+                programTypes = programTypes.Where(o =>
                     o.Created >= request.StartTime);
             }
             // filter by start time and end time
             if (request.EndTime != DateTime.MinValue)
             {
-                courselevels = courselevels.Where(o =>
+                programTypes = programTypes.Where(o =>
                     o.Created <= request.EndTime);
             }
             // convert the list of item to list of response model
-            var mappedCourses = _mapper.Map<List<GetBriefProgramTypeResponseModel>>(courselevels);
-            var createPaginatedListResult = Pagination<GetBriefProgramTypeResponseModel>.Create(mappedCourses.AsQueryable(), request.PageIndex, request.PageSize ?? defaultPageSize);
+            var mappedProgramTypes = _mapper.Map<List<GetBriefProgramTypeResponseModel>>(programTypes);
+            var createPaginatedListResult = Pagination<GetBriefProgramTypeResponseModel>.Create(mappedProgramTypes.AsQueryable(), request.PageIndex, request.PageSize ?? defaultPageSize);
 
             if (createPaginatedListResult == null)
             {

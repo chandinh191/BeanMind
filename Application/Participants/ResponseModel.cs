@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Application.Sessions;
 using Application.Enrollments;
 using Application.Processions;
+using Domain.Enums;
 
 namespace Application.Participants
 {
@@ -19,10 +20,12 @@ namespace Application.Participants
     public class GetBriefParticipantResponseModel : BaseResponseModel
     {
         public Guid EnrollmentId { get; set; }
-        //public GetBriefEnrollmentResponseModel Enrollment { get; set; }
+        public GetBriefEnrollmentResponseModel Enrollment { get; set; }
         public Guid SessionId { get; set; }
-        //public GetBriefSessionResponseModel Session { get; set; }
+        public GetBriefSessionResponseModel Session { get; set; }
         public bool IsPresent { get; set; } = true;
+        public ParticipantStatus Status { get; set; }
+
     }
 
     [AutoMap(typeof(Domain.Entities.Participant))]
@@ -34,6 +37,7 @@ namespace Application.Participants
         public GetBriefSessionResponseModel Session { get; set; }
         public List<GetBriefProcessionResponseModel> Processions { get; set; }
         public bool IsPresent { get; set; }
+        public ParticipantStatus Status { get; set; }
     }
 
 }

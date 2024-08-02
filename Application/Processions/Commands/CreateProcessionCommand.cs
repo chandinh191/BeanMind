@@ -19,7 +19,6 @@ namespace Application.Processions.Commands
         public Guid ParticipantId { get; set; }
         [Required]
         public Guid TopicId { get; set; }
-        public bool Status { get; set; } = true;
     }
 
     public class CreateProcessionCommandHanler : IRequestHandler<CreateProcessionCommand, BaseResponse<GetBriefProcessionResponseModel>>
