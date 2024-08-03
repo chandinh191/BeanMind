@@ -11,48 +11,56 @@ using System.Text.RegularExpressions;
 using Domain.Constants;
 using Domain.Entities.UserEntities;
 using Microsoft.AspNetCore.Http;
+using Application.ApplicationUsers;
+using Application.Chapters;
+using AutoMapper;
 
 namespace Application.Users.Commands;
 
-public record class RegisterUserCommand : IRequest<BaseResponse<string>>
+public record class RegisterUserCommand : IRequest<BaseResponse<GetBriefApplicationUserResponseModel>>
 {
     public required string Username { get; init; }
     public required string Password { get; init; }
+    public string? LastName { get; set; }
+    public string? FirstName { get; set; }
+    public int? YearOfBirth { get; set; }
     public required List<string> Roles { get; init; }
 
 }
-public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, BaseResponse<string>>
+public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, BaseResponse<GetBriefApplicationUserResponseModel>>
 {
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IConfiguration _configuration;
     private readonly LinkGenerator _linkGenerator;
     private readonly IEmailService _emailService;
+    private readonly IMapper _mapper;
 
-    public RegisterUserCommandHandler(UserManager<ApplicationUser> userManager, IConfiguration configuration, LinkGenerator linkGenerator, 
-        IEmailService emailService, IHttpContextAccessor httpContextAccessor)
+    public RegisterUserCommandHandler(UserManager<ApplicationUser> userManager, IConfiguration configuration, LinkGenerator linkGenerator,
+        IEmailService emailService, IHttpContextAccessor httpContextAccessor, IMapper mapper)
     {
         _userManager = userManager;
+        _mapper = mapper;
         _configuration = configuration;
         _linkGenerator = linkGenerator;
         _emailService = emailService;
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public async Task<BaseResponse<string>> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
+    public async Task<BaseResponse<GetBriefApplicationUserResponseModel>> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
     {
         try
         {
             // checking role name invalid
             foreach (var role in request.Roles)
             {
-                if (!Roles.AllRoles.Contains(role.ToString()))
+                if (!Roles.AllRoles.Contains(role))
                 {
-                    return new BaseResponse<string>()
+                    return new BaseResponse<GetBriefApplicationUserResponseModel>()
                     {
                         Success = false,
                         Message = "Invalid role: " + role,
-                        Errors = ["Invalid role: " + role]
+                        Errors = new List<string> { "Invalid role: " + role }
                     };
                 }
             }
@@ -63,22 +71,29 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, B
             // user with username already existed
             if (existedUser is not null)
             {
-                return new BaseResponse<string>()
+                return new BaseResponse<GetBriefApplicationUserResponseModel>()
                 {
                     Success = false,
-                    Message = "Username already eixsted",
-                    Errors = ["Username already eixsted"]
+                    Message = "Username already existed",
+                    Errors = new List<string> { "Username already existed" }
                 };
             }
 
             // create new user
-            var user = new ApplicationUser { Email = request.Username, UserName = request.Username };
+            var user = new ApplicationUser
+            {
+                Email = request.Username,
+                UserName = request.Username,
+                LastName = request.LastName,
+                FirstName = request.FirstName,
+                YearOfBirth = request.YearOfBirth,
+            };
             var createUserResult = await _userManager.CreateAsync(user, request.Password);
 
             // create new user fail
             if (!createUserResult.Succeeded)
             {
-                return new BaseResponse<string>()
+                return new BaseResponse<GetBriefApplicationUserResponseModel>()
                 {
                     Success = false,
                     Message = "Create user failed",
@@ -89,7 +104,7 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, B
             // add role to user
             foreach (var role in request.Roles)
             {
-                await _userManager.AddToRoleAsync(user, role.ToString());
+                await _userManager.AddToRoleAsync(user, role);
             }
 
             // if register by email
@@ -99,18 +114,16 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, B
                 var token = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(await _userManager.GenerateEmailConfirmationTokenAsync(user)));
 
                 var queryParams = new Dictionary<string, string>()
-            {
-                { "userId", user.Id },
-                { "email", user.Email},
-                { "code", token },
-            };
+                {
+                    { "userId", user.Id },
+                    { "email", user.Email },
+                    { "code", token },
+                };
                 // Ensure HttpContext is available
-                var Request = _httpContextAccessor.HttpContext.Request;
-                var baseUrl = $"{Request.Scheme}://{Request.Host}{Request.PathBase}"+ "/api/v1/auth/confirmEmail";
+                var requestContext = _httpContextAccessor.HttpContext.Request;
+                var baseUrl = $"{requestContext.Scheme}://{requestContext.Host}{requestContext.PathBase}" + "/api/v1/auth/confirmEmail";
 
-                //var mailConfirmationEndpoint = _configuration.GetValue<string>("MailConfirmationUrl") ?? throw new NotSupportedException("MailConfirmationUrl is not existed");
-
-                var confirmEmailUrl = QueryHelpers.AddQueryString(baseUrl ?? "", queryParams);
+                var confirmEmailUrl = QueryHelpers.AddQueryString(baseUrl, queryParams);
 
                 // send email
                 try
@@ -119,28 +132,41 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, B
                 }
                 catch
                 {
-                    new BaseResponse<string>()
+                    return new BaseResponse<GetBriefApplicationUserResponseModel>()
                     {
                         Success = false,
-                        Message = "There is some problem at mail service, please contact with admin at (+84)9276122811",
+                        Message = "There is some problem at mail service, please contact with admin at (+84)9276122811"
                     };
                 }
+
+                // Return success response after email confirmation process
+                return new BaseResponse<GetBriefApplicationUserResponseModel>()
+                {
+                    Success = true,
+                    Message = "User registered successfully, please confirm your email.",
+                };
             }
-            return new BaseResponse<string>()
+            else
             {
-                Success = true,
-                Message = "User registered successfully, Please click link on your email to complete registration process"
-            };
+                var mappedApplicationUser = _mapper.Map<GetBriefApplicationUserResponseModel>(user);
+                return new BaseResponse<GetBriefApplicationUserResponseModel>()
+                {
+                    Success = true,
+                    Message = "User registered successfully",
+                    Data = mappedApplicationUser
+                };
+            }
         }
         catch (Exception ex)
         {
-            return new BaseResponse<string>()
+            return new BaseResponse<GetBriefApplicationUserResponseModel>()
             {
                 Success = false,
                 Message = ex.Message,
             };
         }
     }
+
     bool IsEmail(string email)
     {
         // Simple regex pattern for validating email addresses

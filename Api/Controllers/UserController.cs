@@ -7,12 +7,7 @@ using System.Security.Claims;
 using Application.Common;
 using Application.Users;
 using MediatR;
-using Application.Courses.Queries;
-using Microsoft.AspNetCore.Authentication.Google;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using Application.QuestionLevels.Queries;
 using Domain.Entities.UserEntities;
 using Application.Topics.Queries;
@@ -58,5 +53,11 @@ public class UserController : ControllerBase
         {
             StatusCode = result.Code
         };
+    }
+    [HttpPost]
+    [Route(RouteNameValues.Register, Name = RouteNameValues.Register)]
+    public async Task<BaseResponse<GetBriefApplicationUserResponseModel>> RegisterAccount(ISender sender, [FromBody] RegisterUserCommand command)
+    {
+        return await sender.Send(command);
     }
 }

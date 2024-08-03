@@ -18,6 +18,7 @@ using Domain.Entities.UserEntities;
 using Application.Topics.Queries;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using Application.Parents;
+using Application.ApplicationUsers;
 
 namespace Api.Controllers;
 
@@ -135,13 +136,6 @@ public class AuthController : ControllerBase
         {
             StatusCode = result.Code
         };
-    }
-
-    [HttpPost]
-    [Route(RouteNameValues.Register, Name = RouteNameValues.Register)]
-    public async Task<BaseResponse<string>> RegisterAccount(ISender sender, [FromBody] RegisterUserCommand command)
-    {
-        return await sender.Send(command);
     }
 
     [HttpPost]

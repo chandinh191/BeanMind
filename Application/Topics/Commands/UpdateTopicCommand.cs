@@ -13,14 +13,10 @@ public sealed record UpdateTopicCommand : IRequest<BaseResponse<GetBriefTopicRes
 {
     [Required]
     public Guid Id { get; init; }
-    [Required]
-    [StringLength(maximumLength: 50, MinimumLength = 4, ErrorMessage = "Title must be at least 4 characters long.")]
-    //[RegularExpression(@"^(?:[A-Z][a-z0-9]*)(?: [A-Z][a-z0-9]*)*$", ErrorMessage = "Title must have the first word capitalized, following words separated by a space, and only contain characters and numbers.")]
     public string? Title { get; init; }
-    [Required]
     public string? Description { get; init; }
-    [Required]
-    public Guid ChapterId { get; set; }
+    public int? Order { get; set; }
+    public Guid? ChapterId { get; set; }
 }
 
 public class UpdateTopicCommandHanler : IRequestHandler<UpdateTopicCommand, BaseResponse<GetBriefTopicResponseModel>>
@@ -36,15 +32,17 @@ public class UpdateTopicCommandHanler : IRequestHandler<UpdateTopicCommand, Base
 
     public async Task<BaseResponse<GetBriefTopicResponseModel>> Handle(UpdateTopicCommand request, CancellationToken cancellationToken)
     {
-        var chapter = await _context.Chapters.FirstOrDefaultAsync(x => x.Id == request.ChapterId);
+        if (request.ChapterId != null) {
+            var chapter = await _context.Chapters.FirstOrDefaultAsync(x => x.Id == request.ChapterId);
 
-        if (chapter == null)
-        {
-            return new BaseResponse<GetBriefTopicResponseModel>
+            if (chapter == null)
             {
-                Success = false,
-                Message = "Chapter not found",
-            };
+                return new BaseResponse<GetBriefTopicResponseModel>
+                {
+                    Success = false,
+                    Message = "Chapter not found",
+                };
+            }
         }
 
         var topic = await _context.Topics.FirstOrDefaultAsync(x => x.Id == request.Id);

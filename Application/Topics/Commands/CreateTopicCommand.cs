@@ -11,11 +11,10 @@ namespace Application.Topics.Commands;
 public sealed record CreateTopicCommand : IRequest<BaseResponse<GetBriefTopicResponseModel>>
 {
     [Required]
-    [StringLength(maximumLength: 50, MinimumLength = 4, ErrorMessage = "Title must be at least 4 characters long.")]
-    //[RegularExpression(@"^(?:[A-Z][a-z0-9]*)(?: [A-Z][a-z0-9]*)*$", ErrorMessage = "Title must have the first word capitalized, following words separated by a space, and only contain characters and numbers.")]
     public string Title { get; init; }
     [Required]
     public string Description { get; init; }
+    public int? Order { get; set; }
     [Required]
     public Guid ChapterId { get; set; }
 }
