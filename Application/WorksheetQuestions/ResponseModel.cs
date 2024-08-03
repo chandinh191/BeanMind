@@ -20,9 +20,9 @@ namespace Application.WorksheetQuestions
     public class GetBriefWorksheetQuestionResponseModel : BaseResponseModel
     {
         public Guid QuestionId { get; set; }
-        //public GetBriefQuestionResponseModel Question { get; set; }
+        public GetBriefQuestionResponseModel Question { get; set; }
         public Guid WorksheetId { get; set; }
-        //public GetBriefWorksheetResponseModel Worksheet { get; set; }
+        public GetBriefWorksheetResponseModel Worksheet { get; set; }
     }
 
     [AutoMap(typeof(Domain.Entities.WorksheetQuestion))]

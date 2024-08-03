@@ -5,6 +5,7 @@ using Domain.Entities;
 using Domain.Enums;
 using Infrastructure.Data;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -43,6 +44,7 @@ namespace Application.GameHistories.Queries
         {
             var defaultPageSize = _configuration.GetValue<int>("Pagination:PageSize");
             var gameHistories = _context.GameHistories
+                .Include(o => o.Game)
                 .AsQueryable();
             // filter by course id
             if (request.GameId != Guid.Empty)

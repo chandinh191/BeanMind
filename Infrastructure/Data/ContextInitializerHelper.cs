@@ -16,218 +16,142 @@ namespace Infrastructure.Data
         public async static Task Seed_Game_Async(DbContext context)
         {
             var jsonString = @"
-        [
-            {
-                'name': 'Nông trại vui vẻ - phép cộng và phép trừ hai số',
-                'description': 'Description Game',
-                'image': 'https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/thumbnail_game_images%2Fhappy_farm.png?alt=media&token=ed307113-421f-4d74-bea2-e4d45fd18b8f',
-                'itemStoreJson': '
-                   [
-                    {
-                        ""id"": ""item001"",
-                        ""image"": ""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/item_game_images%2Fitem_store_002.png?alt=media&token=99427f48-54f4-41ec-81a5-598aff948ffd"",
-                        ""price"": 5
-                    },
-                    {
-                        ""id"": ""item002"",
-                        ""image"": ""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/item_game_images%2Fitem_store_003.png?alt=media&token=3b3b3b3b-3b3b-3b3b-3b3b-3b3b3b3b3b3b"",
-                        ""price"": 7
-                    },
-                    {
-                        ""id"": ""item003"",
-                        ""image"": ""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/item_game_images%2Fitem_store_004.png?alt=media&token=4b4b4b4b-4b4b-4b4b-4b4b-4b4b4b4b4b4b"",
-                        ""price"": 8
-                    },
-                    {
-                        ""id"": ""item004"",
-                        ""image"": ""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/item_game_images%2Fitem_store_005.png?alt=media&token=5b5b5b5b-5b5b-5b5b-5b5b-5b5b5b5b5b5b"",
-                        ""price"": 6
-                    },
-                    {
-                        ""id"": ""item005"",
-                        ""image"": ""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/item_game_images%2Fitem_store_006.png?alt=media&token=6b6b6b6b-6b6b-6b6b-6b6b-6b6b6b6b6b6b"",
-                        ""price"": 10
-                    },
-                    {
-                        ""id"": ""item006"",
-                        ""image"": ""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/item_game_images%2Fitem_store_007.png?alt=media&token=7b7b7b7b-7b7b-7b7b-7b7b-7b7b7b7b7b7b"",
-                        ""price"": 12
-                    },
-                    {
-                        ""id"": ""item007"",
-                        ""image"": ""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/item_game_images%2Fitem_store_008.png?alt=media&token=8b8b8b8b-8b8b-8b8b-8b8b-8b8b8b8b8b8b"",
-                        ""price"": 15
-                    },
-                    {
-                        ""id"": ""item008"",
-                        ""image"": ""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/item_game_images%2Fitem_store_009.png?alt=media&token=9b9b9b9b-9b9b-9b9b-9b9b-9b9b9b9b9b9b"",
-                        ""price"": 20
-                    },
-                    {
-                        ""id"": ""item009"",
-                        ""image"": ""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/item_game_images%2Fitem_store_010.png?alt=media&token=0b0b0b0b-0b0b-0b0b-0b0b-0b0b0b0b0b0b"",
-                        ""price"": 9
-                    },
-                    {
-                        ""id"": ""item010"",
-                        ""image"": ""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/item_game_images%2Fitem_store_011.png?alt=media&token=1b1b1b1b-1b1b-1b1b-1b1b-1b1b1b1b1b1b"",
-                        ""price"": 18
-                    },
-                    {
-                        ""id"": ""item011"",
-                        ""image"": ""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/item_game_images%2Fitem_store_012.png?alt=media&token=2b2b2b2b-2b2b-2b2b-2b2b-2b2b2b2b2b2b"",
-                        ""price"": 22
-                    },
-                    {
-                        ""id"": ""item012"",
-                        ""image"": ""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/item_game_images%2Fitem_store_013.png?alt=media&token=3b3b3b3b-3b3b-3b3b-3b3b-3b3b3b3b3b3b"",
-                        ""price"": 17
-                    },
-                    {
-                        ""id"": ""item013"",
-                        ""image"": ""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/item_game_images%2Fitem_store_014.png?alt=media&token=4b4b4b4b-4b4b-4b4b-4b4b-4b4b4b4b4b4b"",
-                        ""price"": 11
-                    },
-                    {
-                        ""id"": ""item014"",
-                        ""image"": ""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/item_game_images%2Fitem_store_015.png?alt=media&token=5b5b5b5b-5b5b-5b5b-5b5b-5b5b5b5b5b5b"",
-                        ""price"": 14
-                    },
-                    {
-                        ""id"": ""item015"",
-                        ""image"": ""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/item_game_images%2Fitem_store_016.png?alt=media&token=6b6b6b6b-6b6b-6b6b-6b6b-6b6b6b6b6b6b"",
-                        ""price"": 19
-                    },
-                    {
-                        ""id"": ""item016"",
-                        ""image"": ""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/item_game_images%2Fitem_store_017.png?alt=media&token=7b7b7b7b-7b7b-7b7b-7b7b-7b7b7b7b7b7b"",
-                        ""price"": 23
-                    },
-                    {
-                        ""id"": ""item017"",
-                        ""image"": ""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/item_game_images%2Fitem_store_018.png?alt=media&token=8b8b8b8b-8b8b-8b8b-8b8b-8b8b8b8b8b8b"",
-                        ""price"": 13
-                    },
-                    {
-                        ""id"": ""item018"",
-                        ""image"": ""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/item_game_images%2Fitem_store_019.png?alt=media&token=9b9b9b9b-9b9b-9b9b-9b9b-9b9b9b9b9b9b"",
-                        ""price"": 16
-                    },
-                    {
-                        ""id"": ""item019"",
-                        ""image"": ""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/item_game_images%2Fitem_store_020.png?alt=media&token=0b0b0b0b-0b0b-0b0b-0b0b-0b0b0b0b0b0b"",
-                        ""price"": 21
-                    },
-                    {
-                        ""id"": ""item020"",
-                        ""image"": ""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/item_game_images%2Fitem_store_021.png?alt=media&token=1b1b1b1b-1b1b-1b1b-1b1b-1b1b1b1b1b1b"",
-                        ""price"": 25
-                    }
-                ]
-                ',
-                'animalJson': '',
-                'id': 'a65534d6-b34c-43d1-e2f6-08dcb0b903bd',
-                'isDeleted': false
-            },
-            {
-                'name': 'Nông trại vui vẻ - phép cộng trừ nhân chia hai số',
-                'description': 'Description Game',
-                'image': 'https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/thumbnail_game_images%2Fhappy_farm.png?alt=media&token=ed307113-421f-4d74-bea2-e4d45fd18b8f',
-                'itemStoreJson': '',
-                'animalJson': '',
-                'id': '9400fa00-e27d-40a1-e2f7-08dcb0b903bd',
-                'isDeleted': false
-            },
-            {
-                'name': 'Khám phá đại dương - phép cộng trừ hai số',
-                'description': 'Description Game',
-                'image': 'https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/thumbnail_game_images%2Focean_adventure.png?alt=media&token=d9ada505-0862-4a8b-afe6-6a11358561bc',
-                'itemStoreJson': '',
-                'animalJson': '',
-                'id': 'd9db0faa-49e7-488e-e2f8-08dcb0b903bd',
-                'isDeleted': false
-            },
-            {
-                'name': 'Khám phá đại dương - phép cộng trừ nhân chia hai số',
-                'description': 'Description Game',
-                'image': 'https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/thumbnail_game_images%2Focean_adventure.png?alt=media&token=d9ada505-0862-4a8b-afe6-6a11358561bc',
-                'itemStoreJson': '',
-                'animalJson': '',
-                'id': '6d69ec97-28c8-4c34-e2f9-08dcb0b903bd',
-                'isDeleted': false
-            },
-            {
-                'name': 'Sắp xếp số từ 1 tới 100',
-                'description': 'Description Game',
-                'image': 'https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/thumbnail_game_images%2Fnumber_sort.png?alt=media&token=6124bb15-ff34-47fc-a0ad-143463324dd1',
-                'itemStoreJson': '',
-                'animalJson': '',
-                'id': '3e2e9eee-07bb-4548-e2fa-08dcb0b903bd',
-                'isDeleted': false
-            },
-            {
-                'name': 'Sắp xếp số từ 1 tới 1000',
-                'description': 'Description Game',
-                'image': 'https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/thumbnail_game_images%2Fnumber_sort.png?alt=media&token=6124bb15-ff34-47fc-a0ad-143463324dd1',
-                'itemStoreJson': '',
-                'animalJson': '',
-                'id': '6011f3e5-d1fd-439c-e2fb-08dcb0b903bd',
-                'isDeleted': false
-            },
-            {
-                'name': 'Lớn hơn, bé hơn hay bằng nhau',
-                'description': 'Description Game',
-                'image': 'https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/thumbnail_game_images%2Fodd_and_even.png?alt=media&token=30686705-4ae5-433a-8af7-16a30938461c',
-                'itemStoreJson': '',
-                'animalJson': '',
-                'id': 'b2b05dc0-d4d4-4dfb-e2fc-08dcb0b903bd',
-                'isDeleted': false
-            },
-            {
-                'name': 'Khám phá đại dương - học đếm từ 0 đến 5',
-                'description': 'Description Game',
-                'image': 'https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/thumbnail_game_images%2Focean_adventure.png?alt=media&token=d9ada505-0862-4a8b-afe6-6a11358561bc',
-                'itemStoreJson': '',
-                'animalJson': '',
-                'id': '3ae42c10-7dbe-4e71-a52c-c19c44e3c4a0',
-                'isDeleted': false
-            },
-            {
-                'name': 'Nông trại vui vẻ - học đếm từ 0 đến 5',
-                'description': 'Description Game',
-                'image': 'https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/thumbnail_game_images%2Fhappy_farm.png?alt=media&token=ed307113-421f-4d74-bea2-e4d45fd18b8f',
-                'itemStoreJson': '',
-                'animalJson': '',
-                'id': '49299e7c-fa16-45fd-84e4-1a725c118a9f',
-                'isDeleted': false
-            },
-            {
-                'name': 'Sắp xếp số từ 1 tới 10',
-                'description': 'Description Game',
-                'image': 'https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/thumbnail_game_images%2Fnumber_sort.png?alt=media&token=6124bb15-ff34-47fc-a0ad-143463324dd1',
-                'itemStoreJson': '',
-                'animalJson': '',
-                'id': 'ead13199-827d-4c48-5d08-08dcafad932c',
-                'isDeleted': false
-            },
-            {
-                'name': 'Trò chơi mua sắm',
-                'description': 'Description Game',
-                'image': 'https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/thumbnail_game_images%2Fshopping.png?alt=media&token=6ba50614-1253-4b02-8906-e19979d9f614',
-                'itemStoreJson': '',
-                'animalJson': '',
-                'id': 'c296495f-342e-4fd6-5d09-08dcafad932c',
-                'isDeleted': false
-            },
-            {
-                'name': 'Số lẻ và số chẵn',
-                'description': 'Description Game',
-                'image': 'https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/thumbnail_game_images%2Fodd_and_even.png?alt=media&token=30686705-4ae5-433a-8af7-16a30938461c',
-                'itemStoreJson': '',
-                'animalJson': '',
-                'id': '59141c9e-7dd3-4c76-5d0a-08dcafad932c',
-                'isDeleted': false
-            }
+            [
+          {
+            ""name"": ""Cộng trừ hai số"",
+            ""description"": ""Description Game"",
+            ""image"": ""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/thumbnail_game_images%2Fnumber_sort.png?alt=media&token=6124bb15-ff34-47fc-a0ad-143463324dd1"",
+            ""itemStoreJson"": """",
+            ""animalJson"": """",
+            ""id"": ""134a1896-37a0-481c-76b8-08dcb1f69dd7"",
+            ""isDeleted"": false
+          },
+          {
+            ""name"": ""Cộng trừ nhân chia ba số"",
+            ""description"": ""Description Game"",
+            ""image"": ""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/thumbnail_game_images%2Fnumber_sort.png?alt=media&token=6124bb15-ff34-47fc-a0ad-143463324dd1"",
+            ""itemStoreJson"": """",
+            ""animalJson"": """",
+            ""id"": ""d9ebd726-6f2b-4609-76b9-08dcb1f69dd7"",
+            ""isDeleted"": false
+          },
+          {
+            ""name"": ""Cộng trừ nhân chia bốn số"",
+            ""description"": ""Description Game"",
+            ""image"": ""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/thumbnail_game_images%2Fnumber_sort.png?alt=media&token=6124bb15-ff34-47fc-a0ad-143463324dd1"",
+            ""itemStoreJson"": """",
+            ""animalJson"": """",
+            ""id"": ""2395575f-74e2-4809-76ba-08dcb1f69dd7"",
+            ""isDeleted"": false
+          },
+          {
+            ""name"": ""Nông trại vui vẻ - phép cộng và phép trừ hai số"",
+            ""description"": ""Description Game"",
+            ""image"": ""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/thumbnail_game_images%2Fhappy_farm.png?alt=media&token=ed307113-421f-4d74-bea2-e4d45fd18b8f"",
+            ""itemStoreJson"": ""\r\n                   [\r\n                    {\r\n                        \""id\"": \""item001\"",\r\n                        \""image\"": \""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/item_game_images%2Fitem_store_002.png?alt=media&token=99427f48-54f4-41ec-81a5-598aff948ffd\"",\r\n                        \""price\"": 5\r\n                    },\r\n                    {\r\n                        \""id\"": \""item002\"",\r\n                        \""image\"": \""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/item_game_images%2Fitem_store_003.png?alt=media&token=3b3b3b3b-3b3b-3b3b-3b3b-3b3b3b3b3b3b\"",\r\n                        \""price\"": 7\r\n                    },\r\n                    {\r\n                        \""id\"": \""item003\"",\r\n                        \""image\"": \""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/item_game_images%2Fitem_store_004.png?alt=media&token=4b4b4b4b-4b4b-4b4b-4b4b-4b4b4b4b4b4b\"",\r\n                        \""price\"": 8\r\n                    },\r\n                    {\r\n                        \""id\"": \""item004\"",\r\n                        \""image\"": \""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/item_game_images%2Fitem_store_005.png?alt=media&token=5b5b5b5b-5b5b-5b5b-5b5b-5b5b5b5b5b5b\"",\r\n                        \""price\"": 6\r\n                    },\r\n                    {\r\n                        \""id\"": \""item005\"",\r\n                        \""image\"": \""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/item_game_images%2Fitem_store_006.png?alt=media&token=6b6b6b6b-6b6b-6b6b-6b6b-6b6b6b6b6b6b\"",\r\n                        \""price\"": 10\r\n                    },\r\n                    {\r\n                        \""id\"": \""item006\"",\r\n                        \""image\"": \""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/item_game_images%2Fitem_store_007.png?alt=media&token=7b7b7b7b-7b7b-7b7b-7b7b-7b7b7b7b7b7b\"",\r\n                        \""price\"": 12\r\n                    },\r\n                    {\r\n                        \""id\"": \""item007\"",\r\n                        \""image\"": \""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/item_game_images%2Fitem_store_008.png?alt=media&token=8b8b8b8b-8b8b-8b8b-8b8b-8b8b8b8b8b8b\"",\r\n                        \""price\"": 15\r\n                    },\r\n                    {\r\n                        \""id\"": \""item008\"",\r\n                        \""image\"": \""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/item_game_images%2Fitem_store_009.png?alt=media&token=9b9b9b9b-9b9b-9b9b-9b9b-9b9b9b9b9b9b\"",\r\n                        \""price\"": 20\r\n                    },\r\n                    {\r\n                        \""id\"": \""item009\"",\r\n                        \""image\"": \""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/item_game_images%2Fitem_store_010.png?alt=media&token=0b0b0b0b-0b0b-0b0b-0b0b-0b0b0b0b0b0b\"",\r\n                        \""price\"": 9\r\n                    },\r\n                    {\r\n                        \""id\"": \""item010\"",\r\n                        \""image\"": \""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/item_game_images%2Fitem_store_011.png?alt=media&token=1b1b1b1b-1b1b-1b1b-1b1b-1b1b1b1b1b1b\"",\r\n                        \""price\"": 18\r\n                    },\r\n                    {\r\n                        \""id\"": \""item011\"",\r\n                        \""image\"": \""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/item_game_images%2Fitem_store_012.png?alt=media&token=2b2b2b2b-2b2b-2b2b-2b2b-2b2b2b2b2b2b\"",\r\n                        \""price\"": 22\r\n                    },\r\n                    {\r\n                        \""id\"": \""item012\"",\r\n                        \""image\"": \""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/item_game_images%2Fitem_store_013.png?alt=media&token=3b3b3b3b-3b3b-3b3b-3b3b-3b3b3b3b3b3b\"",\r\n                        \""price\"": 17\r\n                    },\r\n                    {\r\n                        \""id\"": \""item013\"",\r\n                        \""image\"": \""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/item_game_images%2Fitem_store_014.png?alt=media&token=4b4b4b4b-4b4b-4b4b-4b4b-4b4b4b4b4b4b\"",\r\n                        \""price\"": 11\r\n                    },\r\n                    {\r\n                        \""id\"": \""item014\"",\r\n                        \""image\"": \""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/item_game_images%2Fitem_store_015.png?alt=media&token=5b5b5b5b-5b5b-5b5b-5b5b-5b5b5b5b5b5b\"",\r\n                        \""price\"": 14\r\n                    },\r\n                    {\r\n                        \""id\"": \""item015\"",\r\n                        \""image\"": \""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/item_game_images%2Fitem_store_016.png?alt=media&token=6b6b6b6b-6b6b-6b6b-6b6b-6b6b6b6b6b6b\"",\r\n                        \""price\"": 19\r\n                    },\r\n                    {\r\n                        \""id\"": \""item016\"",\r\n                        \""image\"": \""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/item_game_images%2Fitem_store_017.png?alt=media&token=7b7b7b7b-7b7b-7b7b-7b7b-7b7b7b7b7b7b\"",\r\n                        \""price\"": 23\r\n                    },\r\n                    {\r\n                        \""id\"": \""item017\"",\r\n                        \""image\"": \""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/item_game_images%2Fitem_store_018.png?alt=media&token=8b8b8b8b-8b8b-8b8b-8b8b-8b8b8b8b8b8b\"",\r\n                        \""price\"": 13\r\n                    },\r\n                    {\r\n                        \""id\"": \""item018\"",\r\n                        \""image\"": \""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/item_game_images%2Fitem_store_019.png?alt=media&token=9b9b9b9b-9b9b-9b9b-9b9b-9b9b9b9b9b9b\"",\r\n                        \""price\"": 16\r\n                    },\r\n                    {\r\n                        \""id\"": \""item019\"",\r\n                        \""image\"": \""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/item_game_images%2Fitem_store_020.png?alt=media&token=0b0b0b0b-0b0b-0b0b-0b0b-0b0b0b0b0b0b\"",\r\n                        \""price\"": 21\r\n                    },\r\n                    {\r\n                        \""id\"": \""item020\"",\r\n                        \""image\"": \""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/item_game_images%2Fitem_store_021.png?alt=media&token=1b1b1b1b-1b1b-1b1b-1b1b-1b1b1b1b1b1b\"",\r\n                        \""price\"": 25\r\n                    }\r\n                ]\r\n                "",
+            ""animalJson"": """",
+            ""id"": ""a65534d6-b34c-43d1-e2f6-08dcb0b903bd"",
+            ""isDeleted"": false
+          },
+          {
+            ""name"": ""Nông trại vui vẻ - phép cộng trừ nhân chia hai số"",
+            ""description"": ""Description Game"",
+            ""image"": ""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/thumbnail_game_images%2Fhappy_farm.png?alt=media&token=ed307113-421f-4d74-bea2-e4d45fd18b8f"",
+            ""itemStoreJson"": """",
+            ""animalJson"": """",
+            ""id"": ""9400fa00-e27d-40a1-e2f7-08dcb0b903bd"",
+            ""isDeleted"": false
+          },
+          {
+            ""name"": ""Khám phá đại dương - phép cộng trừ hai số"",
+            ""description"": ""Description Game"",
+            ""image"": ""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/thumbnail_game_images%2Focean_adventure.png?alt=media&token=d9ada505-0862-4a8b-afe6-6a11358561bc"",
+            ""itemStoreJson"": """",
+            ""animalJson"": """",
+            ""id"": ""d9db0faa-49e7-488e-e2f8-08dcb0b903bd"",
+            ""isDeleted"": false
+          },
+          {
+            ""name"": ""Khám phá đại dương - phép cộng trừ nhân chia hai số"",
+            ""description"": ""Description Game"",
+            ""image"": ""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/thumbnail_game_images%2Focean_adventure.png?alt=media&token=d9ada505-0862-4a8b-afe6-6a11358561bc"",
+            ""itemStoreJson"": """",
+            ""animalJson"": """",
+            ""id"": ""6d69ec97-28c8-4c34-e2f9-08dcb0b903bd"",
+            ""isDeleted"": false
+          },
+          {
+            ""name"": ""Sắp xếp số từ 1 tới 100"",
+            ""description"": ""Description Game"",
+            ""image"": ""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/thumbnail_game_images%2Fnumber_sort.png?alt=media&token=6124bb15-ff34-47fc-a0ad-143463324dd1"",
+            ""itemStoreJson"": """",
+            ""animalJson"": """",
+            ""id"": ""3e2e9eee-07bb-4548-e2fa-08dcb0b903bd"",
+            ""isDeleted"": false
+          },
+          {
+            ""name"": ""Sắp xếp số từ 1 tới 1000"",
+            ""description"": ""Description Game"",
+            ""image"": ""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/thumbnail_game_images%2Fnumber_sort.png?alt=media&token=6124bb15-ff34-47fc-a0ad-143463324dd1"",
+            ""itemStoreJson"": """",
+            ""animalJson"": """",
+            ""id"": ""6011f3e5-d1fd-439c-e2fb-08dcb0b903bd"",
+            ""isDeleted"": false
+          },
+          {
+            ""name"": ""Lớn hơn, bé hơn hay bằng nhau"",
+            ""description"": ""Description Game"",
+            ""image"": ""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/thumbnail_game_images%2Fodd_and_even.png?alt=media&token=30686705-4ae5-433a-8af7-16a30938461c"",
+            ""itemStoreJson"": """",
+            ""animalJson"": """",
+            ""id"": ""b2b05dc0-d4d4-4dfb-e2fc-08dcb0b903bd"",
+            ""isDeleted"": false
+          },
+          {
+            ""name"": ""Khám phá đại dương - học đếm từ 0 đến 5"",
+            ""description"": ""Description Game"",
+            ""image"": ""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/thumbnail_game_images%2Focean_adventure.png?alt=media&token=d9ada505-0862-4a8b-afe6-6a11358561bc"",
+            ""itemStoreJson"": """",
+            ""animalJson"": """",
+            ""id"": ""3ae42c10-7dbe-4e71-a52c-c19c44e3c4a0"",
+            ""isDeleted"": false
+          },
+          {
+            ""name"": ""Nông trại vui vẻ - học đếm từ 0 đến 5"",
+            ""description"": ""Description Game"",
+            ""image"": ""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/thumbnail_game_images%2Fhappy_farm.png?alt=media&token=ed307113-421f-4d74-bea2-e4d45fd18b8f"",
+            ""itemStoreJson"": """",
+            ""animalJson"": """",
+            ""id"": ""49299e7c-fa16-45fd-84e4-1a725c118a9f"",
+            ""isDeleted"": false
+          },
+          {
+            ""name"": ""Sắp xếp số từ 1 tới 10"",
+            ""description"": ""Description Game"",
+            ""image"": ""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/thumbnail_game_images%2Fnumber_sort.png?alt=media&token=6124bb15-ff34-47fc-a0ad-143463324dd1"",
+            ""itemStoreJson"": """",
+            ""animalJson"": """",
+            ""id"": ""ead13199-827d-4c48-5d08-08dcafad932c"",
+            ""isDeleted"": false
+          },
+          {
+            ""name"": ""Trò chơi mua sắm"",
+            ""description"": ""Description Game"",
+            ""image"": ""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/thumbnail_game_images%2Fshopping.png?alt=media&token=6ba50614-1253-4b02-8906-e19979d9f614"",
+            ""itemStoreJson"": """",
+            ""animalJson"": """",
+            ""id"": ""c296495f-342e-4fd6-5d09-08dcafad932c"",
+            ""isDeleted"": false
+          },
+          {
+            ""name"": ""Số lẻ và số chẵn"",
+            ""description"": ""Description Game"",
+            ""image"": ""https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/thumbnail_game_images%2Fodd_and_even.png?alt=media&token=30686705-4ae5-433a-8af7-16a30938461c"",
+            ""itemStoreJson"": """",
+            ""animalJson"": """",
+            ""id"": ""59141c9e-7dd3-4c76-5d0a-08dcafad932c"",
+            ""isDeleted"": false
+          }
         ]";
 
             var games = JsonConvert.DeserializeObject<List<GameSeed>>(jsonString);
@@ -628,38 +552,6 @@ namespace Infrastructure.Data
                 Description = "Áp dụng kiến thức về biểu thức đại số vào các bài toán thực tế trong các lĩnh vực như kinh tế, khoa học, và kỹ thuật.",
             });
             // -----------
-            // QuestionLevel table
-            await _context.QuestionLevels.AddAsync(new QuestionLevel
-            {
-                Id = new Guid("26fb0c3c-2f79-4940-ac2c-6ef7ba427d92"),
-                Title = "Dễ",
-                Description ="Dễ"
-            });
-            await _context.QuestionLevels.AddAsync(new QuestionLevel
-            {
-                Id = new Guid("871d2de9-cfca-4ed0-a9a9-658639d664df"),
-                Title = "Trung bình",
-                Description = "Trung bình"
-            });
-            await _context.QuestionLevels.AddAsync(new QuestionLevel
-            {
-                Id = new Guid("8abb4833-8443-4aab-b996-dc1eff84bd41"),
-                Title = "Khá",
-                Description = "Khá"
-            });
-            await _context.QuestionLevels.AddAsync(new QuestionLevel
-            {
-                Id = new Guid("8f45dab4-c1f8-4528-8ca4-ba5f682f847d"),
-                Title = "Khó",
-                Description = "Khó"
-            });
-            await _context.QuestionLevels.AddAsync(new QuestionLevel
-            {
-                Id = new Guid("ca44a423-5b69-4953-8e94-8e4b771bef19"),
-                Title = "Cực khó",
-                Description = "Cực khó"
-            });
-            // -----------
         }
 
         public async static Task Seed_Session_Enrollment_Participant_Teachable_Async(ApplicationDbContext _context)
@@ -788,6 +680,38 @@ namespace Infrastructure.Data
 
         public async static Task Seed_QuestionBank_Async(ApplicationDbContext _context)
         {
+            // QuestionLevel table
+            await _context.QuestionLevels.AddAsync(new QuestionLevel
+            {
+                Id = new Guid("26fb0c3c-2f79-4940-ac2c-6ef7ba427d92"),
+                Title = "Dễ",
+                Description = "Dễ"
+            });
+            await _context.QuestionLevels.AddAsync(new QuestionLevel
+            {
+                Id = new Guid("871d2de9-cfca-4ed0-a9a9-658639d664df"),
+                Title = "Trung bình",
+                Description = "Trung bình"
+            });
+            await _context.QuestionLevels.AddAsync(new QuestionLevel
+            {
+                Id = new Guid("8abb4833-8443-4aab-b996-dc1eff84bd41"),
+                Title = "Khá",
+                Description = "Khá"
+            });
+            await _context.QuestionLevels.AddAsync(new QuestionLevel
+            {
+                Id = new Guid("8f45dab4-c1f8-4528-8ca4-ba5f682f847d"),
+                Title = "Khó",
+                Description = "Khó"
+            });
+            await _context.QuestionLevels.AddAsync(new QuestionLevel
+            {
+                Id = new Guid("ca44a423-5b69-4953-8e94-8e4b771bef19"),
+                Title = "Cực khó",
+                Description = "Cực khó"
+            });
+            // -----------
             var questionLevels = new Dictionary<Guid, string>
             {
                 { new Guid("26fb0c3c-2f79-4940-ac2c-6ef7ba427d92"), "Dễ" },
@@ -838,7 +762,75 @@ namespace Infrastructure.Data
 
         public async static Task Seed_Worksheet_Async(ApplicationDbContext _context)
         {
-            
+            // WorksheetTemplate table
+            await _context.WorksheetTemplates.AddAsync(new WorksheetTemplate
+            {
+                Id = new Guid("721f378c-69fd-4f9d-ba93-38fa2db2044f"),
+                Title = "Mẫu kiểm tra 1",
+                CourseId = new Guid("CEAF0F02-168D-4F69-975F-14A61D492886"),
+                Classification = 0
+            });
+            // LevelTemplateRelation table
+            await _context.LevelTemplateRelations.AddAsync(new LevelTemplateRelation
+            {
+                Id = new Guid("a054bf47-6783-4cbe-ac05-02b5b22b84ec"),
+                QuestionLevelId = new Guid("871D2DE9-CFCA-4ED0-A9A9-658639D664DF"), //Trung bình
+                WorksheetTemplateId = new Guid("721f378c-69fd-4f9d-ba93-38fa2db2044f"),
+                QuestionCount = 10
+            });
+            await _context.LevelTemplateRelations.AddAsync(new LevelTemplateRelation
+            {
+                Id = new Guid("b2679983-24f2-4643-8ec6-316a5e670de9"),
+                QuestionLevelId = new Guid("8F45DAB4-C1F8-4528-8CA4-BA5F682F847D"), //Khó
+                WorksheetTemplateId = new Guid("721f378c-69fd-4f9d-ba93-38fa2db2044f"),
+                QuestionCount = 5
+            });
+            await _context.LevelTemplateRelations.AddAsync(new LevelTemplateRelation
+            {
+                Id = new Guid("de30e2e6-a203-494d-a8ed-8a279f36f25c"),
+                QuestionLevelId = new Guid("26FB0C3C-2F79-4940-AC2C-6EF7BA427D92"), //Dễ
+                WorksheetTemplateId = new Guid("721f378c-69fd-4f9d-ba93-38fa2db2044f"),
+                QuestionCount = 10
+            });
+            // Worksheet table
+            await _context.Worksheets.AddAsync(new Worksheet
+            {
+                Id = new Guid("89b67173-669d-443f-ba87-79b8791c6238"),
+                WorksheetTemplateId = new Guid("721f378c-69fd-4f9d-ba93-38fa2db2044f"),
+                Title = "Bài kiểm tra 1",
+                Description = "10 trung bình, 10 dễ, 5 khó"
+            });
+            await _context.Worksheets.AddAsync(new Worksheet
+            {
+                Id = new Guid("6834d36d-b09d-4812-8aa9-7001ce6f9833"),
+                WorksheetTemplateId = new Guid("721f378c-69fd-4f9d-ba93-38fa2db2044f"),
+                Title = "Bài kiểm tra 2",
+                Description = "10 trung bình, 10 dễ, 5 khó"
+            });
+            var questions = _context.Questions.AsQueryable().ToList();
+            Random random = new Random();
+            for (int i = 10;i< 30; i++)
+            {
+                // Select a random question from the list
+                var question = questions[random.Next(questions.Count)];
+                await _context.WorksheetQuestions.AddAsync(new WorksheetQuestion
+                {
+                    Id = new Guid("23528d26-7db3-444d-9e9d-9a11948f7b" + i.ToString()),                    
+                    QuestionId = question.Id,
+                    WorksheetId = new Guid("89b67173-669d-443f-ba87-79b8791c6238"),
+                });
+            }
+            for (int i = 10; i < 40; i++)
+            {
+                // Select a random question from the list
+                var question = questions[random.Next(questions.Count)];
+                await _context.WorksheetQuestions.AddAsync(new WorksheetQuestion
+                {
+                    Id = new Guid("858d6e8c-0887-4fea-99ce-390c5ad73c" + i.ToString()),
+                    QuestionId = question.Id,
+                    WorksheetId = new Guid("6834d36d-b09d-4812-8aa9-7001ce6f9833"),
+                });
+            }
         }
 
         public class GameSeed

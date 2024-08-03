@@ -18,9 +18,9 @@ namespace Application.GameHistories
     public class GetBriefGameHistoryResponseModel : BaseResponseModel
     {
         public Guid GameId { get; set; }
-        //public GetBriefGameResponseModel Game { get; set; }
+        public GetBriefGameResponseModel Game { get; set; }
         public string? ApplicationUserId { get; set; }
-        //public GetBriefApplicationUserResponseModel? ApplicationUser { get; set; }
+        public GetBriefApplicationUserResponseModel? ApplicationUser { get; set; }
         public int Point { get; set; }
         public int Duration { get; set; }
     }

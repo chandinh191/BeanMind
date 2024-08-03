@@ -38,7 +38,7 @@ public class GetWorksheetQueryHanler : IRequestHandler<GetWorksheetQuery, BaseRe
 
         var worksheet = await _context.Worksheets
             .Include(x => x.WorksheetTemplate)
-            .Include(x => x.WorksheetQuestions)
+            .Include(x => x.WorksheetQuestions).ThenInclude(o => o.Question).ThenInclude(o => o.QuestionAnswers)
            .Include(x => x.WorksheetAttempts)
             .FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);
 

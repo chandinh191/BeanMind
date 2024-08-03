@@ -20,6 +20,7 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using Application.Parents;
 using Application.ApplicationUsers.Queries;
 using Application.ApplicationUsers;
+using Application.TeachingSlots.Queries;
 
 namespace Api.Controllers;
 
@@ -45,5 +46,17 @@ public class UserController : ControllerBase
             UserId = id,
         };
         return await sender.Send(query);
+    }
+    [HttpGet("all-calender/{id}")]
+    public async Task<IActionResult> GetCalender(ISender sender, [FromRoute] string id)
+    {
+        var result = await sender.Send(new GetPaginatedListTeachingSlotByUserIdQuery() with
+        {
+            Id = id
+        });
+        return new ObjectResult(result)
+        {
+            StatusCode = result.Code
+        };
     }
 }

@@ -30,6 +30,7 @@ public class GetBriefCourseResponseModel : BaseResponseModel
     public GetBriefCourseLevelResponseModel CourseLevel { get; set; }
     public List<GetBriefTeachableResponseModel> Teachables { get; set; }
     public List<GetBriefChapterResponseModel> Chapters { get; set; }
+    public List<GetBriefEnrollmentResponseModel> Enrollments { get; set; }
 }
 
 [AutoMap(typeof(Domain.Entities.Course))]
