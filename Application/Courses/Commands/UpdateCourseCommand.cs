@@ -13,7 +13,6 @@ public sealed record UpdateCourseCommand : IRequest<BaseResponse<GetBriefCourseR
 {
     [Required]
     public Guid Id { get; init; }
-    [StringLength(maximumLength: 50, MinimumLength = 4, ErrorMessage = "Title must be at least 4 characters long.")]
     public string? Title { get; init; }
     public string? Description { get; init; }
     public string? ImageURL { get; set; }
@@ -21,6 +20,12 @@ public sealed record UpdateCourseCommand : IRequest<BaseResponse<GetBriefCourseR
     public Guid? SubjectId { get; set; }
     public Guid? ProgramTypeId { get; set; }
     public Guid? CourseLevelId { get; set; }
+    public List<UpdateTeacherIdModel> Teachables { get; set; }
+}
+public class UpdateTeacherIdModel
+{
+    [Required]
+    public string lecturerId { get; set; }
 }
 
 public class UpdateCourseCommandHanler : IRequestHandler<UpdateCourseCommand, BaseResponse<GetBriefCourseResponseModel>>
@@ -93,7 +98,7 @@ public class UpdateCourseCommandHanler : IRequestHandler<UpdateCourseCommand, Ba
             if (requestValue != null)
             {
                 var targetProperty = course.GetType().GetProperty(property.Name);
-                if (targetProperty != null)
+                if (targetProperty != null && targetProperty.Name != "Teachables")
                 {
                     targetProperty.SetValue(course, requestValue);
                 }
@@ -109,6 +114,51 @@ public class UpdateCourseCommandHanler : IRequestHandler<UpdateCourseCommand, Ba
                 Success = false,
                 Message = "Update course failed",
             };
+        }
+        var teachables =  _context.Teachables.Where(x => x.CourseId == course.Id).AsQueryable(); 
+        foreach(var record in teachables)
+        {
+            record.IsDeleted = true;
+        }
+
+        if (request.Teachables.Count > 0)
+        {
+            foreach (var userId in request.Teachables)
+            {
+                var applicationUser = await _context.ApplicationUsers.FirstOrDefaultAsync(x => x.Id == userId.lecturerId);
+
+                if (applicationUser == null)
+                {
+                    return new BaseResponse<GetBriefCourseResponseModel>
+                    {
+                        Success = false,
+                        Message = "User not found",
+                    };
+                }
+                var existedTeachable = await _context.Teachables.FirstOrDefaultAsync(x => x.ApplicationUserId == userId.lecturerId && x.CourseId == course.Id);
+                if (existedTeachable != null)
+                {
+                    existedTeachable.IsDeleted = false;
+                }
+                else
+                {
+                    var teachable = new Domain.Entities.Teachable
+                    {
+                        CourseId = course.Id,
+                        ApplicationUserId = userId.lecturerId
+                    };
+                    var createTeachableResult = await _context.AddAsync(teachable, cancellationToken);
+
+                    if (createTeachableResult.Entity == null)
+                    {
+                        return new BaseResponse<GetBriefCourseResponseModel>
+                        {
+                            Success = false,
+                            Message = "Create teachable failed",
+                        };
+                    }
+                }
+            }
         }
 
         await _context.SaveChangesAsync(cancellationToken);

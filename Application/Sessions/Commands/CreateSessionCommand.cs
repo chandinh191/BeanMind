@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -71,8 +72,7 @@ namespace Application.Sessions.Commands
             }
 
             var teachable = await _context.Teachables
-                    .Where(o => o.Status == true)
-                    .FirstOrDefaultAsync(x => x.ApplicationUserId == request.ApplicationUserId && x.CourseId == teachingSlot.CourseId);
+                    .FirstOrDefaultAsync(x => x.ApplicationUserId == request.ApplicationUserId && x.CourseId == teachingSlot.CourseId && x.IsDeleted == false);
             if (teachable == null)
             {
                 return new BaseResponse<GetBriefSessionResponseModel>

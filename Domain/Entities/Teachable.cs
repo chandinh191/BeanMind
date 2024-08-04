@@ -20,6 +20,5 @@ namespace Domain.Entities
         [ForeignKey(nameof(Course))]
         public Guid CourseId { get; set; }
         public Course Course { get; set; }
-        public bool Status {  get; set; }
     }
 }

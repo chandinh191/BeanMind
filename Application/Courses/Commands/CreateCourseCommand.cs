@@ -4,15 +4,16 @@ using Application.Common;
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Application.Teachables;
+using Newtonsoft.Json;
 
 namespace Application.Courses.Commands;
+
 
 [AutoMap(typeof(Domain.Entities.Course), ReverseMap = true)]
 public sealed record CreateCourseCommand : IRequest<BaseResponse<GetBriefCourseResponseModel>>
 {
     [Required]
-    [StringLength(maximumLength: 50, MinimumLength = 4, ErrorMessage = "Title must be at least 4 characters long.")]
-    // //[RegularExpression(@"^(?:[A-Z][a-z0-9]*)(?: [A-Z][a-z0-9]*)*$", ErrorMessage = "Title must have the first word capitalized, following words separated by a space, and only contain characters and numbers.")]
     public string Title { get; init; }
     [Required]
     public string Description { get; init; }
@@ -27,7 +28,15 @@ public sealed record CreateCourseCommand : IRequest<BaseResponse<GetBriefCourseR
     public Guid ProgramTypeId { get; set; }
     [Required]
     public Guid CourseLevelId { get; set; }
+    public List<CreateTeacherIdModel> Teachables { get; set; }
 }
+public class CreateTeacherIdModel
+{
+    [Required]
+    public string lecturerId { get; set; } 
+}
+
+
 
 public class CreateCourseCommandHanler : IRequestHandler<CreateCourseCommand, BaseResponse<GetBriefCourseResponseModel>>
 {
@@ -70,7 +79,17 @@ public class CreateCourseCommandHanler : IRequestHandler<CreateCourseCommand, Ba
             };
         }
 
-        var course = _mapper.Map<Domain.Entities.Course>(request);
+        var course = new Domain.Entities.Course
+        {
+            Title = request.Title,
+            Description = request.Description,
+            Price = request.Price,
+            ImageURL = request.ImageURL,
+            TotalSlot = request.TotalSlot,
+            SubjectId = request.SubjectId,
+            ProgramTypeId = request.ProgramTypeId,
+            CourseLevelId = request.CourseLevelId
+        };
         var createCourseResult = await _context.AddAsync(course, cancellationToken);
 
         if (createCourseResult.Entity == null)
@@ -80,6 +99,39 @@ public class CreateCourseCommandHanler : IRequestHandler<CreateCourseCommand, Ba
                 Success = false,
                 Message = "Create course failed",
             };
+        }
+
+        if(request.Teachables.Count > 0)
+        {
+            foreach(var userId in request.Teachables)
+            {
+                var applicationUser = await _context.ApplicationUsers.FirstOrDefaultAsync(x => x.Id == userId.lecturerId);
+
+                if (applicationUser == null)
+                {
+                    return new BaseResponse<GetBriefCourseResponseModel>
+                    {
+                        Success = false,
+                        Message = "User not found",
+                    };
+                }
+
+                var teachable = new Domain.Entities.Teachable
+                {
+                    CourseId = course.Id,
+                    ApplicationUserId = userId.lecturerId
+                };
+                var createTeachableResult = await _context.AddAsync(teachable, cancellationToken);
+
+                if (createTeachableResult.Entity == null)
+                {
+                    return new BaseResponse<GetBriefCourseResponseModel>
+                    {
+                        Success = false,
+                        Message = "Create teachable failed",
+                    };
+                }
+            }
         }
 
         await _context.SaveChangesAsync(cancellationToken);

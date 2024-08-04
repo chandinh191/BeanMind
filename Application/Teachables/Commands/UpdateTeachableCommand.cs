@@ -19,7 +19,6 @@ namespace Application.Teachables.Commands
         public Guid Id { get; init; }
         public string? ApplicationUserId { get; set; }
         public Guid? CourseId { get; set; }
-        public bool? Status { get; set; }
     }
 
     public class UpdateTeachableCommandHanler : IRequestHandler<UpdateTeachableCommand, BaseResponse<GetBriefTeachableResponseModel>>

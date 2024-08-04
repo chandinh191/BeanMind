@@ -20,8 +20,6 @@ namespace Application.Teachables.Commands
         public string ApplicationUserId { get; set; }
         [Required]
         public Guid CourseId { get; set; }
-        [Required]
-        public bool Status { get; set; }
     }
 
     public class CreateTeachableCommandHanler : IRequestHandler<CreateTeachableCommand, BaseResponse<GetBriefTeachableResponseModel>>

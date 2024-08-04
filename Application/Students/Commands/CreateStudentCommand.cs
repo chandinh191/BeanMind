@@ -57,6 +57,7 @@ namespace Application.Students.Commands
                 };
             }
 
+            applicationUser.StudentId = createStudentResult.Entity.Id;
             await _context.SaveChangesAsync(cancellationToken);
 
             var mappedStudentResult = _mapper.Map<GetBriefStudentResponseModel>(createStudentResult.Entity);

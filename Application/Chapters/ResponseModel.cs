@@ -14,7 +14,7 @@ public class GetBriefChapterResponseModel : BaseResponseModel
 {
     public string Title { get; set; }
     public string Description { get; set; }
-    public int Order { get; init; }
+    public int? Order { get; init; }
     public Guid CourseId { get; set; }
     public GetBriefCourseResponseModel Course { get; set; }
     public List<GetTopicResponseModel> Topics { get; set; }
@@ -25,10 +25,10 @@ public class GetChapterResponseModel : BaseResponseModel
 {
     public string Title { get; set; }
     public string Description { get; set; }
-    public int Order { get; init; }
+    public int? Order { get; init; }
     public Guid CourseId { get; set; }
     public GetBriefCourseResponseModel Course { get; set; }
-    public List<GetTopicResponseModel> Topics { get; set; }
+    public List<GetBriefTopicResponseModel> Topics { get; set; }
     public List<GetBriefChapterGameResponseModel> ChapterGames { get; set; }
     public List<GetBriefWorksheetTemplateResponseModel> WorksheetTemplates { get; set; }
 }

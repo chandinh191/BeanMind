@@ -58,6 +58,8 @@ namespace Application.Teachers.Commands
                 };
             }
 
+            applicationUser.TeacherId = createTeacherResult.Entity.Id;
+
             await _context.SaveChangesAsync(cancellationToken);
 
             var mappedTeacherResult = _mapper.Map<GetBriefTeacherResponseModel>(createTeacherResult.Entity);

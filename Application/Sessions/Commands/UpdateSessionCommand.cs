@@ -84,8 +84,7 @@ namespace Application.Sessions.Commands
             }
 
             var teachable = await _context.Teachables
-                    .Where(o => o.Status == true)
-                    .FirstOrDefaultAsync(x => x.ApplicationUserId == request.ApplicationUserId && x.CourseId == teachingSlot.CourseId);
+                    .FirstOrDefaultAsync(x => x.ApplicationUserId == request.ApplicationUserId && x.CourseId == teachingSlot.CourseId && x.IsDeleted==false);
             if (teachable == null)
             {
                 return new BaseResponse<GetBriefSessionResponseModel>

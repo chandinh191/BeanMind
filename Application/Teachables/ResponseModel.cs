@@ -19,7 +19,6 @@ namespace Application.Teachables
         public GetBriefApplicationUserResponseModel? ApplicationUser { get; set; }
         public Guid CourseId { get; set; }
         GetBriefCourseResponseModel Course { get; set; }
-        public bool Status { get; set; }
     }
 
     [AutoMap(typeof(Domain.Entities.Teachable))]
@@ -29,6 +28,5 @@ namespace Application.Teachables
         public GetBriefApplicationUserResponseModel? ApplicationUser { get; set; }
         public Guid CourseId { get; set; }
         public GetBriefCourseResponseModel Course { get; set; }
-        public bool Status { get; set; }
     }
 }

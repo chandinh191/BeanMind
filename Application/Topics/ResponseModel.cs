@@ -20,6 +20,7 @@ public class GetBriefTopicResponseModel : BaseResponseModel
     public int? Order { get; set; }
     public Guid ChapterId { get; set; }
     public GetBriefChapterResponseModel Chapter { get; set; }
+    public List<GetBriefProcessionResponseModel> Processions { get; set; }
 }
 
 [AutoMap(typeof(Domain.Entities.Topic))]

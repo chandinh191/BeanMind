@@ -342,7 +342,7 @@ namespace Infrastructure.Data
                 CourseLevelId = new Guid("dd885d8d-0ea4-4c19-9b06-5e02bb44e7bb"),
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"),
                 Title = "Hình học đại cương",
-                ImageURL = " https://static.vecteezy.com/system/resources/thumbnails/002/399/898/small_2x/education-concept-with-funny-characters-vector.jpg",
+                ImageURL = "https://static.vecteezy.com/system/resources/thumbnails/002/399/898/small_2x/education-concept-with-funny-characters-vector.jpg",
                 Description = "Hình học nghiên cứu về các hình học cơ bản như hình vuông, hình tròn, tam giác và các hình khác, cũng như các phép biến đổi hình học như tịnh tiến, quay và phản xạ. Học sinh được giáo dục về cách tính diện tích, chu vi và khám phá các tính chất đặc biệt của các hình học này.",
                 TotalSlot = 30,
             });
@@ -645,35 +645,30 @@ namespace Infrastructure.Data
                 Id = new Guid("82cc29db-7118-40ee-b989-7fff95cc3469"),
                 CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
                 ApplicationUserId = "8e02b95e-6491-4eaf-a75a-06dae6e1ea40",
-                Status = true,
             });
             await _context.Teachables.AddAsync(new Teachable
             {
                 Id = new Guid("871c0c1a-63fe-42f6-87c6-6eb599ee9526"),
                 CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
                 ApplicationUserId = "8e02b95e-6491-4eaf-a75a-06dae6e1ea41",
-                Status = true,
             });
             await _context.Teachables.AddAsync(new Teachable
             {
                 Id = new Guid("d828cbec-50e4-498d-8385-63ed13a8a558"),
                 CourseId = new Guid("555a0815-d0b8-4975-8e1c-245d7acbab45"),
                 ApplicationUserId = "8e02b95e-6491-4eaf-a75a-06dae6e1ea42",
-                Status = true,
             });
             await _context.Teachables.AddAsync(new Teachable
             {
                 Id = new Guid("054d8c0c-9037-45d0-84bc-17b1bdc2f28b"),
                 CourseId = new Guid("555a0815-d0b8-4975-8e1c-245d7acbab45"),
                 ApplicationUserId = "8e02b95e-6491-4eaf-a75a-06dae6e1ea41",
-                Status = true,
             });
             await _context.Teachables.AddAsync(new Teachable
             {
                 Id = new Guid("ff7a0187-c8a6-478b-aa1e-91d2e6867111"),
                 CourseId = new Guid("555a0815-d0b8-4975-8e1c-245d7acbab45"),
                 ApplicationUserId = "8e02b95e-6491-4eaf-a75a-06dae6e1ea43",
-                Status = true,
             });
             // -----------
         }

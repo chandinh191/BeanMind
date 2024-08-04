@@ -62,6 +62,8 @@ namespace Application.Parents.Commands
                 };
             }
 
+            applicationUser.ParentId = createParentResult.Entity.Id;
+
             await _context.SaveChangesAsync(cancellationToken);
 
             var mappedParentResult = _mapper.Map<GetBriefParentResponseModel>(createParentResult.Entity);
