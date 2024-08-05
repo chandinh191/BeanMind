@@ -27,6 +27,7 @@ namespace Application.ApplicationUsers
         public string? LastName { get; set; }
         public string? FirstName { get; set; }
         public string? Email { get; set; }
+        public bool? IsDeleted { get; set; } 
         public Guid? StudentId { get; set; }
         public GetBriefStudentResponseModel? Student { get; set; }
         public Guid? TeacherId { get; set; }
@@ -43,6 +44,7 @@ namespace Application.ApplicationUsers
         public string? LastName { get; set; }
         public string? FirstName { get; set; }
         public string? Email { get; set; }
+        public bool? IsDeleted { get; set; } 
         public List<GetBriefSessionResponseModel>? Sessions { get; set; }
         public List<GetBriefTeachableResponseModel>? Teachables { get; set; }
         public List<GetEnrollmentResponseModel>? Enrollments { get; set; }

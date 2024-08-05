@@ -41,7 +41,7 @@ public class GetCourseQueryHanler : IRequestHandler<GetCourseQuery, BaseResponse
             .Include(x => x.ProgramType)
             .Include(x => x.CourseLevel)
             .Include(x => x.TeachingSlots)
-            .Include(x => x.Teachables) .ThenInclude (o => o.ApplicationUser)
+            .Include(x => x.Teachables).ThenInclude (o => o.ApplicationUser)
             .Include(x => x.Chapters) //.ThenInclude (o => o.Topics)
             .Include(x => x.Enrollments)
             .Include(x => x.WorksheetTemplates).ThenInclude(o => o.Worksheets)
