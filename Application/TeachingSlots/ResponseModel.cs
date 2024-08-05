@@ -21,7 +21,10 @@ namespace Application.TeachingSlots
     {
         public string Title { get; set; }
         public int DayInWeek { get; set; }
-        public int Slot { get; set; }
+        public int DayIndex { get; set; }
+        //public int Slot { get; set; }\
+        public string StartTime { get; set; }
+        public string EndTime { get; set; }
         public Guid CourseId { get; set; }
         public GetBriefCourseResponseModel Course { get; set; }
 
@@ -32,7 +35,10 @@ namespace Application.TeachingSlots
     {
         public string Title { get; set; }
         public int DayInWeek { get; set; }
-        public int Slot { get; set; }
+        public int DayIndex { get; set; }
+        //public int Slot { get; set; }\
+        public string StartTime { get; set; }
+        public string EndTime { get; set; }
         public Guid CourseId { get; set; }
         public GetBriefCourseResponseModel Course { get; set; }
         public List<GetBriefSessionResponseModel>? Sessions { get; set; }

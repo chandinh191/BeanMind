@@ -21,7 +21,7 @@ namespace Application.LevelTemplateRelations.Commands
         public Guid Id { get; set; }
         public Guid? QuestionLevelId { get; set; }
         public Guid? WorksheetTemplateId { get; set; }
-        public int? QuestionCount { get; set; }
+        public int? NoQuestions { get; set; }
     }
 
     public class UpdateLevelTemplateRelationCommandHanler : IRequestHandler<UpdateLevelTemplateRelationCommand, BaseResponse<GetBriefLevelTemplateRelationResponseModel>>

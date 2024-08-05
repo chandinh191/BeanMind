@@ -17,7 +17,7 @@ namespace Application.Sessions
     [AutoMap(typeof(Domain.Entities.Session))]
     public class GetBriefSessionResponseModel : BaseResponseModel
     {
-        public DateOnly Date { get; set; }
+        public DateTime Date { get; set; }
         public string? ApplicationUserId { get; set; }
         public GetBriefApplicationUserResponseModel? ApplicationUser { get; set; }
         public Guid TeachingSlotId { get; set; }
@@ -27,7 +27,7 @@ namespace Application.Sessions
     [AutoMap(typeof(Domain.Entities.Session))]
     public class GetSessionResponseModel : BaseResponseModel
     {
-        public DateOnly Date { get; set; }
+        public DateTime Date { get; set; }
         public string? ApplicationUserId { get; set; }
         public GetBriefApplicationUserResponseModel? ApplicationUser { get; set; }
         public Guid TeachingSlotId { get; set; }

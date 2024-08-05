@@ -16,8 +16,10 @@ namespace Application.TeachingSlots.Commands
     public sealed record CreateTeachingSlotCommand : IRequest<BaseResponse<GetBriefTeachingSlotResponseModel>>
     {
         public string Title { get; set; }
-        public int DayInWeek { get; set; }
-        public int Slot { get; set; }
+        public int DayIndex { get; set; }
+        //public int Slot { get; set; }\
+        public string StartTime { get; set; }
+        public string EndTime { get; set; }
         [Required]
         public Guid CourseId { get; set; }
     }

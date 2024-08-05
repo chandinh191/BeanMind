@@ -1,7 +1,9 @@
 ﻿using Application.Common;
 using AutoMapper;
+using Domain.Entities.UserEntities;
 using Infrastructure.Data;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -17,7 +19,7 @@ namespace Application.Teachables.Commands
     {
         [Required]
         public Guid Id { get; init; }
-        public string? ApplicationUserId { get; set; }
+        public string? LecturerId { get; set; }
         public Guid? CourseId { get; set; }
     }
 
@@ -25,11 +27,13 @@ namespace Application.Teachables.Commands
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public UpdateTeachableCommandHanler(ApplicationDbContext context, IMapper mapper)
+        public UpdateTeachableCommandHanler(ApplicationDbContext context, IMapper mapper, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _mapper = mapper;
+            _userManager = userManager;
         }
 
         public async Task<BaseResponse<GetBriefTeachableResponseModel>> Handle(UpdateTeachableCommand request, CancellationToken cancellationToken)
@@ -46,9 +50,9 @@ namespace Application.Teachables.Commands
                     };
                 }
             }
-            if (request.ApplicationUserId != null)
+            if (request.LecturerId != null)
             {
-                var applicationUser = await _context.ApplicationUsers.FirstOrDefaultAsync(x => x.Id == request.ApplicationUserId);
+                var applicationUser = await _userManager.FindByIdAsync(request.LecturerId);
                 if (applicationUser == null)
                 {
                     return new BaseResponse<GetBriefTeachableResponseModel>
@@ -56,6 +60,18 @@ namespace Application.Teachables.Commands
                         Success = false,
                         Message = "User not found",
                     };
+                }
+                else
+                {
+                    var isTeacher = await _userManager.IsInRoleAsync(applicationUser, "Teacher");
+                    if (!isTeacher)
+                    {
+                        return new BaseResponse<GetBriefTeachableResponseModel>
+                        {
+                            Success = false,
+                            Message = "User is not a teacher to get this session",
+                        };
+                    }
                 }
             }
 

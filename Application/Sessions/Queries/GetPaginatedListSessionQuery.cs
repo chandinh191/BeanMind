@@ -17,7 +17,7 @@ namespace Application.Sessions.Queries
     {
         public int PageIndex { get; init; }
         public int? PageSize { get; init; }
-        public string ApplicationUserId { get; set; }
+        public string? ApplicationUserId { get; set; }
         public Guid TeachingSlotId { get; init; }
         public IsDeleted IsDeleted { get; init; } = IsDeleted.All;
         public SortBy SortBy { get; init; }

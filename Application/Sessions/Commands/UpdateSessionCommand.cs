@@ -1,8 +1,10 @@
 ﻿using Application.Common;
 using AutoMapper;
 using Domain.Entities;
+using Domain.Entities.UserEntities;
 using Infrastructure.Data;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -21,7 +23,7 @@ namespace Application.Sessions.Commands
         [Required]
         public DateOnly Date { get; set; }
         [Required]
-        public string ApplicationUserId { get; set; }
+        public string LecturerId { get; set; }
         [Required]
         public Guid TeachingSlotId { get; set; }
     }
@@ -30,11 +32,13 @@ namespace Application.Sessions.Commands
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public UpdateSessionCommandHanler(ApplicationDbContext context, IMapper mapper)
+        public UpdateSessionCommandHanler(ApplicationDbContext context, IMapper mapper, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _mapper = mapper;
+            _userManager = userManager;
         }
 
         public async Task<BaseResponse<GetBriefSessionResponseModel>> Handle(UpdateSessionCommand request, CancellationToken cancellationToken)
@@ -50,9 +54,7 @@ namespace Application.Sessions.Commands
                 };
             }
 
-            var applicationUser = await _context.ApplicationUsers
-                .Include(o => o.Teacher)
-                .FirstOrDefaultAsync(x => x.Id == request.ApplicationUserId);
+            var applicationUser = await _userManager.FindByIdAsync(request.LecturerId);
             if (applicationUser == null)
             {
                 return new BaseResponse<GetBriefSessionResponseModel>
@@ -63,12 +65,13 @@ namespace Application.Sessions.Commands
             }
             else
             {
-                if (applicationUser.Teacher == null)
+                var isTeacher = await _userManager.IsInRoleAsync(applicationUser, "Teacher");
+                if (!isTeacher)
                 {
                     return new BaseResponse<GetBriefSessionResponseModel>
                     {
                         Success = false,
-                        Message = "Teacher not found",
+                        Message = "User is not a teacher to get this session",
                     };
                 }
             }
@@ -84,7 +87,7 @@ namespace Application.Sessions.Commands
             }
 
             var teachable = await _context.Teachables
-                    .FirstOrDefaultAsync(x => x.ApplicationUserId == request.ApplicationUserId && x.CourseId == teachingSlot.CourseId && x.IsDeleted==false);
+                    .FirstOrDefaultAsync(x => x.ApplicationUserId == request.LecturerId && x.CourseId == teachingSlot.CourseId && x.IsDeleted==false);
             if (teachable == null)
             {
                 return new BaseResponse<GetBriefSessionResponseModel>
@@ -94,7 +97,7 @@ namespace Application.Sessions.Commands
                 };
             }
             int dayOfWeek = (int)request.Date.DayOfWeek;
-            if (dayOfWeek != teachingSlot.DayInWeek)
+            if (dayOfWeek != teachingSlot.DayIndex)
             {
                 return new BaseResponse<GetBriefSessionResponseModel>
                 {
@@ -103,9 +106,9 @@ namespace Application.Sessions.Commands
                 };
             }
 
-            var checkDuplicateTime = _context.Sessions
-                .Where(o => o.ApplicationUserId == request.ApplicationUserId
-                && o.TeachingSlot.Slot == teachingSlot.Slot //trùng slot cái đang tạo
+          /*  var checkDuplicateTime = _context.Sessions
+                .Where(o => o.ApplicationUserId == request.LecturerId
+                //&& o.TeachingSlot.Slot == teachingSlot.Slot //trùng slot cái đang tạo
                 && o.Date == request.Date) //trùng ngày
                 .AsQueryable();
             if (checkDuplicateTime != null && checkDuplicateTime.Count() > 0) //Nếu có lịch dạy trùng thời gian 
@@ -115,7 +118,7 @@ namespace Application.Sessions.Commands
                     Success = false,
                     Message = "The lecturer have a session during this time",
                 };
-            }
+            }*/
 
             //_mapper.Map(request, question);
             // Use reflection to update non-null properties

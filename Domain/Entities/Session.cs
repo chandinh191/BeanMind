@@ -12,7 +12,7 @@ namespace Domain.Entities
 {
     public class Session : BaseAuditableEntity
     {
-        public DateOnly Date { get; set; }
+        public DateTime Date { get; set; }
         [Required]
         [ForeignKey(nameof(ApplicationUser))]
         public string? ApplicationUserId { get; set; }

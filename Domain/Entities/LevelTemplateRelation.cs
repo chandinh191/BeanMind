@@ -17,6 +17,6 @@ namespace Domain.Entities
         [ForeignKey(nameof(WorksheetTemplate))]
         public Guid WorksheetTemplateId { get; set; }
         public WorksheetTemplate WorksheetTemplate { get; set; }
-        public int QuestionCount { get; set; }
+        public int NoQuestions { get; set; }
     }
 }

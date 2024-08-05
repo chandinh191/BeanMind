@@ -374,23 +374,26 @@ namespace Infrastructure.Data
             {
                 Id = new Guid("3efbbaca-4aa1-45f2-98a0-12fbc2399185"),
                 Title = "TeachingSlot Tilte",
-                Slot = 1,
-                DayInWeek = 3,
+                StartTime = "1 pm",
+                EndTime = "3 pm",
+                DayIndex = 3,
                 CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
             });
             await _context.TeachingSlots.AddAsync(new TeachingSlot
             {
                 Id = new Guid("811c17cb-527e-4658-9db4-454fdeeca3ef"),
-                Slot = 2,
-                DayInWeek = 5,
+                StartTime = "1 pm",
+                EndTime = "3 pm",
+                DayIndex = 5,
                 Title = "TeachingSlot Tilte",
                 CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
             });
             await _context.TeachingSlots.AddAsync(new TeachingSlot
             {
                 Id = new Guid("0471144b-8ed3-4e78-b032-d5ca3c5ddfa5"),
-                Slot = 1,
-                DayInWeek = 6,
+                StartTime = "1 pm",
+                EndTime = "3 pm",
+                DayIndex = 6,
                 Title = "TeachingSlot Tilte",
                 CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
             });
@@ -399,24 +402,27 @@ namespace Infrastructure.Data
             {
                 Id = new Guid("c608dd61-9076-4181-9786-6c6b211b0bbd"),
                 Title = "TeachingSlot Tilte",
-                Slot = 2,
-                DayInWeek = 3,
+                StartTime = "1 pm",
+                EndTime = "3 pm",
+                DayIndex = 3,
                 CourseId = new Guid("555a0815-d0b8-4975-8e1c-245d7acbab45"),
             });
             await _context.TeachingSlots.AddAsync(new TeachingSlot
             {
                 Id = new Guid("5ee277ed-5b88-4c4f-8ba6-07aac526ce60"),
                 Title = "TeachingSlot Tilte",
-                Slot = 1,
-                DayInWeek = 4,
+                StartTime = "1 pm",
+                EndTime = "3 pm",
+                DayIndex = 4,
                 CourseId = new Guid("555a0815-d0b8-4975-8e1c-245d7acbab45"),
             });
             await _context.TeachingSlots.AddAsync(new TeachingSlot
             {
                 Id = new Guid("eeb6c8b1-3d26-4e3d-bf09-3c01b44d15ac"),
                 Title = "TeachingSlot Tilte",
-                Slot = 3,
-                DayInWeek = 7,
+                StartTime = "1 pm",
+                EndTime = "3 pm",
+                DayIndex = 7,
                 CourseId = new Guid("555a0815-d0b8-4975-8e1c-245d7acbab45"),
             });
             //------
@@ -424,24 +430,27 @@ namespace Infrastructure.Data
             {
                 Id = new Guid("60913325-34df-4a96-956c-2a32b0fde16d"),
                 Title = "TeachingSlot Tilte",
-                Slot = 2,
-                DayInWeek = 3,
+                StartTime = "1 pm",
+                EndTime = "3 pm",
+                DayIndex = 3,
                 CourseId = new Guid("6c215522-0925-4f86-b0fd-72f746ca9fd6"),
             });
             await _context.TeachingSlots.AddAsync(new TeachingSlot
             {
                 Id = new Guid("b6459368-0bc0-4632-9e73-c1009c5832c8"),
                 Title = "TeachingSlot Tilte",
-                Slot = 1,
-                DayInWeek = 5,
+                StartTime = "1 pm",
+                EndTime = "3 pm",
+                DayIndex = 5,
                 CourseId = new Guid("6c215522-0925-4f86-b0fd-72f746ca9fd6"),
             });
             await _context.TeachingSlots.AddAsync(new TeachingSlot
             {
                 Id = new Guid("ce616e03-1b16-4920-8fed-822f3e274ad6"),
                 Title = "TeachingSlot Tilte",
-                Slot = 1,
-                DayInWeek = 6,
+                StartTime = "1 pm",
+                EndTime = "3 pm",
+                DayIndex = 6,
                 CourseId = new Guid("6c215522-0925-4f86-b0fd-72f746ca9fd6"),
             });
             //------
@@ -449,24 +458,27 @@ namespace Infrastructure.Data
             {
                 Id = new Guid("a4f96e29-4944-4e5a-af44-8cee69660c3d"),
                 Title = "TeachingSlot Tilte",
-                Slot = 1,
-                DayInWeek = 3,
+                StartTime = "1 pm",
+                EndTime = "3 pm",
+                DayIndex = 3,
                 CourseId = new Guid("c2ad8bc5-d7ef-4639-87b2-d251854656a1"),
             });
             await _context.TeachingSlots.AddAsync(new TeachingSlot
             {
                 Id = new Guid("bbd02525-16fa-46da-834b-e37f92ff4fb5"),
                 Title = "TeachingSlot Tilte",
-                Slot = 1,
-                DayInWeek = 3,
+                StartTime = "1 pm",
+                EndTime = "3 pm",
+                DayIndex = 3,
                 CourseId = new Guid("c2ad8bc5-d7ef-4639-87b2-d251854656a1"),
             });
             await _context.TeachingSlots.AddAsync(new TeachingSlot
             {
                 Id = new Guid("1229415f-16fd-4e1b-b568-2218421da13a"),
                 Title = "TeachingSlot Tilte",
-                Slot = 1,
-                DayInWeek = 3,
+                StartTime = "1 pm",
+                EndTime = "3 pm",
+                DayIndex = 3,
                 CourseId = new Guid("c2ad8bc5-d7ef-4639-87b2-d251854656a1"),
             });
             // ------------
@@ -562,35 +574,35 @@ namespace Infrastructure.Data
                 Id = new Guid("c8f560be-8762-4cb6-bc1f-ad64f3dac67e"),
                 TeachingSlotId = new Guid("0471144b-8ed3-4e78-b032-d5ca3c5ddfa5"),
                 ApplicationUserId = "8e02b95e-6491-4eaf-a75a-06dae6e1ea40",
-                Date = ContextInitializerHelper.GetRandomDateOnly(),
+                Date = DateTime.Parse("08/05/2024")
             });
             await _context.Sessions.AddAsync(new Session
             {
                 Id = new Guid("92a70117-01f5-41c2-805a-bcacddc872c1"),
                 TeachingSlotId = new Guid("811c17cb-527e-4658-9db4-454fdeeca3ef"),
                 ApplicationUserId = "8e02b95e-6491-4eaf-a75a-06dae6e1ea40",
-                Date = ContextInitializerHelper.GetRandomDateOnly(),
+                Date = DateTime.Parse("08/02/2024")
             });
             await _context.Sessions.AddAsync(new Session
             {
                 Id = new Guid("501aad6e-40e9-4a4e-ba0f-247e1c7f97a0"),
                 TeachingSlotId = new Guid("811c17cb-527e-4658-9db4-454fdeeca3ef"),
                 ApplicationUserId = "8e02b95e-6491-4eaf-a75a-06dae6e1ea41",
-                Date = ContextInitializerHelper.GetRandomDateOnly(),
+                Date = DateTime.Parse("08/01/2024")
             });
             await _context.Sessions.AddAsync(new Session
             {
                 Id = new Guid("d4390f9a-f21a-404f-8fdc-5d4b132bb2f3"),
                 TeachingSlotId = new Guid("3efbbaca-4aa1-45f2-98a0-12fbc2399185"),
                 ApplicationUserId = "8e02b95e-6491-4eaf-a75a-06dae6e1ea43",
-                Date = ContextInitializerHelper.GetRandomDateOnly(),
+                Date = DateTime.Parse("08/04/2024")
             });
             await _context.Sessions.AddAsync(new Session
             {
                 Id = new Guid("26a7510c-0d5b-4b4b-9775-9578d01120b9"),
                 TeachingSlotId = new Guid("0471144b-8ed3-4e78-b032-d5ca3c5ddfa5"),
                 ApplicationUserId = "8e02b95e-6491-4eaf-a75a-06dae6e1ea44",
-                Date = ContextInitializerHelper.GetRandomDateOnly(),
+                Date = DateTime.Parse("08/03/2024")
             });
             // -----------
             // Enrollment table
@@ -771,21 +783,21 @@ namespace Infrastructure.Data
                 Id = new Guid("a054bf47-6783-4cbe-ac05-02b5b22b84ec"),
                 QuestionLevelId = new Guid("871D2DE9-CFCA-4ED0-A9A9-658639D664DF"), //Trung bình
                 WorksheetTemplateId = new Guid("721f378c-69fd-4f9d-ba93-38fa2db2044f"),
-                QuestionCount = 10
+                NoQuestions = 10
             });
             await _context.LevelTemplateRelations.AddAsync(new LevelTemplateRelation
             {
                 Id = new Guid("b2679983-24f2-4643-8ec6-316a5e670de9"),
                 QuestionLevelId = new Guid("8F45DAB4-C1F8-4528-8CA4-BA5F682F847D"), //Khó
                 WorksheetTemplateId = new Guid("721f378c-69fd-4f9d-ba93-38fa2db2044f"),
-                QuestionCount = 5
+                NoQuestions = 5
             });
             await _context.LevelTemplateRelations.AddAsync(new LevelTemplateRelation
             {
                 Id = new Guid("de30e2e6-a203-494d-a8ed-8a279f36f25c"),
                 QuestionLevelId = new Guid("26FB0C3C-2F79-4940-AC2C-6EF7BA427D92"), //Dễ
                 WorksheetTemplateId = new Guid("721f378c-69fd-4f9d-ba93-38fa2db2044f"),
-                QuestionCount = 10
+                NoQuestions = 10
             });
             // Worksheet table
             await _context.Worksheets.AddAsync(new Worksheet

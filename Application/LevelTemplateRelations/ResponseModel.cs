@@ -20,7 +20,7 @@ namespace Application.LevelTemplateRelations
         public GetBriefQuestionLevelResponseModel QuestionLevel { get; set; }
         public Guid WorksheetTemplateId { get; set; }
         public GetBriefWorksheetTemplateResponseModel WorksheetTemplate { get; set; }
-        public int QuestionCount { get; set; }
+        public int NoQuestions { get; set; }
     }
 
     [AutoMap(typeof(Domain.Entities.LevelTemplateRelation))]
@@ -30,6 +30,6 @@ namespace Application.LevelTemplateRelations
         public GetBriefQuestionLevelResponseModel QuestionLevel { get; set; }
         public Guid WorksheetTemplateId { get; set; }
         public GetBriefWorksheetTemplateResponseModel WorksheetTemplate { get; set; }
-        public int QuestionCount { get; set; }
+        public int NoQuestions { get; set; }
     }
 }

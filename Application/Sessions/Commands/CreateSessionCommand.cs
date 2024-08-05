@@ -1,7 +1,10 @@
 ﻿using Application.Common;
 using AutoMapper;
+using Domain.Entities;
+using Domain.Entities.UserEntities;
 using Infrastructure.Data;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -15,35 +18,35 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace Application.Sessions.Commands
 {
     [AutoMap(typeof(Domain.Entities.Session), ReverseMap = true)]
-    public sealed record CreateSessionCommand : IRequest<BaseResponse<GetBriefSessionResponseModel>>
+    public sealed record CreateSessionCommand : IRequest<BaseResponse<string>>
     {
         [Required]
-        public DateOnly Date { get; set; }
+        public DateTime From { get; set; }
         [Required]
-        public string ApplicationUserId { get; set; }
+        public DateTime To { get; set; }
         [Required]
-        public Guid TeachingSlotId { get; set; }
+        public string LecturerId { get; set; }
     }
 
-    public class CreateSessionCommandHanler : IRequestHandler<CreateSessionCommand, BaseResponse<GetBriefSessionResponseModel>>
+    public class CreateSessionCommandHanler : IRequestHandler<CreateSessionCommand, BaseResponse<string>>
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IMapper _mapper;
 
-        public CreateSessionCommandHanler(ApplicationDbContext context, IMapper mapper)
+        public CreateSessionCommandHanler(ApplicationDbContext context, IMapper mapper, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _mapper = mapper;
+            _userManager = userManager;
         }
 
-        public async Task<BaseResponse<GetBriefSessionResponseModel>> Handle(CreateSessionCommand request, CancellationToken cancellationToken)
+        public async Task<BaseResponse<string>> Handle(CreateSessionCommand request, CancellationToken cancellationToken)
         {
-            var applicationUser = await _context.ApplicationUsers
-                .Include(o => o.Teacher)
-                .FirstOrDefaultAsync(x => x.Id == request.ApplicationUserId);
+            var applicationUser = await _userManager.FindByIdAsync(request.LecturerId);
             if (applicationUser == null)
             {
-                return new BaseResponse<GetBriefSessionResponseModel>
+                return new BaseResponse<string>
                 {
                     Success = false,
                     Message = "User not found",
@@ -51,81 +54,75 @@ namespace Application.Sessions.Commands
             }
             else
             {
-                if(applicationUser.Teacher == null)
+                var isTeacher = await _userManager.IsInRoleAsync(applicationUser, "Teacher");
+                if (!isTeacher)
                 {
-                    return new BaseResponse<GetBriefSessionResponseModel>
+                    return new BaseResponse<string>
                     {
                         Success = false,
-                        Message = "Teacher not found",
+                        Message = "User is not a teacher to get this session",
                     };
                 }
             }
 
-            var teachingSlot = await _context.TeachingSlots.FirstOrDefaultAsync(x => x.Id == request.TeachingSlotId);
-            if (teachingSlot == null)
+            var teachingSlots = await _context.TeachingSlots
+                                              .Include(ts => ts.Course)
+                                              .ThenInclude(course => course.Teachables)
+                                              .Where(ts => ts.Course.Teachables.Any(teachable => teachable.ApplicationUserId == request.LecturerId && teachable.IsDeleted == false))
+                                              .ToListAsync();
+
+            if (teachingSlots == null || teachingSlots.Count == 0)
             {
-                return new BaseResponse<GetBriefSessionResponseModel>
+                return new BaseResponse<string>
                 {
                     Success = false,
                     Message = "Teaching slot not found",
                 };
             }
-
-            var teachable = await _context.Teachables
-                    .FirstOrDefaultAsync(x => x.ApplicationUserId == request.ApplicationUserId && x.CourseId == teachingSlot.CourseId && x.IsDeleted == false);
-            if (teachable == null)
+            var sessions = await _context.Sessions
+                                         .Where(o => o.Date >= request.From && o.Date <= request.To)
+                                         .ToListAsync();
+            if(sessions != null && sessions.Count > 0)
             {
-                return new BaseResponse<GetBriefSessionResponseModel>
+                return new BaseResponse<string>
                 {
                     Success = false,
-                    Message = "User are not able to teach this course",
+                    Message = "Existed session is created in " + request.From.ToString() + " to " + request.To.ToString()
+                            +"\n plesae clear session in that range time to create"
                 };
             }
-            int dayOfWeek = (int)request.Date.DayOfWeek;
-            if (dayOfWeek != teachingSlot.DayInWeek)
+            try
             {
-                return new BaseResponse<GetBriefSessionResponseModel>
+                for (DateTime date = request.From; date <= request.To; date = date.AddDays(1))
+                {
+                    int dayIndex = (int)date.DayOfWeek;
+                    var filterTeachingSlots = teachingSlots.Where(o => o.DayIndex == dayIndex).ToList();
+                    foreach (var slot in filterTeachingSlots)
+                    {
+                        var session = new Session()
+                        {
+                            Date = date,
+                            TeachingSlotId = slot.Id,
+                            ApplicationUserId = request.LecturerId,
+                        };
+                        var createSessionResult = await _context.AddAsync(session, cancellationToken);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<string>
                 {
                     Success = false,
-                    Message = "You need to create exactly what day of the week compared to your teaching slot data",
+                    Message = "Create session failed: " + ex.Message,
                 };
             }
-
-            var checkDuplicateTime =  _context.Sessions
-                .Where(o => o.ApplicationUserId == request.ApplicationUserId 
-                && o.TeachingSlot.Slot == teachingSlot.Slot //trùng slot cái đang tạo
-                && o.Date == request.Date) //trùng ngày
-                .AsQueryable();
-            if (checkDuplicateTime != null && checkDuplicateTime.Count() > 0) //Nếu có lịch dạy trùng thời gian 
-            {
-                return new BaseResponse<GetBriefSessionResponseModel>
-                {
-                    Success = false,
-                    Message = "The lecturer have a session during this time",
-                };
-            }
-
-            var session = _mapper.Map<Domain.Entities.Session>(request);
-            var createSessionResult = await _context.AddAsync(session, cancellationToken);
-
-            if (createSessionResult.Entity == null)
-            {
-                return new BaseResponse<GetBriefSessionResponseModel>
-                {
-                    Success = false,
-                    Message = "Create session failed",
-                };
-            }
-
             await _context.SaveChangesAsync(cancellationToken);
 
-            var mappedSessionResult = _mapper.Map<GetBriefSessionResponseModel>(createSessionResult.Entity);
-
-            return new BaseResponse<GetBriefSessionResponseModel>
+            return new BaseResponse<string>
             {
                 Success = true,
-                Message = "Create session successful",
-                Data = mappedSessionResult
+                Message = "Create session successful"
             };
         }
     }

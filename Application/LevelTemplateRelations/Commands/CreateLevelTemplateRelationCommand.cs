@@ -22,7 +22,7 @@ namespace Application.LevelTemplateRelations.Commands
         [Required]
         public Guid WorksheetTemplateId { get; set; }
         [Required]
-        public int QuestionCount { get; set; }
+        public int NoQuestions { get; set; }
     }
 
     public class CreateLevelTemplateRelationCommandHanler : IRequestHandler<CreateLevelTemplateRelationCommand, BaseResponse<GetBriefLevelTemplateRelationResponseModel>>
