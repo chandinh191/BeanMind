@@ -21,6 +21,7 @@ using Application.Chapters.Commands;
 using Application.ApplicationUsers.Commands;
 using Org.BouncyCastle.Asn1.X9;
 using Microsoft.IdentityModel.Tokens;
+using Application.Topics.Commands;
 
 namespace Api.Controllers;
 
@@ -30,15 +31,13 @@ public class UserController : ControllerBase
 {
     private readonly IConfiguration _configuration;
     private readonly UserManager<ApplicationUser> _userManager;
-
-
     public UserController(IConfiguration configuration, UserManager<ApplicationUser> userManager)
     {
         _configuration = configuration;
         _userManager = userManager;
     }
 
-    [HttpGet]
+    /*[HttpGet]
     [Route("{id}")]
     public async Task<BaseResponse<GetApplicationUserResponseModel>> UserInfoById(ISender sender, [FromRoute] string id)
     {
@@ -47,7 +46,28 @@ public class UserController : ControllerBase
             UserId = id,
         };
         return await sender.Send(query);
+    }*/
+    [HttpGet]
+    public async Task<IActionResult> GetAll(ISender sender, [FromQuery] GetPaginatedListUserQuery query)
+    {
+        var result = await sender.Send(query);
+        return new ObjectResult(result)
+        {
+            StatusCode = result.Code
+        };
     }
+
+    [HttpGet]
+    [Route("info/{id}")]
+    public async Task<BaseResponse<GetUserInfoResponseModel>> UserInfoById(ISender sender, [FromRoute] string id)
+    {
+        var query = new GetUserInfoQuery
+        {
+            UserId = id,
+        };
+        return await sender.Send(query);
+    }
+
     [HttpGet("calender/{id}")]
     public async Task<IActionResult> GetCalender(ISender sender, [FromRoute] string id)
     {
@@ -82,5 +102,17 @@ public class UserController : ControllerBase
             UserId = userId,
         };
         return await sender.Send(query);
+    }
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(ISender sender, [FromRoute] string id)
+    {
+        var result = await sender.Send(new DeleteUserCommand() with
+        {
+            Id = id
+        });
+        return new ObjectResult(result)
+        {
+            StatusCode = result.Code
+        };
     }
 }

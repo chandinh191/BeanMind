@@ -1,7 +1,11 @@
-﻿using Application.Parents;
+﻿using Application.Enrollments;
+using Application.Parents;
+using Application.Sessions;
 using Application.Students;
+using Application.Teachables;
 using Application.Teachers;
 using AutoMapper;
+using Domain.Entities;
 using Domain.Entities.UserEntities;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -32,6 +36,9 @@ public sealed record class GetUserInfoResponseModel
     public GetBriefTeacherResponseModel Teacher { get; set; }
     public Guid ParentId { get; set; }
     public GetBriefParentResponseModel Parent { get; set; }
+    public List<GetBriefSessionResponseModel>? Sessions { get; set; }
+    public List<GetBriefTeachableResponseModel>? Teachables { get; set; }
+    public List<GetBriefEnrollmentResponseModel>? Enrollments { get; set; }
     public required List<string> Roles { get; set; }
 }
 [AutoMap(typeof(ApplicationUser))]

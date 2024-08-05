@@ -33,6 +33,9 @@ public class GetUserInfoQueryHandler : IRequestHandler<GetUserInfoQuery, BaseRes
             .Include(x => x.Parent)
             .Include(x => x.Student)
             .Include(x => x.Teacher)
+            .Include(x => x.Enrollments)
+            .Include(x => x.Teachables)
+            .Include(x => x.Sessions)
             .FirstOrDefaultAsync(x => x.Id.Equals(request.UserId), cancellationToken);
         // user not found
         if (user is null)

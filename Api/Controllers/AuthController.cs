@@ -87,7 +87,6 @@ public class AuthController : ControllerBase
     }
 
     [HttpGet]
-    [Route("getAll")]
     public async Task<IActionResult> GetAll(ISender sender, [FromQuery] GetPaginatedListUserQuery query)
     {
         var result = await sender.Send(query);

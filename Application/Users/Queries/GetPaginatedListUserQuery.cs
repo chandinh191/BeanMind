@@ -1,6 +1,7 @@
 ﻿using Application.Common;
 using Application.Courses;
 using AutoMapper;
+using Domain.Entities;
 using Domain.Entities.UserEntities;
 using Domain.Enums;
 using Infrastructure.Data;
@@ -20,7 +21,9 @@ namespace Application.Users.Queries
         public int PageIndex { get; init; }
         public int? PageSize { get; init; }
         public string? Term { get; init; }
-        
+        public string? Role { get; init; }
+        public IsDeleted IsDeleted { get; init; } = IsDeleted.All;
+
     }
 
     public class GetPaginatedListUserQueryHandler : IRequestHandler<GetPaginatedListUserQuery, BaseResponse<Pagination<GetUserInfoResponseModel>>>
@@ -40,8 +43,26 @@ namespace Application.Users.Queries
         public async Task<BaseResponse<Pagination<GetUserInfoResponseModel>>> Handle(GetPaginatedListUserQuery request, CancellationToken cancellationToken)
         {
             var defaultPageSize = _configuration.GetValue<int>("Pagination:PageSize");
-            var users = _userManager.Users.ToArray();
-     
+            var users = _context.ApplicationUsers.AsQueryable();
+
+            // filter by isdeleted
+            if (request.IsDeleted.Equals(IsDeleted.Inactive))
+            {
+                users = users.Where(x => x.IsDeleted == true);
+            }
+            else if (request.IsDeleted.Equals(IsDeleted.Active))
+            {
+                users = users.Where(x => x.IsDeleted == false);
+            }
+
+            // filter by role
+            if (request.Role != null)
+            {
+                var userIdsInRole = await _userManager.GetUsersInRoleAsync(request.Role);
+                var userIds = userIdsInRole.Select(u => u.Id).ToList();
+                users = users.Where(x => userIds.Contains(x.Id));
+            }
+
             // convert the list of item to list of response model
             var mappedUsers = _mapper.Map<List<GetUserInfoResponseModel>>(users);
             var createPaginatedListResult = Pagination<GetUserInfoResponseModel>.Create(mappedUsers.AsQueryable(), request.PageIndex, request.PageSize ?? defaultPageSize);
