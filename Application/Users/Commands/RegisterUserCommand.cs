@@ -19,10 +19,12 @@ namespace Application.Users.Commands;
 
 public record class RegisterUserCommand : IRequest<BaseResponse<GetBriefApplicationUserResponseModel>>
 {
-    public required string Username { get; init; }
-    public required string Password { get; init; }
     public string? LastName { get; set; }
     public string? FirstName { get; set; }
+    public string Email { get; set; }
+    public string PhoneNumber { get; set; }
+    public required string Username { get; init; }
+    public required string Password { get; init; }
     public int? YearOfBirth { get; set; }
     public required List<string> Roles { get; init; }
 

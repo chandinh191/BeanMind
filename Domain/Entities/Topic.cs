@@ -7,7 +7,7 @@ namespace Domain.Entities;
 public class Topic : BaseAuditableEntity
 {
     public string Title { get; set; }
-    public string Description { get; set; }
+    public string? Description { get; set; }
     public int? Order { get; set; }
     [Required]
     [ForeignKey(nameof(Chapter))]

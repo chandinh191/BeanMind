@@ -12,8 +12,7 @@ public sealed record CreateTopicCommand : IRequest<BaseResponse<GetBriefTopicRes
 {
     [Required]
     public string Title { get; init; }
-    [Required]
-    public string Description { get; init; }
+    public string? Description { get; init; }
     public int? Order { get; set; }
     [Required]
     public Guid ChapterId { get; set; }

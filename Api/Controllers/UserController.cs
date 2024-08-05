@@ -55,8 +55,14 @@ public class UserController : ControllerBase
         };
     }
     [HttpPost]
-    [Route(RouteNameValues.Register, Name = RouteNameValues.Register)]
+    //[Route(RouteNameValues.Register, Name = RouteNameValues.Register)]
     public async Task<BaseResponse<GetBriefApplicationUserResponseModel>> RegisterAccount(ISender sender, [FromBody] RegisterUserCommand command)
+    {
+        return await sender.Send(command);
+    }
+    [HttpPut]
+    //[Route(RouteNameValues.Register, Name = RouteNameValues.Register)]
+    public async Task<BaseResponse<GetBriefApplicationUserResponseModel>> UpdateAccount(ISender sender, [FromBody] UpdateUserCommand command)
     {
         return await sender.Send(command);
     }

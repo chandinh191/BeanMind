@@ -21,7 +21,7 @@ namespace Application.Sessions.Commands
         [Required]
         public Guid Id { get; init; }
         [Required]
-        public DateOnly Date { get; set; }
+        public DateTime Date { get; set; }
         [Required]
         public string LecturerId { get; set; }
         [Required]

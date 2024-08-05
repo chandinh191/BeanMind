@@ -16,7 +16,7 @@ namespace Application.Topics;
 public class GetBriefTopicResponseModel : BaseResponseModel
 {
     public string Title { get; set; }
-    public string Description { get; set; }
+    public string? Description { get; set; }
     public int? Order { get; set; }
     public Guid ChapterId { get; set; }
     public GetBriefChapterResponseModel Chapter { get; set; }
@@ -27,7 +27,7 @@ public class GetBriefTopicResponseModel : BaseResponseModel
 public class GetTopicResponseModel : BaseResponseModel
 {
     public string Title { get; set; }
-    public string Description { get; set; }
+    public string? Description { get; set; }
     public int? Order { get; set; }
     public Guid ChapterId { get; set; }
     public GetBriefChapterResponseModel Chapter { get; set; }
