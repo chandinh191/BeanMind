@@ -35,7 +35,7 @@ namespace Api.Controllers
             };
         }
 
-        [HttpPost]
+/*        [HttpPost]
         public async Task<IActionResult> Create(ISender sender, [FromBody] CreateTeacherCommand command)
         {
             var result = await sender.Send(command);
@@ -43,7 +43,7 @@ namespace Api.Controllers
             {
                 StatusCode = result.Code
             };
-        }
+        }*/
 
         [HttpPut]
         public async Task<IActionResult> Update(ISender sender, [FromBody] UpdateTeacherCommand command)

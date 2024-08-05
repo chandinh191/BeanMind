@@ -22,6 +22,7 @@ namespace Application.Sessions
         public GetBriefApplicationUserResponseModel? ApplicationUser { get; set; }
         public Guid TeachingSlotId { get; set; }
         public GetBriefTeachingSlotResponseModel TeachingSlot { get; set; }
+        public List<GetBriefParticipantResponseModel>? Participants { get; set; }
     }
 
     [AutoMap(typeof(Domain.Entities.Session))]

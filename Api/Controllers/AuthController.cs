@@ -87,8 +87,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpGet]
-    //[Authorize(Roles ="Student")]
-    [Route("get-all")]
+    [Route("getAll")]
     public async Task<IActionResult> GetAll(ISender sender, [FromQuery] GetPaginatedListUserQuery query)
     {
         var result = await sender.Send(query);
@@ -110,8 +109,7 @@ public class AuthController : ControllerBase
     }
 
 
-    [HttpGet]
-    [Route(RouteNameValues.Info, Name = RouteNameValues.Info)]
+    [HttpGet("info")]
     public async Task<BaseResponse<GetUserInfoResponseModel>> UserInfo(ISender sender)
     {
         // get claim from user object
@@ -124,8 +122,7 @@ public class AuthController : ControllerBase
         return await sender.Send(query);
     }
 
-    [HttpGet]
-    [Route(RouteNameValues.ConfirmEmail, Name = RouteNameValues.ConfirmEmail)]
+    [HttpGet("confirmEmail")]
     public async Task<IActionResult> ConfirmEmailAccount(ISender sender, [FromQuery] ConfirmEmailCommand command)
     {
         var result = await sender.Send(command);
@@ -138,8 +135,7 @@ public class AuthController : ControllerBase
         };
     }
 
-    [HttpPost]
-    [Route(RouteNameValues.Login, Name = RouteNameValues.Login)]
+    [HttpPost("login")]
     public async Task<IActionResult> Login(ISender sender, [FromBody] LoginCommand command)
     {
         var result = await sender.Send(command);
@@ -149,15 +145,8 @@ public class AuthController : ControllerBase
         };
     }
 
-    [HttpPost]
-    [Route(RouteNameValues.LoginGoogle, Name = RouteNameValues.LoginGoogle)]
-    public async Task<BaseResponse<AccessTokenResponseModel>> LoginGoogle(ISender sender, [FromBody] LoginGoogleCommand command)
-    {
-        return await sender.Send(command);
-    }
 
-    [HttpPost]
-    [Route(RouteNameValues.ResendConfirmEmail, Name = RouteNameValues.ResendConfirmEmail)]
+    [HttpPost("resendConfirmEmail")]
     public async Task<IActionResult> ResendConfirmEmail(ISender sender, [FromBody] ResendConfirmEmailCommand command)
     {
         var result = await sender.Send(command);
@@ -167,22 +156,19 @@ public class AuthController : ControllerBase
         };
     }
 
-    [HttpPost]
-    [Route(RouteNameValues.Refresh, Name = RouteNameValues.Refresh)]
+    [HttpPost("refresh")]
     public async Task<BaseResponse<AccessTokenResponseModel>> RefreshToken(ISender sender, [FromBody] TokenRefreshCommand command)
     {
         return await sender.Send(command);
     }
 
-    [HttpPost]
-    [Route(RouteNameValues.ForgotPassword, Name = RouteNameValues.ForgotPassword)]
+    [HttpPost("forgotPassword")]
     public async Task<BaseResponse<string>> ForgotPassword(ISender sender, [FromBody] ForgotPasswordCommand command)
     {
         return await sender.Send(command);
     }
 
-    [HttpPost]
-    [Route(RouteNameValues.ResetPassword, Name = RouteNameValues.ResetPassword)]
+    [HttpPost("resetPassword")]
     public async Task<BaseResponse<string>> ResetPassword(ISender sender, [FromBody] ResetPasswordCommand command)
     {
         return await sender.Send(command);

@@ -14,6 +14,9 @@ using Microsoft.AspNetCore.Http;
 using Application.ApplicationUsers;
 using Application.Chapters;
 using AutoMapper;
+using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
+using Infrastructure.Data;
 
 namespace Application.Users.Commands;
 
@@ -26,6 +29,7 @@ public record class RegisterUserCommand : IRequest<BaseResponse<GetBriefApplicat
     public required string Username { get; init; }
     public required string Password { get; init; }
     public int? YearOfBirth { get; set; }
+    public bool EmailConfirmed { get; set; } = false;
     public required List<string> Roles { get; init; }
 
 }
@@ -36,12 +40,14 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, B
     private readonly IConfiguration _configuration;
     private readonly LinkGenerator _linkGenerator;
     private readonly IEmailService _emailService;
+    private readonly ApplicationDbContext _context;
     private readonly IMapper _mapper;
 
     public RegisterUserCommandHandler(UserManager<ApplicationUser> userManager, IConfiguration configuration, LinkGenerator linkGenerator,
-        IEmailService emailService, IHttpContextAccessor httpContextAccessor, IMapper mapper)
+        IEmailService emailService, IHttpContextAccessor httpContextAccessor, IMapper mapper, ApplicationDbContext context)
     {
         _userManager = userManager;
+        _context = context;
         _mapper = mapper;
         _configuration = configuration;
         _linkGenerator = linkGenerator;
@@ -89,6 +95,7 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, B
                 LastName = request.LastName,
                 FirstName = request.FirstName,
                 YearOfBirth = request.YearOfBirth,
+                EmailConfirmed = request.EmailConfirmed,
             };
             var createUserResult = await _userManager.CreateAsync(user, request.Password);
 
@@ -107,7 +114,35 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, B
             foreach (var role in request.Roles)
             {
                 await _userManager.AddToRoleAsync(user, role);
+                if(role == "Teacher")
+                {
+                    var teacher = new Teacher
+                    {
+                        ApplicationUserId = user.Id,
+                    };
+                    var createTeacherResult = await _context.AddAsync(teacher, cancellationToken);
+                    user.TeacherId = teacher.Id;
+                }
+                if (role == "Student")
+                {
+                    var student = new Student
+                    {
+                        ApplicationUserId = user.Id,
+                    };
+                    var createStudentResult = await _context.AddAsync(student, cancellationToken);
+                    user.StudentId = student.Id;
+                }
+                if (role == "Parent")
+                {
+                    var parent = new Parent
+                    {
+                        ApplicationUserId = user.Id,
+                    };
+                    var createParentResult = await _context.AddAsync(parent, cancellationToken);
+                    user.ParentId = parent.Id;
+                }
             }
+            await _userManager.UpdateAsync(user);
 
             // if register by email
             if (IsEmail(request.Username))

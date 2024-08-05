@@ -35,5 +35,7 @@
         public const string TeacherRoute = BaseApi + "/teachers";
         public const string StudentRoute = BaseApi + "/students";
         public const string ParentRoute = BaseApi + "/parents";
+        public const string OrderRoute = BaseApi + "/orders";
+        public const string TransationRoute = BaseApi + "/transations";
     }
 }
