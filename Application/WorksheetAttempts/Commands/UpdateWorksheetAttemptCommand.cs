@@ -1,5 +1,6 @@
 ﻿using Application.Common;
 using AutoMapper;
+using Domain.Entities;
 using Domain.Enums;
 using Infrastructure.Data;
 using MediatR;
@@ -13,6 +14,10 @@ using System.Threading.Tasks;
 
 namespace Application.WorksheetAttempts.Commands
 {
+    public class UpdateWorkSheetAttemptAnswerModel
+    {
+        public Guid QuestionAnswerId { get; set; }
+    }
     [AutoMap(typeof(Domain.Entities.WorksheetAttempt), ReverseMap = true)]
     public sealed record UpdateWorksheetAttemptCommand : IRequest<BaseResponse<GetBriefWorksheetAttemptResponseModel>>
     {
@@ -23,6 +28,7 @@ namespace Application.WorksheetAttempts.Commands
         public DateTime? CompletionDate { get; set; }
         public WorksheetAttemptStatus Status { get; set; }
         public int? Score { get; set; }
+        public List<CreateWorkSheetAttemptAnswerModel>? WorkSheetAttemptAnswers { get; set; }
     }
 
     public class UpdateWorksheetAttemptCommandHanler : IRequestHandler<UpdateWorksheetAttemptCommand, BaseResponse<GetBriefWorksheetAttemptResponseModel>>
@@ -84,7 +90,7 @@ namespace Application.WorksheetAttempts.Commands
                 if (requestValue != null)
                 {
                     var targetProperty = worksheetAttempt.GetType().GetProperty(property.Name);
-                    if (targetProperty != null)
+                    if (targetProperty != null && targetProperty.Name != "WorkSheetAttemptAnswers")
                     {
                         targetProperty.SetValue(worksheetAttempt, requestValue);
                     }
@@ -102,6 +108,35 @@ namespace Application.WorksheetAttempts.Commands
                 };
             }
 
+            await _context.SaveChangesAsync(cancellationToken);
+
+            if (request.WorkSheetAttemptAnswers != null && request.WorkSheetAttemptAnswers.Count > 0)
+            {
+                var workSheetAttemptAnswers = _context.WorksheetAttemptAnswers.Where(x => x.WorksheetAttemptId == worksheetAttempt.Id).AsQueryable();
+                foreach (var record in workSheetAttemptAnswers)
+                {
+                    _context.Remove(record);
+                }
+                await _context.SaveChangesAsync(cancellationToken);
+                foreach (var record in request.WorkSheetAttemptAnswers)
+                {
+                    var existedWorkSheetAttemptAnswers = await _context.WorksheetAttemptAnswers
+                        .FirstOrDefaultAsync(x => x.QuestionAnswerId == record.QuestionAnswerId && x.WorksheetAttemptId == worksheetAttempt.Id);
+                    if (existedWorkSheetAttemptAnswers != null)
+                    {
+                        existedWorkSheetAttemptAnswers.IsDeleted = false;
+                    }
+                    else
+                    {
+                        var worksheetAttemptAnswer = new WorksheetAttemptAnswer()
+                        {
+                            WorksheetAttemptId = worksheetAttempt.Id,
+                            QuestionAnswerId = record.QuestionAnswerId, 
+                        };
+                        var createWorksheetAttemptAnswerResult = await _context.AddAsync(worksheetAttemptAnswer, cancellationToken);
+                    }
+                }
+            }
             await _context.SaveChangesAsync(cancellationToken);
 
             var mappedWorksheetAttemptResult = _mapper.Map<GetBriefWorksheetAttemptResponseModel>(updateWorksheetAttemptResult.Entity);

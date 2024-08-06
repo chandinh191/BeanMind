@@ -1,5 +1,6 @@
 ﻿using Application.Common;
 using AutoMapper;
+using Domain.Entities;
 using Domain.Enums;
 using Infrastructure.Data;
 using MediatR;
@@ -7,12 +8,17 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Application.WorksheetAttempts.Commands
 {
+    public class CreateWorkSheetAttemptAnswerModel
+    {
+        public Guid QuestionAnswerId { get; set; }
+    }
     [AutoMap(typeof(Domain.Entities.WorksheetAttempt), ReverseMap = true)]
     public sealed record CreateWorksheetAttemptCommand : IRequest<BaseResponse<GetBriefWorksheetAttemptResponseModel>>
     {
@@ -23,6 +29,7 @@ namespace Application.WorksheetAttempts.Commands
         public DateTime? CompletionDate { get; set; }
         public WorksheetAttemptStatus Status { get; set; }
         public int? Score { get; set; }
+        public List<CreateWorkSheetAttemptAnswerModel>? WorkSheetAttemptAnswers {  get; set; }
     }
 
     public class CreateWorksheetAttemptCommandHanler : IRequestHandler<CreateWorksheetAttemptCommand, BaseResponse<GetBriefWorksheetAttemptResponseModel>>
@@ -58,7 +65,14 @@ namespace Application.WorksheetAttempts.Commands
                 };
             }
 
-            var worksheetAttempt= _mapper.Map<Domain.Entities.WorksheetAttemptAnswer>(request);
+            var worksheetAttempt = new WorksheetAttempt()
+            {
+                EnrollmentId = request.EnrollmentId,
+                WorksheetId = request.WorksheetId,
+                CompletionDate = request.CompletionDate,
+                Status = request.Status,
+                Score = request.Score
+            };
             var createWorksheetAttemptResult = await _context.AddAsync(worksheetAttempt, cancellationToken);
 
             if (createWorksheetAttemptResult.Entity == null)
@@ -68,6 +82,21 @@ namespace Application.WorksheetAttempts.Commands
                     Success = false,
                     Message = "Create worksheet attempt failed",
                 };
+            }
+
+            await _context.SaveChangesAsync(cancellationToken);
+
+            if(request.WorkSheetAttemptAnswers != null && request.WorkSheetAttemptAnswers.Count > 0)
+            {
+                foreach(var answer in request.WorkSheetAttemptAnswers)
+                {
+                    var worksheetAttemptAnswer = new WorksheetAttemptAnswer()
+                    {
+                        WorksheetAttemptId = worksheetAttempt.Id,
+                        QuestionAnswerId = answer.QuestionAnswerId,
+                    };
+                    var createWorksheetAttemptAnswerResult = await _context.AddAsync(worksheetAttemptAnswer, cancellationToken);
+                }
             }
 
             await _context.SaveChangesAsync(cancellationToken);

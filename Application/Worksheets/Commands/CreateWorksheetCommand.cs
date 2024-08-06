@@ -41,8 +41,6 @@ public class CreateWorksheetCommandHanler : IRequestHandler<CreateWorksheetComma
 
     public async Task<BaseResponse<GetBriefWorksheetResponseModel>> Handle(CreateWorksheetCommand request, CancellationToken cancellationToken)
     {
-       
-
         var worksheetTemplate = await _context.WorksheetTemplates.FirstOrDefaultAsync(x => x.Id == request.WorksheetTemplateId);
 
         if (worksheetTemplate == null)
