@@ -127,8 +127,9 @@ public class UpdateWorksheetTemplateCommandHanler : IRequestHandler<UpdateWorksh
             var levelTemplateRelations = _context.LevelTemplateRelations.Where(x => x.WorksheetTemplateId == worksheetTemplate.Id).AsQueryable();
             foreach (var record in levelTemplateRelations)
             {
-                record.IsDeleted = true;
+                _context.Remove(record);
             }
+            await _context.SaveChangesAsync(cancellationToken);
             foreach (var record in request.LevelTemplateRelations)
             {
                 var existedLevelTemplateRelation = await _context.LevelTemplateRelations.FirstOrDefaultAsync(x => x.QuestionLevelId == record.QuestionLevelId && x.WorksheetTemplateId == worksheetTemplate.Id);
