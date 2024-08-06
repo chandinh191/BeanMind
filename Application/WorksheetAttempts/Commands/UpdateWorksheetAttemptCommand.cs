@@ -1,5 +1,6 @@
 ﻿using Application.Common;
 using AutoMapper;
+using Domain.Enums;
 using Infrastructure.Data;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -17,9 +18,11 @@ namespace Application.WorksheetAttempts.Commands
     {
         [Required]
         public Guid Id { get; init; }
-        public string? Title { get; set; }
         public Guid? EnrollmentId { get; set; }
         public Guid? WorksheetId { get; set; }
+        public DateTime? CompletionDate { get; set; }
+        public WorksheetAttemptStatus Status { get; set; }
+        public int? Score { get; set; }
     }
 
     public class UpdateWorksheetAttemptCommandHanler : IRequestHandler<UpdateWorksheetAttemptCommand, BaseResponse<GetBriefWorksheetAttemptResponseModel>>
@@ -74,7 +77,6 @@ namespace Application.WorksheetAttempts.Commands
                 };
             }
 
-            //_mapper.Map(request, topic);
             // Use reflection to update non-null properties
             foreach (var property in request.GetType().GetProperties())
             {

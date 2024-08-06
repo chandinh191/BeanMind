@@ -6,7 +6,8 @@ namespace Domain.Entities;
 
 public class WorksheetTemplate : BaseAuditableEntity
 {
-    public string Title { get; set; }   
+    public string Title { get; set; }
+    public string? Description { get; set; }
     public int Classification { get; set; }  //  0: course, 1: chapter, 2: topic 
     [ForeignKey(nameof(Course))]
     public Guid? CourseId { get; set; }

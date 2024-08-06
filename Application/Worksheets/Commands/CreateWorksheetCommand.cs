@@ -4,17 +4,28 @@ using Application.Common;
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Domain.Entities;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Application.Worksheets.Commands;
+public class CreateWorkSheetQuestionrModel
+{
+    [Required]
+    public Guid QuestionId { get; set; }
+}
+
 
 [AutoMap(typeof(Domain.Entities.Worksheet), ReverseMap = true)]
 public sealed record CreateWorksheetCommand : IRequest<BaseResponse<GetBriefWorksheetResponseModel>>
 {
     [Required]
     public string Title { get; init; }
-    public string Description { get; init; }
+    public string? Description { get; init; }
     [Required]
-    public Guid? WorksheetTemplateId { get; set; }
+    public Guid WorksheetTemplateId { get; set; }
+    [Required]
+    public string LecturerId { get; set; }
+    public List<CreateWorkSheetQuestionrModel> WorksheetQuestions { get; set; }
 }
 
 public class CreateWorksheetCommandHanler : IRequestHandler<CreateWorksheetCommand, BaseResponse<GetBriefWorksheetResponseModel>>

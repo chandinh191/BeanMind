@@ -1,5 +1,6 @@
 ﻿using Application.Common;
 using AutoMapper;
+using Domain.Enums;
 using Infrastructure.Data;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -15,11 +16,13 @@ namespace Application.WorksheetAttempts.Commands
     [AutoMap(typeof(Domain.Entities.WorksheetAttempt), ReverseMap = true)]
     public sealed record CreateWorksheetAttemptCommand : IRequest<BaseResponse<GetBriefWorksheetAttemptResponseModel>>
     {
-        public string Title { get; set; }
         [Required]
         public Guid EnrollmentId { get; set; }
         [Required]
         public Guid WorksheetId { get; set; }
+        public DateTime? CompletionDate { get; set; }
+        public WorksheetAttemptStatus Status { get; set; }
+        public int? Score { get; set; }
     }
 
     public class CreateWorksheetAttemptCommandHanler : IRequestHandler<CreateWorksheetAttemptCommand, BaseResponse<GetBriefWorksheetAttemptResponseModel>>

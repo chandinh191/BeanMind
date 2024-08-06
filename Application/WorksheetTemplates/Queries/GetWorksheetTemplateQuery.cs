@@ -41,7 +41,7 @@ public class GetWorksheetTemplateQueryHanler : IRequestHandler<GetWorksheetTempl
             .Include(x => x.Chapter)
             .Include(x => x.Topic)
             .Include(x => x.Worksheets)
-            .Include(x => x.LevelTemplateRelations)
+            .Include(x => x.LevelTemplateRelations).ThenInclude(o => o.QuestionLevel)
             .FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);
         var mappedWorksheetTemplate = _mapper.Map<GetWorksheetTemplateResponseModel>(worksheetTemplate);
 

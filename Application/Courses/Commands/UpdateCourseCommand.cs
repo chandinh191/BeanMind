@@ -136,7 +136,7 @@ public class UpdateCourseCommandHanler : IRequestHandler<UpdateCourseCommand, Ba
                     };
                 }
                 var existedTeachable = await _context.Teachables.FirstOrDefaultAsync(x => x.ApplicationUserId == userId.lecturerId && x.CourseId == course.Id);
-                if (existedTeachable != null)
+                if (existedTeachable == null)
                 {
                     existedTeachable.IsDeleted = false;
                 }

@@ -9,6 +9,11 @@ using Domain.Entities;
 
 namespace Application.WorksheetTemplates.Commands;
 
+public class UpdateLevelTemplateRelationModel
+{
+    public Guid QuestionLevelId { get; set; }
+    public int NoQuestions { get; set; }
+}
 [AutoMap(typeof(Domain.Entities.WorksheetTemplate), ReverseMap = true)]
 public sealed record UpdateWorksheetTemplateCommand : IRequest<BaseResponse<GetWorksheetTemplateResponseModel>>
 {
@@ -19,6 +24,7 @@ public sealed record UpdateWorksheetTemplateCommand : IRequest<BaseResponse<GetW
     public Guid? CourseId { get; set; }
     public Guid? ChapterId { get; set; }
     public Guid? TopicId { get; set; }
+    public List<UpdateLevelTemplateRelationModel>? LevelTemplateRelations { get; set; }
 }
 
 public class UpdateWorksheetTemplateCommandHanler : IRequestHandler<UpdateWorksheetTemplateCommand, BaseResponse<GetWorksheetTemplateResponseModel>>
@@ -96,7 +102,7 @@ public class UpdateWorksheetTemplateCommandHanler : IRequestHandler<UpdateWorksh
             if (requestValue != null)
             {
                 var targetProperty = worksheetTemplate.GetType().GetProperty(property.Name);
-                if (targetProperty != null)
+                if (targetProperty != null && targetProperty.Name != "LevelTemplateRelations")
                 {
                     targetProperty.SetValue(worksheetTemplate, requestValue);
                 }
@@ -115,6 +121,33 @@ public class UpdateWorksheetTemplateCommandHanler : IRequestHandler<UpdateWorksh
         }
 
         await _context.SaveChangesAsync(cancellationToken);
+
+        if (request.LevelTemplateRelations != null && request.LevelTemplateRelations.Count > 0)
+        {
+            var levelTemplateRelations = _context.LevelTemplateRelations.Where(x => x.WorksheetTemplateId == worksheetTemplate.Id).AsQueryable();
+            foreach (var record in levelTemplateRelations)
+            {
+                record.IsDeleted = true;
+            }
+            foreach (var record in request.LevelTemplateRelations)
+            {
+                var existedLevelTemplateRelation = await _context.LevelTemplateRelations.FirstOrDefaultAsync(x => x.QuestionLevelId == record.QuestionLevelId && x.WorksheetTemplateId == worksheetTemplate.Id);
+                if (existedLevelTemplateRelation != null)
+                {
+                    existedLevelTemplateRelation.IsDeleted = false;
+                }
+                else
+                {
+                    var levelTemplateRelation = new LevelTemplateRelation()
+                    {
+                        WorksheetTemplateId = worksheetTemplate.Id,
+                        QuestionLevelId = record.QuestionLevelId,
+                        NoQuestions = record.NoQuestions,
+                    };
+                    var createLevelTemplateRelationResult = await _context.AddAsync(levelTemplateRelation, cancellationToken);
+                }
+            }
+        }
 
         var mappedWorksheetTemplateResult = _mapper.Map<GetWorksheetTemplateResponseModel>(updateWorksheetTemplateResult.Entity);
 

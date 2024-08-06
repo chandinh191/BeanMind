@@ -4,6 +4,7 @@ using AutoMapper;
 using Domain.Enums;
 using Infrastructure.Data;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -41,7 +42,10 @@ namespace Application.WorksheetQuestions.Queries
         public async Task<BaseResponse<Pagination<GetBriefWorksheetQuestionResponseModel>>> Handle(GetPaginatedListWorksheetQuestionQuery request, CancellationToken cancellationToken)
         {
             var defaultPageSize = _configuration.GetValue<int>("Pagination:PageSize");
-            var worksheetQuestions = _context.WorksheetQuestions.AsQueryable();
+            var worksheetQuestions = _context.WorksheetQuestions
+                .Include(x => x.Question)
+                .Include(x => x.Worksheet)
+                .AsQueryable();
 
 
             // filter by QuestionId

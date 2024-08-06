@@ -4,6 +4,7 @@ using Domain.Entities;
 using Domain.Enums;
 using Infrastructure.Data;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,6 @@ namespace Application.WorksheetAttempts.Queries
     {
         public int PageIndex { get; init; }
         public int? PageSize { get; init; }
-        public string? Term { get; init; }
         public Guid EnrollmentId { get; init; }
         public Guid WorksheetId { get; init; }
         public IsDeleted IsDeleted { get; init; } = IsDeleted.All;
@@ -42,7 +42,10 @@ namespace Application.WorksheetAttempts.Queries
         public async Task<BaseResponse<Pagination<GetBriefWorksheetAttemptResponseModel>>> Handle(GetPaginatedListWorksheetAttemptQuery request, CancellationToken cancellationToken)
         {
             var defaultPageSize = _configuration.GetValue<int>("Pagination:PageSize");
-            var worksheetAttempts = _context.WorksheetAttempts.AsQueryable();
+            var worksheetAttempts = _context.WorksheetAttempts
+                .Include(o => o.Enrollment)
+                .Include(o => o.Worksheet)
+                .AsQueryable();
 
 
             // filter by EnrollmentId
@@ -88,11 +91,7 @@ namespace Application.WorksheetAttempts.Queries
                 worksheetAttempts = worksheetAttempts.Where(topic =>
                    topic.Created <= request.EndTime);
             }
-            // filter by search Title and Description
-            if (!string.IsNullOrEmpty(request.Term))
-            {
-                worksheetAttempts = worksheetAttempts.Where(x => x.Title.Contains(request.Term));
-            }
+
             // convert the list of item to list of response model
             var mappedWorksheetAttempts = _mapper.Map<List<GetBriefWorksheetAttemptResponseModel>>(worksheetAttempts);
             var createPaginatedListResult = Pagination<GetBriefWorksheetAttemptResponseModel>.Create(mappedWorksheetAttempts.AsQueryable(), request.PageIndex, request.PageSize ?? defaultPageSize);

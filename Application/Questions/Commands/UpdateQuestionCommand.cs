@@ -89,7 +89,7 @@ public class UpdateQuestionCommandHanler : IRequestHandler<UpdateQuestionCommand
             if (requestValue != null)
             {
                 var targetProperty = question.GetType().GetProperty(property.Name);
-                if (targetProperty != null)
+                if (targetProperty != null && targetProperty.Name != "QuestionAnswers")
                 {
                     targetProperty.SetValue(question, requestValue);
                 }
