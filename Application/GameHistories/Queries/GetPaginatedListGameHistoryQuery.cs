@@ -45,6 +45,7 @@ namespace Application.GameHistories.Queries
             var defaultPageSize = _configuration.GetValue<int>("Pagination:PageSize");
             var gameHistories = _context.GameHistories
                 .Include(o => o.Game)
+                  .Include(x => x.ApplicationUser).ThenInclude(o => o.Student)
                 .AsQueryable();
             // filter by course id
             if (request.GameId != Guid.Empty)

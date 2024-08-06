@@ -43,7 +43,7 @@ namespace Application.GameHistories.Queries
             }
 
             var gameHistory = await _context.GameHistories
-                .Include(x => x.ApplicationUser)
+                .Include(x => x.ApplicationUser).ThenInclude(o => o.Student)
                 .Include(x => x.Game)
                 .FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);
 

@@ -13,8 +13,8 @@ namespace Application.Users.Commands;
 
 public record class LoginCommand : IRequest<BaseResponse<AccessTokenResponseModel>>
 {
-    [Required]
     public string Username { get; init; }
+    public string Email { get; init; }
     [Required]
     public string Password { get; init; }
 }
@@ -37,14 +37,11 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, BaseResponse<Ac
         var applicationName = _configuration.GetValue<string>("ApplicationName") ?? "MyApp";
         var user = new ApplicationUser();
         // find user in database
-        if (IsEmail(request.Username))
-        {
-            user = await _userManager.Users.FirstOrDefaultAsync(u => u.Email == request.Username);
-        }
-        else
-        {
-            user = await _userManager.Users.FirstOrDefaultAsync(u => u.UserName == request.Username);
-        }
+
+        user = await _userManager.Users.FirstOrDefaultAsync(u => u.Email == request.Username);
+
+        user = await _userManager.Users.FirstOrDefaultAsync(u => u.UserName == request.Username);
+        
 
         // user is not existed
         if (user == null)
