@@ -66,6 +66,20 @@ public class CreateWorksheetCommandHanler : IRequestHandler<CreateWorksheetComma
 
         await _context.SaveChangesAsync(cancellationToken);
 
+        if (request.WorksheetQuestions != null && request.WorksheetQuestions.Count > 0)
+        {
+            foreach (var question in request.WorksheetQuestions)
+            {
+                var worksheetQuestion = new WorksheetQuestion()
+                {
+                    QuestionId = question.QuestionId,
+                    WorksheetId = worksheet.Id,
+                };
+                var createWorksheetQuestionResult = await _context.AddAsync(worksheetQuestion, cancellationToken);
+            }
+        }
+
+
         var mappedWorksheetResult = _mapper.Map<GetBriefWorksheetResponseModel>(createWorksheetResult.Entity);
 
         return new BaseResponse<GetBriefWorksheetResponseModel>

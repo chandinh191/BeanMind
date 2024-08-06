@@ -58,7 +58,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
-    [Route("info/{id}")]
+    [Route("{id}")]
     public async Task<BaseResponse<GetUserInfoResponseModel>> UserInfoById(ISender sender, [FromRoute] string id)
     {
         var query = new GetUserInfoQuery

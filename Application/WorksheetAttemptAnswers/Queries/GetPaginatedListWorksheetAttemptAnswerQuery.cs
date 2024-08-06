@@ -3,6 +3,7 @@ using AutoMapper;
 using Domain.Enums;
 using Infrastructure.Data;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -40,7 +41,10 @@ namespace Application.WorksheetAttemptAnswers.Queries
         public async Task<BaseResponse<Pagination<GetBriefWorksheetAttemptAnswerResponseModel>>> Handle(GetPaginatedListWorksheetAttemptAnswerQuery request, CancellationToken cancellationToken)
         {
             var defaultPageSize = _configuration.GetValue<int>("Pagination:PageSize");
-            var worksheetAttemptAnswers = _context.WorksheetAttemptAnswers.AsQueryable();
+            var worksheetAttemptAnswers = _context.WorksheetAttemptAnswers
+                                .Include(x => x.WorksheetAttempt)
+                .Include(x => x.QuestionAnswer)
+                .AsQueryable();
 
 
             // filter by WorksheetAttemptId
