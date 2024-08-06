@@ -75,6 +75,12 @@ namespace Application.Users.Queries
                     Message = "Get paginated list user failed",
                 };
             }
+            foreach (var mappedUser in mappedUsers)
+            {
+                var user = _context.ApplicationUsers.FirstOrDefault(x => x.Id == mappedUser.Id);
+                var userRoles = (await _userManager.GetRolesAsync(user)).ToList();
+                mappedUser.Roles = userRoles;
+            }
 
             return new BaseResponse<Pagination<GetUserInfoResponseModel>>
             {

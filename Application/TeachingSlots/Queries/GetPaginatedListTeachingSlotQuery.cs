@@ -5,6 +5,7 @@ using Domain.Entities;
 using Domain.Enums;
 using Infrastructure.Data;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -42,7 +43,9 @@ namespace Application.TeachingSlots.Queries
         public async Task<BaseResponse<Pagination<GetBriefTeachingSlotResponseModel>>> Handle(GetPaginatedListTeachingSlotQuery request, CancellationToken cancellationToken)
         {
             var defaultPageSize = _configuration.GetValue<int>("Pagination:PageSize");
-            var teachingSlots = _context.TeachingSlots.AsQueryable();
+            var teachingSlots = _context.TeachingSlots
+                .Include(o => o.Course)
+                .AsQueryable();
 
             if (request.CourseId != Guid.Empty)
             {
