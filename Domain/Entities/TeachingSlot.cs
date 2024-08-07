@@ -10,7 +10,6 @@ namespace Domain.Entities
 {
     public class TeachingSlot : BaseAuditableEntity
     {
-        public string? Title { get; set; }
         public int DayIndex { get; set; }
         //public int Slot { get; set; }\
         public string StartTime { get; set; }

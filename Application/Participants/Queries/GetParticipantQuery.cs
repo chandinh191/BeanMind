@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Application.Topics;
 
 namespace Application.Participants.Queries
 {
@@ -49,6 +50,26 @@ namespace Application.Participants.Queries
                 .FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);
 
             var mappedParticipant = _mapper.Map<GetParticipantResponseModel>(participant);
+
+            mappedParticipant.LearnedTopics = [];
+
+            var learnedTopics = new List<Domain.Entities.Topic>();
+
+            var enrollmentData = await _context.Enrollments
+                .Include(x => x.Participants)
+                .ThenInclude(x => x.Processions)
+                .ThenInclude(x => x.Topic)
+                .FirstOrDefaultAsync(x => x.Id.Equals(participant.EnrollmentId), cancellationToken);
+
+            foreach (var p in enrollmentData.Participants)
+            {
+                foreach (var t in p.Processions)
+                {
+                    learnedTopics.Add(t.Topic);
+                }
+            }
+            mappedParticipant.LearnedTopics = learnedTopics
+                .Select(x => _mapper.Map<GetBriefTopicResponseModel>(x)).ToList();
 
             return new BaseResponse<GetParticipantResponseModel>
             {

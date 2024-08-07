@@ -17,7 +17,6 @@ namespace Application.TeachingSlots.Commands
     {
         [Required]
         public Guid Id { get; init; }
-        public string? Title { get; set; }
         public int? DayInWeek { get; set; }
         public int? DayIndex { get; set; }
         //public int Slot { get; set; }\

@@ -14,6 +14,7 @@ public class ApplicationUser : IdentityUser
     public IEnumerable<Teachable>? Teachables { get; set; }
     public IEnumerable<Enrollment>? Enrollments { get; set; }
     public IEnumerable<GameHistory>? GameHistories { get; set; }
+
     public bool? IsDeleted { get; set; } = false;
     [ForeignKey(nameof(Student))]
     public Guid? StudentId { get; set; }

@@ -19,7 +19,6 @@ namespace Application.TeachingSlots.Queries
     {
         public int PageIndex { get; init; }
         public int? PageSize { get; init; }
-        public string? Term { get; init; }
         public Guid CourseId { get; set; }
         public IsDeleted IsDeleted { get; init; } = IsDeleted.All;
         public SortBy SortBy { get; init; }
@@ -84,11 +83,7 @@ namespace Application.TeachingSlots.Queries
                 teachingSlots = teachingSlots.Where(o =>
                     o.Created <= request.EndTime);
             }
-            // filter by search Title and description
-            if (!string.IsNullOrEmpty(request.Term))
-            {
-                teachingSlots = teachingSlots.Where(x => x.Title.Contains(request.Term));
-            }
+
             // convert the list of item to list of response model
             var mappedTeachingSlots = _mapper.Map<List<GetBriefTeachingSlotResponseModel>>(teachingSlots);
             var createPaginatedListResult = Pagination<GetBriefTeachingSlotResponseModel>.Create(mappedTeachingSlots.AsQueryable(), request.PageIndex, request.PageSize ?? defaultPageSize);

@@ -19,7 +19,6 @@ namespace Application.TeachingSlots
     [AutoMap(typeof(Domain.Entities.TeachingSlot))]
     public class GetBriefTeachingSlotResponseModel : BaseResponseModel
     {
-        public string? Title { get; set; }
         public int DayInWeek { get; set; }
         public int DayIndex { get; set; }
         //public int Slot { get; set; }\
@@ -33,7 +32,6 @@ namespace Application.TeachingSlots
     [AutoMap(typeof(Domain.Entities.TeachingSlot))]
     public class GetTeachingSlotResponseModel : BaseResponseModel
     {
-        public string? Title { get; set; }
         public int DayInWeek { get; set; }
         public int DayIndex { get; set; }
         //public int Slot { get; set; }\

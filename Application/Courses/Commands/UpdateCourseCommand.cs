@@ -17,6 +17,7 @@ public sealed record UpdateCourseCommand : IRequest<BaseResponse<GetBriefCourseR
     public string? Description { get; init; }
     public string? ImageURL { get; set; }
     public int? Price { get; set; }
+    public int? TotalSlot { get; set; }
     public Guid? SubjectId { get; set; }
     public Guid? ProgramTypeId { get; set; }
     public Guid? CourseLevelId { get; set; }

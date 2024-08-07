@@ -13,6 +13,7 @@ using Application.Sessions;
 using Application.Enrollments;
 using Application.Processions;
 using Domain.Enums;
+using Application.Topics;
 
 namespace Application.Participants
 {
@@ -38,6 +39,7 @@ namespace Application.Participants
         public List<GetBriefProcessionResponseModel> Processions { get; set; }
         public bool IsPresent { get; set; }
         public ParticipantStatus Status { get; set; }
+        public List<GetBriefTopicResponseModel> LearnedTopics { get; set; }
     }
 
 }

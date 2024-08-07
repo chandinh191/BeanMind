@@ -373,7 +373,6 @@ namespace Infrastructure.Data
             await _context.TeachingSlots.AddAsync(new TeachingSlot
             {
                 Id = new Guid("3efbbaca-4aa1-45f2-98a0-12fbc2399185"),
-                Title = "TeachingSlot Tilte",
                 StartTime = "1 pm",
                 EndTime = "3 pm",
                 DayIndex = 3,
@@ -385,7 +384,6 @@ namespace Infrastructure.Data
                 StartTime = "1 pm",
                 EndTime = "3 pm",
                 DayIndex = 5,
-                Title = "TeachingSlot Tilte",
                 CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
             });
             await _context.TeachingSlots.AddAsync(new TeachingSlot
@@ -394,14 +392,12 @@ namespace Infrastructure.Data
                 StartTime = "1 pm",
                 EndTime = "3 pm",
                 DayIndex = 6,
-                Title = "TeachingSlot Tilte",
                 CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
             });
             //-----
             await _context.TeachingSlots.AddAsync(new TeachingSlot
             {
                 Id = new Guid("c608dd61-9076-4181-9786-6c6b211b0bbd"),
-                Title = "TeachingSlot Tilte",
                 StartTime = "1 pm",
                 EndTime = "3 pm",
                 DayIndex = 3,
@@ -410,7 +406,6 @@ namespace Infrastructure.Data
             await _context.TeachingSlots.AddAsync(new TeachingSlot
             {
                 Id = new Guid("5ee277ed-5b88-4c4f-8ba6-07aac526ce60"),
-                Title = "TeachingSlot Tilte",
                 StartTime = "1 pm",
                 EndTime = "3 pm",
                 DayIndex = 4,
@@ -419,7 +414,6 @@ namespace Infrastructure.Data
             await _context.TeachingSlots.AddAsync(new TeachingSlot
             {
                 Id = new Guid("eeb6c8b1-3d26-4e3d-bf09-3c01b44d15ac"),
-                Title = "TeachingSlot Tilte",
                 StartTime = "1 pm",
                 EndTime = "3 pm",
                 DayIndex = 7,
@@ -429,7 +423,6 @@ namespace Infrastructure.Data
             await _context.TeachingSlots.AddAsync(new TeachingSlot
             {
                 Id = new Guid("60913325-34df-4a96-956c-2a32b0fde16d"),
-                Title = "TeachingSlot Tilte",
                 StartTime = "1 pm",
                 EndTime = "3 pm",
                 DayIndex = 3,
@@ -438,7 +431,6 @@ namespace Infrastructure.Data
             await _context.TeachingSlots.AddAsync(new TeachingSlot
             {
                 Id = new Guid("b6459368-0bc0-4632-9e73-c1009c5832c8"),
-                Title = "TeachingSlot Tilte",
                 StartTime = "1 pm",
                 EndTime = "3 pm",
                 DayIndex = 5,
@@ -447,7 +439,6 @@ namespace Infrastructure.Data
             await _context.TeachingSlots.AddAsync(new TeachingSlot
             {
                 Id = new Guid("ce616e03-1b16-4920-8fed-822f3e274ad6"),
-                Title = "TeachingSlot Tilte",
                 StartTime = "1 pm",
                 EndTime = "3 pm",
                 DayIndex = 6,
@@ -457,7 +448,6 @@ namespace Infrastructure.Data
             await _context.TeachingSlots.AddAsync(new TeachingSlot
             {
                 Id = new Guid("a4f96e29-4944-4e5a-af44-8cee69660c3d"),
-                Title = "TeachingSlot Tilte",
                 StartTime = "1 pm",
                 EndTime = "3 pm",
                 DayIndex = 3,
@@ -466,7 +456,6 @@ namespace Infrastructure.Data
             await _context.TeachingSlots.AddAsync(new TeachingSlot
             {
                 Id = new Guid("bbd02525-16fa-46da-834b-e37f92ff4fb5"),
-                Title = "TeachingSlot Tilte",
                 StartTime = "1 pm",
                 EndTime = "3 pm",
                 DayIndex = 3,
@@ -475,7 +464,6 @@ namespace Infrastructure.Data
             await _context.TeachingSlots.AddAsync(new TeachingSlot
             {
                 Id = new Guid("1229415f-16fd-4e1b-b568-2218421da13a"),
-                Title = "TeachingSlot Tilte",
                 StartTime = "1 pm",
                 EndTime = "3 pm",
                 DayIndex = 3,
@@ -611,7 +599,7 @@ namespace Infrastructure.Data
                 Id = new Guid("091e0476-0b32-412b-9437-e3990a6aa529"),
                 CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
                 ApplicationUserId = "954b8b1b-1b5f-42f6-9e27-4aa65cc7e7b1",
-                Status = Domain.Enums.EnrollmentStatus.OnGoing,
+                Status = Domain.Enums.EnrollmentStatus.Complete,
             });
             await _context.Enrollments.AddAsync(new Enrollment
             {
@@ -625,14 +613,14 @@ namespace Infrastructure.Data
                 Id = new Guid("5e0e13d9-ec68-4de8-8456-e6882071eb89"),
                 CourseId = new Guid("6c215522-0925-4f86-b0fd-72f746ca9fd6"),
                 ApplicationUserId = "954b8b1b-1b5f-42f6-9e27-4aa65cc7e7b2",
-                Status = Domain.Enums.EnrollmentStatus.OnGoing,
+                Status = Domain.Enums.EnrollmentStatus.Complete,
             });
             await _context.Enrollments.AddAsync(new Enrollment
             {
                 Id = new Guid("d0d67119-944a-4ac7-a6a9-e888f50bf05c"),
                 CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
                 ApplicationUserId = "954b8b1b-1b5f-42f6-9e27-4aa65cc7e7b0",
-                Status = Domain.Enums.EnrollmentStatus.Complete,
+                Status = Domain.Enums.EnrollmentStatus.OnGoing,
             });
             // -----------
             // Participant table

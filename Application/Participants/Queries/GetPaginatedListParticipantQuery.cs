@@ -45,6 +45,7 @@ namespace Application.Participants.Queries
             var participants = _context.Participants
                 .Include(o => o.Enrollment).ThenInclude(o => o.ApplicationUser).ThenInclude(o => o.Student)
                 .Include(o => o.Session).ThenInclude(o => o.TeachingSlot).ThenInclude(o => o.Course)
+                .Include(o => o.Session).ThenInclude(o => o.ApplicationUser)
                 .AsQueryable();
 
             // filter by EnrollmentId 

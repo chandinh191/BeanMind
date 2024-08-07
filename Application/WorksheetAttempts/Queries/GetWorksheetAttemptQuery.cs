@@ -44,7 +44,7 @@ namespace Application.WorksheetAttempts.Queries
             var worksheetAttempt = await _context.WorksheetAttempts
                 .Include(x => x.Enrollment)
                 .Include(x => x.Worksheet)
-                .Include(x => x.WorksheetAttemptAnswers)
+                .Include(x => x.WorksheetAttemptAnswers).ThenInclude(o => o.QuestionAnswer).ThenInclude(o => o.Question)
                 .FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);
 
             var mappedWorksheetAttemptAnswer = _mapper.Map<GetWorksheetAttemptResponseModel>(worksheetAttempt);
