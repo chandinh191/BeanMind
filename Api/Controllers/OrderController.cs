@@ -93,8 +93,9 @@ namespace Api.Controllers
                  ? Request.Headers["REMOTE_ADDR"]
                  : Request.Headers["HTTP_X_FORWARDED_FOR"];*/
 
-            //string ipAddress = HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
-            vnpay.AddRequestData("vnp_IpAddr", "0.0.0.1");
+            string ipAddress = HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
+            vnpay.AddRequestData("vnp_IpAddr", ipAddress);
+            //vnpay.AddRequestData("vnp_IpAddr", "0.0.0.1");
 
 
             var ipAddress1 = HttpContext.Request.Headers["Host"].FirstOrDefault().Split(',').First().Trim();
