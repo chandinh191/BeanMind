@@ -21,7 +21,7 @@ namespace Api.Controllers
                 StatusCode = result.Code
             };
         }
-/*        [HttpGet]
+/*        [HttpGet("course")]
         public async Task<IActionResult> GetByCourse(ISender sender, [FromQuery] GetPaginatedListSessionByCourseIDQuery query)
         {
             var result = await sender.Send(query);
