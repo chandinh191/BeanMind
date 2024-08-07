@@ -45,6 +45,7 @@ namespace Api.Controllers
         {
             public string BankCode { get; set; }
             public int Money { get; set; }
+            public string IpAddress { get; set; }
         }
         public sealed record PaymentCommandResponseModel
         {
@@ -76,25 +77,26 @@ namespace Api.Controllers
             vnpay.AddRequestData("vnp_Amount", (paymentCommand.Money * 100).ToString()); //Số tiền thanh toán. Số tiền không mang các ký tự phân tách thập phân, phần nghìn, ký tự tiền tệ. Để gửi số tiền thanh toán là 100,000 VND (một trăm nghìn VNĐ) thì merchant cần nhân thêm 100 lần (khử phần thập phân), sau đó gửi sang VNPAY là: 10000000
             vnpay.AddRequestData("vnp_BankCode", paymentCommand.BankCode);
 
-/*                    if (bankcode_Vnpayqr.Checked == true)
-                    {
-                        vnpay.AddRequestData("vnp_BankCode", "VNPAYQR");
-                    }
-                    else if (bankcode_Vnbank.Checked == true)
-                    {
-                        vnpay.AddRequestData("vnp_BankCode", "VNBANK");
-                    }
-                    else if (bankcode_Intcard.Checked == true)
-                    {
-                        vnpay.AddRequestData("vnp_BankCode", "INTCARD");
-                    }*/
+            /*                    if (bankcode_Vnpayqr.Checked == true)
+                                {
+                                    vnpay.AddRequestData("vnp_BankCode", "VNPAYQR");
+                                }
+                                else if (bankcode_Vnbank.Checked == true)
+                                {
+                                    vnpay.AddRequestData("vnp_BankCode", "VNBANK");
+                                }
+                                else if (bankcode_Intcard.Checked == true)
+                                {
+                                    vnpay.AddRequestData("vnp_BankCode", "INTCARD");
+                                }*/
             /*        var ipAddress = (Request.Headers["HTTP_X_FORWARDED_FOR"].IsNullOrEmpty()) 
                         ? Request.Headers["REMOTE_ADDR"]
                         : Request.Headers["HTTP_X_FORWARDED_FOR"];*/
-            var ipAddress = HttpContext.Connection.RemoteIpAddress;
+            //var ipAddress = HttpContext.Connection.RemoteIpAddress;
+            //vnpay.AddRequestData("vnp_IpAddr", ipAddress.ToString());
             vnpay.AddRequestData("vnp_CreateDate", order.CreatedDate.ToString("yyyyMMddHHmmss"));
             vnpay.AddRequestData("vnp_CurrCode", "VND");
-            vnpay.AddRequestData("vnp_IpAddr", ipAddress.ToString());
+            vnpay.AddRequestData("vnp_IpAddr", paymentCommand.IpAddress);
             vnpay.AddRequestData("vnp_Locale", "vn");
             /*        if (locale_Vn.Checked == true)
                     {

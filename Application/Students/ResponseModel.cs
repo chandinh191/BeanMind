@@ -14,6 +14,7 @@ namespace Application.Students
     public class GetBriefStudentResponseModel : BaseResponseModel
     {
         public string ApplicationUserId { get; set; }
+        public GetBriefApplicationUserResponseModel ApplicationUser { get; set; }
         public int Image { get; set; }
         public string School { get; set; }
         public string Class { get; set; }

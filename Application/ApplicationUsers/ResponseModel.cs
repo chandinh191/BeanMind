@@ -34,6 +34,7 @@ namespace Application.ApplicationUsers
         public GetBriefTeacherResponseModel? Teacher { get; set; }
         public Guid? ParentId { get; set; }
         public GetBriefParentResponseModel? Parent { get; set; }
+        public List<GetEnrollmentResponseModel>? Enrollments { get; set; }
     }
 
     [AutoMap(typeof(ApplicationUser))]

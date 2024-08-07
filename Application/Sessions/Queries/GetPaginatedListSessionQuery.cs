@@ -19,6 +19,7 @@ namespace Application.Sessions.Queries
         public int? PageSize { get; init; }
         public string? ApplicationUserId { get; set; }
         public Guid TeachingSlotId { get; init; }
+        public Guid CourseId { get; init; }
         public IsDeleted IsDeleted { get; init; } = IsDeleted.All;
         public SortBy SortBy { get; init; }
         public DateTime StartTime { get; init; } = DateTime.MinValue;
@@ -55,6 +56,10 @@ namespace Application.Sessions.Queries
             if (request.TeachingSlotId != Guid.Empty)
             {
                 sessions = sessions.Where(x => x.TeachingSlotId == request.TeachingSlotId);
+            }
+            if (request.CourseId != Guid.Empty)
+            {
+                sessions = sessions.Where(x => x.TeachingSlot.CourseId == request.CourseId);
             }
 
             // isdeleted filter

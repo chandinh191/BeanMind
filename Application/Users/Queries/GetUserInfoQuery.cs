@@ -49,11 +49,31 @@ public class GetUserInfoQueryHandler : IRequestHandler<GetUserInfoQuery, BaseRes
 
         userResponse.Roles = userRoles;
 
+        foreach (var enrollment in userResponse.Enrollments)
+        {
+            enrollment.PercentTopicCompletion = CactulatePercentTopicCompletion(enrollment.Id, enrollment.CourseId);
+            enrollment.PercentWorksheetCompletion = 0.0;
+        }
+
         return new BaseResponse<GetUserInfoResponseModel>
         {
             Success = true,
             Message = "Get user info successfully",
             Data = userResponse,
         };
+    }
+    public double CactulatePercentTopicCompletion(Guid enrollmentId, Guid courseId)
+    {
+        var processions = _context.Processions
+            .Include(o => o.Participant).ThenInclude(o => o.Enrollment)
+            .Where(o => o.Participant.IsPresent == true && o.Participant.Status == Domain.Enums.ParticipantStatus.Done)
+            .Where(o => o.Participant.Enrollment.Id == enrollmentId)
+            .AsQueryable();
+        var topics = _context.Topics
+           .Include(o => o.Chapter).ThenInclude(o => o.Course)
+           .Where(o => o.Chapter.Course.Id == courseId)
+           .AsQueryable();
+
+        return (double)(processions.Count() / topics.Count());
     }
 }
