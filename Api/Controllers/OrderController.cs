@@ -19,11 +19,11 @@ namespace Api.Controllers
         private readonly IConfiguration _configuration;
         private readonly UserManager<ApplicationUser> _userManager;
 
-
         public OrderController(IConfiguration configuration, UserManager<ApplicationUser> userManager)
         {
             _configuration = configuration;
             _userManager = userManager;
+
         }
 
         public class OrderInfo
@@ -63,7 +63,7 @@ namespace Api.Controllers
             //Get payment input
             OrderInfo order = new OrderInfo();
             order.OrderId = DateTime.Now.Ticks; // Giả lập mã giao dịch hệ thống merchant gửi sang VNPAY
-            order.Amount = 100000; // Giả lập số tiền thanh toán hệ thống merchant gửi sang VNPAY 100,000 VND
+            order.Amount = paymentCommand.Money; // Giả lập số tiền thanh toán hệ thống merchant gửi sang VNPAY 100,000 VND
             order.Status = "0"; //0: Trạng thái thanh toán "chờ thanh toán" hoặc "Pending" khởi tạo giao dịch chưa có IPN
             order.CreatedDate = DateTime.Now;
             //Save order to db
@@ -74,7 +74,7 @@ namespace Api.Controllers
             vnpay.AddRequestData("vnp_Version", VnPayLibrary.VERSION);
             vnpay.AddRequestData("vnp_Command", "pay");
             vnpay.AddRequestData("vnp_TmnCode", vnp_TmnCode);
-            vnpay.AddRequestData("vnp_Amount", (paymentCommand.Money * 100).ToString()); //Số tiền thanh toán. Số tiền không mang các ký tự phân tách thập phân, phần nghìn, ký tự tiền tệ. Để gửi số tiền thanh toán là 100,000 VND (một trăm nghìn VNĐ) thì merchant cần nhân thêm 100 lần (khử phần thập phân), sau đó gửi sang VNPAY là: 10000000
+            vnpay.AddRequestData("vnp_Amount", order.Amount.ToString()); //Số tiền thanh toán. Số tiền không mang các ký tự phân tách thập phân, phần nghìn, ký tự tiền tệ. Để gửi số tiền thanh toán là 100,000 VND (một trăm nghìn VNĐ) thì merchant cần nhân thêm 100 lần (khử phần thập phân), sau đó gửi sang VNPAY là: 10000000
             vnpay.AddRequestData("vnp_BankCode", paymentCommand.BankCode);
 
             /*                    if (bankcode_Vnpayqr.Checked == true)
@@ -89,15 +89,23 @@ namespace Api.Controllers
                                 {
                                     vnpay.AddRequestData("vnp_BankCode", "INTCARD");
                                 }*/
-            /*        var ipAddress = (Request.Headers["HTTP_X_FORWARDED_FOR"].IsNullOrEmpty()) 
-                        ? Request.Headers["REMOTE_ADDR"]
-                        : Request.Headers["HTTP_X_FORWARDED_FOR"];*/
-            //var ipAddress = HttpContext.Connection.RemoteIpAddress;
-            //vnpay.AddRequestData("vnp_IpAddr", ipAddress.ToString());
+            /* var ipAddress = (Request.Headers["HTTP_X_FORWARDED_FOR"].IsNullOrEmpty()) 
+                 ? Request.Headers["REMOTE_ADDR"]
+                 : Request.Headers["HTTP_X_FORWARDED_FOR"];*/
+
+            //string ipAddress = HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
+            vnpay.AddRequestData("vnp_IpAddr", "0.0.0.1");
+
+
+            var ipAddress1 = HttpContext.Request.Headers["Host"].FirstOrDefault().Split(',').First().Trim();
             vnpay.AddRequestData("vnp_CreateDate", order.CreatedDate.ToString("yyyyMMddHHmmss"));
             vnpay.AddRequestData("vnp_CurrCode", "VND");
-            vnpay.AddRequestData("vnp_IpAddr", paymentCommand.IpAddress);
+            //vnpay.AddRequestData("vnp_IpAddr", paymentCommand.IpAddress);
+
             vnpay.AddRequestData("vnp_Locale", "vn");
+
+
+
             /*        if (locale_Vn.Checked == true)
                     {
                         vnpay.AddRequestData("vnp_Locale", "vn");
@@ -127,6 +135,16 @@ namespace Api.Controllers
             {
                 StatusCode = response2.Code
             };
-        }        
+        }
+        private string GetIpAddress(HttpContext context)
+        {
+            var xForwardedForHeader = context.Request.Headers["X-Forwarded-For"].FirstOrDefault();
+            if (!string.IsNullOrEmpty(xForwardedForHeader))
+            {
+                return xForwardedForHeader.Split(',').First().Trim();
+            }
+
+            return context.Connection.RemoteIpAddress?.ToString() ?? "Unknown";
+        }
     }
 }
