@@ -9,8 +9,8 @@ using Domain.Entities;
 namespace Application.Questions.Commands;
 public class UpdateQuestionAnswerModel
 {
-    [Required]
-    public Guid Id { get; set; }
+/*    [Required]
+    public Guid Id { get; set; }*/
     [Required]
     public string Content { get; set; }
     [Required]
@@ -112,25 +112,43 @@ public class UpdateQuestionCommandHanler : IRequestHandler<UpdateQuestionCommand
         //Update Question Answer (if any)
         if (request.QuestionAnswers != null && request.QuestionAnswers.Count > 0)
         {
+            var questionAnswerRetrieves = _context.QuestionAnswers.Where(o => o.QuestionId == question.Id).AsQueryable();
+            foreach (var questionAnswerRetrieve in questionAnswerRetrieves)
+            {
+                questionAnswerRetrieve.IsDeleted = true;
+            }
+            await _context.SaveChangesAsync(cancellationToken);
+
             foreach (var questionAnswer in request.QuestionAnswers)
             {
                 var questionAnswerModel = new QuestionAnswer
                 {
-                    Id = questionAnswer.Id,
                     QuestionId = question.Id,
                     Content = questionAnswer.Content,
                     IsCorrect = questionAnswer.IsCorrect,
                 };
-                var existedRecord = question.QuestionAnswers.FirstOrDefault(x => x.Id == questionAnswer.Id);
+                var existedRecord = question.QuestionAnswers.FirstOrDefault(x => x.Content == questionAnswer.Content);
                 if (existedRecord != null) {
                     existedRecord=questionAnswerModel;
+                    existedRecord.IsDeleted = false;
                     _context.Update(existedRecord);
+                }
+                else
+                {
+                    var createQuestionAnswerResult = await _context.AddAsync(questionAnswerModel, cancellationToken);
                 }
             }
             await _context.SaveChangesAsync(cancellationToken);
         }
 
-        var mappedQuestionResult = _mapper.Map<GetBriefQuestionResponseModel>(updateQuestionResult.Entity);
+        question = await _context.Questions
+            .FirstOrDefaultAsync(x => x.Id == request.Id);
+        if (question != null)
+        {
+            question.QuestionAnswers = question.QuestionAnswers.Where(qa => !qa.IsDeleted).ToList();
+        }
+
+        var mappedQuestionResult = _mapper.Map<GetBriefQuestionResponseModel>(question);
 
         return new BaseResponse<GetBriefQuestionResponseModel>
         {

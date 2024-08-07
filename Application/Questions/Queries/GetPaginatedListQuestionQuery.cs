@@ -44,7 +44,13 @@ public class GetPaginatedListQuestionQueryHandler : IRequestHandler<GetPaginated
             .Include(o => o.QuestionLevel)
             .Include(o => o.QuestionAnswers)
             .AsQueryable();
-
+        foreach (var question in questions)
+        {
+            if (question != null)
+            {
+                question.QuestionAnswers = question.QuestionAnswers.Where(qa => !qa.IsDeleted).ToList();
+            }
+        }
         if (!string.IsNullOrEmpty(request.Term))
         {
             questions = questions.Where(x => x.Content.Contains(request.Term));

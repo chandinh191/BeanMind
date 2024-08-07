@@ -1,4 +1,5 @@
 ﻿using Application.Common;
+using Application.Courses;
 using Application.Teachables;
 using Application.Users.Commands;
 using Domain.Entities.UserEntities;
@@ -45,8 +46,12 @@ namespace Api.Controllers
             public string BankCode { get; set; }
             public int Money { get; set; }
         }
+        public sealed record PaymentCommandResponseModel
+        {
+            public string Url { get; set; }
+        }
         [HttpPost("payment")]
-        public IActionResult Payment([FromBody] PaymentCommand paymentCommand)
+        public async Task<IActionResult> Payment([FromBody] PaymentCommand paymentCommand)
         {
             //Get Config Info
             string vnp_Returnurl = _configuration.GetValue<string>("VnPay:vnp_Returnurl");
@@ -109,8 +114,17 @@ namespace Api.Controllers
             //Billing
 
             string paymentUrl = vnpay.CreateRequestUrl(vnp_Url, vnp_HashSecret);
-
-            return Redirect(paymentUrl);
-        }
+            var response = new PaymentCommandResponseModel() { Url = paymentUrl };
+            var response2 = new BaseResponse<PaymentCommandResponseModel>
+            {
+                Success = true,
+                Message = "Create course successful",
+                Data = response
+            };
+            return new ObjectResult(response2)
+            {
+                StatusCode = response2.Code
+            };
+        }        
     }
 }
