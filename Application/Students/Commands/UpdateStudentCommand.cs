@@ -1,11 +1,13 @@
 ﻿using Application.Common;
 using AutoMapper;
+using Domain.Entities.UserEntities;
 using Infrastructure.Data;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +20,7 @@ namespace Application.Students.Commands
         [Required]
         public Guid Id { get; init; }
         public string? ApplicationUserId { get; set; }
+        public Guid? ParentId { get; set; }
         public int? Image { get; set; }
         public string? School { get; set; }
         public string? Class { get; set; }
@@ -56,6 +59,18 @@ namespace Application.Students.Commands
                     {
                         Success = false,
                         Message = "User not found",
+                    };
+                }
+            }
+            if (request.ParentId != null)
+            {
+                var parent = await _context.Parents.FirstOrDefaultAsync(x => x.Id == request.ParentId);
+                if (parent == null)
+                {
+                    return new BaseResponse<GetBriefStudentResponseModel>
+                    {
+                        Success = false,
+                        Message = "Parent not found",
                     };
                 }
             }

@@ -23,8 +23,6 @@ public sealed record CreateWorksheetCommand : IRequest<BaseResponse<GetBriefWork
     public string? Description { get; init; }
     [Required]
     public Guid WorksheetTemplateId { get; set; }
-    [Required]
-    public string LecturerId { get; set; }
     public List<CreateWorkSheetQuestionrModel> WorksheetQuestions { get; set; }
 }
 

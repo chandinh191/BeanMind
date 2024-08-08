@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Application.Chapters;
 using Microsoft.EntityFrameworkCore;
+using Domain.Entities.UserEntities;
 
 namespace Application.Enrollments.Queries
 {
@@ -50,6 +51,10 @@ namespace Application.Enrollments.Queries
                 .Include(o => o.WorksheetAttempts) .ThenInclude(o => o.Worksheet)
                 .FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);
 
+            enrollment.PercentTopicCompletion = CactulatePercentTopicCompletion(enrollment.Id, enrollment.CourseId);                
+            enrollment.PercentWorksheetCompletion = 1.0;
+            
+
             var mappedEnrollment= _mapper.Map<GetEnrollmentResponseModel>(enrollment);
 
             return new BaseResponse<GetEnrollmentResponseModel>
@@ -58,6 +63,19 @@ namespace Application.Enrollments.Queries
                 Message = "Get enrollment successful",
                 Data = mappedEnrollment
             };
+        }
+        public double CactulatePercentTopicCompletion(Guid enrollmentId, Guid courseId)
+        {
+            var processions = _context.Processions
+                .Include(o => o.Participant).ThenInclude(o => o.Enrollment)
+                //.Where(o => o.Participant.IsPresent == true && o.Participant.Status == Domain.Enums.ParticipantStatus.Done)
+                .Where(o => o.Participant.Enrollment.Id == enrollmentId)
+                .ToList();
+            var topics = _context.Topics
+               .Include(o => o.Chapter).ThenInclude(o => o.Course)
+               .Where(o => o.Chapter.Course.Id == courseId)
+               .ToList();
+            return ((double)processions.Count() / topics.Count()) * 100;
         }
     }
 }

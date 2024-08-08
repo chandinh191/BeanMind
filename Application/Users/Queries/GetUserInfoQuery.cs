@@ -45,15 +45,14 @@ public class GetUserInfoQueryHandler : IRequestHandler<GetUserInfoQuery, BaseRes
 
         var userRoles = (await _userManager.GetRolesAsync(user)).ToList();
 
+        foreach (var enrollment in user.Enrollments)
+        {
+            enrollment.PercentTopicCompletion = CactulatePercentTopicCompletion(enrollment.Id, enrollment.CourseId);
+            enrollment.PercentWorksheetCompletion = 1.0;
+        }
         var userResponse = _mapper.Map<GetUserInfoResponseModel>(user);
 
         userResponse.Roles = userRoles;
-
-        foreach (var enrollment in userResponse.Enrollments)
-        {
-            enrollment.PercentTopicCompletion = CactulatePercentTopicCompletion(enrollment.Id, enrollment.CourseId);
-            enrollment.PercentWorksheetCompletion = 0.0;
-        }
 
         return new BaseResponse<GetUserInfoResponseModel>
         {
@@ -66,14 +65,13 @@ public class GetUserInfoQueryHandler : IRequestHandler<GetUserInfoQuery, BaseRes
     {
         var processions = _context.Processions
             .Include(o => o.Participant).ThenInclude(o => o.Enrollment)
-            .Where(o => o.Participant.IsPresent == true && o.Participant.Status == Domain.Enums.ParticipantStatus.Done)
+            //.Where(o => o.Participant.IsPresent == true && o.Participant.Status == Domain.Enums.ParticipantStatus.Done)
             .Where(o => o.Participant.Enrollment.Id == enrollmentId)
-            .AsQueryable();
+            .ToList();
         var topics = _context.Topics
            .Include(o => o.Chapter).ThenInclude(o => o.Course)
            .Where(o => o.Chapter.Course.Id == courseId)
-           .AsQueryable();
-
-        return (double)(processions.Count() / topics.Count());
+           .ToList();
+        return ((double)processions.Count() / topics.Count()) * 100;
     }
 }

@@ -19,11 +19,13 @@ namespace Domain.Entities
         public ApplicationUser? ApplicationUser { get; set; }
         [Required]
         [ForeignKey(nameof(Course))]
-        public Guid? CourseId { get; set; }
-        public Course? Course { get; set; }
+        public Guid CourseId { get; set; }
+        public Course Course { get; set; }
 
         public IEnumerable<Participant> Participants { get; set; }
         public IEnumerable<WorksheetAttempt> WorksheetAttempts { get; set; }
         public EnrollmentStatus Status { get; set; }
+        public Double? PercentTopicCompletion { get; set; }
+        public Double? PercentWorksheetCompletion { get; set; }
     }
 }

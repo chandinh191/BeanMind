@@ -30,12 +30,12 @@ namespace Application.Users.Commands
         public string Id { get; set; }
         public string? LastName { get; set; }
         public string? FirstName { get; set; }
-        public string Email { get; set; }
-        public string PhoneNumber { get; set; }
-        public required string Username { get; init; }
-        public required string Password { get; init; }
+        public string? Email { get; set; }
+        public string? PhoneNumber { get; set; }
+        public required string? Username { get; init; }
+        //public required string? Password { get; init; }
         public int? YearOfBirth { get; set; }
-        public required List<string> Roles { get; init; }
+        public required List<string>? Roles { get; init; }
 
     }
     public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, BaseResponse<GetBriefApplicationUserResponseModel>>
@@ -116,6 +116,9 @@ namespace Application.Users.Commands
                     };
                 }
 
+            if (request.Roles.Count > 0 && request.Roles != null)
+            {
+
                 // Retrieve the current roles of the user
                 var currentRoles = await _userManager.GetRolesAsync(user);
 
@@ -130,6 +133,7 @@ namespace Application.Users.Commands
                 {
                     await _userManager.AddToRoleAsync(user, role);
                 }
+            }
 
                 var mappedApplicationUser = _mapper.Map<GetBriefApplicationUserResponseModel>(user);
                 return new BaseResponse<GetBriefApplicationUserResponseModel>()
