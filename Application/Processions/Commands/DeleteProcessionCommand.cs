@@ -41,7 +41,8 @@ namespace Application.Processions.Commands
                     Message = "Procession not found",
                 };
             }
-            procession.IsDeleted = true;
+            _context.Remove(procession);
+/*            procession.IsDeleted = true;
 
             var updateProcessionResult = _context.Update(procession);
 
@@ -52,17 +53,17 @@ namespace Application.Processions.Commands
                     Success = false,
                     Message = "Delete procession failed",
                 };
-            }
+            }*/
 
             await _context.SaveChangesAsync(cancellationToken);
 
-            var mappedProcessionResult = _mapper.Map<GetBriefProcessionResponseModel>(updateProcessionResult.Entity);
+            //var mappedProcessionResult = _mapper.Map<GetBriefProcessionResponseModel>(updateProcessionResult.Entity);
 
             return new BaseResponse<GetBriefProcessionResponseModel>
             {
                 Success = true,
                 Message = "Delete procession successful",
-                Data = mappedProcessionResult
+                //Data = mappedProcessionResult
             };
         }
     }

@@ -150,6 +150,8 @@ public class UpdateWorksheetTemplateCommandHanler : IRequestHandler<UpdateWorksh
             }
         }
 
+        await _context.SaveChangesAsync(cancellationToken);
+
         var mappedWorksheetTemplateResult = _mapper.Map<GetWorksheetTemplateResponseModel>(updateWorksheetTemplateResult.Entity);
 
         return new BaseResponse<GetWorksheetTemplateResponseModel>
