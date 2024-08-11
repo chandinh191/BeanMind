@@ -17,6 +17,7 @@ namespace Application.Students.Commands
     {
         [Required]
         public string ApplicationUserId { get; set; }
+        public Guid? ParentId { get; set; }
         public int Image { get; set; }
         public string School { get; set; }
         public string Class { get; set; }
@@ -43,6 +44,18 @@ namespace Application.Students.Commands
                     Success = false,
                     Message = "User not found",
                 };
+            }
+            if (request.ParentId != null)
+            {
+                var parent = await _context.Parents.FirstOrDefaultAsync(x => x.Id == request.ParentId);
+                if (parent == null)
+                {
+                    return new BaseResponse<GetBriefStudentResponseModel>
+                    {
+                        Success = false,
+                        Message = "Parent not found",
+                    };
+                }
             }
 
             var student = _mapper.Map<Domain.Entities.UserEntities.Student>(request);

@@ -26,6 +26,7 @@ namespace Application.ApplicationUsers
         public string UserName { get; set; }    
         public string? LastName { get; set; }
         public string? FirstName { get; set; }
+        public int? YearOfBirth { get; set; }
         public string? Email { get; set; }
         public bool? IsDeleted { get; set; } 
         public Guid? StudentId { get; set; }

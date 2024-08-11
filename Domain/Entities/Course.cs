@@ -28,5 +28,6 @@ public class Course : BaseAuditableEntity
     public IEnumerable<Chapter> Chapters { get; set; }
     public IEnumerable<Enrollment> Enrollments { get; set; }
     public IEnumerable<WorksheetTemplate>? WorksheetTemplates { get; set; }
+    public IEnumerable<Order> Orders { get; set; }
 
 }

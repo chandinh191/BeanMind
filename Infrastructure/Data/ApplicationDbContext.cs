@@ -42,6 +42,8 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
     public DbSet<Teacher> Teachers { get; init; }
     public DbSet<Student> Students { get; init; }
     public DbSet<Parent> Parents { get; init; }
+    public DbSet<Order> Orders { get; init; }
+    public DbSet<Transaction> Transactions { get; init; }
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
     }

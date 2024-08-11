@@ -1,5 +1,8 @@
 ﻿using Application.Common;
 using Application.Courses;
+using Application.Orders.Queries;
+using Application.Participants.Commands;
+using Application.Participants.Queries;
 using Application.Teachables;
 using Application.Users.Commands;
 using Domain.Entities.UserEntities;
@@ -138,15 +141,59 @@ namespace Api.Controllers
                 StatusCode = response2.Code
             };
         }
-        private string GetIpAddress(HttpContext context)
-        {
-            var xForwardedForHeader = context.Request.Headers["X-Forwarded-For"].FirstOrDefault();
-            if (!string.IsNullOrEmpty(xForwardedForHeader))
-            {
-                return xForwardedForHeader.Split(',').First().Trim();
-            }
 
-            return context.Connection.RemoteIpAddress?.ToString() ?? "Unknown";
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll(ISender sender, [FromQuery] GetPaginatedListOrderQuery query)
+        {
+            var result = await sender.Send(query);
+            return new ObjectResult(result)
+            {
+                StatusCode = result.Code
+            };
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(ISender sender, [FromRoute] Guid id)
+        {
+            var result = await sender.Send(new GetParticipantQuery() with { Id = id });
+            return new ObjectResult(result)
+            {
+                StatusCode = result.Code
+            };
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(ISender sender, [FromBody] CreateParticipantCommand command)
+        {
+            var result = await sender.Send(command);
+            return new ObjectResult(result)
+            {
+                StatusCode = result.Code
+            };
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Update(ISender sender, [FromBody] UpdateParticipantCommand command)
+        {
+            var result = await sender.Send(command);
+            return new ObjectResult(result)
+            {
+                StatusCode = result.Code
+            };
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(ISender sender, [FromRoute] Guid id)
+        {
+            var result = await sender.Send(new DeleteParticipantCommand() with
+            {
+                Id = id
+            });
+            return new ObjectResult(result)
+            {
+                StatusCode = result.Code
+            };
         }
     }
 }

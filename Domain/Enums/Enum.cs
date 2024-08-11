@@ -38,5 +38,17 @@ namespace Domain.Enums
         NotYet = 1,
         Done = 2
     }
+    public enum OrderStatus
+    {
+        Pending,
+        Completed,
+        Cancelled,
+    }
+    public enum TransactionStatus
+    {
+        Success,
+        Failed,
+    }
+
 }
 
