@@ -1,19 +1,20 @@
 ﻿using Application.Common;
-using Application.Sessions.Commands;
-using Application.Sessions.Queries;
-using Application.Students.Commands;
-using Application.Students.Queries;
+using Application.Topics.Commands;
+using Application.Topics.Queries;
+using Application.Transactions.Commands;
+using Application.Transactions.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
     [ApiController]
-    [Route(ControllerRouteName.StudentRoute)]
-    public class StudentController : Controller
+    [Route(ControllerRouteName.TransactionRoute)]
+    public class TransactionController : ControllerBase
     {
         [HttpGet]
-        public async Task<IActionResult> GetAll(ISender sender, [FromQuery] GetPaginatedListStudentQuery query)
+        //[Authorize(Roles = "Manager")]
+        public async Task<IActionResult> GetAll(ISender sender, [FromQuery] GetPaginatedListTransactionQuery query)
         {
             var result = await sender.Send(query);
             return new ObjectResult(result)
@@ -25,7 +26,7 @@ namespace Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(ISender sender, [FromRoute] Guid id)
         {
-            var result = await sender.Send(new GetStudentQuery() with
+            var result = await sender.Send(new GetTopicQuery() with
             {
                 Id = id
             });
@@ -35,8 +36,8 @@ namespace Api.Controllers
             };
         }
 
-/*        [HttpPost]
-        public async Task<IActionResult> Create(ISender sender, [FromBody] CreateStudentCommand command)
+        [HttpPost]
+        public async Task<IActionResult> Create(ISender sender, [FromBody] CreateTransactionCommand command)
         {
             var result = await sender.Send(command);
             return new ObjectResult(result)
@@ -44,9 +45,9 @@ namespace Api.Controllers
                 StatusCode = result.Code
             };
         }
-*/
+
         [HttpPut]
-        public async Task<IActionResult> Update(ISender sender, [FromBody] UpdateStudentCommand command)
+        public async Task<IActionResult> Update(ISender sender, [FromBody] UpdateTransactionCommand command)
         {
             var result = await sender.Send(command);
             return new ObjectResult(result)
@@ -58,7 +59,7 @@ namespace Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(ISender sender, [FromRoute] Guid id)
         {
-            var result = await sender.Send(new DeleteStudentCommand() with
+            var result = await sender.Send(new DeleteTransactionCommand() with
             {
                 Id = id
             });

@@ -21,7 +21,7 @@ namespace Domain.Entities.UserEntities
         public string? Address1 { get; set; }
         public string? Address2 { get; set; }
         public string? Phone {  get; set; }
-        public double Wallet { get; set; } = 0;
-        public Gender Gender { get; set; } = Gender.Female;
+        public double? Wallet { get; set; }
+        public Gender? Gender { get; set; }
     }
 }

@@ -44,7 +44,8 @@ namespace Application.Orders.Queries
         {
             var defaultPageSize = _configuration.GetValue<int>("Pagination:PageSize");
             var orders = _context.Orders
-                                .Include(o => o.ApplicationUser)
+                .Include(o => o.ApplicationUser)
+                .Include(o => o.ApplicationUser).ThenInclude(o => o.Student).ThenInclude(o => o.Parent)
                 .Include(o => o.Course)
                 .AsQueryable();
 

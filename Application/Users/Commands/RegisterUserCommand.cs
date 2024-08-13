@@ -120,16 +120,22 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, B
                     {
                         ApplicationUserId = user.Id,
                     };
-                    var createTeacherResult = await _context.AddAsync(teacher, cancellationToken);
+                    await _context.Teachers.AddAsync(teacher);
+                    await _context.SaveChangesAsync(cancellationToken);
                     user.TeacherId = teacher.Id;
                 }
                 if (role == "Student")
                 {
                     var student = new Student
                     {
+                        Id = new Guid(),
                         ApplicationUserId = user.Id,
+                        Image = 1,
+                        School = "",
+                        Class = ""
                     };
-                    var createStudentResult = await _context.AddAsync(student, cancellationToken);
+                    await _context.Students.AddAsync(student);
+                    await _context.SaveChangesAsync(cancellationToken);
                     user.StudentId = student.Id;
                 }
                 if (role == "Parent")
@@ -138,11 +144,12 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, B
                     {
                         ApplicationUserId = user.Id,
                     };
-                    var createParentResult = await _context.AddAsync(parent, cancellationToken);
+                    await _context.Parents.AddAsync(parent);
+                    await _context.SaveChangesAsync(cancellationToken);
                     user.ParentId = parent.Id;
                 }
             }
-            await _userManager.UpdateAsync(user);
+            //await _userManager.UpdateAsync(user);
 
             // if register by email
             if (IsEmail(request.Username))

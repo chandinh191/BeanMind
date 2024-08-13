@@ -1,5 +1,6 @@
 ﻿using Application.Common;
 using Application.Courses;
+using Application.Orders.Commands;
 using Application.Orders.Queries;
 using Application.Participants.Commands;
 using Application.Participants.Queries;
@@ -156,7 +157,7 @@ namespace Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(ISender sender, [FromRoute] Guid id)
         {
-            var result = await sender.Send(new GetParticipantQuery() with { Id = id });
+            var result = await sender.Send(new GetOrderQuery() with { Id = id });
             return new ObjectResult(result)
             {
                 StatusCode = result.Code
@@ -164,7 +165,7 @@ namespace Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(ISender sender, [FromBody] CreateParticipantCommand command)
+        public async Task<IActionResult> Create(ISender sender, [FromBody] CreateOrderCommand command)
         {
             var result = await sender.Send(command);
             return new ObjectResult(result)
@@ -174,7 +175,7 @@ namespace Api.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(ISender sender, [FromBody] UpdateParticipantCommand command)
+        public async Task<IActionResult> Update(ISender sender, [FromBody] UpdateOrderCommand command)
         {
             var result = await sender.Send(command);
             return new ObjectResult(result)

@@ -44,7 +44,7 @@ namespace Application.Orders.Queries
 
 
             var order = await _context.Orders
-                .Include(o => o.ApplicationUser)
+                .Include(o => o.ApplicationUser).ThenInclude(o => o.Student).ThenInclude(o => o.Parent)
                 .Include(o => o.Course)
                 .FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);
 
