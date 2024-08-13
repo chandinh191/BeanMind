@@ -31,7 +31,7 @@ public class GetUserInfoQueryHandler : IRequestHandler<GetUserInfoQuery, BaseRes
     {
         var user = await _context.ApplicationUsers
             .Include(x => x.Parent)
-            .Include(x => x.Student)
+            .Include(x => x.Student).ThenInclude(o => o.Parent)
             .Include(x => x.Teacher)
             .Include(x => x.Enrollments)
             .Include(x => x.Teachables)

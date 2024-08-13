@@ -121,8 +121,8 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, B
                         ApplicationUserId = user.Id,
                     };
                     await _context.Teachers.AddAsync(teacher);
-                    await _context.SaveChangesAsync(cancellationToken);
                     user.TeacherId = teacher.Id;
+                    await _context.SaveChangesAsync(cancellationToken);
                 }
                 if (role == "Student")
                 {
@@ -135,8 +135,8 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, B
                         Class = ""
                     };
                     await _context.Students.AddAsync(student);
-                    await _context.SaveChangesAsync(cancellationToken);
                     user.StudentId = student.Id;
+                    await _context.SaveChangesAsync(cancellationToken);
                 }
                 if (role == "Parent")
                 {
@@ -145,8 +145,8 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, B
                         ApplicationUserId = user.Id,
                     };
                     await _context.Parents.AddAsync(parent);
-                    await _context.SaveChangesAsync(cancellationToken);
                     user.ParentId = parent.Id;
+                    await _context.SaveChangesAsync(cancellationToken);
                 }
             }
             //await _userManager.UpdateAsync(user);
