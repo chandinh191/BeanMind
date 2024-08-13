@@ -63,6 +63,7 @@ namespace Application.Orders.Commands
                     };
                 }
             }
+            int coursePrice = 0;
             if (request.CourseId != null)
             {
                 var course = await _context.Courses.FirstOrDefaultAsync(x => x.Id == request.CourseId);
@@ -72,6 +73,22 @@ namespace Application.Orders.Commands
                     {
                         Success = false,
                         Message = "Course not found",
+                    };
+                }
+                coursePrice = course.Price;
+            }
+            if (request.Status != null && request.Status == OrderStatus.Completed)
+            {
+                var money = _context.Transactions
+                    .Where(o => o.OrderId == order.Id && o.Status == TransactionStatus.Success)
+                    .Sum(t => t.Amount);
+
+                if (money != null && money < coursePrice)
+                {
+                    return new BaseResponse<GetBriefParentResponseModel>
+                    {
+                        Success = false,
+                        Message = "You need to finish enough transaction to update order to success",
                     };
                 }
             }

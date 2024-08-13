@@ -327,46 +327,112 @@ namespace Infrastructure.Data
             await _context.Courses.AddAsync(new Course
             {
                 Id = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
-                SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"),
-                CourseLevelId = new Guid("b8fc90e5-a56f-4ac0-b6bb-cd3eea88d4a1"),
-                ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"),
-                Title = "Đại số đại cương",
+                SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"), // Toan
+                CourseLevelId = new Guid("8a7b78a9-d209-473e-a133-919479d61d5c"), //Lop 1
+                ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"),//BGD
+                Title = "Các số từ 0 đến 10",
                 ImageURL = "https://static.vecteezy.com/system/resources/previews/013/400/591/non_2x/education-concept-with-cartoon-students-vector.jpg",
-                Description = "Đại số là một phần quan trọng của toán học, tập trung vào việc nghiên cứu và giải quyết các vấn đề liên quan đến biểu thức, phương trình và hệ phương trình. Trong đại số, học sinh học về cách tạo ra và giải quyết các biểu thức và phương trình để tìm ra giá trị của các biến số. Điều này có thể bao gồm cả các khái niệm như phép cộng, phép trừ, phép nhân, phép chia, cũng như các phương pháp giải các hệ phương trình.",
+                Description = "Mở đầu chương trình Toán 1 Kết Nối Tri Thức, các em sẽ tìm hiểu về Các số từ 0 đến 10. Gồm các bài học có tóm tắt lý thuyết, cung cấp các bài tập minh họa để các em ôn tập và củng cố kiến thức đã học. Bên cạnh đó, hệ thống hỏi đáp sẽ giúp các em giải đáp các thắc mắc sau khi học bài. Mời các em xem chi tiết bài học.",
                 TotalSlot = 20,
             });
             await _context.Courses.AddAsync(new Course
             {
                 Id = new Guid("555a0815-d0b8-4975-8e1c-245d7acbab45"),
-                SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"),
-                CourseLevelId = new Guid("dd885d8d-0ea4-4c19-9b06-5e02bb44e7bb"),
-                ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"),
-                Title = "Hình học đại cương",
+                SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"), //Toans
+                CourseLevelId = new Guid("8a7b78a9-d209-473e-a133-919479d61d5c"), //Lop 1
+                ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"), //BGD
+                Title = "Làm quen với một số hình phẳng",
                 ImageURL = "https://static.vecteezy.com/system/resources/thumbnails/002/399/898/small_2x/education-concept-with-funny-characters-vector.jpg",
-                Description = "Hình học nghiên cứu về các hình học cơ bản như hình vuông, hình tròn, tam giác và các hình khác, cũng như các phép biến đổi hình học như tịnh tiến, quay và phản xạ. Học sinh được giáo dục về cách tính diện tích, chu vi và khám phá các tính chất đặc biệt của các hình học này.",
+                Description = "Nhận biết được một số hình vuông, hình tròn, hình tam giác, hình chữ nhật là nội dung các em sẽ tìm hiểu ở Chương: Làm quen với một số hình phẳng của môn Toán 1 Kết Nối Tri thức. Bài học được BeanMind biên soạn với các phần tóm tắt lý thuyết, bài tập minh họa và giúp các em chuẩn bị bài học thật tốt và luyện tập, đánh giá năng lực của bản thân. Hệ thống hỏi đáp sẽ giúp các em giải quyết nhiều câu hỏi khó nhanh chóng, hiệu quả. Các em xem nội dung bài học ngay bên dưới.",
                 TotalSlot = 30,
             });
             await _context.Courses.AddAsync(new Course
             {
                 Id = new Guid("6c215522-0925-4f86-b0fd-72f746ca9fd6"),
-                SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"),
-                CourseLevelId = new Guid("9e735658-0002-45c9-a6d5-1a579dba49ee"),
-                ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"),
-                Title = "Số học ứng dụng",
+                SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"), //Toans
+                CourseLevelId = new Guid("8a7b78a9-d209-473e-a133-919479d61d5c"), //Lop 1
+                ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"), //BGD
+                Title = "Phép cộng, phép trừ trong phạm vi 10",
                 ImageURL = "https://c8.alamy.com/comp/M71DKY/vector-illustration-of-three-stick-kids-jumping-together-in-the-field-M71DKY.jpg",
-                Description = "Số học là nền tảng của toán học, tập trung vào việc nghiên cứu và hiểu về các số và phép tính. Trong số học, học sinh học cách thực hiện các phép toán cơ bản như cộng, trừ, nhân, chia, cũng như các khái niệm như số nguyên tố, bội số chung nhỏ nhất và cách áp dụng chúng vào các bài toán thực tế.",
-                TotalSlot = 20,
+                Description = "Đến với nội dung Phép cộng, phép trừ trong phạm vi 10 của chương trình Toán 1 Kết Nối Tri Thức, các em sẽ được học hỏi thêm các kiến thức mới về phép toán cộng, trừ trong phạm vi 10. Bên cạnh đó, các em còn được thử sức với các bài tập minh họa cuối mỗi bài học nhằm đánh giá năng lực bản thân sau khi học bài. Hệ thống hỏi đáp cuối bài sẽ giải đáp các thắc mắc của các em trong quá trình học. Mời các em theo dõi nội dung chi tiết bên dưới!",
+                TotalSlot = 25,
             });
             await _context.Courses.AddAsync(new Course
             {
                 Id = new Guid("c2ad8bc5-d7ef-4639-87b2-d251854656a1"),
-                SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"),
-                CourseLevelId = new Guid("3f6798e9-eed3-40db-ae92-7dd0da9a6435"),
-                ProgramTypeId = new Guid("96cd2a6c-1013-4bb9-8927-047fc25e0402"),
-                Title = "Tư duy Logic",
+                SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"), //Toans
+                CourseLevelId = new Guid("8a7b78a9-d209-473e-a133-919479d61d5c"), //Lop 1
+                ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"), //BGD
+                Title = "Làm quen với một số hình khối",
                 ImageURL = "https://i.pinimg.com/736x/fa/3a/1a/fa3a1ac70a55ba27576e41d2335e253c.jpg",
-                Description = "Tư duy logic là khả năng quan trọng giúp con người suy luận và giải quyết vấn đề một cách có cấu trúc và logic. Trong giáo dục, việc phát triển tư duy logic không chỉ là mục tiêu của quá trình học tập mà còn là công cụ quan trọng giúp học sinh phát triển kỹ năng suy nghĩ sâu sắc, phân tích thông tin và đưa ra nhận định có chất lượng. Thông qua việc thực hành giải quyết các bài toán phức tạp và tham gia vào các hoạt động nghiên cứu và phân tích, học sinh có cơ hội rèn luyện tư duy logic và áp dụng nó vào các tình huống thực tế, từ đó phát triển sự tự tin và thành công trong học tập và cuộc sống.",
+                Description = "Đến với Chương: Làm quen với một số hình khối của chương trình Toán 1 Kết Nối Tri Thức các em sẽ được tiềm hiểu về khối lập phương, khối hợp chữ nhật. Nhằm giúp các em học tập thật tốt và nắm vững kiến thức trọng tâm trong bài, Hoc247 đã biên soạn các bài tập minh họa sau phần tóm tắt lý thuyết. Chúc các em học tập tốt. Nếu có thắc mắc cần giải quyết, hãy bình luận ở phần hỏi đáp cuối bài học.",
                 TotalSlot = 24,
+            });
+            await _context.Courses.AddAsync(new Course
+            {
+                Id = new Guid("59466844-48d3-4556-a7e7-0422ce299190"),
+                SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"), //Toans
+                CourseLevelId = new Guid("8a7b78a9-d209-473e-a133-919479d61d5c"), //Lop 1
+                ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"), //BGD
+                Title = "Ôn tập học kì 1",
+                ImageURL = "https://i.pinimg.com/736x/fa/3a/1a/fa3a1ac70a55ba27576e41d2335e253c.jpg",
+                Description = "Mời các em đến với nội dung Ôn tập học kì 1​​ của chương trình Toán 1 Kết nối tri thức do Hoc247 biên soạn dưới đây. Ở chương này các em học sinh sẽ được ôn tập lại đầy đủ các kiến thức đã học, bên cạnh đó còn có các bài tập minh họa có hướng dẫn giải chi tiết, giúp các em có thể tự luyện tập, đối chiếu đáp án, đánh giá năng lực bản thân sau khi học bài. Hệ thống hỏi đáp sẽ giúp các em giải quyết các thắc mắc liên quan đến bài học.",
+                TotalSlot = 24,
+            });
+            await _context.Courses.AddAsync(new Course
+            {
+                Id = new Guid("9cea4c8e-2114-4508-a000-c1c743eaa55b"),
+                SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"), //Toans
+                CourseLevelId = new Guid("8a7b78a9-d209-473e-a133-919479d61d5c"), //Lop 1
+                ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"), //BGD
+                Title = "Các số đến 100",
+                ImageURL = "https://i.pinimg.com/736x/fa/3a/1a/fa3a1ac70a55ba27576e41d2335e253c.jpg",
+                Description = "BeanMind xin giới thiệu các em học sinh Chương: Các số đến 100 môn Toán 1 sách Kết Nối Tri Thức. Nội dung đầy đủ bao gồm tóm tắt lý thuyết, các bài tập SGK và các bài tập minh họa có hướng dẫn giải chi tiết. Hi vọng bài học sẽ giúp các em nắm vững kiến thức và ghi nhớ được các số có hai chữ số, so sánh số có hai chữ số và các phép toán liên quan đến chương. Nếu có bất kì thắc mắc gì về chủ đề này, các em vui lòng bình luận ở mục hỏi đáp để BeanMind hỗ trợ.",
+                TotalSlot = 18,
+            });
+            await _context.Courses.AddAsync(new Course
+            {
+                Id = new Guid("85e6ab9f-557d-435f-b51c-60124dbc33cc"),
+                SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"), //Toans
+                CourseLevelId = new Guid("8a7b78a9-d209-473e-a133-919479d61d5c"), //Lop 1
+                ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"), //BGD
+                Title = "Độ dài và đo độ dài",
+                ImageURL = "https://i.pinimg.com/736x/fa/3a/1a/fa3a1ac70a55ba27576e41d2335e253c.jpg",
+                Description = "Đến với chương Độ dài và đo độ dài Toán 1 Kết Nối Tri Thức các em học sinh sẽ thực hành ước lượng và đo độ dài, biết so sánh các vật dài hơn, ngắn hơn,....BeanMind đã tóm tắt chi tiết các kiến thức cần nhớ, các dạng bài tập và các bài tập minh họa có hướng dẫn giải chi tiết, giúp các em dễ dàng nắm vững được kiến thức mới. Mời quý phụ huynh và các em học sinh cùng tham khảo!",
+                TotalSlot = 35,
+            });
+            await _context.Courses.AddAsync(new Course
+            {
+                Id = new Guid("1a1de7fd-d3c5-4bb3-8c51-fb3b02c44f16"),
+                SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"), //Toans
+                CourseLevelId = new Guid("8a7b78a9-d209-473e-a133-919479d61d5c"), //Lop 1
+                ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"), //BGD
+                Title = "Phép cộng, phép trừ (không nhớ) trong phạm vi 100",
+                ImageURL = "https://i.pinimg.com/736x/fa/3a/1a/fa3a1ac70a55ba27576e41d2335e253c.jpg",
+                Description = "Phép cộng, phép trừ (không nhớ) trong phạm vi 100 là một trong những chương học quan trọng của chương trình Toán 1 Kết Nối Tri Thức. BeanMind đã biên soạn chi tiết lý thuyết cần nhớ, bài tập minh họa, giúp các em học sinh nắm vững nội dung như phép cộng, trừ số có hai chữ số cho số có hai chữ số, phép cộng, trừ số có hai chữ số cho số có một chữ số. Sau đây mời quý phụ huynh và các em học sinh cùng tham khảo.",
+                TotalSlot = 22,
+            });
+            await _context.Courses.AddAsync(new Course
+            {
+                Id = new Guid("bd186368-c35a-4f16-9214-c1acdbfce054"),
+                SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"), //Toans
+                CourseLevelId = new Guid("8a7b78a9-d209-473e-a133-919479d61d5c"), //Lop 1
+                ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"), //BGD
+                Title = "Thời gian, giờ và lịch",
+                ImageURL = "https://i.pinimg.com/736x/fa/3a/1a/fa3a1ac70a55ba27576e41d2335e253c.jpg",
+                Description = "Nhận biết được thời gian trên đồng hồ, xem được ngày tháng trên lịch là nội dung các em sẽ tìm hiểu ở Chương: Thời gian, giờ và lịch của môn Toán 1 Kết Nối Tri thức. Bài học được BeanMind biên soạn với các phần tóm tắt lý thuyết, bài tập minh họa và giúp các em chuẩn bị bài học thật tốt và luyện tập, đánh giá năng lực của bản thân. Hệ thống hỏi đáp sẽ giúp các em giải quyết nhiều câu hỏi khó nhanh chóng, hiệu quả. Các em xem nội dung bài học ngay bên dưới.",
+                TotalSlot = 15,
+            });
+            await _context.Courses.AddAsync(new Course
+            {
+                Id = new Guid("d1830d8f-2259-43a4-b667-ac35f390a1bc"),
+                SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"), //Toans
+                CourseLevelId = new Guid("8a7b78a9-d209-473e-a133-919479d61d5c"), //Lop 1
+                ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"), //BGD
+                Title = "Ôn tập cuối năm",
+                ImageURL = "https://i.pinimg.com/736x/fa/3a/1a/fa3a1ac70a55ba27576e41d2335e253c.jpg",
+                Description = "Đến với Ôn tập cuối năm của chương trình Toán 1 Kết Nối Tri Thức đã được BeanMind biên soạn chi tiết các kiến thức cần nhớ và các bài tập minh họa có hướng dẫn giải chi tiết, nhầm giúp các em học tập thật tốt môn Toán 1. Đồng thời đây cũng là tài liệu tham khảo cho các phụ huynh và các giáo viên trong quá trình dạy học. Mời các em học sinh cùng các bậc phụ huynh tham khảo.",
+                TotalSlot = 12,
             });
             // --------------
             // TeachingSlot table

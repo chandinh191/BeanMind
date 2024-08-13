@@ -60,6 +60,19 @@ namespace Application.Enrollments.Commands
                 };
             }
 
+            var order = await _context.Orders.FirstOrDefaultAsync(o => o.ApplicationUserId == request.ApplicationUserId 
+                            && o.CourseId == request.CourseId 
+                            && o.Status == OrderStatus.Completed);
+
+            if (order == null)
+            {
+                return new BaseResponse<GetBriefEnrollmentResponseModel>
+                {
+                    Success = false,
+                    Message = "Account are not order finished yet",
+                };
+            }
+
             var enrollment = _mapper.Map<Domain.Entities.Enrollment>(request);
             var createEnrollmentResult = await _context.AddAsync(enrollment, cancellationToken);
 
