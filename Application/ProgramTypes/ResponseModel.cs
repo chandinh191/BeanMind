@@ -15,7 +15,7 @@ namespace Application.ProgramTypes
     {
         public string Title { get; set; }
         public string Description { get; set; }
-        public List<GetBriefCourseResponseModel> Courses { get; set; }
+        //public List<GetBriefCourseResponseModel> Courses { get; set; }
     }
 
     [AutoMap(typeof(Domain.Entities.ProgramType))]
