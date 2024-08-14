@@ -47,6 +47,7 @@ namespace Application.Orders.Queries
                 .Include(o => o.ApplicationUser)
                 .Include(o => o.ApplicationUser).ThenInclude(o => o.Student).ThenInclude(o => o.Parent)
                 .Include(o => o.Course)
+                                .Include(o => o.Transactions)
                 .AsQueryable();
 
             if (request.ApplicationUserId != null)

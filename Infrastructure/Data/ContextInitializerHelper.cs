@@ -325,16 +325,216 @@ namespace Infrastructure.Data
                 CourseLevelId = new Guid("8a7b78a9-d209-473e-a133-919479d61d5c"), //Lop 1
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"),//BGD
                 Title = "Các số từ 0 đến 10",
-                ImageURL = "https://static.vecteezy.com/system/resources/previews/013/400/591/non_2x/education-concept-with-cartoon-students-vector.jpg",
+                Price = 200,
+                ImageURL = "https://lh3.googleusercontent.com/cUU3mc0ZhuccrJt8PSkcIicKVG5I6WXqJoCMaldiuDH1XCMbKEKUxAzJxpRITwcqXzXe6wxofg1aRrAOyBc9R--m85Q5K8myK2KvEChDa3xUdyKwI5xIjOBM1VNuVHE4dBt5tAqX",
                 Description = "Mở đầu chương trình Toán 1 Kết Nối Tri Thức, các em sẽ tìm hiểu về Các số từ 0 đến 10. Gồm các bài học có tóm tắt lý thuyết, cung cấp các bài tập minh họa để các em ôn tập và củng cố kiến thức đã học. Bên cạnh đó, hệ thống hỏi đáp sẽ giúp các em giải đáp các thắc mắc sau khi học bài. Mời các em xem chi tiết bài học.",
                 TotalSlot = 20,
             });
+            // Chapter table
+            await _context.Chapters.AddAsync(new Chapter
+            {
+                Id = new Guid("71d018c0-c040-4116-808f-2c3ae70d9ae9"),
+                Order = 1,
+                CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
+                Title = "Các số 0, 1, 2, 3, 4, 5",
+                Description = "BeanMind xin giới thiệu đến các em học sinh lớp 1 nội dung bài Các số 0, 1, 2, 3, 4, 5. Bài giảng được biên soạn đầy đủ và chi tiết, đồng thời được trình bày một các logic, khoa học sẽ giúp các em ôn tập và củng cố kiến thức về phép chia số có hai chữ số.",
+            });
+                // Topic table
+                await _context.Topics.AddAsync(new Topic
+                {
+                    Id = new Guid("6d8c088e-bc7e-409f-8c79-31066d6df42e"),
+                    ChapterId = new Guid("71d018c0-c040-4116-808f-2c3ae70d9ae9"),
+                    Order = 1,
+                    Title = "Đọc, đếm, viết được từ 0 đến 5, vị trí của các số trong dãy số.",
+                    Description = "...",
+                });
+                await _context.Topics.AddAsync(new Topic
+                {
+                    Id = new Guid("59ee169a-c77f-431b-9cf6-b2c36ab3a4fe"),
+                    ChapterId = new Guid("71d018c0-c040-4116-808f-2c3ae70d9ae9"),
+                    Order = 2,
+                    Title = "So sánh số 0 với các số trong phạm vi 5",
+                    Description = "...",
+                });
+                await _context.Topics.AddAsync(new Topic
+                {
+                    Id = new Guid("afb89987-0405-4641-b595-b634f422cbed"),
+                    ChapterId = new Guid("71d018c0-c040-4116-808f-2c3ae70d9ae9"),
+                    Order = 3,
+                    Title = "Đếm xuôi và đếm ngược các số từ 0 đến 5 và thứ tự của các số đó.",
+                    Description = "....",
+                });
+                await _context.Topics.AddAsync(new Topic
+                {
+                    Id = new Guid("3829a480-2d22-44da-82c1-38da6fd0a6c9"),
+                    ChapterId = new Guid("71d018c0-c040-4116-808f-2c3ae70d9ae9"),
+                    Order = 4,
+                    Title = "Đọc số lượng đồ vật trong mỗi nhóm",
+                    Description = "....Game",
+                });
+                await _context.Topics.AddAsync(new Topic
+                {
+                    Id = new Guid("73558a53-e910-470a-a261-e42d803508e9"),
+                    ChapterId = new Guid("71d018c0-c040-4116-808f-2c3ae70d9ae9"),
+                    Order = 5,
+                    Title = "Đếm theo thứ tự các số",
+                    Description = "....",
+                });
+                // -----------
+            await _context.Chapters.AddAsync(new Chapter
+            {
+                Id = new Guid("a4562cbc-b8f8-4bca-b537-77d7b5e4eacc"),
+                Order = 2,
+                CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
+                Title = "Các số 6, 7, 8, 9, 10",
+                Description = "Nhằm giúp các em học sinh có thêm nhiều tài liệu tham khảo hữu ích cho môn Toán 1, BeanMind đã biên soạn và tổng hợp nội dung bài Các số 6, 7, 8, 9, 10. Tài liệu được biên soạn với đầy đủ các dạng Toán và các bài tập minh họa có hướng dẫn giải chi tiết. Mời các em cùng tham khảo.",
+            });
+                // Topic table
+                await _context.Topics.AddAsync(new Topic
+                {
+                    Id = new Guid("105cf4c3-4a0a-4a37-ac5b-a6825dad8f20"),
+                    ChapterId = new Guid("a4562cbc-b8f8-4bca-b537-77d7b5e4eacc"),
+                    Order = 1,
+                    Title = "Đọc, đếm được từ 6 đến 10, vị trí của các số trong dãy số",
+                    Description = "...",
+                });
+                await _context.Topics.AddAsync(new Topic
+                {
+                    Id = new Guid("c92e3f5a-672d-4f9f-abb1-21dd0f6f0de2"),
+                    ChapterId = new Guid("a4562cbc-b8f8-4bca-b537-77d7b5e4eacc"),
+                    Order = 2,
+                    Title = "So sánh số trong phạm vi 10",
+                    Description = "...",
+                });
+                await _context.Topics.AddAsync(new Topic
+                {
+                    Id = new Guid("274e92f2-617d-467c-8d49-3712f15d9f24"),
+                    ChapterId = new Guid("a4562cbc-b8f8-4bca-b537-77d7b5e4eacc"),
+                    Order = 3,
+                    Title = "Đếm số lượng đồ vật, đồ vật",
+                    Description = "....Game",
+                });
+                await _context.Topics.AddAsync(new Topic
+                {
+                    Id = new Guid("1899112e-3c10-4ed7-a0cc-9fdf85173288"),
+                    ChapterId = new Guid("a4562cbc-b8f8-4bca-b537-77d7b5e4eacc"),
+                    Order = 4,
+                    Title = "Luyện tập",
+                    Description = "Game + worksheet",
+                });
+            // -----------
+            await _context.Chapters.AddAsync(new Chapter
+            {
+                Id = new Guid("d0f9feee-92c2-4f01-9fc7-4c801c3202c7"),
+                Order = 3,
+                CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
+                Title = "Nhiều hơn, ít hơn, bằng nhau",
+                Description = "Các em học sinh đang tìm kiếm tài liệu tổng hợp kiến thức về Nhiều hơn, ít hơn, bằng nhau. Hãy tham khảo ngay bài giảng dưới đây của BeanMind biên soạn với những lý thuyết về cùng với các dạng toán cơ bản thường gặp. Sau đây mời các em cùng tham khảo.",
+            });
+                // Topic table
+                await _context.Topics.AddAsync(new Topic
+                {
+                    Id = new Guid("551bd7b1-fe4b-421b-962e-ee16c4f4d59c"),
+                    ChapterId = new Guid("d0f9feee-92c2-4f01-9fc7-4c801c3202c7"),
+                    Order = 1,
+                    Title = "So sánh số lượng, sử dụng từ “bằng” và dấu “ =” để so sánh các số.",
+                    Description = "...",
+                });
+                await _context.Topics.AddAsync(new Topic
+                {
+                    Id = new Guid("47207357-0623-432c-af51-b4a26a090482"),
+                    ChapterId = new Guid("d0f9feee-92c2-4f01-9fc7-4c801c3202c7"),
+                    Order = 2,
+                    Title = "Nhận biết được khái niệm nhiều hơn, ít hơn, hơn, kém thông qua hình ảnh và các đồ vật.",
+                    Description = "...",
+                });
+                await _context.Topics.AddAsync(new Topic
+                {
+                    Id = new Guid("bc8dffca-5a5f-463e-ae25-0a8573fc5142"),
+                    ChapterId = new Guid("d0f9feee-92c2-4f01-9fc7-4c801c3202c7"),
+                    Order = 3,
+                    Title = "Cách so sánh 1-1 giữa hai đại lượng để xác định đại lượng nhiều hơn, ít hơn.",
+                    Description = "....",
+                });
+                await _context.Topics.AddAsync(new Topic
+                {
+                    Id = new Guid("1da26c74-2dff-428a-a60c-c69da767d90d"),
+                    ChapterId = new Guid("d0f9feee-92c2-4f01-9fc7-4c801c3202c7"),
+                    Order = 4,
+                    Title = "Luyện tập",
+                    Description = "Game + worksheet",
+                });
+            // -----------
+            await _context.Chapters.AddAsync(new Chapter
+            {
+                Id = new Guid("6b760186-9678-4e66-81f1-cb3aefe56e9f"),
+                Order = 4,
+                CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
+                Title = "Các dạng toán cho so sánh số",
+                Description = "Sau đây mời các em học sinh lớp 1 cùng tìm hiểu về So sánh số. Bài giảng dưới đây đã được BeanMind biên soạn khái quát lý thuyết cần nhớ, đồng thời có các bài tập được tổng hợp đầy đủ các dạng toán liên quan giúp các em dễ dàng nắm được kiến thức trọng tâm của bài.",
+            });
+                // Topic table
+                await _context.Topics.AddAsync(new Topic
+                {
+                    Id = new Guid("683bf283-fea6-407a-a930-171003611689"),
+                    ChapterId = new Guid("6b760186-9678-4e66-81f1-cb3aefe56e9f"),
+                    Order = 1,
+                    Title = "Điền dấu thích hợp vào chỗ trống",
+                    Description = "Worksheet",
+                });
+                await _context.Topics.AddAsync(new Topic
+                {
+                    Id = new Guid("16c30517-73e2-46fa-8ae6-faea81c9e9bf"),
+                    ChapterId = new Guid("6b760186-9678-4e66-81f1-cb3aefe56e9f"),
+                    Order = 2,
+                    Title = "Sắp xếp các số theo thứ tự tăng dần hoặc giảm dần.",
+                    Description = "Game",
+                });
+                // -----------
+            await _context.Chapters.AddAsync(new Chapter
+            {
+                Id = new Guid("3f15e8a2-247e-4d79-85f4-d46a73f7782b"),
+                Order = 5,
+                CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
+                Title = "Mấy và mấy",
+                Description = "Để giúp các em học sinh lớp 1 học hiệu quả môn Toán, đội ngũ BeanMind đã biên soạn và tổng hợp nội dung bài Mấy và mấy. Tài liệu gồm kiến thức cần nhớ và các dạng Toán của bài giúp các em học tập và củng cố thật tốt kiến thức. Mời các em cùng tham khảo.",
+            });
+                // Topic table
+                await _context.Topics.AddAsync(new Topic
+                {
+                    Id = new Guid("de94cf5e-f9ab-4b0c-b5b8-329c280cd8bc"),
+                    ChapterId = new Guid("3f15e8a2-247e-4d79-85f4-d46a73f7782b"),
+                    Order = 1,
+                    Title = "Hệ thống lại kiến thức",
+                    Description = "...",
+                });
+                await _context.Topics.AddAsync(new Topic
+                {
+                    Id = new Guid("0be5a40b-4058-47fd-b2f1-3c0cf9f268df"),
+                    ChapterId = new Guid("3f15e8a2-247e-4d79-85f4-d46a73f7782b"),
+                    Order = 2,
+                    Title = "Vận dụng và nâng cao",
+                    Description = "Worksheet khó",
+                });
+                // -----------
+            await _context.Chapters.AddAsync(new Chapter
+            {
+                Id = new Guid("2110f3bc-0170-4bbc-a3be-09823e310e43"),
+                Order = 6,
+                CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
+                Title = "Luyện tập chung",
+                Description = "Nhằm giúp các em học sinh có thêm nhiều tài liệu tham khảo hữu ích cho môn Toán 1, BeanMind đã biên soạn và tổng hợp nội dung bài Luyện tập chung. Tài liệu được biên soạn với đầy đủ các dạng Toán và các bài tập minh họa có hướng dẫn giải chi tiết. Mời các em cùng tham khảo.",
+            });
+
+            // ------------
+   
             await _context.Courses.AddAsync(new Course
             {
                 Id = new Guid("555a0815-d0b8-4975-8e1c-245d7acbab45"),
                 SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"), //Toans
                 CourseLevelId = new Guid("8a7b78a9-d209-473e-a133-919479d61d5c"), //Lop 1
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"), //BGD
+                Price = 150,
                 Title = "Làm quen với một số hình phẳng",
                 ImageURL = "https://static.vecteezy.com/system/resources/thumbnails/002/399/898/small_2x/education-concept-with-funny-characters-vector.jpg",
                 Description = "Nhận biết được một số hình vuông, hình tròn, hình tam giác, hình chữ nhật là nội dung các em sẽ tìm hiểu ở Chương: Làm quen với một số hình phẳng của môn Toán 1 Kết Nối Tri thức. Bài học được BeanMind biên soạn với các phần tóm tắt lý thuyết, bài tập minh họa và giúp các em chuẩn bị bài học thật tốt và luyện tập, đánh giá năng lực của bản thân. Hệ thống hỏi đáp sẽ giúp các em giải quyết nhiều câu hỏi khó nhanh chóng, hiệu quả. Các em xem nội dung bài học ngay bên dưới.",
@@ -346,6 +546,7 @@ namespace Infrastructure.Data
                 SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"), //Toans
                 CourseLevelId = new Guid("8a7b78a9-d209-473e-a133-919479d61d5c"), //Lop 1
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"), //BGD
+                Price = 200,
                 Title = "Phép cộng, phép trừ trong phạm vi 10",
                 ImageURL = "https://c8.alamy.com/comp/M71DKY/vector-illustration-of-three-stick-kids-jumping-together-in-the-field-M71DKY.jpg",
                 Description = "Đến với nội dung Phép cộng, phép trừ trong phạm vi 10 của chương trình Toán 1 Kết Nối Tri Thức, các em sẽ được học hỏi thêm các kiến thức mới về phép toán cộng, trừ trong phạm vi 10. Bên cạnh đó, các em còn được thử sức với các bài tập minh họa cuối mỗi bài học nhằm đánh giá năng lực bản thân sau khi học bài. Hệ thống hỏi đáp cuối bài sẽ giải đáp các thắc mắc của các em trong quá trình học. Mời các em theo dõi nội dung chi tiết bên dưới!",
@@ -357,6 +558,7 @@ namespace Infrastructure.Data
                 SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"), //Toans
                 CourseLevelId = new Guid("8a7b78a9-d209-473e-a133-919479d61d5c"), //Lop 1
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"), //BGD
+                Price = 100,
                 Title = "Làm quen với một số hình khối",
                 ImageURL = "https://i.pinimg.com/736x/fa/3a/1a/fa3a1ac70a55ba27576e41d2335e253c.jpg",
                 Description = "Đến với Chương: Làm quen với một số hình khối của chương trình Toán 1 Kết Nối Tri Thức các em sẽ được tiềm hiểu về khối lập phương, khối hợp chữ nhật. Nhằm giúp các em học tập thật tốt và nắm vững kiến thức trọng tâm trong bài, Hoc247 đã biên soạn các bài tập minh họa sau phần tóm tắt lý thuyết. Chúc các em học tập tốt. Nếu có thắc mắc cần giải quyết, hãy bình luận ở phần hỏi đáp cuối bài học.",
@@ -368,6 +570,7 @@ namespace Infrastructure.Data
                 SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"), //Toans
                 CourseLevelId = new Guid("8a7b78a9-d209-473e-a133-919479d61d5c"), //Lop 1
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"), //BGD
+                Price = 200,
                 Title = "Ôn tập học kì 1",
                 ImageURL = "https://i.pinimg.com/736x/fa/3a/1a/fa3a1ac70a55ba27576e41d2335e253c.jpg",
                 Description = "Mời các em đến với nội dung Ôn tập học kì 1​​ của chương trình Toán 1 Kết nối tri thức do Hoc247 biên soạn dưới đây. Ở chương này các em học sinh sẽ được ôn tập lại đầy đủ các kiến thức đã học, bên cạnh đó còn có các bài tập minh họa có hướng dẫn giải chi tiết, giúp các em có thể tự luyện tập, đối chiếu đáp án, đánh giá năng lực bản thân sau khi học bài. Hệ thống hỏi đáp sẽ giúp các em giải quyết các thắc mắc liên quan đến bài học.",
@@ -379,6 +582,7 @@ namespace Infrastructure.Data
                 SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"), //Toans
                 CourseLevelId = new Guid("8a7b78a9-d209-473e-a133-919479d61d5c"), //Lop 1
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"), //BGD
+                Price = 200,
                 Title = "Các số đến 100",
                 ImageURL = "https://i.pinimg.com/736x/fa/3a/1a/fa3a1ac70a55ba27576e41d2335e253c.jpg",
                 Description = "BeanMind xin giới thiệu các em học sinh Chương: Các số đến 100 môn Toán 1 sách Kết Nối Tri Thức. Nội dung đầy đủ bao gồm tóm tắt lý thuyết, các bài tập SGK và các bài tập minh họa có hướng dẫn giải chi tiết. Hi vọng bài học sẽ giúp các em nắm vững kiến thức và ghi nhớ được các số có hai chữ số, so sánh số có hai chữ số và các phép toán liên quan đến chương. Nếu có bất kì thắc mắc gì về chủ đề này, các em vui lòng bình luận ở mục hỏi đáp để BeanMind hỗ trợ.",
@@ -390,6 +594,7 @@ namespace Infrastructure.Data
                 SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"), //Toans
                 CourseLevelId = new Guid("8a7b78a9-d209-473e-a133-919479d61d5c"), //Lop 1
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"), //BGD
+                Price = 300,
                 Title = "Độ dài và đo độ dài",
                 ImageURL = "https://i.pinimg.com/736x/fa/3a/1a/fa3a1ac70a55ba27576e41d2335e253c.jpg",
                 Description = "Đến với chương Độ dài và đo độ dài Toán 1 Kết Nối Tri Thức các em học sinh sẽ thực hành ước lượng và đo độ dài, biết so sánh các vật dài hơn, ngắn hơn,....BeanMind đã tóm tắt chi tiết các kiến thức cần nhớ, các dạng bài tập và các bài tập minh họa có hướng dẫn giải chi tiết, giúp các em dễ dàng nắm vững được kiến thức mới. Mời quý phụ huynh và các em học sinh cùng tham khảo!",
@@ -401,6 +606,7 @@ namespace Infrastructure.Data
                 SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"), //Toans
                 CourseLevelId = new Guid("8a7b78a9-d209-473e-a133-919479d61d5c"), //Lop 1
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"), //BGD
+                Price = 200,
                 Title = "Phép cộng, phép trừ (không nhớ) trong phạm vi 100",
                 ImageURL = "https://i.pinimg.com/736x/fa/3a/1a/fa3a1ac70a55ba27576e41d2335e253c.jpg",
                 Description = "Phép cộng, phép trừ (không nhớ) trong phạm vi 100 là một trong những chương học quan trọng của chương trình Toán 1 Kết Nối Tri Thức. BeanMind đã biên soạn chi tiết lý thuyết cần nhớ, bài tập minh họa, giúp các em học sinh nắm vững nội dung như phép cộng, trừ số có hai chữ số cho số có hai chữ số, phép cộng, trừ số có hai chữ số cho số có một chữ số. Sau đây mời quý phụ huynh và các em học sinh cùng tham khảo.",
@@ -412,6 +618,7 @@ namespace Infrastructure.Data
                 SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"), //Toans
                 CourseLevelId = new Guid("8a7b78a9-d209-473e-a133-919479d61d5c"), //Lop 1
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"), //BGD
+                Price = 200,
                 Title = "Thời gian, giờ và lịch",
                 ImageURL = "https://i.pinimg.com/736x/fa/3a/1a/fa3a1ac70a55ba27576e41d2335e253c.jpg",
                 Description = "Nhận biết được thời gian trên đồng hồ, xem được ngày tháng trên lịch là nội dung các em sẽ tìm hiểu ở Chương: Thời gian, giờ và lịch của môn Toán 1 Kết Nối Tri thức. Bài học được BeanMind biên soạn với các phần tóm tắt lý thuyết, bài tập minh họa và giúp các em chuẩn bị bài học thật tốt và luyện tập, đánh giá năng lực của bản thân. Hệ thống hỏi đáp sẽ giúp các em giải quyết nhiều câu hỏi khó nhanh chóng, hiệu quả. Các em xem nội dung bài học ngay bên dưới.",
@@ -423,6 +630,7 @@ namespace Infrastructure.Data
                 SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"), //Toans
                 CourseLevelId = new Guid("8a7b78a9-d209-473e-a133-919479d61d5c"), //Lop 1
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"), //BGD
+                Price = 200,
                 Title = "Ôn tập cuối năm",
                 ImageURL = "https://i.pinimg.com/736x/fa/3a/1a/fa3a1ac70a55ba27576e41d2335e253c.jpg",
                 Description = "Đến với Ôn tập cuối năm của chương trình Toán 1 Kết Nối Tri Thức đã được BeanMind biên soạn chi tiết các kiến thức cần nhớ và các bài tập minh họa có hướng dẫn giải chi tiết, nhầm giúp các em học tập thật tốt môn Toán 1. Đồng thời đây cũng là tài liệu tham khảo cho các phụ huynh và các giáo viên trong quá trình dạy học. Mời các em học sinh cùng các bậc phụ huynh tham khảo.",
@@ -435,6 +643,7 @@ namespace Infrastructure.Data
                 SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"), // Toan
                 CourseLevelId = new Guid("dd885d8d-0ea4-4c19-9b06-5e02bb44e7bb"), //Lop 2
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"),//BGD
+                Price = 200,
                 Title = "Ôn tập và bổ sung",
                 ImageURL = "https://static.vecteezy.com/system/resources/previews/013/400/591/non_2x/education-concept-with-cartoon-students-vector.jpg",
                 Description = "Mở đầu chương trình Toán 2 Kết Nối Tri Thức, các em sẽ tìm hiểu về Chủ đề 1 : Ôn tập và bổ sung. Gồm các bài học có tóm tắt lý thuyết, cung cấp các bài tập minh họa để các em ôn tập và củng cố kiến thức đã học. Bên cạnh đó, hệ thống hỏi đáp sẽ giúp các em giải đáp các thắc mắc sau khi học bài. Mời các em xem chi tiết bài học.",
@@ -446,6 +655,7 @@ namespace Infrastructure.Data
                 SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"), // Toan
                 CourseLevelId = new Guid("dd885d8d-0ea4-4c19-9b06-5e02bb44e7bb"), //Lop 2
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"),//BGD
+                Price = 250,
                 Title = "Phép cộng, phép trừ trong phạm vi 20",
                 ImageURL = "https://static.vecteezy.com/system/resources/previews/013/400/591/non_2x/education-concept-with-cartoon-students-vector.jpg",
                 Description = "Đến với nội dung Chủ đề 2: Phép cộng, phép trừ trong phạm vi 20 của chương trình Toán 2 Kết Nối Tri Thức, các em sẽ được học hỏi thêm các kiến thức mới về bảng cộng, bảng trừ qua 10, bài toán về thêm, bớt một số đơn vị,.... Bên cạnh đó, các em còn được thử sức với các bài tập minh họa cuối mỗi bài học nhằm đánh giá năng lực bản thân sau khi học bài. Hệ thống hỏi đáp cuối bài sẽ giải đáp các thắc mắc của các em trong quá trình học. Mời các em theo dõi nội dung chi tiết bên dưới!",
@@ -457,6 +667,7 @@ namespace Infrastructure.Data
                 SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"), // Toan
                 CourseLevelId = new Guid("dd885d8d-0ea4-4c19-9b06-5e02bb44e7bb"), //Lop 2
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"),//BGD
+                Price = 250,
                 Title = "Làm quen với khối lượng, dung tích",
                 ImageURL = "https://static.vecteezy.com/system/resources/previews/013/400/591/non_2x/education-concept-with-cartoon-students-vector.jpg",
                 Description = "Đến với nội dung Chủ đề 3 : Làm quen với khối lượng, dung tích của chương trình Toán 2 Kết Nối Tri Thức, các em sẽ được học các bài như: Lít, ki-lô-gam, khối lượng và đơn vị đo khối lượng . Bên cạnh đó, các em còn được thử sức với các bài tập minh họa cuối mỗi bài học nhằm đánh giá năng lực bản thân sau khi học bài. Hệ thống hỏi đáp cuối bài sẽ giải đáp các thắc mắc của các em trong quá trình học. Mời các em theo dõi nội dung chi tiết bên dưới!",
@@ -468,6 +679,7 @@ namespace Infrastructure.Data
                 SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"), // Toan
                 CourseLevelId = new Guid("dd885d8d-0ea4-4c19-9b06-5e02bb44e7bb"), //Lop 2
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"),//BGD
+                Price = 250,
                 Title = "Phép cộng, phép trừ (có nhớ) trong phạm vi 100",
                 ImageURL = "https://static.vecteezy.com/system/resources/previews/013/400/591/non_2x/education-concept-with-cartoon-students-vector.jpg",
                 Description = "Mời các em đến với nội dung Chủ đề 4 : Phép cộng, phép trừ (có nhớ) trong phạm vi 100​​ của chương trình Toán 2 Kết nối tri thức do Benamind biên soạn dưới đây. Ở chương này các em học sinh sẽ được ôn tập lại đầy đủ các kiến thức đã học, bên cạnh đó còn có các bài tập minh họa có hướng dẫn giải chi tiết, giúp các em có thể tự luyện tập, đối chiếu đáp án, đánh giá năng lực bản thân sau khi học bài. Hệ thống hỏi đáp sẽ giúp các em giải quyết các thắc mắc liên quan đến bài học.",
@@ -479,6 +691,7 @@ namespace Infrastructure.Data
                 SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"), // Toan
                 CourseLevelId = new Guid("dd885d8d-0ea4-4c19-9b06-5e02bb44e7bb"), //Lop 2
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"),//BGD
+                Price = 250,
                 Title = "Làm quen với hình phẳng",
                 ImageURL = "https://static.vecteezy.com/system/resources/previews/013/400/591/non_2x/education-concept-with-cartoon-students-vector.jpg",
                 Description = "Nhận biết được điểm, đoạn thẳng, đường thẳng, đường cong, ba điểm thẳng hàng, đường gấp khúc, hình tứ giác là nội dung các em sẽ tìm hiểu ở Chủ đề 5 : Làm quen với hình phẳng của môn Toán 2 Kết Nối Tri thức. Bài học được BeanMind biên soạn với các phần tóm tắt lý thuyết, bài tập minh họa và giúp các em chuẩn bị bài học thật tốt và luyện tập, đánh giá năng lực của bản thân. Hệ thống hỏi đáp sẽ giúp các em giải quyết nhiều câu hỏi khó nhanh chóng, hiệu quả. Các em xem nội dung bài học ngay bên dưới.",
@@ -490,6 +703,7 @@ namespace Infrastructure.Data
                 SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"), // Toan
                 CourseLevelId = new Guid("dd885d8d-0ea4-4c19-9b06-5e02bb44e7bb"), //Lop 2
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"),//BGD
+                Price = 250,
                 Title = "Ngày - giờ, giờ - phút, ngày - tháng",
                 ImageURL = "https://static.vecteezy.com/system/resources/previews/013/400/591/non_2x/education-concept-with-cartoon-students-vector.jpg",
                 Description = "BeanMind xin giới thiệu các em học sinh Chủ đề 6 : Ngày - giờ, giờ - phút, ngày - tháng môn Toán 2 sách Kết Nối Tri Thức. Nội dung đầy đủ bao gồm tóm tắt lý thuyết, các bài tập SGK và các bài tập minh họa có hướng dẫn giải chi tiết. Hi vọng bài học sẽ giúp các em nắm vững kiến thức và ghi nhớ được các số có hai chữ số, so sánh số có hai chữ số và các phép toán liên quan đến chương. Nếu có bất kì thắc mắc gì về chủ đề này, các em vui lòng bình luận ở mục hỏi đáp để BeanMind  hỗ trợ.",
@@ -501,6 +715,7 @@ namespace Infrastructure.Data
                 SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"), // Toan
                 CourseLevelId = new Guid("dd885d8d-0ea4-4c19-9b06-5e02bb44e7bb"), //Lop 2
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"),//BGD
+                Price = 250,
                 Title = "Ôn tập Học kì 1",
                 ImageURL = "https://static.vecteezy.com/system/resources/previews/013/400/591/non_2x/education-concept-with-cartoon-students-vector.jpg",
                 Description = "Ôn tập Học kì 1 Toán 2 Kết Nối Tri Thức các em học sinh sẽ Ôn tập hình phẳng, Ôn tập đo lường, Ôn tập phép cộng, phép trừ trong phạm vi 20, 100. BeanMind đã tóm tắt chi tiết các kiến thức cần nhớ, các dạng bài tập và các bài tập minh họa có hướng dẫn giải chi tiết, giúp các em dễ dàng nắm vững được kiến thức mới. Mời quý phụ huynh và các em học sinh cùng tham khảo!",
@@ -658,49 +873,7 @@ namespace Infrastructure.Data
                 ApplicationUserId = "954b8b1b-1b5f-42f6-9e27-4aa65cc7e7b1",
                 Status = Domain.Enums.EnrollmentStatus.Complete,
             });
-            // Chapter table
-            await _context.Chapters.AddAsync(new Chapter
-            {
-                Id = new Guid("71d018c0-c040-4116-808f-2c3ae70d9ae9"),
-                Order = 1,
-                CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
-                Title = "Các số 0, 1, 2, 3, 4, 5",
-                Description = "BeanMind xin giới thiệu đến các em học sinh lớp 1 nội dung bài Các số 0, 1, 2, 3, 4, 5. Bài giảng được biên soạn đầy đủ và chi tiết, đồng thời được trình bày một các logic, khoa học sẽ giúp các em ôn tập và củng cố kiến thức về phép chia số có hai chữ số.",
-            });
-            await _context.Chapters.AddAsync(new Chapter
-            {
-                Id = new Guid("a4562cbc-b8f8-4bca-b537-77d7b5e4eacc"),
-                Order = 1,
-                CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
-                Title = "Phương trình đại số cơ bản",
-                Description = "Học cách giải các phương trình đơn giản bằng cách tìm giá trị của biến số.",
-            });
-            await _context.Chapters.AddAsync(new Chapter
-            {
-                Id = new Guid("d0f9feee-92c2-4f01-9fc7-4c801c3202c7"),
-                Order = 1,
-                CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
-                Title = "Hệ phương trình đại số",
-                Description = "Giải quyết các bài toán liên quan đến hệ phương trình đại số bằng các phương pháp như phương pháp loại trừ hoặc phương pháp thế.",
-            });
-            await _context.Chapters.AddAsync(new Chapter
-            {
-                Id = new Guid("6b760186-9678-4e66-81f1-cb3aefe56e9f"),
-                Order = 1,
-                CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
-                Title = "Bất phương trình và hệ bất phương trình",
-                Description = "Nghiên cứu về cách giải và hiểu về các bất phương trình và hệ bất phương trình trong đại số.",
-            });
-            await _context.Chapters.AddAsync(new Chapter
-            {
-                Id = new Guid("3f15e8a2-247e-4d79-85f4-d46a73f7782b"),
-                Order = 1,
-                CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
-                Title = "Kiểm tra thành tựu",
-                Description = "Kiểm tra chung kiến thức về chủ đề Đại số",
-            });
-            // ------------
-
+        
 
 
             await _context.Enrollments.AddAsync(new Enrollment
@@ -820,11 +993,10 @@ namespace Infrastructure.Data
             var topics = new List<Guid>
             {
                 new Guid("6d8c088e-bc7e-409f-8c79-31066d6df42e"),
-                new Guid("b78c510e-f524-4a78-a8c1-58c22063e0a0"),
                 new Guid("59ee169a-c77f-431b-9cf6-b2c36ab3a4fe"),
                 new Guid("afb89987-0405-4641-b595-b634f422cbed"),
                 new Guid("3829a480-2d22-44da-82c1-38da6fd0a6c9"),
-                new Guid("b4f46040-35ea-43f3-a586-0816f17b219b")
+                new Guid("73558a53-e910-470a-a261-e42d803508e9")
             };
             Random random = new Random();
             int totalGenerate = 100; //100 questions
@@ -850,7 +1022,7 @@ namespace Infrastructure.Data
                     {
                         Id = new Guid(),
                         QuestionId = question.Id,
-                        Content = "Câu trả lời thứ " + j + " cho câu hỏi " + i + " ",
+                        Content = "Câu trả lời thứ " + j + " cho câu hỏi " + i + " " + ((i % 4 == j) ? "true" : "false"),
                         IsCorrect = (i%4 == j) ? true : false,
                     });
                 }
@@ -906,7 +1078,7 @@ namespace Infrastructure.Data
             });
             var questions = _context.Questions.AsQueryable().ToList();
             Random random = new Random();
-            for (int i = 10;i< 30; i++)
+            for (int i = 10;i< 20; i++)
             {
                 // Select a random question from the list
                 var question = questions[random.Next(questions.Count)];
@@ -917,7 +1089,7 @@ namespace Infrastructure.Data
                     WorksheetId = new Guid("89b67173-669d-443f-ba87-79b8791c6238"),
                 });
             }
-            for (int i = 10; i < 40; i++)
+            for (int i = 10; i < 20; i++)
             {
                 // Select a random question from the list
                 var question = questions[random.Next(questions.Count)];

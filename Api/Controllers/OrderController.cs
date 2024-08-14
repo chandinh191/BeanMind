@@ -187,7 +187,7 @@ namespace Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(ISender sender, [FromRoute] Guid id)
         {
-            var result = await sender.Send(new DeleteParticipantCommand() with
+            var result = await sender.Send(new DeleteOrderCommand() with
             {
                 Id = id
             });

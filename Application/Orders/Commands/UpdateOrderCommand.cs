@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace Application.Orders.Commands
 {
     [AutoMap(typeof(Domain.Entities.UserEntities.Parent), ReverseMap = true)]
-    public sealed record UpdateOrderCommand : IRequest<BaseResponse<GetBriefParentResponseModel>>
+    public sealed record UpdateOrderCommand : IRequest<BaseResponse<GetBriefOrderResponseModel>>
     {
         [Required]
         public Guid Id { get; init; }
@@ -27,7 +27,7 @@ namespace Application.Orders.Commands
         public string? Provider { get; set; }
     }
 
-    public class UpdateParentCommandHanler : IRequestHandler<UpdateOrderCommand, BaseResponse<GetBriefParentResponseModel>>
+    public class UpdateParentCommandHanler : IRequestHandler<UpdateOrderCommand, BaseResponse<GetBriefOrderResponseModel>>
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -38,12 +38,12 @@ namespace Application.Orders.Commands
             _mapper = mapper;
         }
 
-        public async Task<BaseResponse<GetBriefParentResponseModel>> Handle(UpdateOrderCommand request, CancellationToken cancellationToken)
+        public async Task<BaseResponse<GetBriefOrderResponseModel>> Handle(UpdateOrderCommand request, CancellationToken cancellationToken)
         {
             var order = await _context.Orders.FirstOrDefaultAsync(x => x.Id == request.Id);
             if (order == null)
             {
-                return new BaseResponse<GetBriefParentResponseModel>
+                return new BaseResponse<GetBriefOrderResponseModel>
                 {
                     Success = false,
                     Message = "Order is not found",
@@ -56,7 +56,7 @@ namespace Application.Orders.Commands
                 var applicationUser = await _context.ApplicationUsers.FirstOrDefaultAsync(x => x.Id == request.ApplicationUserId);
                 if (applicationUser == null)
                 {
-                    return new BaseResponse<GetBriefParentResponseModel>
+                    return new BaseResponse<GetBriefOrderResponseModel>
                     {
                         Success = false,
                         Message = "User not found",
@@ -69,7 +69,7 @@ namespace Application.Orders.Commands
                 var course = await _context.Courses.FirstOrDefaultAsync(x => x.Id == request.CourseId);
                 if (course == null)
                 {
-                    return new BaseResponse<GetBriefParentResponseModel>
+                    return new BaseResponse<GetBriefOrderResponseModel>
                     {
                         Success = false,
                         Message = "Course not found",
@@ -85,7 +85,7 @@ namespace Application.Orders.Commands
 
                 if (money != null && money < coursePrice)
                 {
-                    return new BaseResponse<GetBriefParentResponseModel>
+                    return new BaseResponse<GetBriefOrderResponseModel>
                     {
                         Success = false,
                         Message = "You need to finish enough transaction to update order to success",
@@ -112,7 +112,7 @@ namespace Application.Orders.Commands
 
             if (updateOrderResult.Entity == null)
             {
-                return new BaseResponse<GetBriefParentResponseModel>
+                return new BaseResponse<GetBriefOrderResponseModel>
                 {
                     Success = false,
                     Message = "Update order failed",
@@ -121,9 +121,9 @@ namespace Application.Orders.Commands
 
             await _context.SaveChangesAsync(cancellationToken);
 
-            var mappedOrderResult = _mapper.Map<GetBriefParentResponseModel>(updateOrderResult.Entity);
+            var mappedOrderResult = _mapper.Map<GetBriefOrderResponseModel>(updateOrderResult.Entity);
 
-            return new BaseResponse<GetBriefParentResponseModel>
+            return new BaseResponse<GetBriefOrderResponseModel>
             {
                 Success = true,
                 Message = "Update order successful",

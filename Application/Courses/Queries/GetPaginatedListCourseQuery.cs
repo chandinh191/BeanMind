@@ -11,7 +11,7 @@ namespace Application.Courses.Queries;
 public sealed record GetPaginatedListCourseQuery : IRequest<BaseResponse<Pagination<GetBriefCourseResponseModel>>>
 {
     public int PageIndex { get; init; }
-    public int? PageSize { get; init; }
+    public int? PageSize { get; init; } = 5;
     public string? Term { get; init; }
     public Guid SubjectId { get; init; }
     public Guid ProgramTypeId { get; init; }
@@ -42,7 +42,7 @@ public class GetPaginatedListCourseQueryHandler : IRequestHandler<GetPaginatedLi
             .Include(o => o.ProgramType)
             .Include(o => o.CourseLevel)
             .Include(o => o.Subject)
-            .Include(o => o.Teachables)
+            //.Include(o => o.Teachables)
             .AsQueryable();
 
         // filter by subject id

@@ -43,7 +43,7 @@ namespace Application.Transactions.Commands
 
         public async Task<BaseResponse<GetBriefTransactionResponseModel>> Handle(CreateTransactionCommand request, CancellationToken cancellationToken)
         {
-            var order = await _context.Chapters.FirstOrDefaultAsync(x => x.Id == request.OrderId);
+            var order = await _context.Orders.FirstOrDefaultAsync(x => x.Id == request.OrderId);
 
             if (order == null)
             {
