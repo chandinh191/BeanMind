@@ -82,7 +82,13 @@ namespace Application.Sessions.Commands
                     Message = "Teaching slot not found (filter from course for any Teachables of lecturer)",
                 };
             }
-            var session = _mapper.Map<Domain.Entities.Session>(request);
+            //var session = _mapper.Map<Domain.Entities.Session>(request);
+            var session = new Session()
+            {
+                ApplicationUserId = request.LecturerId,
+                TeachingSlotId = request.TeachingSlotId,
+                Date = request.Date,
+            };
             var createSessionResult = await _context.AddAsync(session, cancellationToken);
 
             if (createSessionResult.Entity == null)

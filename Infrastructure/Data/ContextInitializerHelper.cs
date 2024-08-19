@@ -717,6 +717,108 @@ namespace Infrastructure.Data
                 Description = "Mở đầu chương trình Toán 2 Kết Nối Tri Thức, các em sẽ tìm hiểu về Chủ đề 1 : Ôn tập và bổ sung. Gồm các bài học có tóm tắt lý thuyết, cung cấp các bài tập minh họa để các em ôn tập và củng cố kiến thức đã học. Bên cạnh đó, hệ thống hỏi đáp sẽ giúp các em giải đáp các thắc mắc sau khi học bài. Mời các em xem chi tiết bài học.",
                 TotalSlot = 20,
             });
+                // -----------
+                await _context.Chapters.AddAsync(new Chapter
+                {
+                    Id = new Guid("02f812c2-aeff-45b6-892b-f8548dd1d9b0"),
+                    Order = 1,
+                    CourseId = new Guid("471519c0-673d-40c0-b094-2014fe96848d5"),
+                    Title = "Ôn tập các số đến 100",
+                    Description = "Bài giảng Cộng, trừ các số tròn chục là một trong những bài học quan trọng trong chương trình Toán 2 sách Kết nối tri thức. BeanMind đã biên soạn chi tiết về lý thuyết cần nhớ và bài tập minh hoạ, giúp các em học sinh nắm được nội dung về các số đến 100 và các dạng toán của nó. Sau đây mời quý phụ huynh và các em học sinh cùng tham khảo.",
+                });
+                    // Topic table
+                    await _context.Topics.AddAsync(new Topic
+                    {
+                        Id = new Guid("09716311-e60e-4eee-a820-ea95681fe2db"),
+                        ChapterId = new Guid("02f812c2-aeff-45b6-892b-f8548dd1d9b0"),
+                        Order = 1,
+                        Title = "Đọc số",
+                        Description = "- Biết đọc, viết, đếm, so sánh các số đến 100 - Nhận biết thứ tự các trong phạm vi các số đến 100 - Vận dụng thứ tự các trong phạm vi các số đến 100, dự đoán quy luật, hoàn thành dãy số"
+                    });
+                    await _context.Topics.AddAsync(new Topic
+                    {
+                        Id = new Guid("5778d0ce-c9b5-4257-8008-04afc6d75b91"),
+                        ChapterId = new Guid("02f812c2-aeff-45b6-892b-f8548dd1d9b0"),
+                        Order = 2,
+                        Title = "Chục và đơn vị",
+                        Description = "- Nhận biết tên gọi chục, đơn vị, quan hệ giữa chục và đơn vị. - Sử dụng các thuật ngữ chục, đơn vị khi lập số và phân tích số. - Đếm, đọc, viết số phân tích cấu tạo của số - Phân biệt được số chục với số đơn vị. - 10 đơn vị bằng một chục - 1 chục bằng 10 đơn vị - Biết thực hiện phép tính cộn số tròn chục với số có một chữ số."
+                    });
+                    await _context.Topics.AddAsync(new Topic
+                    {
+                        Id = new Guid("76c4a31b-a5cc-4e78-94b1-1e44b4b4164e"),
+                        ChapterId = new Guid("02f812c2-aeff-45b6-892b-f8548dd1d9b0"),
+                        Order = 3,
+                        Title = "So sánh các số trong phạm vi 100",
+                        Description = "- Biết dựa vào cấu tạo số để so sánh hai hoặc nhiều số. + Hai số có cùng chữ số hàng chục thì số nào có hàng đơn vị lớn hơn sẽ lớn hơn. + Hai số khác chữ số hàng chục thì số nào có hàng chục lớn hơn sẽ lớn hơn. - Xác định số lớn hơn, số bé hơn trong một dãy số có hai chữ số. - So sánh các số rồi chọn số có giá trị lớn nhất hoặc bé nhất trong dãy số đó."
+                    });
+                    // -----------
+                await _context.Chapters.AddAsync(new Chapter
+                {
+                    Id = new Guid("a2472712-f2d9-41cc-aa31-24a1bc27c279"),
+                    Order = 2,
+                    CourseId = new Guid("471519c0-673d-40c0-b094-2014fe96848d5"),
+                    Title = "Tia số. Số liền trước, số liền sau",
+                    Description = "Dưới đây là phần tóm tắt lý thuyết và các bài tập minh họa có hướng dẫn giải chi tiết của bài Tia số. Số liền trước, số liền sau được BeanMind biên soạn chi tiết về kiến thức cân nhớ, giúp các em học sinh lớp 2 dễ dàng nắm vững kiến thức quan trọng của bài. Mời các em cùng tham khảo.",
+                });
+                    // Topic table
+                    await _context.Topics.AddAsync(new Topic
+                    {
+                        Id = new Guid("d49aa131-73a5-4aaa-b142-0aad75eca92d"),
+                        ChapterId = new Guid("a2472712-f2d9-41cc-aa31-24a1bc27c279"),
+                        Order = 1,
+                        Title = "Lý thuyết cần nhớ",
+                        Description = "Nhận biết được tia số: Trên tia số - Số 0 ở vạch đầu tiên, là số bé nhất - Mỗi số lớn hơn số bên trái nó và bé hơn số bên phải nó. * Nhận biết số liền trước, số liền sau"
+                    });
+                    await _context.Topics.AddAsync(new Topic
+                    {
+                        Id = new Guid("d1d55d76-8e51-4fef-b01b-1711cb303534"),
+                        ChapterId = new Guid("a2472712-f2d9-41cc-aa31-24a1bc27c279"),
+                        Order = 2,
+                        Title = "Bài tập",
+                        Description = "Xác định các khoảng cách được chia trên tia số, số đơn vị cách đều rồi đếm và điền các số tương ứng."
+                    });
+                    await _context.Topics.AddAsync(new Topic
+                    {
+                        Id = new Guid("cb4bc21f-0fdb-4539-a179-9f1520d9ee86"),
+                        ChapterId = new Guid("a2472712-f2d9-41cc-aa31-24a1bc27c279"),
+                        Order = 3,
+                        Title = "Luyện tập",
+                        Description = "Qua bài học này giúp các con: - Biết thế nào là tia số, số liền trước, số liền sau - Vận dụng thực hiện giải các bài toán liên quan đến tia số"
+                    });
+                    // -----------
+                await _context.Chapters.AddAsync(new Chapter
+                {
+                    Id = new Guid("67f25718-3555-462a-b2cc-63829621c06a"),
+                    Order = 3,
+                    CourseId = new Guid("471519c0-673d-40c0-b094-2014fe96848d5"),
+                    Title = "Các thành phần của phép cộng, phép trừ",
+                    Description = "Bài học Các thành phần của phép cộng, phép trừ chương trình Toán lớp 2 sách Kết nối tri thức được BeanMind biên soạn nhằm giúp các em học sinh học tập tốt môn Toán lớp 2. Đồng thời đây cũng là tài liệu tham khảo cho các phụ huynh và giáo viên trong quá trình dạy học. Mời các em học sinh cùng các bậc phụ huynh tham khảo.",
+                });
+                await _context.Chapters.AddAsync(new Chapter
+                {
+                    Id = new Guid("9e317fb6-1d8f-415c-95c6-4e72e5a40acb"),
+                    Order = 4,
+                    CourseId = new Guid("471519c0-673d-40c0-b094-2014fe96848d5"),
+                    Title = "Hơn, kém nhau bao nhiêu?",
+                    Description = "Bài giảng Hơn, kém nhau bao nhiêu? bên dưới đây được BeanMind biên soạn chi tiết lý thuyết cần nhớ, sử dụng các bài tập minh hoạ kèm theo hướng dẫn giải chi tiết, dành cho các em học sinh lớp 2 tham khảo, giúp các em học sinh rèn luyện giải môn Toán lớp 2. Mời các em học sinh cùng các bậc phụ huynh tham khảo.",
+                });
+                await _context.Chapters.AddAsync(new Chapter
+                {
+                    Id = new Guid("1f3b8cad-5ef0-45a5-babb-5e49d1bf40c8"),
+                    Order = 5,
+                    CourseId = new Guid("471519c0-673d-40c0-b094-2014fe96848d5"),
+                    Title = "Ôn tập phép cộng, phép trừ (không nhớ) trong phạm vi 100",
+                    Description = "Bài học sau đây gồm chi tiết các dạng Toán về phép cộng, phép trừ (không nhớ) trong phạm vi 100, đồng thời sử dụng các bài tập minh hoạ kèm theo hướng dẫn giải chi tiết, dành cho các em học sinh lớp 2 tham khảo, giúp các em học sinh rèn luyện giải môn Toán lớp 2. Mời các em học sinh cùng các bậc phụ huynh tham khảo.",
+                });
+                await _context.Chapters.AddAsync(new Chapter
+                {
+                    Id = new Guid("648c486b-6f2d-4721-b588-54978b92ecfb"),
+                    Order = 6,
+                    CourseId = new Guid("471519c0-673d-40c0-b094-2014fe96848d5"),
+                    Title = "Luyện tập chung",
+                    Description = "Việc học các kỹ năng giải Toán khi vào lớp 2 là rất quan trọng. Vậy giải Toán như thế nào để phù hợp với tất cả các học sinh, các em có thể tự đọc các kiến thức và tự làm các ví dụ minh họa để nâng cao các kỹ năng giải Toán lớp 2 của mình thêm hiệu quả. Sau đây là một ví dụ minh họa về bài lý thuyết Bài 6 Luyện tập chung sách Kết nối tri thức, mời các em cùng tham khảo.",
+                });
+
             await _context.Courses.AddAsync(new Course
             {
                 Id = new Guid("ab8c3b06-9ae7-408f-a923-1fb9564ba181"),
@@ -936,14 +1038,32 @@ namespace Infrastructure.Data
             // Enrollment table
             await _context.Enrollments.AddAsync(new Enrollment
             {
+                Id = new Guid("a17c4640-6f6a-4fa3-9c96-f8758de0ccc7"),
+                CourseId = new Guid("bd186368-c35a-4f16-9214-c1acdbfce054"),
+                ApplicationUserId = "954b8b1b-1b5f-42f6-9e27-4aa65cc7e7b0",
+                Status = Domain.Enums.EnrollmentStatus.Complete,
+            });
+            await _context.Enrollments.AddAsync(new Enrollment
+            {
                 Id = new Guid("091e0476-0b32-412b-9437-e3990a6aa529"),
                 CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
                 ApplicationUserId = "954b8b1b-1b5f-42f6-9e27-4aa65cc7e7b1",
                 Status = Domain.Enums.EnrollmentStatus.Complete,
             });
-        
-
-
+            await _context.Enrollments.AddAsync(new Enrollment
+            {
+                Id = new Guid("540fe297-72b3-40cf-bb2e-ce9d3d5cfce7"),
+                CourseId = new Guid("471519c0-673d-40c0-b094-2014fe96848d"),
+                ApplicationUserId = "954b8b1b-1b5f-42f6-9e27-4aa65cc7e7b0",
+                Status = Domain.Enums.EnrollmentStatus.OnGoing,
+            });
+            await _context.Enrollments.AddAsync(new Enrollment
+            {
+                Id = new Guid("2e90ca3c-8296-4bc7-adf4-8e8d4b363616"),
+                CourseId = new Guid("555a0815-d0b8-4975-8e1c-245d7acbab45"),
+                ApplicationUserId = "954b8b1b-1b5f-42f6-9e27-4aa65cc7e7b0",
+                Status = Domain.Enums.EnrollmentStatus.OnGoing,
+            });
             await _context.Enrollments.AddAsync(new Enrollment
             {
                 Id = new Guid("877ddfd8-2ec2-445c-aeaf-1a51a6a40cd5"),
