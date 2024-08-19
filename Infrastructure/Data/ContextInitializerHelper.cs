@@ -346,7 +346,7 @@ namespace Infrastructure.Data
                     ChapterId = new Guid("71d018c0-c040-4116-808f-2c3ae70d9ae9"),
                     Order = 1,
                     Title = "Đọc, đếm, viết được từ 0 đến 5, vị trí của các số trong dãy số.",
-                    Description = "...",
+                    Description = "Tiết học này tập trung vào việc phát triển kỹ năng cơ bản về số học dành cho học sinh lớp 1, với các nội dung chính như sau: (1) Giới thiệu và nhận biết các số từ 0 đến 5: Học sinh sẽ học cách đọc tên, viết và đếm các số trong khoảng này. (2) Phân tích vị trí của từng số trong dãy số tự nhiên: Học sinh sẽ học cách xác định vị trí tương đối của một số trong dãy số, bao gồm số liền trước và số liền sau, nhằm hình thành tư duy tuần tự và khả năng so sánh. (3) Các bài tập thực hành sẽ bao gồm việc đọc và viết các số, so sánh và sắp xếp các số theo thứ tự tăng dần hoặc giảm dần. (4) Cuối cùng, học sinh sẽ tham gia vào các hoạt động tương tác nhằm củng cố khả năng nhận thức số học qua việc sử dụng các công cụ trực quan và bài tập phân loại số, nhằm phát triển tư duy logic và khả năng nhận biết mô hình số học trong giai đoạn đầu."
                 });
                 await _context.Topics.AddAsync(new Topic
                 {
@@ -354,7 +354,7 @@ namespace Infrastructure.Data
                     ChapterId = new Guid("71d018c0-c040-4116-808f-2c3ae70d9ae9"),
                     Order = 2,
                     Title = "So sánh số 0 với các số trong phạm vi 5",
-                    Description = "...",
+                    Description = "Trong tiết học này, học sinh sẽ học cách so sánh số 0 với các số khác trong phạm vi từ 1 đến 5. Bài học sẽ bắt đầu bằng việc nhắc lại các khái niệm cơ bản về số 0, như là số khởi đầu trong dãy số tự nhiên và đại diện cho sự không có lượng. Học sinh sẽ được hướng dẫn để hiểu rằng số 0 luôn nhỏ hơn bất kỳ số nào khác trong phạm vi từ 1 đến 5. Qua các bài tập thực hành, học sinh sẽ so sánh số 0 với từng số trong dãy số, sử dụng các dấu hiệu so sánh (<, =, >), và từ đó rút ra kết luận về mối quan hệ giữa số 0 và các số còn lại. Tiết học sẽ kết thúc với các bài tập củng cố và các trò chơi tương tác để giúp học sinh ghi nhớ kiến thức."
                 });
                 await _context.Topics.AddAsync(new Topic
                 {
@@ -362,7 +362,8 @@ namespace Infrastructure.Data
                     ChapterId = new Guid("71d018c0-c040-4116-808f-2c3ae70d9ae9"),
                     Order = 3,
                     Title = "Đếm xuôi và đếm ngược các số từ 0 đến 5 và thứ tự của các số đó.",
-                    Description = "....",
+                    Description = "Trong tiết học này, học sinh sẽ học cách đếm xuôi và đếm ngược các số từ 0 đến 5, cùng với việc xác định thứ tự của các số trong cả hai chiều. Bài học sẽ bắt đầu với việc đếm xuôi từ 0 đến 5, giúp học sinh nắm bắt thứ tự tự nhiên của các số. Sau đó, học sinh sẽ học cách đếm ngược từ 5 về 0, qua đó phát triển khả năng tư duy đảo ngược và củng cố kiến thức về vị trí tương đối của các số trong dãy. Các bài tập sẽ bao gồm việc sắp xếp các số theo thứ tự tăng dần và giảm dần, so sánh các cặp số và xác định số liền trước, liền sau trong cả hai chiều. Cuối cùng, học sinh sẽ tham gia vào các hoạt động thực hành để củng cố kỹ năng đếm và nhận biết thứ tự số học."
+
                 });
                 await _context.Topics.AddAsync(new Topic
                 {
@@ -370,7 +371,7 @@ namespace Infrastructure.Data
                     ChapterId = new Guid("71d018c0-c040-4116-808f-2c3ae70d9ae9"),
                     Order = 4,
                     Title = "Đọc số lượng đồ vật trong mỗi nhóm",
-                    Description = "....Game",
+                    Description = "Trong tiết học này, học sinh sẽ học cách đếm và đọc số lượng đồ vật trong mỗi nhóm. Các em sẽ được hướng dẫn cách xác định số lượng cụ thể của các đồ vật được sắp xếp thành từng nhóm nhỏ, từ đó đọc ra số lượng đúng. Bài học sẽ bao gồm các bài tập thực hành như đếm số lượng đồ vật trong các hình ảnh minh họa hoặc vật dụng thực tế trong lớp học. Sau đó, học sinh sẽ tham gia vào một trò chơi tương tác, nơi các em sẽ đếm và xác định số lượng đồ vật trong các nhóm khác nhau trong thời gian giới hạn, giúp củng cố kỹ năng đếm và đọc số lượng một cách nhanh chóng và chính xác."
                 });
                 await _context.Topics.AddAsync(new Topic
                 {
@@ -378,7 +379,8 @@ namespace Infrastructure.Data
                     ChapterId = new Guid("71d018c0-c040-4116-808f-2c3ae70d9ae9"),
                     Order = 5,
                     Title = "Đếm theo thứ tự các số",
-                    Description = "....",
+                    Description = "Tiết học này sẽ hướng dẫn học sinh cách đếm theo thứ tự các số từ 0 trở lên. Học sinh sẽ bắt đầu bằng việc đếm các số liên tiếp theo thứ tự tăng dần, qua đó nắm vững cách sắp xếp thứ tự tự nhiên của các số. Bài học sẽ bao gồm các bài tập yêu cầu học sinh đếm và sắp xếp các số theo đúng thứ tự, cũng như nhận biết các mẫu số học trong dãy số. Các hoạt động thực hành sẽ giúp học sinh củng cố kỹ năng đếm và nhận diện sự liên tục trong các số, đồng thời phát triển tư duy logic thông qua các bài tập sắp xếp và đếm số theo thứ tự."
+
                 });
                 // -----------
             await _context.Chapters.AddAsync(new Chapter
@@ -396,7 +398,8 @@ namespace Infrastructure.Data
                     ChapterId = new Guid("a4562cbc-b8f8-4bca-b537-77d7b5e4eacc"),
                     Order = 1,
                     Title = "Đọc, đếm được từ 6 đến 10, vị trí của các số trong dãy số",
-                    Description = "...",
+                    Description = "Trong tiết học này, học sinh sẽ được hướng dẫn cách đọc và đếm các số từ 6 đến 10. Bài học sẽ tập trung vào việc giúp các em nắm vững cách đọc chính xác các số này, cũng như đếm số lượng đồ vật tương ứng. Ngoài ra, học sinh sẽ tìm hiểu về vị trí của từng số trong dãy số tự nhiên, bao gồm việc xác định số liền trước và liền sau, từ đó hiểu rõ hơn về thứ tự và mối quan hệ giữa các số trong phạm vi từ 6 đến 10. Các bài tập thực hành sẽ củng cố kỹ năng đọc, đếm và so sánh các số, giúp học sinh phát triển tư duy số học một cách toàn diện."
+
                 });
                 await _context.Topics.AddAsync(new Topic
                 {
@@ -404,7 +407,8 @@ namespace Infrastructure.Data
                     ChapterId = new Guid("a4562cbc-b8f8-4bca-b537-77d7b5e4eacc"),
                     Order = 2,
                     Title = "So sánh số trong phạm vi 10",
-                    Description = "...",
+                    Description = "Trong tiết học này, học sinh sẽ học cách so sánh các số trong phạm vi từ 0 đến 10. Bài học sẽ bắt đầu với việc ôn lại các khái niệm cơ bản về số học và cách xác định giá trị của mỗi số. Sau đó, học sinh sẽ thực hành so sánh các cặp số bằng cách sử dụng các dấu hiệu so sánh như lớn hơn, nhỏ hơn và bằng (=, >, <). Tiết học cũng sẽ cung cấp các bài tập thực hành, trong đó học sinh sẽ cần sắp xếp các số theo thứ tự tăng dần và giảm dần, cũng như giải các bài toán so sánh đơn giản. Mục tiêu là giúp học sinh nắm vững kỹ năng so sánh số, từ đó củng cố kiến thức nền tảng về số học."
+
                 });
                 await _context.Topics.AddAsync(new Topic
                 {
@@ -412,7 +416,8 @@ namespace Infrastructure.Data
                     ChapterId = new Guid("a4562cbc-b8f8-4bca-b537-77d7b5e4eacc"),
                     Order = 3,
                     Title = "Đếm số lượng đồ vật, đồ vật",
-                    Description = "....Game",
+                    Description = "Tiết học này tập trung vào việc giúp học sinh đếm số lượng đồ vật trong các nhóm khác nhau và phân biệt các loại đồ vật. Bài học sẽ bao gồm việc hướng dẫn học sinh cách đếm số lượng đồ vật trong các hình ảnh minh họa hoặc trong môi trường thực tế, đồng thời phân loại và xác định từng loại đồ vật trong nhóm. Các bài tập thực hành sẽ yêu cầu học sinh đếm chính xác số lượng đồ vật, nhận diện và phân loại chúng theo loại và số lượng. Tiết học cũng sẽ kết thúc với một trò chơi tương tác, nơi học sinh sẽ tham gia vào các hoạt động đếm và phân loại đồ vật trong thời gian giới hạn, giúp củng cố kỹ năng đếm và phân biệt các đồ vật."
+
                 });
                 await _context.Topics.AddAsync(new Topic
                 {
@@ -420,7 +425,7 @@ namespace Infrastructure.Data
                     ChapterId = new Guid("a4562cbc-b8f8-4bca-b537-77d7b5e4eacc"),
                     Order = 4,
                     Title = "Luyện tập",
-                    Description = "Game + worksheet",
+                    Description = "Tiết học này được thiết kế để củng cố và kiểm tra các kỹ năng đã học qua các hoạt động luyện tập. Học sinh sẽ tham gia vào một trò chơi tương tác giúp nâng cao khả năng áp dụng kiến thức về đếm, so sánh số và phân loại đồ vật. Bài học sẽ kết hợp với việc làm các worksheet, trong đó học sinh sẽ thực hiện các bài tập thực hành để ôn tập và áp dụng các khái niệm đã học. Trò chơi và worksheet sẽ bao gồm các bài tập đa dạng, từ việc đếm số lượng, so sánh các số, đến phân loại đồ vật, giúp học sinh củng cố và kiểm tra kiến thức một cách vui vẻ và hiệu quả."
                 });
             // -----------
             await _context.Chapters.AddAsync(new Chapter
@@ -438,7 +443,7 @@ namespace Infrastructure.Data
                     ChapterId = new Guid("d0f9feee-92c2-4f01-9fc7-4c801c3202c7"),
                     Order = 1,
                     Title = "So sánh số lượng, sử dụng từ “bằng” và dấu “ =” để so sánh các số.",
-                    Description = "...",
+                    Description = "Trong tiết học này, học sinh sẽ học cách so sánh số lượng đồ vật và các số bằng cách sử dụng từ 'bằng' và dấu '='. Bài học sẽ bao gồm việc giải thích khái niệm số lượng 'bằng nhau' và cách sử dụng dấu '=' để biểu thị sự bằng nhau trong các bài toán. Học sinh sẽ thực hành so sánh số lượng đồ vật trong các nhóm khác nhau, xác định khi nào số lượng là bằng nhau và khi nào không phải. Các bài tập sẽ bao gồm việc sắp xếp và so sánh các số hoặc nhóm đồ vật, và điền vào chỗ trống với dấu '=' khi các số là bằng nhau. Cuối cùng, học sinh sẽ thực hiện các hoạt động tương tác để củng cố khả năng nhận diện và sử dụng dấu '=' trong các tình huống khác nhau."
                 });
                 await _context.Topics.AddAsync(new Topic
                 {
@@ -446,7 +451,7 @@ namespace Infrastructure.Data
                     ChapterId = new Guid("d0f9feee-92c2-4f01-9fc7-4c801c3202c7"),
                     Order = 2,
                     Title = "Nhận biết được khái niệm nhiều hơn, ít hơn, hơn, kém thông qua hình ảnh và các đồ vật.",
-                    Description = "...",
+                    Description = "Tiết học này tập trung vào việc giúp học sinh nhận biết và hiểu các khái niệm 'nhiều hơn', 'ít hơn', 'hơn', và 'kém' thông qua việc sử dụng hình ảnh và đồ vật thực tế. Bài học sẽ bắt đầu bằng việc giới thiệu các khái niệm cơ bản liên quan đến số lượng và sự so sánh. Học sinh sẽ được hướng dẫn để nhận diện và phân biệt giữa các nhóm đồ vật dựa trên số lượng của chúng, sử dụng các từ ngữ như 'nhiều hơn', 'ít hơn', 'hơn', và 'kém'. Các bài tập sẽ bao gồm việc so sánh số lượng đồ vật trong các hình ảnh minh họa, xác định sự khác biệt về số lượng, và thực hành các hoạt động tương tác để củng cố sự hiểu biết về các khái niệm này."
                 });
                 await _context.Topics.AddAsync(new Topic
                 {
@@ -454,7 +459,7 @@ namespace Infrastructure.Data
                     ChapterId = new Guid("d0f9feee-92c2-4f01-9fc7-4c801c3202c7"),
                     Order = 3,
                     Title = "Cách so sánh 1-1 giữa hai đại lượng để xác định đại lượng nhiều hơn, ít hơn.",
-                    Description = "....",
+                    Description = "Tiết học này sẽ hướng dẫn học sinh cách so sánh 1-1 giữa hai đại lượng để xác định đại lượng nào nhiều hơn hoặc ít hơn. Bài học sẽ bắt đầu bằng việc giải thích khái niệm so sánh 1-1, trong đó mỗi phần của đại lượng này được so sánh với mỗi phần của đại lượng kia. Học sinh sẽ thực hành việc sử dụng các công cụ trực quan như hình ảnh hoặc đồ vật để so sánh số lượng của hai nhóm đồ vật. Bài học sẽ bao gồm các hoạt động như đặt các nhóm đồ vật cạnh nhau và đếm số lượng từng nhóm để xác định nhóm nào nhiều hơn hoặc ít hơn. Các bài tập cũng sẽ yêu cầu học sinh sử dụng phương pháp so sánh này để giải quyết các bài toán thực tế, giúp củng cố khả năng phân tích và so sánh số lượng."
                 });
                 await _context.Topics.AddAsync(new Topic
                 {
@@ -462,7 +467,7 @@ namespace Infrastructure.Data
                     ChapterId = new Guid("d0f9feee-92c2-4f01-9fc7-4c801c3202c7"),
                     Order = 4,
                     Title = "Luyện tập",
-                    Description = "Game + worksheet",
+                    Description = "Tiết học này cung cấp cơ hội cho học sinh luyện tập và củng cố kiến thức đã học thông qua các hoạt động thực hành. Học sinh sẽ tham gia vào trò chơi tương tác, giúp nâng cao kỹ năng so sánh đại lượng, nhận diện các khái niệm 'nhiều hơn', 'ít hơn', và 'bằng nhau'. Bài học cũng sẽ bao gồm việc hoàn thành các worksheet với các bài tập đa dạng, từ việc so sánh số lượng đến việc áp dụng các khái niệm trong các tình huống thực tế. Các hoạt động này được thiết kế để giúp học sinh ôn tập và kiểm tra kiến thức một cách vui vẻ và hiệu quả, đồng thời củng cố kỹ năng giải quyết vấn đề và phân tích số học."
                 });
             // -----------
             await _context.Chapters.AddAsync(new Chapter
@@ -480,7 +485,7 @@ namespace Infrastructure.Data
                     ChapterId = new Guid("6b760186-9678-4e66-81f1-cb3aefe56e9f"),
                     Order = 1,
                     Title = "Điền dấu thích hợp vào chỗ trống",
-                    Description = "Worksheet",
+                    Description = "Tiết học này tập trung vào việc luyện tập cách điền dấu thích hợp vào chỗ trống để so sánh các số. Học sinh sẽ hoàn thành các worksheet với các bài tập yêu cầu điền vào các ô trống dấu so sánh như '<', '>', hoặc '=' để hoàn thành các câu so sánh giữa các số. Các bài tập sẽ giúp học sinh củng cố khả năng nhận diện và sử dụng các dấu so sánh trong các tình huống khác nhau, đồng thời nâng cao sự chính xác trong việc so sánh số lượng. Cuối tiết học, học sinh sẽ kiểm tra lại các bài làm của mình để đảm bảo đã hiểu và áp dụng đúng các khái niệm so sánh số học."
                 });
                 await _context.Topics.AddAsync(new Topic
                 {
@@ -488,7 +493,7 @@ namespace Infrastructure.Data
                     ChapterId = new Guid("6b760186-9678-4e66-81f1-cb3aefe56e9f"),
                     Order = 2,
                     Title = "Sắp xếp các số theo thứ tự tăng dần hoặc giảm dần.",
-                    Description = "Game",
+                    Description = "Tiết học này giúp học sinh rèn luyện kỹ năng sắp xếp các số theo thứ tự tăng dần hoặc giảm dần thông qua trò chơi tương tác. Học sinh sẽ tham gia vào các trò chơi vui nhộn, trong đó các em sẽ phải sắp xếp một dãy số từ nhỏ nhất đến lớn nhất hoặc ngược lại, từ lớn nhất đến nhỏ nhất. Các trò chơi sẽ sử dụng các công cụ trực quan và các bài tập có tính thử thách để giúp học sinh củng cố khả năng phân tích và tổ chức các số theo thứ tự đúng. Mục tiêu là giúp học sinh nắm vững khái niệm về thứ tự số học và cải thiện kỹ năng sắp xếp số một cách hiệu quả và thú vị."
                 });
                 // -----------
             await _context.Chapters.AddAsync(new Chapter
@@ -506,7 +511,7 @@ namespace Infrastructure.Data
                     ChapterId = new Guid("3f15e8a2-247e-4d79-85f4-d46a73f7782b"),
                     Order = 1,
                     Title = "Hệ thống lại kiến thức",
-                    Description = "...",
+                    Description = "Tiết học này nhằm mục đích hệ thống lại và củng cố các kiến thức đã học trong bài 'Mấy và mấy'. Học sinh sẽ xem xét lại các khái niệm chính, các dạng toán và các kỹ thuật đã được giảng dạy trong các bài học trước. Bài học sẽ bao gồm việc giải quyết các bài tập tổng hợp, giúp học sinh ôn tập và áp dụng kiến thức vào các tình huống thực tế. Học sinh sẽ thực hiện các hoạt động nhóm và cá nhân để củng cố hiểu biết, đồng thời tham gia vào các bài kiểm tra ngắn để đánh giá mức độ nắm vững kiến thức. Mục tiêu là giúp học sinh xây dựng nền tảng vững chắc và tự tin khi đối mặt với các bài toán liên quan."
                 });
                 await _context.Topics.AddAsync(new Topic
                 {
@@ -514,7 +519,7 @@ namespace Infrastructure.Data
                     ChapterId = new Guid("3f15e8a2-247e-4d79-85f4-d46a73f7782b"),
                     Order = 2,
                     Title = "Vận dụng và nâng cao",
-                    Description = "Worksheet khó",
+                    Description = "Tiết học này tập trung vào việc vận dụng và nâng cao kiến thức đã học qua các worksheet khó. Học sinh sẽ thực hiện các bài tập nâng cao, yêu cầu áp dụng các khái niệm và kỹ năng toán học đã học vào các tình huống phức tạp hơn. Các worksheet sẽ bao gồm các bài toán đòi hỏi sự phân tích sâu, giải quyết vấn đề và tư duy phản xạ. Bài học nhằm giúp học sinh phát triển khả năng tư duy logic, khả năng giải quyết các bài toán khó và củng cố kiến thức một cách toàn diện. Học sinh cũng sẽ có cơ hội thảo luận và giải quyết các bài toán thử thách cùng bạn bè để nâng cao kỹ năng và hiểu biết."
                 });
                 // -----------
             await _context.Chapters.AddAsync(new Chapter
@@ -526,8 +531,7 @@ namespace Infrastructure.Data
                 Description = "Nhằm giúp các em học sinh có thêm nhiều tài liệu tham khảo hữu ích cho môn Toán 1, BeanMind đã biên soạn và tổng hợp nội dung bài Luyện tập chung. Tài liệu được biên soạn với đầy đủ các dạng Toán và các bài tập minh họa có hướng dẫn giải chi tiết. Mời các em cùng tham khảo.",
             });
 
-            // ------------
-   
+            // ------------   
             await _context.Courses.AddAsync(new Course
             {
                 Id = new Guid("555a0815-d0b8-4975-8e1c-245d7acbab45"),
@@ -540,6 +544,70 @@ namespace Infrastructure.Data
                 Description = "Nhận biết được một số hình vuông, hình tròn, hình tam giác, hình chữ nhật là nội dung các em sẽ tìm hiểu ở Chương: Làm quen với một số hình phẳng của môn Toán 1 Kết Nối Tri thức. Bài học được BeanMind biên soạn với các phần tóm tắt lý thuyết, bài tập minh họa và giúp các em chuẩn bị bài học thật tốt và luyện tập, đánh giá năng lực của bản thân. Hệ thống hỏi đáp sẽ giúp các em giải quyết nhiều câu hỏi khó nhanh chóng, hiệu quả. Các em xem nội dung bài học ngay bên dưới.",
                 TotalSlot = 30,
             });
+            await _context.Chapters.AddAsync(new Chapter
+            {
+                Id = new Guid("66b60dd0-020b-4a09-afc1-80a11d878b60"),
+                Order = 1,
+                CourseId = new Guid("555a0815-d0b8-4975-8e1c-245d7acbab45"),
+                Title = "Hình vuông, hình tròn, hình tam giác, hình chữ nhật",
+                Description = "Nội dung bài Hình vuông, hình tròn, hình tam giác, hình chữ nhật gồm các kiến thức cần nắm và bài tập minh họa có hướng dẫn giải chi tiết, đã được BeanMind biên soạn đầy đủ và chi tiết.",
+            });
+                // Topic table
+                await _context.Topics.AddAsync(new Topic
+                {
+                    Id = new Guid("658253c2-663a-406e-a2a0-de0063d3bfd7"),
+                    ChapterId = new Guid("66b60dd0-020b-4a09-afc1-80a11d878b60"),
+                    Order = 1,
+                    Title = "Nhận biết được các hình đã học như hình tròn, hình tam giác, hình vuông, hình chữ nhật",
+                    Description = "Trong tiết học này, học sinh sẽ học cách nhận biết và phân biệt các hình học cơ bản như hình tròn, hình tam giác, hình vuông và hình chữ nhật. Bài học sẽ cung cấp các ví dụ minh họa về các hình học này trong đời sống hàng ngày và trong các bài tập. Học sinh sẽ thực hành nhận diện các hình từ các hình ảnh và vật thể thực tế, đồng thời hoàn thành các bài tập giúp củng cố kiến thức về đặc điểm và tính chất của từng loại hình. Các hoạt động bao gồm việc vẽ, nhận diện và phân loại các hình theo đúng tiêu chí. Mục tiêu là giúp học sinh nắm vững khái niệm về các hình học cơ bản và áp dụng chúng vào các bài tập thực tế."
+                });
+                await _context.Topics.AddAsync(new Topic
+                {
+                    Id = new Guid("fd1b8abd-66fc-426f-9bc2-be0aef000cb7"),
+                    ChapterId = new Guid("66b60dd0-020b-4a09-afc1-80a11d878b60"),
+                    Order = 2,
+                    Title = "Đọc đúng tên với hình tương ứng",
+                    Description = "Tiết học này tập trung vào việc giúp học sinh đọc và nhận diện đúng tên các hình học cơ bản như hình tròn, hình tam giác, hình vuông, và hình chữ nhật. Học sinh sẽ được cung cấp các hình ảnh của các hình học khác nhau và cần phải chọn tên chính xác của từng hình từ danh sách các lựa chọn. Bài học sẽ bao gồm các hoạt động thực hành, trong đó học sinh sẽ ghép các hình với tên của chúng và giải quyết các bài tập tương tác để củng cố sự hiểu biết. Mục tiêu là giúp học sinh cải thiện kỹ năng nhận diện và đọc tên các hình học một cách chính xác, đồng thời phát triển khả năng phân loại hình học."
+                });
+                // -----------
+            await _context.Chapters.AddAsync(new Chapter
+            {
+                Id = new Guid("e7947d3b-599c-4aac-95d3-92f7b62161f3"),
+                Order = 2,
+                CourseId = new Guid("555a0815-d0b8-4975-8e1c-245d7acbab45"),
+                Title = "Thực hành lắp ghép, xếp hình",
+                Description = "Bài giảng này bao gồm chi tiết các dạng Toán, bên cạnh đó sử dụng các bài tập minh hoạ kèm theo lời giải chi tiết cho các em tham khảo, rèn luyện kỹ năng giải Toán 1. Mời các em học sinh cùng tham khảo.",
+            });
+                // Topic table
+                await _context.Topics.AddAsync(new Topic
+                {
+                    Id = new Guid("10f32cf1-b1d2-43a9-a35e-25299ef714b8"),
+                    ChapterId = new Guid("e7947d3b-599c-4aac-95d3-92f7b62161f3"),
+                    Order = 1,
+                    Title = "Phân biệt được các hình đã học như hình tròn, hình tam giác, hình vuông, hình chữ nhật",
+                    Description = "Tiết học này giúp học sinh phân biệt và nhận diện các hình học cơ bản mà các em đã học, bao gồm hình tròn, hình tam giác, hình vuông, và hình chữ nhật. Học sinh sẽ thực hành việc nhận diện các hình trong các bài tập xếp hình và lắp ghép, từ đó củng cố khả năng phân biệt hình học dựa trên đặc điểm và tính chất của chúng. Các bài tập sẽ bao gồm việc lắp ráp các hình từ các mảnh ghép khác nhau và xếp các hình theo đúng thứ tự, giúp học sinh hiểu rõ hơn về cấu trúc và đặc điểm của từng loại hình. Mục tiêu là giúp học sinh nâng cao kỹ năng nhận diện và phân biệt các hình học một cách chính xác và hiệu quả."
+                });
+                await _context.Topics.AddAsync(new Topic
+                {
+                    Id = new Guid("9134b560-a23b-428b-8e9e-341206da2939"),
+                    ChapterId = new Guid("e7947d3b-599c-4aac-95d3-92f7b62161f3"),
+                    Order = 2,
+                    Title = "Nắm được các thao tác đơn giản khi xếp, ghép các hình đơn lẻ thành một hình tổng hợp theo yêu cầu",
+                    Description = "Tiết học này tập trung vào việc giúp học sinh nắm vững các thao tác cơ bản khi xếp và ghép các hình đơn lẻ để tạo thành một hình tổng hợp theo yêu cầu. Học sinh sẽ thực hành việc sử dụng các mảnh hình học khác nhau để lắp ráp và tạo thành các hình mới, học cách xác định vị trí và cách sắp xếp các mảnh ghép để hoàn thành hình tổng hợp. Bài học bao gồm các bài tập thực hành với hướng dẫn chi tiết để giúp học sinh hiểu và áp dụng các kỹ thuật ghép hình, từ đó phát triển khả năng tư duy không gian và giải quyết vấn đề. Mục tiêu là giúp học sinh cải thiện kỹ năng lắp ghép và xếp hình một cách chính xác và sáng tạo."
+                });
+                // -----------
+            await _context.Chapters.AddAsync(new Chapter
+            {
+                Id = new Guid("5b0f0e59-60b5-47bf-aa81-fd84405ffc54"),
+                Order = 3,
+                CourseId = new Guid("555a0815-d0b8-4975-8e1c-245d7acbab45"),
+                Title = "Luyện tập chung",
+                Description = "Bài học Luyện tập chung bao gồm kiến thức cần nhớ và các dạng Toán liên quan được BeanMind tóm tắt một cách chi tiết,",
+            });
+
+
+            // ------------
+
             await _context.Courses.AddAsync(new Course
             {
                 Id = new Guid("6c215522-0925-4f86-b0fd-72f746ca9fd6"),
@@ -548,7 +616,7 @@ namespace Infrastructure.Data
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"), //BGD
                 Price = 200,
                 Title = "Phép cộng, phép trừ trong phạm vi 10",
-                ImageURL = "https://c8.alamy.com/comp/M71DKY/vector-illustration-of-three-stick-kids-jumping-together-in-the-field-M71DKY.jpg",
+                ImageURL = "https://img.loigiaihay.com/picture/2022/0921/bai-2-tr49.JPG",
                 Description = "Đến với nội dung Phép cộng, phép trừ trong phạm vi 10 của chương trình Toán 1 Kết Nối Tri Thức, các em sẽ được học hỏi thêm các kiến thức mới về phép toán cộng, trừ trong phạm vi 10. Bên cạnh đó, các em còn được thử sức với các bài tập minh họa cuối mỗi bài học nhằm đánh giá năng lực bản thân sau khi học bài. Hệ thống hỏi đáp cuối bài sẽ giải đáp các thắc mắc của các em trong quá trình học. Mời các em theo dõi nội dung chi tiết bên dưới!",
                 TotalSlot = 25,
             });
@@ -560,7 +628,7 @@ namespace Infrastructure.Data
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"), //BGD
                 Price = 100,
                 Title = "Làm quen với một số hình khối",
-                ImageURL = "https://i.pinimg.com/736x/fa/3a/1a/fa3a1ac70a55ba27576e41d2335e253c.jpg",
+                ImageURL = "https://vnmedia2.monkeyuni.net/upload/web/storage_web/21-08-2023_09:39:28_toan-lop-1-khoi-lap-phuong-0.jpg",
                 Description = "Đến với Chương: Làm quen với một số hình khối của chương trình Toán 1 Kết Nối Tri Thức các em sẽ được tiềm hiểu về khối lập phương, khối hợp chữ nhật. Nhằm giúp các em học tập thật tốt và nắm vững kiến thức trọng tâm trong bài, Hoc247 đã biên soạn các bài tập minh họa sau phần tóm tắt lý thuyết. Chúc các em học tập tốt. Nếu có thắc mắc cần giải quyết, hãy bình luận ở phần hỏi đáp cuối bài học.",
                 TotalSlot = 24,
             });
@@ -572,7 +640,7 @@ namespace Infrastructure.Data
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"), //BGD
                 Price = 200,
                 Title = "Ôn tập học kì 1",
-                ImageURL = "https://i.pinimg.com/736x/fa/3a/1a/fa3a1ac70a55ba27576e41d2335e253c.jpg",
+                ImageURL = "https://play-lh.googleusercontent.com/GndUEl04bwSNJKEPAlRB-8AKfnb5X0oZN_clNmgwBRZl2MOPQpFRCJL_6rFxioj_Gg",
                 Description = "Mời các em đến với nội dung Ôn tập học kì 1​​ của chương trình Toán 1 Kết nối tri thức do Hoc247 biên soạn dưới đây. Ở chương này các em học sinh sẽ được ôn tập lại đầy đủ các kiến thức đã học, bên cạnh đó còn có các bài tập minh họa có hướng dẫn giải chi tiết, giúp các em có thể tự luyện tập, đối chiếu đáp án, đánh giá năng lực bản thân sau khi học bài. Hệ thống hỏi đáp sẽ giúp các em giải quyết các thắc mắc liên quan đến bài học.",
                 TotalSlot = 24,
             });
@@ -584,7 +652,7 @@ namespace Infrastructure.Data
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"), //BGD
                 Price = 200,
                 Title = "Các số đến 100",
-                ImageURL = "https://i.pinimg.com/736x/fa/3a/1a/fa3a1ac70a55ba27576e41d2335e253c.jpg",
+                ImageURL = "https://booktoan.com/wp-content/uploads/2023/07/unnamed-file-447.png",
                 Description = "BeanMind xin giới thiệu các em học sinh Chương: Các số đến 100 môn Toán 1 sách Kết Nối Tri Thức. Nội dung đầy đủ bao gồm tóm tắt lý thuyết, các bài tập SGK và các bài tập minh họa có hướng dẫn giải chi tiết. Hi vọng bài học sẽ giúp các em nắm vững kiến thức và ghi nhớ được các số có hai chữ số, so sánh số có hai chữ số và các phép toán liên quan đến chương. Nếu có bất kì thắc mắc gì về chủ đề này, các em vui lòng bình luận ở mục hỏi đáp để BeanMind hỗ trợ.",
                 TotalSlot = 18,
             });
@@ -596,7 +664,7 @@ namespace Infrastructure.Data
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"), //BGD
                 Price = 300,
                 Title = "Độ dài và đo độ dài",
-                ImageURL = "https://i.pinimg.com/736x/fa/3a/1a/fa3a1ac70a55ba27576e41d2335e253c.jpg",
+                ImageURL = "https://img.loigiaihay.com/picture/2022/1107/bai-1-tr115.PNG",
                 Description = "Đến với chương Độ dài và đo độ dài Toán 1 Kết Nối Tri Thức các em học sinh sẽ thực hành ước lượng và đo độ dài, biết so sánh các vật dài hơn, ngắn hơn,....BeanMind đã tóm tắt chi tiết các kiến thức cần nhớ, các dạng bài tập và các bài tập minh họa có hướng dẫn giải chi tiết, giúp các em dễ dàng nắm vững được kiến thức mới. Mời quý phụ huynh và các em học sinh cùng tham khảo!",
                 TotalSlot = 35,
             });
@@ -608,7 +676,7 @@ namespace Infrastructure.Data
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"), //BGD
                 Price = 200,
                 Title = "Phép cộng, phép trừ (không nhớ) trong phạm vi 100",
-                ImageURL = "https://i.pinimg.com/736x/fa/3a/1a/fa3a1ac70a55ba27576e41d2335e253c.jpg",
+                ImageURL = "https://vietjack.com/giai-bai-tap-toan-1/images/phep-tru-trong-pham-vi-100-tru-khong-nho-trang-158-1.PNG",
                 Description = "Phép cộng, phép trừ (không nhớ) trong phạm vi 100 là một trong những chương học quan trọng của chương trình Toán 1 Kết Nối Tri Thức. BeanMind đã biên soạn chi tiết lý thuyết cần nhớ, bài tập minh họa, giúp các em học sinh nắm vững nội dung như phép cộng, trừ số có hai chữ số cho số có hai chữ số, phép cộng, trừ số có hai chữ số cho số có một chữ số. Sau đây mời quý phụ huynh và các em học sinh cùng tham khảo.",
                 TotalSlot = 22,
             });
@@ -620,7 +688,7 @@ namespace Infrastructure.Data
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"), //BGD
                 Price = 200,
                 Title = "Thời gian, giờ và lịch",
-                ImageURL = "https://i.pinimg.com/736x/fa/3a/1a/fa3a1ac70a55ba27576e41d2335e253c.jpg",
+                ImageURL = "https://www.vietjack.com/toan-1-ket-noi/images/bai-34-xem-gio-dung-tren-dong-ho-5.png",
                 Description = "Nhận biết được thời gian trên đồng hồ, xem được ngày tháng trên lịch là nội dung các em sẽ tìm hiểu ở Chương: Thời gian, giờ và lịch của môn Toán 1 Kết Nối Tri thức. Bài học được BeanMind biên soạn với các phần tóm tắt lý thuyết, bài tập minh họa và giúp các em chuẩn bị bài học thật tốt và luyện tập, đánh giá năng lực của bản thân. Hệ thống hỏi đáp sẽ giúp các em giải quyết nhiều câu hỏi khó nhanh chóng, hiệu quả. Các em xem nội dung bài học ngay bên dưới.",
                 TotalSlot = 15,
             });
@@ -632,7 +700,7 @@ namespace Infrastructure.Data
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"), //BGD
                 Price = 200,
                 Title = "Ôn tập cuối năm",
-                ImageURL = "https://i.pinimg.com/736x/fa/3a/1a/fa3a1ac70a55ba27576e41d2335e253c.jpg",
+                ImageURL = "https://mir-s3-cdn-cf.behance.net/projects/404/d2c356205497513.Y3JvcCwxMDMzLDgwOCw2MSw2OTM.png",
                 Description = "Đến với Ôn tập cuối năm của chương trình Toán 1 Kết Nối Tri Thức đã được BeanMind biên soạn chi tiết các kiến thức cần nhớ và các bài tập minh họa có hướng dẫn giải chi tiết, nhầm giúp các em học tập thật tốt môn Toán 1. Đồng thời đây cũng là tài liệu tham khảo cho các phụ huynh và các giáo viên trong quá trình dạy học. Mời các em học sinh cùng các bậc phụ huynh tham khảo.",
                 TotalSlot = 12,
             });
@@ -645,7 +713,7 @@ namespace Infrastructure.Data
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"),//BGD
                 Price = 200,
                 Title = "Ôn tập và bổ sung",
-                ImageURL = "https://static.vecteezy.com/system/resources/previews/013/400/591/non_2x/education-concept-with-cartoon-students-vector.jpg",
+                ImageURL = "https://infinitylearn.com/surge/wp-content/uploads/2021/12/MicrosoftTeams-image-58.jpg",
                 Description = "Mở đầu chương trình Toán 2 Kết Nối Tri Thức, các em sẽ tìm hiểu về Chủ đề 1 : Ôn tập và bổ sung. Gồm các bài học có tóm tắt lý thuyết, cung cấp các bài tập minh họa để các em ôn tập và củng cố kiến thức đã học. Bên cạnh đó, hệ thống hỏi đáp sẽ giúp các em giải đáp các thắc mắc sau khi học bài. Mời các em xem chi tiết bài học.",
                 TotalSlot = 20,
             });
@@ -657,7 +725,7 @@ namespace Infrastructure.Data
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"),//BGD
                 Price = 250,
                 Title = "Phép cộng, phép trừ trong phạm vi 20",
-                ImageURL = "https://static.vecteezy.com/system/resources/previews/013/400/591/non_2x/education-concept-with-cartoon-students-vector.jpg",
+                ImageURL = "https://mightymath.edu.vn/uploads/pictures/634f768b165b7822016ef8e0/content_bang-tru-trong-pham-vi-20-lop-2-moi.jpg",
                 Description = "Đến với nội dung Chủ đề 2: Phép cộng, phép trừ trong phạm vi 20 của chương trình Toán 2 Kết Nối Tri Thức, các em sẽ được học hỏi thêm các kiến thức mới về bảng cộng, bảng trừ qua 10, bài toán về thêm, bớt một số đơn vị,.... Bên cạnh đó, các em còn được thử sức với các bài tập minh họa cuối mỗi bài học nhằm đánh giá năng lực bản thân sau khi học bài. Hệ thống hỏi đáp cuối bài sẽ giải đáp các thắc mắc của các em trong quá trình học. Mời các em theo dõi nội dung chi tiết bên dưới!",
                 TotalSlot = 30,
             });
@@ -669,7 +737,7 @@ namespace Infrastructure.Data
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"),//BGD
                 Price = 250,
                 Title = "Làm quen với khối lượng, dung tích",
-                ImageURL = "https://static.vecteezy.com/system/resources/previews/013/400/591/non_2x/education-concept-with-cartoon-students-vector.jpg",
+                ImageURL = "https://pomath.vn/wp-content/uploads/2023/09/toan-lop-2-lam-quen-voi-khoi-luong-va-dung-tich-4-1.jpg",
                 Description = "Đến với nội dung Chủ đề 3 : Làm quen với khối lượng, dung tích của chương trình Toán 2 Kết Nối Tri Thức, các em sẽ được học các bài như: Lít, ki-lô-gam, khối lượng và đơn vị đo khối lượng . Bên cạnh đó, các em còn được thử sức với các bài tập minh họa cuối mỗi bài học nhằm đánh giá năng lực bản thân sau khi học bài. Hệ thống hỏi đáp cuối bài sẽ giải đáp các thắc mắc của các em trong quá trình học. Mời các em theo dõi nội dung chi tiết bên dưới!",
                 TotalSlot = 15,
             });
@@ -681,7 +749,7 @@ namespace Infrastructure.Data
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"),//BGD
                 Price = 250,
                 Title = "Phép cộng, phép trừ (có nhớ) trong phạm vi 100",
-                ImageURL = "https://static.vecteezy.com/system/resources/previews/013/400/591/non_2x/education-concept-with-cartoon-students-vector.jpg",
+                ImageURL = "https://img.loigiaihay.com/picture/question_lgh/2021_41/1622174452-cech.jpg",
                 Description = "Mời các em đến với nội dung Chủ đề 4 : Phép cộng, phép trừ (có nhớ) trong phạm vi 100​​ của chương trình Toán 2 Kết nối tri thức do Benamind biên soạn dưới đây. Ở chương này các em học sinh sẽ được ôn tập lại đầy đủ các kiến thức đã học, bên cạnh đó còn có các bài tập minh họa có hướng dẫn giải chi tiết, giúp các em có thể tự luyện tập, đối chiếu đáp án, đánh giá năng lực bản thân sau khi học bài. Hệ thống hỏi đáp sẽ giúp các em giải quyết các thắc mắc liên quan đến bài học.",
                 TotalSlot = 25,
             });
@@ -693,7 +761,7 @@ namespace Infrastructure.Data
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"),//BGD
                 Price = 250,
                 Title = "Làm quen với hình phẳng",
-                ImageURL = "https://static.vecteezy.com/system/resources/previews/013/400/591/non_2x/education-concept-with-cartoon-students-vector.jpg",
+                ImageURL = "https://vnmedia2.monkeyuni.net/upload/web/storage_web/09-06-2022_18:01:39_toan-lop-2-lam-quen-voi-hinh-phang.jpg",
                 Description = "Nhận biết được điểm, đoạn thẳng, đường thẳng, đường cong, ba điểm thẳng hàng, đường gấp khúc, hình tứ giác là nội dung các em sẽ tìm hiểu ở Chủ đề 5 : Làm quen với hình phẳng của môn Toán 2 Kết Nối Tri thức. Bài học được BeanMind biên soạn với các phần tóm tắt lý thuyết, bài tập minh họa và giúp các em chuẩn bị bài học thật tốt và luyện tập, đánh giá năng lực của bản thân. Hệ thống hỏi đáp sẽ giúp các em giải quyết nhiều câu hỏi khó nhanh chóng, hiệu quả. Các em xem nội dung bài học ngay bên dưới.",
                 TotalSlot = 18,
             });
@@ -705,7 +773,7 @@ namespace Infrastructure.Data
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"),//BGD
                 Price = 250,
                 Title = "Ngày - giờ, giờ - phút, ngày - tháng",
-                ImageURL = "https://static.vecteezy.com/system/resources/previews/013/400/591/non_2x/education-concept-with-cartoon-students-vector.jpg",
+                ImageURL = "https://vnmedia2.monkeyuni.net/upload/web/storage_web/28-03-2022_12:35:29_toan-lop-2-ngay-gio.jpg",
                 Description = "BeanMind xin giới thiệu các em học sinh Chủ đề 6 : Ngày - giờ, giờ - phút, ngày - tháng môn Toán 2 sách Kết Nối Tri Thức. Nội dung đầy đủ bao gồm tóm tắt lý thuyết, các bài tập SGK và các bài tập minh họa có hướng dẫn giải chi tiết. Hi vọng bài học sẽ giúp các em nắm vững kiến thức và ghi nhớ được các số có hai chữ số, so sánh số có hai chữ số và các phép toán liên quan đến chương. Nếu có bất kì thắc mắc gì về chủ đề này, các em vui lòng bình luận ở mục hỏi đáp để BeanMind  hỗ trợ.",
                 TotalSlot = 22,
             });
@@ -717,7 +785,7 @@ namespace Infrastructure.Data
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"),//BGD
                 Price = 250,
                 Title = "Ôn tập Học kì 1",
-                ImageURL = "https://static.vecteezy.com/system/resources/previews/013/400/591/non_2x/education-concept-with-cartoon-students-vector.jpg",
+                ImageURL = "https://i.pinimg.com/736x/51/7e/89/517e890cd1d9606b78ccbdd08f0fdf1d.jpg",
                 Description = "Ôn tập Học kì 1 Toán 2 Kết Nối Tri Thức các em học sinh sẽ Ôn tập hình phẳng, Ôn tập đo lường, Ôn tập phép cộng, phép trừ trong phạm vi 20, 100. BeanMind đã tóm tắt chi tiết các kiến thức cần nhớ, các dạng bài tập và các bài tập minh họa có hướng dẫn giải chi tiết, giúp các em dễ dàng nắm vững được kiến thức mới. Mời quý phụ huynh và các em học sinh cùng tham khảo!",
                 TotalSlot = 35,
             });
@@ -735,8 +803,8 @@ namespace Infrastructure.Data
             await _context.TeachingSlots.AddAsync(new TeachingSlot
             {
                 Id = new Guid("811c17cb-527e-4658-9db4-454fdeeca3ef"),
-                StartTime = "1 pm",
-                EndTime = "3 pm",
+                StartTime = "8 am",
+                EndTime = "10 am",
                 DayIndex = 5,
                 CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
             });
@@ -752,32 +820,32 @@ namespace Infrastructure.Data
             await _context.TeachingSlots.AddAsync(new TeachingSlot
             {
                 Id = new Guid("c608dd61-9076-4181-9786-6c6b211b0bbd"),
-                StartTime = "1 pm",
-                EndTime = "3 pm",
+                StartTime = "3 pm",
+                EndTime = "5 pm",
                 DayIndex = 3,
                 CourseId = new Guid("555a0815-d0b8-4975-8e1c-245d7acbab45"),
             });
             await _context.TeachingSlots.AddAsync(new TeachingSlot
             {
                 Id = new Guid("5ee277ed-5b88-4c4f-8ba6-07aac526ce60"),
-                StartTime = "1 pm",
-                EndTime = "3 pm",
+                StartTime = "10 am",
+                EndTime = "12 am",
                 DayIndex = 4,
                 CourseId = new Guid("555a0815-d0b8-4975-8e1c-245d7acbab45"),
             });
             await _context.TeachingSlots.AddAsync(new TeachingSlot
             {
                 Id = new Guid("eeb6c8b1-3d26-4e3d-bf09-3c01b44d15ac"),
-                StartTime = "1 pm",
-                EndTime = "3 pm",
-                DayIndex = 7,
+                StartTime = "10 am",
+                EndTime = "12 am",
+                DayIndex = 1,
                 CourseId = new Guid("555a0815-d0b8-4975-8e1c-245d7acbab45"),
             });
             //------
             await _context.TeachingSlots.AddAsync(new TeachingSlot
             {
                 Id = new Guid("60913325-34df-4a96-956c-2a32b0fde16d"),
-                StartTime = "1 pm",
+                StartTime = "2 pm",
                 EndTime = "3 pm",
                 DayIndex = 3,
                 CourseId = new Guid("6c215522-0925-4f86-b0fd-72f746ca9fd6"),
@@ -785,7 +853,7 @@ namespace Infrastructure.Data
             await _context.TeachingSlots.AddAsync(new TeachingSlot
             {
                 Id = new Guid("b6459368-0bc0-4632-9e73-c1009c5832c8"),
-                StartTime = "1 pm",
+                StartTime = "2 pm",
                 EndTime = "3 pm",
                 DayIndex = 5,
                 CourseId = new Guid("6c215522-0925-4f86-b0fd-72f746ca9fd6"),
@@ -793,7 +861,7 @@ namespace Infrastructure.Data
             await _context.TeachingSlots.AddAsync(new TeachingSlot
             {
                 Id = new Guid("ce616e03-1b16-4920-8fed-822f3e274ad6"),
-                StartTime = "1 pm",
+                StartTime = "2 pm",
                 EndTime = "3 pm",
                 DayIndex = 6,
                 CourseId = new Guid("6c215522-0925-4f86-b0fd-72f746ca9fd6"),
@@ -804,7 +872,7 @@ namespace Infrastructure.Data
                 Id = new Guid("a4f96e29-4944-4e5a-af44-8cee69660c3d"),
                 StartTime = "1 pm",
                 EndTime = "3 pm",
-                DayIndex = 3,
+                DayIndex = 0,
                 CourseId = new Guid("c2ad8bc5-d7ef-4639-87b2-d251854656a1"),
             });
             await _context.TeachingSlots.AddAsync(new TeachingSlot
@@ -812,7 +880,7 @@ namespace Infrastructure.Data
                 Id = new Guid("bbd02525-16fa-46da-834b-e37f92ff4fb5"),
                 StartTime = "1 pm",
                 EndTime = "3 pm",
-                DayIndex = 3,
+                DayIndex = 2,
                 CourseId = new Guid("c2ad8bc5-d7ef-4639-87b2-d251854656a1"),
             });
             await _context.TeachingSlots.AddAsync(new TeachingSlot
@@ -820,7 +888,7 @@ namespace Infrastructure.Data
                 Id = new Guid("1229415f-16fd-4e1b-b568-2218421da13a"),
                 StartTime = "1 pm",
                 EndTime = "3 pm",
-                DayIndex = 3,
+                DayIndex = 4,
                 CourseId = new Guid("c2ad8bc5-d7ef-4639-87b2-d251854656a1"),
             });
             // ------------
