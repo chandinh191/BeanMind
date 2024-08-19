@@ -24,6 +24,7 @@ namespace Application.Transactions
         public string ResponseCode { get; set; }
         public string TransactionNo { get; set; }
         public TransactionStatus Status { get; set; }
+        public DateTime Created { get; set; }
     }
 
     [AutoMap(typeof(Domain.Entities.Transaction))]
@@ -38,5 +39,6 @@ namespace Application.Transactions
         public string ResponseCode { get; set; }
         public string TransactionNo { get; set; }
         public TransactionStatus Status { get; set; }
+        public DateTime Created { get; set; }
     }
 }

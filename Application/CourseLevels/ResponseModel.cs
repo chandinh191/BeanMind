@@ -18,6 +18,8 @@ namespace Application.CourseLevels
     {
         public string Title { get; set; }
         public string Description { get; set; }
+        public List<GetBriefCourseResponseModel> Courses { get; set; }
+        public DateTime Created { get; set; }
     }
 
     [AutoMap(typeof(Domain.Entities.CourseLevel))]
@@ -27,5 +29,6 @@ namespace Application.CourseLevels
         public string Description { get; set; }
         public List<GetBriefCourseResponseModel> Courses { get; set; }
         public List<GetBriefTeachableResponseModel> Teachables { get; set; }
+        public DateTime Created { get; set; }
     }
 }

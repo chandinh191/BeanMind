@@ -40,6 +40,7 @@ public sealed record class GetUserInfoResponseModel
     public List<GetBriefTeachableResponseModel>? Teachables { get; set; }
     public List<GetBriefEnrollmentResponseModel>? Enrollments { get; set; }
     public required List<string> Roles { get; set; }
+    public DateTime Created { get; set; }
 }
 [AutoMap(typeof(ApplicationUser))]
 public sealed record class GetParentUserInfoResponseModel
@@ -55,4 +56,5 @@ public sealed record class GetParentUserInfoResponseModel
     public Guid ParentId { get; set; }
     public GetParentResponseModel Parent { get; set; }
     public required List<string> Roles { get; set; }
+    public DateTime Created { get; set; }
 }

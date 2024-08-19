@@ -37,5 +37,6 @@
         public const string ParentRoute = BaseApi + "/parents";
         public const string OrderRoute = BaseApi + "/orders";
         public const string TransactionRoute = BaseApi + "/transactions";
+        public const string StatisticRoute = BaseApi + "/statistics";
     }
 }

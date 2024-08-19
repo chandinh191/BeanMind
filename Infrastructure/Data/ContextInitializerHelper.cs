@@ -745,7 +745,7 @@ namespace Infrastructure.Data
                 Id = new Guid("0471144b-8ed3-4e78-b032-d5ca3c5ddfa5"),
                 StartTime = "1 pm",
                 EndTime = "3 pm",
-                DayIndex = 7,
+                DayIndex = 4,
                 CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
             });
             //-----

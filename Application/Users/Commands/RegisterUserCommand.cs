@@ -130,7 +130,7 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, B
                     {
                         Id = new Guid(),
                         ApplicationUserId = user.Id,
-                        Image = 1,
+                        Image = "https://png.pngtree.com/png-vector/20190129/ourmid/pngtree-teachers-day-cartoon-student-thanksgiving-element-daystudentteacherteacherhappyreturnrepaythanksgivingrepaycartoonhand-paintedcartoon-imagecartoon-png-image_568791.jpg",
                         School = "",
                         Class = ""
                     };

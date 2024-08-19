@@ -43,6 +43,7 @@ namespace Application.Games.Queries
             }
 
             var game = await _context.Games
+                .Include(o => o.ChapterGames).ThenInclude(o => o.Chapter)
                 .FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);
 
             var mappedGame = _mapper.Map<GetGameResponseModel>(game);

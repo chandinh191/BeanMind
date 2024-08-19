@@ -26,4 +26,5 @@ public class ApplicationUser : IdentityUser
     [ForeignKey(nameof(Parent))]
     public Guid? ParentId { get; set; }
     public Parent? Parent { get; set; }
+
 }

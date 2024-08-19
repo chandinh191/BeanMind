@@ -21,6 +21,7 @@ public class GetBriefTopicResponseModel : BaseResponseModel
     public Guid ChapterId { get; set; }
     public GetBriefChapterResponseModel Chapter { get; set; }
     public List<GetBriefProcessionResponseModel> Processions { get; set; }
+    public DateTime Created { get; set; }
 }
 
 [AutoMap(typeof(Domain.Entities.Topic))]
@@ -34,4 +35,5 @@ public class GetTopicResponseModel : BaseResponseModel
     public List<GetBriefQuestionResponseModel> Questions { get; set; }
     public List<GetBriefWorksheetTemplateResponseModel> WorksheetTemplates { get; set; }
     public List<GetBriefProcessionResponseModel> Processions { get; set; }
+    public DateTime Created { get; set; }
 }

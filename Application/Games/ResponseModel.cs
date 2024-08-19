@@ -21,6 +21,7 @@ namespace Application.Games
         public string Image { get; set; }
         public string ItemStoreJson { get; set; }
         public string AnimalJson { get; set; }
+        public DateTime Created { get; set; }
     }
 
     [AutoMap(typeof(Domain.Entities.Game))]
@@ -33,6 +34,7 @@ namespace Application.Games
         public string AnimalJson { get; set; }
         public List<GetBriefChapterGameResponseModel> ChapterGames { get; set; }
         public List<GetBriefGameHistoryResponseModel>? GameHistories { get; set; }
+        public DateTime Created { get; set; }
 
     }
 }

@@ -60,15 +60,15 @@ namespace Application.ChapterGames.Commands
                     };
                 }
             }
-            var chapterGame = await _context.Chapters.FirstOrDefaultAsync(x => x.Id == request.Id);
+            var chapterGame = await _context.ChapterGames.FirstOrDefaultAsync(x => x.Id == request.Id);
 
             if (chapterGame == null)
             {
                 return new BaseResponse<GetBriefChapterGameResponseModel>
                 {
                     Success = false,
-                    Message = "Chapter is not found",
-                    Errors = ["Chapter is not found"]
+                    Message = "Chapter game is not found",
+                    Errors = ["Chapter game is not found"]
                 };
             }
 

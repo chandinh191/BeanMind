@@ -38,9 +38,12 @@ public class GetCourseQueryHanler : IRequestHandler<GetCourseQuery, BaseResponse
 
         var course = await _context.Courses
             .Include(x => x.Subject)
+            .Include(x => x.Chapters).ThenInclude(x => x.Topics)
             .Include(x => x.ProgramType)
             .Include(x => x.CourseLevel)
-            .Include(x => x.Teachables)
+            .Include(x => x.Teachables).ThenInclude(o => o.ApplicationUser)
+            .Include(o => o.WorksheetTemplates).ThenInclude(o => o.Worksheets)
+            .Include(o => o.TeachingSlots)
             .FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);
 
         var mappedCourse = _mapper.Map<GetCourseResponseModel>(course);

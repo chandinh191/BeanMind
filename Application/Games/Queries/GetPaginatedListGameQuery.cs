@@ -5,6 +5,7 @@ using Domain.Entities;
 using Domain.Enums;
 using Infrastructure.Data;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Application.Games.Queries
 {
-    public sealed record GetPaginatedListGameQuery : IRequest<BaseResponse<Pagination<GetBriefGameResponseModel>>>
+    public sealed record GetPaginatedListGameQuery : IRequest<BaseResponse<Pagination<GetGameResponseModel>>>
     {
         public int PageIndex { get; init; }
         public int? PageSize { get; init; }
@@ -25,7 +26,7 @@ namespace Application.Games.Queries
         public DateTime EndTime { get; init; } = DateTime.MinValue;
     }
 
-    public class GetPaginatedListGameQueryHandler : IRequestHandler<GetPaginatedListGameQuery, BaseResponse<Pagination<GetBriefGameResponseModel>>>
+    public class GetPaginatedListGameQueryHandler : IRequestHandler<GetPaginatedListGameQuery, BaseResponse<Pagination<GetGameResponseModel>>>
     {
         private readonly ApplicationDbContext _context;
         private readonly IConfiguration _configuration;
@@ -38,10 +39,11 @@ namespace Application.Games.Queries
             _mapper = mapper;
         }
 
-        public async Task<BaseResponse<Pagination<GetBriefGameResponseModel>>> Handle(GetPaginatedListGameQuery request, CancellationToken cancellationToken)
+        public async Task<BaseResponse<Pagination<GetGameResponseModel>>> Handle(GetPaginatedListGameQuery request, CancellationToken cancellationToken)
         {
             var defaultPageSize = _configuration.GetValue<int>("Pagination:PageSize");
             var games = _context.Games
+                 .Include(o => o.ChapterGames).ThenInclude(o => o.Chapter)
                 .AsQueryable();
 
             // filter by isdeleted
@@ -84,19 +86,19 @@ namespace Application.Games.Queries
             }
 
             // convert the list of item to list of response model
-            var mappedGames = _mapper.Map<List<GetBriefGameResponseModel>>(games);
-            var createPaginatedListResult = Pagination<GetBriefGameResponseModel>.Create(mappedGames.AsQueryable(), request.PageIndex, request.PageSize ?? defaultPageSize);
+            var mappedGames = _mapper.Map<List<GetGameResponseModel>>(games.ToList());
+            var createPaginatedListResult = Pagination<GetGameResponseModel>.Create(mappedGames.AsQueryable(), request.PageIndex, request.PageSize ?? defaultPageSize);
 
             if (createPaginatedListResult == null)
             {
-                return new BaseResponse<Pagination<GetBriefGameResponseModel>>
+                return new BaseResponse<Pagination<GetGameResponseModel>>
                 {
                     Success = false,
                     Message = "Get paginated list game failed",
                 };
             }
 
-            return new BaseResponse<Pagination<GetBriefGameResponseModel>>
+            return new BaseResponse<Pagination<GetGameResponseModel>>
             {
                 Success = true,
                 Message = "Get paginated list game successful",

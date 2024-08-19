@@ -20,6 +20,7 @@ namespace Application.WorksheetAttemptAnswers
         public GetBriefWorksheetAttemptResponseModel? WorksheetAttempt { get; set; }
         public Guid QuestionAnswerId { get; set; }
         public GetBriefQuestionAnswerResponseModel QuestionAnswer { get; set; }
+        public DateTime Created { get; set; }
 
     }
 
@@ -30,6 +31,7 @@ namespace Application.WorksheetAttemptAnswers
         public GetBriefWorksheetAttemptResponseModel? WorksheetAttempt { get; set; }
         public Guid QuestionAnswerId { get; set; }
         public GetBriefQuestionAnswerResponseModel QuestionAnswer { get; set; }
+        public DateTime Created { get; set; }
     }
 
 }

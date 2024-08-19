@@ -71,7 +71,12 @@ namespace Application.Teachables.Commands
                     Message = "Course not found",
                 };
             }
-            var teachable = _mapper.Map<Domain.Entities.Teachable>(request);
+            //var teachable = _mapper.Map<Domain.Entities.Teachable>(request);
+            var teachable = new Domain.Entities.Teachable()
+            {
+                ApplicationUserId = request.LecturerId,
+                CourseId = request.CourseId,
+            };
             var createTeachableResult = await _context.AddAsync(teachable, cancellationToken);
 
             if (createTeachableResult.Entity == null)

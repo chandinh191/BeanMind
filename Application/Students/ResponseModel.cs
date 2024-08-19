@@ -15,11 +15,12 @@ namespace Application.Students
     {
         public string ApplicationUserId { get; set; }
         public GetBriefApplicationUserResponseModel ApplicationUser { get; set; }
-        public int Image { get; set; }
+        public string Image { get; set; }
         public string School { get; set; }
         public string Class { get; set; }
         public Guid? ParentId { get; set; }
         public Parent? Parent { get; set; }
+        public DateTime Created { get; set; }
     }
 
     [AutoMap(typeof(Domain.Entities.UserEntities.Student))]
@@ -27,10 +28,11 @@ namespace Application.Students
     {
         public string ApplicationUserId { get; set; }
         public GetBriefApplicationUserResponseModel ApplicationUser { get; set; }
-        public int Image { get; set; }
+        public string Image { get; set; }
         public string School { get; set; }
         public string Class { get; set; }
         public Guid? ParentId { get; set; }
         public Parent? Parent { get; set; }
+        public DateTime Created { get; set; }
     }
 }

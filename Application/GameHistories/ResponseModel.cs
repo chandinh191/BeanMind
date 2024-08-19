@@ -23,6 +23,8 @@ namespace Application.GameHistories
         public GetBriefApplicationUserResponseModel? ApplicationUser { get; set; }
         public int Point { get; set; }
         public int Duration { get; set; }
+        public DateTime Created { get; set; } 
+
     }
 
     [AutoMap(typeof(Domain.Entities.GameHistory))]
@@ -34,5 +36,6 @@ namespace Application.GameHistories
         public GetBriefApplicationUserResponseModel? ApplicationUser { get; set; }
         public int Point { get; set; }
         public int Duration { get; set; }
+        public DateTime Created { get; set; }
     }
 }

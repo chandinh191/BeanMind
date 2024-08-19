@@ -32,17 +32,16 @@ namespace Application.ChapterGames.Commands
 
         public async Task<BaseResponse<GetBriefChapterGameResponseModel>> Handle(DeleteChapterGameCommand request, CancellationToken cancellationToken)
         {
-            var chapterGame = await _context.Chapters.FirstOrDefaultAsync(x => x.Id == request.Id);
+            var chapterGame = await _context.ChapterGames.FirstOrDefaultAsync(x => x.Id == request.Id);
             if (chapterGame == null)
             {
                 return new BaseResponse<GetBriefChapterGameResponseModel>
                 {
                     Success = false,
-                    Message = "Chapter not found",
+                    Message = "Chapter game not found",
                 };
             }
             chapterGame.IsDeleted = true;
-
 
             var updateChapterGameResult = _context.Update(chapterGame);
 

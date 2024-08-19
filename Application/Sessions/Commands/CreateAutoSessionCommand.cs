@@ -1,6 +1,4 @@
 ﻿using Application.Common;
-using Application.Enrollments;
-using Application.Questions;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Entities.UserEntities;
@@ -20,35 +18,35 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace Application.Sessions.Commands
 {
     [AutoMap(typeof(Domain.Entities.Session), ReverseMap = true)]
-    public sealed record CreateSessionCommand : IRequest<BaseResponse<GetBriefSessionResponseModel>>
+    public sealed record CreateAutoSessionCommand : IRequest<BaseResponse<string>>
     {
         [Required]
-        public DateTime Date { get; set; }
+        public DateTime From { get; set; }
+        [Required]
+        public DateTime To { get; set; }
         [Required]
         public string LecturerId { get; set; }
-        [Required]
-        public Guid TeachingSlotId { get; set; }
     }
 
-    public class CreateSessionCommandHanler : IRequestHandler<CreateSessionCommand, BaseResponse<GetBriefSessionResponseModel>>
+    public class CreateAutoSessionCommandHanler : IRequestHandler<CreateAutoSessionCommand, BaseResponse<string>>
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IMapper _mapper;
 
-        public CreateSessionCommandHanler(ApplicationDbContext context, IMapper mapper, UserManager<ApplicationUser> userManager)
+        public CreateAutoSessionCommandHanler(ApplicationDbContext context, IMapper mapper, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _mapper = mapper;
             _userManager = userManager;
         }
 
-        public async Task<BaseResponse<GetBriefSessionResponseModel>> Handle(CreateSessionCommand request, CancellationToken cancellationToken)
+        public async Task<BaseResponse<string>> Handle(CreateAutoSessionCommand request, CancellationToken cancellationToken)
         {
             var applicationUser = await _userManager.FindByIdAsync(request.LecturerId);
             if (applicationUser == null)
             {
-                return new BaseResponse<GetBriefSessionResponseModel>
+                return new BaseResponse<string>
                 {
                     Success = false,
                     Message = "User not found",
@@ -59,7 +57,7 @@ namespace Application.Sessions.Commands
                 var isTeacher = await _userManager.IsInRoleAsync(applicationUser, "Teacher");
                 if (!isTeacher)
                 {
-                    return new BaseResponse<GetBriefSessionResponseModel>
+                    return new BaseResponse<string>
                     {
                         Success = false,
                         Message = "User is not a teacher to get this session",
@@ -71,37 +69,60 @@ namespace Application.Sessions.Commands
                                               .Include(ts => ts.Course)
                                               .ThenInclude(course => course.Teachables)
                                               .Where(ts => ts.Course.Teachables.Any(teachable => teachable.ApplicationUserId == request.LecturerId && teachable.IsDeleted == false))
-                                              .Where(ts => ts.Id == request.TeachingSlotId)
                                               .ToListAsync();
 
             if (teachingSlots == null || teachingSlots.Count == 0)
             {
-                return new BaseResponse<GetBriefSessionResponseModel>
+                return new BaseResponse<string>
                 {
                     Success = false,
-                    Message = "Teaching slot not found (filter from course for any Teachables of lecturer)",
+                    Message = "Teaching slot not found",
                 };
             }
-            var session = _mapper.Map<Domain.Entities.Session>(request);
-            var createSessionResult = await _context.AddAsync(session, cancellationToken);
-
-            if (createSessionResult.Entity == null)
+            var sessions = await _context.Sessions
+                                         .Where(o => o.Date >= request.From && o.Date <= request.To)
+                                         .ToListAsync();
+            if(sessions != null && sessions.Count > 0)
             {
-                return new BaseResponse<GetBriefSessionResponseModel>
+                return new BaseResponse<string>
                 {
                     Success = false,
-                    Message = "Create session failed",
+                    Message = "Existed session is created in " + request.From.ToString() + " to " + request.To.ToString()
+                            +"\n plesae clear session in that range time to create"
                 };
             }
-
+            try
+            {
+                for (DateTime date = request.From; date <= request.To; date = date.AddDays(1))
+                {
+                    int dayIndex = (int)date.DayOfWeek;
+                    var filterTeachingSlots = teachingSlots.Where(o => o.DayIndex == dayIndex).ToList();
+                    foreach (var slot in filterTeachingSlots)
+                    {
+                        var session = new Session()
+                        {
+                            Date = date,
+                            TeachingSlotId = slot.Id,
+                            ApplicationUserId = request.LecturerId,
+                        };
+                        var createSessionResult = await _context.AddAsync(session, cancellationToken);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<string>
+                {
+                    Success = false,
+                    Message = "Create session failed: " + ex.Message,
+                };
+            }
             await _context.SaveChangesAsync(cancellationToken);
-            var mappedSessionResult = _mapper.Map<GetBriefSessionResponseModel>(createSessionResult.Entity);
 
-            return new BaseResponse<GetBriefSessionResponseModel>
+            return new BaseResponse<string>
             {
                 Success = true,
-                Message = "Create session successful",
-                Data = mappedSessionResult
+                Message = "Create session successful"
             };
         }
     }

@@ -237,7 +237,7 @@ public class ApplicationDbContextInitialiser
                 Id = new Guid(),
                 ApplicationUserId = user.Id,
                 ParentId = new Guid("4977e82e-9592-475b-a6fa-10942721c6d" + i.ToString()),
-                Image = i,
+                Image = "https://png.pngtree.com/png-vector/20190129/ourmid/pngtree-teachers-day-cartoon-student-thanksgiving-element-daystudentteacherteacherhappyreturnrepaythanksgivingrepaycartoonhand-paintedcartoon-imagecartoon-png-image_568791.jpg",
                 School = schools[i],
                 Class = classes[i]
             });

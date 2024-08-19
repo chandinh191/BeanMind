@@ -25,8 +25,7 @@ namespace Application.Enrollments
         public Guid CourseId { get; set; }
         public GetBriefCourseResponseModel Course { get; set; }
         public EnrollmentStatus Status { get; set; }
-        public Double PercentTopicCompletion { get; set; }
-        public Double PercentWorksheetCompletion { get; set; }
+        public DateTime Created { get; set; }
     }
 
     [AutoMap(typeof(Domain.Entities.Enrollment))]
@@ -39,8 +38,7 @@ namespace Application.Enrollments
         public List<GetBriefParticipantResponseModel> Participants { get; set; }
         public List<GetBriefWorksheetAttemptResponseModel> WorksheetAttempts { get; set; }
         public EnrollmentStatus Status { get; set; }
-        public Double PercentTopicCompletion { get; set; }
-        public Double PercentWorksheetCompletion { get; set; }
+        public DateTime Created { get; set; }
 
     }
 

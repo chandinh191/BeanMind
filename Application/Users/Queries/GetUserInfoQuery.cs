@@ -45,11 +45,11 @@ public class GetUserInfoQueryHandler : IRequestHandler<GetUserInfoQuery, BaseRes
 
         var userRoles = (await _userManager.GetRolesAsync(user)).ToList();
 
-        foreach (var enrollment in user.Enrollments)
+      /*  foreach (var enrollment in user.Enrollments)
         {
             enrollment.PercentTopicCompletion = CactulatePercentTopicCompletion(enrollment.Id, enrollment.CourseId);
             enrollment.PercentWorksheetCompletion = 1.0;
-        }
+        }*/
         var userResponse = _mapper.Map<GetUserInfoResponseModel>(user);
 
         userResponse.Roles = userRoles;

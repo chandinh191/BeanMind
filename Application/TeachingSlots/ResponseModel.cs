@@ -26,6 +26,7 @@ namespace Application.TeachingSlots
         public string EndTime { get; set; }
         public Guid CourseId { get; set; }
         public GetBriefCourseResponseModel Course { get; set; }
+        public DateTime Created { get; set; }
 
     }
 
@@ -40,6 +41,6 @@ namespace Application.TeachingSlots
         public Guid CourseId { get; set; }
         public GetBriefCourseResponseModel Course { get; set; }
         public List<GetBriefSessionResponseModel>? Sessions { get; set; }
-
+        public DateTime Created { get; set; }
     }
 }

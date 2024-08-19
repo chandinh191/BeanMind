@@ -44,6 +44,15 @@ namespace Api.Controllers
                 StatusCode = result.Code
             };
         }
+        [HttpPost("auto-assign")]
+        public async Task<IActionResult> CreateAutoAssign(ISender sender, [FromBody] CreateAutoSessionCommand command)
+        {
+            var result = await sender.Send(command);
+            return new ObjectResult(result)
+            {
+                StatusCode = result.Code
+            };
+        }
 
         [HttpPut]
         public async Task<IActionResult> Update(ISender sender, [FromBody] UpdateSessionCommand command)

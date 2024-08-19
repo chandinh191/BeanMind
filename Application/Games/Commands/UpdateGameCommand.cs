@@ -1,6 +1,7 @@
 ﻿using Application.Common;
 using Application.Games;
 using AutoMapper;
+using Domain.Entities;
 using Infrastructure.Data;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,11 @@ using System.Threading.Tasks;
 
 namespace Application.Games.Commands
 {
+    public class UpdateChapterGameModel
+    {
+        [Required]
+        public Guid ChapterId { get; set; }
+    }
     [AutoMap(typeof(Domain.Entities.Game), ReverseMap = true)]
     public sealed record UpdateGameCommand : IRequest<BaseResponse<GetBriefGameResponseModel>>
     {
@@ -23,6 +29,7 @@ namespace Application.Games.Commands
         public string? Image { get; set; }
         public string? ItemStoreJson { get; set; }
         public string? AnimalJson { get; set; }
+        public List<UpdateChapterGameModel> ChapterGames { get; set; }
     }
 
     public class UpdateGameCommandHanler : IRequestHandler<UpdateGameCommand, BaseResponse<GetBriefGameResponseModel>>
@@ -59,7 +66,7 @@ namespace Application.Games.Commands
                 if (requestValue != null)
                 {
                     var targetProperty = game.GetType().GetProperty(property.Name);
-                    if (targetProperty != null)
+                    if (targetProperty != null && targetProperty.Name != "ChapterGames")
                     {
                         targetProperty.SetValue(game, requestValue);
                     }
@@ -78,6 +85,30 @@ namespace Application.Games.Commands
             }
 
             await _context.SaveChangesAsync(cancellationToken);
+
+            if (request.ChapterGames != null && request.ChapterGames.Count > 0)
+            {
+                var chapterGamesRetrieves = _context.ChapterGames.Where(o => o.GameId == game.Id).AsQueryable();
+                foreach (var chapterGamesRetrieve in chapterGamesRetrieves)
+                {
+                    //chapterGamesRetrieve.IsDeleted = true;
+                    _context.Remove(chapterGamesRetrieve);
+                    await _context.SaveChangesAsync(cancellationToken);
+                }
+                //await _context.SaveChangesAsync(cancellationToken);
+
+                foreach (var chapter in request.ChapterGames)
+                {
+                    var chapterGameModel = new ChapterGame
+                    {
+                        ChapterId = chapter.ChapterId,
+                        GameId = game.Id,
+                    };
+                    var createChapterGameResult = await _context.AddAsync(chapterGameModel, cancellationToken);
+                }
+                await _context.SaveChangesAsync(cancellationToken);
+            }
+
 
             var mappedGameResult = _mapper.Map<GetBriefGameResponseModel>(updateGameResult.Entity);
 

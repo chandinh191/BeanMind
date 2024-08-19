@@ -8,7 +8,7 @@ using Domain.Enums;
 
 namespace Application.Courses.Queries;
 
-public sealed record GetPaginatedListCourseQuery : IRequest<BaseResponse<Pagination<GetBriefCourseResponseModel>>>
+public sealed record GetPaginatedListCourseQuery : IRequest<BaseResponse<Pagination<GetCourseResponseModel>>>
 {
     public int PageIndex { get; init; }
     public int? PageSize { get; init; }
@@ -22,7 +22,7 @@ public sealed record GetPaginatedListCourseQuery : IRequest<BaseResponse<Paginat
     public DateTime EndTime { get; init; } = DateTime.MinValue;
 }
 
-public class GetPaginatedListCourseQueryHandler : IRequestHandler<GetPaginatedListCourseQuery, BaseResponse<Pagination<GetBriefCourseResponseModel>>>
+public class GetPaginatedListCourseQueryHandler : IRequestHandler<GetPaginatedListCourseQuery, BaseResponse<Pagination<GetCourseResponseModel>>>
 {
     private readonly ApplicationDbContext _context;
     private readonly IConfiguration _configuration;
@@ -35,14 +35,15 @@ public class GetPaginatedListCourseQueryHandler : IRequestHandler<GetPaginatedLi
         _mapper = mapper;
     }
 
-    public async Task<BaseResponse<Pagination<GetBriefCourseResponseModel>>> Handle(GetPaginatedListCourseQuery request, CancellationToken cancellationToken)
+    public async Task<BaseResponse<Pagination<GetCourseResponseModel>>> Handle(GetPaginatedListCourseQuery request, CancellationToken cancellationToken)
     {
         var defaultPageSize = _configuration.GetValue<int>("Pagination:PageSize");
         var courses = _context.Courses
-            //.Include(o => o.ProgramType)
-            //.Include(o => o.CourseLevel)
-            //.Include(o => o.Subject)
-            //.Include(o => o.Teachables)
+                        //.Include(o => o.ProgramType)
+                        //.Include(o => o.CourseLevel)
+                        //.Include(o => o.Subject)
+                        //.Include(o => o.Teachables)
+                        .Include(o => o.TeachingSlots)
             .AsQueryable();
 
         // filter by subject id
@@ -102,19 +103,19 @@ public class GetPaginatedListCourseQueryHandler : IRequestHandler<GetPaginatedLi
         }
 
         // convert the list of item to list of response model
-        var mappedCourses = _mapper.Map<List<GetBriefCourseResponseModel>>(courses);
-        var createPaginatedListResult = Pagination<GetBriefCourseResponseModel>.Create(mappedCourses.AsQueryable(), request.PageIndex, request.PageSize ?? defaultPageSize);
+        var mappedCourses = _mapper.Map<List<GetCourseResponseModel>>(courses);
+        var createPaginatedListResult = Pagination<GetCourseResponseModel>.Create(mappedCourses.AsQueryable(), request.PageIndex, request.PageSize ?? defaultPageSize);
 
         if(createPaginatedListResult == null)
         {
-            return new BaseResponse<Pagination<GetBriefCourseResponseModel>>
+            return new BaseResponse<Pagination<GetCourseResponseModel>>
             {
                 Success = false,
                 Message = "Get paginated list course failed",
             };
         }
 
-        return new BaseResponse<Pagination<GetBriefCourseResponseModel>>
+        return new BaseResponse<Pagination<GetCourseResponseModel>>
         {
             Success = true,
             Message = "Get paginated list course successful",

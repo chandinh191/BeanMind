@@ -17,6 +17,7 @@ public class GetBriefWorksheetResponseModel : BaseResponseModel
     public Guid? WorksheetTemplateId { get; set; }
     public GetBriefWorksheetTemplateResponseModel? WorksheetTemplate { get; set; }
     public List<GetBriefWorksheetQuestionResponseModel> WorksheetQuestions { get; set; }
+    public DateTime Created { get; set; }
 
 }
 
@@ -28,5 +29,6 @@ public class GetWorksheetResponseModel : BaseResponseModel
     public GetBriefWorksheetTemplateResponseModel? WorksheetTemplate { get; set; }
     public List<GetBriefWorksheetQuestionResponseModel> WorksheetQuestions { get; set; }
     public List<GetBriefWorksheetAttemptResponseModel> WorksheetAttempts { get; set; }
+    public DateTime Created { get; set; }
 
 }

@@ -23,6 +23,7 @@ namespace Application.WorksheetQuestions
         public GetBriefQuestionResponseModel Question { get; set; }
         public Guid WorksheetId { get; set; }
         public GetBriefWorksheetResponseModel Worksheet { get; set; }
+        public DateTime Created { get; set; }
     }
 
     [AutoMap(typeof(Domain.Entities.WorksheetQuestion))]
@@ -32,6 +33,7 @@ namespace Application.WorksheetQuestions
         public GetBriefQuestionResponseModel Question { get; set; }
         public Guid WorksheetId { get; set; }
         public GetBriefWorksheetResponseModel Worksheet { get; set; }
+        public DateTime Created { get; set; }
     }
 
 }

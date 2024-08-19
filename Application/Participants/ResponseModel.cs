@@ -26,6 +26,8 @@ namespace Application.Participants
         public GetBriefSessionResponseModel Session { get; set; }
         public bool IsPresent { get; set; } = true;
         public ParticipantStatus Status { get; set; }
+        public DateTime Created { get; set; }
+        public List<GetBriefProcessionResponseModel> Processions { get; set; }
 
     }
 
@@ -40,6 +42,7 @@ namespace Application.Participants
         public bool IsPresent { get; set; }
         public ParticipantStatus Status { get; set; }
         public List<GetBriefTopicResponseModel> LearnedTopics { get; set; }
+        public DateTime Created { get; set; }
     }
 
 }

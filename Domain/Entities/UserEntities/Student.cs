@@ -18,7 +18,7 @@ namespace Domain.Entities.UserEntities
         [ForeignKey(nameof(Parent))]
         public Guid? ParentId { get; set; }
         public Parent? Parent { get; set; }
-        public int? Image { get; set; }
+        public string? Image { get; set; }
         public string? School { get; set; }
         public string? Class { get; set; }
     }

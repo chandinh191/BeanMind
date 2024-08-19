@@ -11,6 +11,7 @@ public class GetBriefQuestionLevelResponseModel : BaseResponseModel
 {
     public string Title { get; set; }
     public string Description { get; set; }
+    public DateTime Created { get; set; }
 }
 
 [AutoMap(typeof(Domain.Entities.QuestionLevel))]
@@ -20,5 +21,6 @@ public class GetQuestionLevelResponseModel : BaseResponseModel
     public string Description { get; set; }
     public List<GetBriefQuestionResponseModel> Questions { get; set; }
     public List<GetBriefLevelTemplateRelationResponseModel> LevelTemplateRelations { get; set; }
+    public DateTime Created { get; set; }
 }
 

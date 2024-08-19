@@ -16,6 +16,7 @@ public class GetBriefQuestionAnswerResponseModel : BaseResponseModel
     public string Content { get; set; }
     public bool IsCorrect { get; set; }
     public bool IsDeleted { get; set; } = false;
+    public DateTime Created { get; set; }
 }
 
 [AutoMap(typeof(Domain.Entities.QuestionAnswer))]
@@ -27,4 +28,5 @@ public class GetQuestionAnswerResponseModel : BaseResponseModel
     public bool IsCorrect { get; set; }
     public bool IsDeleted { get; set; } = false;
     public List<GetBriefWorksheetAttemptAnswerResponseModel> WorksheetAttemptAnswers { get; set; }
+    public DateTime Created { get; set; }
 }

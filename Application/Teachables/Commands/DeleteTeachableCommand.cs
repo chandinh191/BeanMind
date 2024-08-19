@@ -41,9 +41,10 @@ namespace Application.Teachables.Commands
                 };
             }
 
-            teachable.IsDeleted = true;
 
-            var updateTeachableResult = _context.Update(teachable);
+            //teachable.IsDeleted = true;
+
+            var updateTeachableResult = _context.Remove(teachable);
 
             if (updateTeachableResult.Entity == null)
             {

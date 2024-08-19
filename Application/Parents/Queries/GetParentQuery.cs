@@ -56,15 +56,15 @@ namespace Application.Parents.Queries
             }
 
 
-            foreach (var student in parent.Students)
+         /*   foreach (var student in parent.Students)
             {
                 foreach (var enrollment in student.ApplicationUser.Enrollments)
                 {
-                    enrollment.PercentTopicCompletion = CactulatePercentTopicCompletion(enrollment.Id,enrollment.CourseId);
+                    enrollment.PercentTopicCompletion = CactulatePercentTopicCompletion(enrollment.Id, enrollment.CourseId);
                     //enrollment.PercentWorksheetCompletion = CactulatePercentWorksheetCompletion(enrollment.Id, enrollment.CourseId);
                     enrollment.PercentWorksheetCompletion = 1.0;
                 }
-            }
+            }*/
             var mappedParent = _mapper.Map<GetParentResponseModel>(parent);
 
             return new BaseResponse<GetParentResponseModel>

@@ -24,7 +24,8 @@ namespace Application.WorksheetAttempts
         public DateTime? CompletionDate { get; set; }
         public WorksheetAttemptStatus Status { get; set; } 
         public int? Score { get; set; }
-        }
+        public DateTime Created { get; set; }
+    }
 
     [AutoMap(typeof(Domain.Entities.WorksheetAttempt))]
     public class GetWorksheetAttemptResponseModel : BaseResponseModel
@@ -37,5 +38,6 @@ namespace Application.WorksheetAttempts
         public WorksheetAttemptStatus Status { get; set; }
         public int? Score { get; set; }
         public List<GetBriefWorksheetAttemptAnswerResponseModel> WorksheetAttemptAnswers { get; set; }
+        public DateTime Created { get; set; }
     }
 }

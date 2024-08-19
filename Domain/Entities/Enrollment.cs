@@ -25,7 +25,5 @@ namespace Domain.Entities
         public IEnumerable<Participant> Participants { get; set; }
         public IEnumerable<WorksheetAttempt> WorksheetAttempts { get; set; }
         public EnrollmentStatus Status { get; set; }
-        public Double? PercentTopicCompletion { get; set; }
-        public Double? PercentWorksheetCompletion { get; set; }
     }
 }

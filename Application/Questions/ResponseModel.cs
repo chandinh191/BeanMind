@@ -22,6 +22,7 @@ public class GetBriefQuestionResponseModel : BaseResponseModel
     public Guid QuestionLevelId { get; set; }
     public GetBriefQuestionLevelResponseModel QuestionLevel { get; set; }
     public List<GetBriefQuestionAnswerResponseModel> QuestionAnswers { get; set; }
+    public DateTime Created { get; set; }
 }
 
 [AutoMap(typeof(Domain.Entities.Question))]
@@ -35,4 +36,5 @@ public class GetQuestionResponseModel : BaseResponseModel
     public GetBriefQuestionLevelResponseModel QuestionLevel { get; set; }
     public List<GetBriefQuestionAnswerResponseModel> QuestionAnswers { get; set; }
     public List<GetBriefWorksheetQuestionResponseModel> WorksheetQuestions { get; set; }
+    public DateTime Created { get; set; }
 }

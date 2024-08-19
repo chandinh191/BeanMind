@@ -20,6 +20,7 @@ namespace Application.Teachers
         public string Experience { get; set; }
         public string Image { get; set; }
         public string Level { get; set; }
+        public DateTime Created { get; set; }
     }
 
     [AutoMap(typeof(Domain.Entities.UserEntities.Teacher))]
@@ -30,5 +31,6 @@ namespace Application.Teachers
         public string Experience { get; set; }
         public string Image { get; set; }
         public string Level { get; set; }
+        public DateTime Created { get; set; }
     }
 }

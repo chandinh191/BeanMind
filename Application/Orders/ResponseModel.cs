@@ -26,6 +26,7 @@ namespace Application.Orders
         public OrderStatus Status { get; set; }
         public int Amount { get; set; }
         public string Provider { get; set; }
+        public DateTime Created { get; set; }
     }
 
     [AutoMap(typeof(Domain.Entities.Order))]
@@ -40,5 +41,6 @@ namespace Application.Orders
         public int Amount { get; set; }
         public string Provider { get; set; }
         public List<GetBriefTransactionResponseModel> Transactions { get; set; }
+        public DateTime Created { get; set; }
     }
 }

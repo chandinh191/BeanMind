@@ -15,7 +15,8 @@ namespace Application.ProgramTypes
     {
         public string Title { get; set; }
         public string Description { get; set; }
-        //public List<GetBriefCourseResponseModel> Courses { get; set; }
+        public List<GetBriefCourseResponseModel> Courses { get; set; }
+        public DateTime Created { get; set; }
     }
 
     [AutoMap(typeof(Domain.Entities.ProgramType))]
@@ -25,6 +26,7 @@ namespace Application.ProgramTypes
         public string Description { get; set; }
         public List<GetBriefCourseResponseModel> Courses { get; set; }
         public List<GetBriefTeachableResponseModel> Teachables { get; set; }
+        public DateTime Created { get; set; }
 
     }
 }

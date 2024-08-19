@@ -22,6 +22,7 @@ namespace Application.Parents
         public string Phone { get; set; }
         public double Wallet { get; set; }
         public Gender Gender { get; set; }
+        public DateTime Created { get; set; }
     }
 
     [AutoMap(typeof(Domain.Entities.UserEntities.Parent))]
@@ -36,5 +37,6 @@ namespace Application.Parents
         public string Phone { get; set; }
         public double Wallet { get; set; }
         public Gender Gender { get; set; }
+        public DateTime Created { get; set; }
     }
 }

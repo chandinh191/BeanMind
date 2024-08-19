@@ -47,12 +47,13 @@ namespace Application.Enrollments.Queries
             var enrollment = await _context.Enrollments
                 .Include(o => o.ApplicationUser).ThenInclude(o => o.Student)
                 .Include(o => o.Course)
-                .Include(o => o.Participants)
+                .Include(o => o.Participants).ThenInclude(o=>o.Session).ThenInclude(o => o.TeachingSlot)
+                 .Include(o => o.Participants).ThenInclude(o => o.Processions).ThenInclude(o => o.Topic)
                 .Include(o => o.WorksheetAttempts) .ThenInclude(o => o.Worksheet)
                 .FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);
 
-            enrollment.PercentTopicCompletion = CactulatePercentTopicCompletion(enrollment.Id, enrollment.CourseId);                
-            enrollment.PercentWorksheetCompletion = 1.0;
+            //enrollment.PercentTopicCompletion = CactulatePercentTopicCompletion(enrollment.Id, enrollment.CourseId);                
+            //enrollment.PercentWorksheetCompletion = 1.0;
             
 
             var mappedEnrollment= _mapper.Map<GetEnrollmentResponseModel>(enrollment);

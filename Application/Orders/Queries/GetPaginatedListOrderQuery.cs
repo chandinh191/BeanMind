@@ -15,11 +15,12 @@ using System.Threading.Tasks;
 
 namespace Application.Orders.Queries
 {
-    public sealed record GetPaginatedListOrderQuery : IRequest<BaseResponse<Pagination<GetBriefOrderResponseModel>>>
+    public sealed record GetPaginatedListOrderQuery : IRequest<BaseResponse<Pagination<GetOrderResponseModel>>>
     {
         public int PageIndex { get; init; }
         public int? PageSize { get; init; }
         public string? ApplicationUserId { get; set; }
+        public string? ParentId { get; set; }
         public Guid? CourseId { get; set; }
         public IsDeleted IsDeleted { get; init; } = IsDeleted.All;
         public SortBy SortBy { get; init; }
@@ -27,7 +28,7 @@ namespace Application.Orders.Queries
         public DateTime EndTime { get; init; } = DateTime.MinValue;
     }
 
-    public class GetPaginatedListParentQueryHandler : IRequestHandler<GetPaginatedListOrderQuery, BaseResponse<Pagination<GetBriefOrderResponseModel>>>
+    public class GetPaginatedListParentQueryHandler : IRequestHandler<GetPaginatedListOrderQuery, BaseResponse<Pagination<GetOrderResponseModel>>>
     {
         private readonly ApplicationDbContext _context;
         private readonly IConfiguration _configuration;
@@ -40,19 +41,23 @@ namespace Application.Orders.Queries
             _mapper = mapper;
         }
 
-        public async Task<BaseResponse<Pagination<GetBriefOrderResponseModel>>> Handle(GetPaginatedListOrderQuery request, CancellationToken cancellationToken)
+        public async Task<BaseResponse<Pagination<GetOrderResponseModel>>> Handle(GetPaginatedListOrderQuery request, CancellationToken cancellationToken)
         {
             var defaultPageSize = _configuration.GetValue<int>("Pagination:PageSize");
             var orders = _context.Orders
                 .Include(o => o.ApplicationUser)
-                .Include(o => o.ApplicationUser).ThenInclude(o => o.Student).ThenInclude(o => o.Parent)
+                .Include(o => o.ApplicationUser).ThenInclude(o => o.Student).ThenInclude(o => o.Parent).ThenInclude(o => o.ApplicationUser)
                 .Include(o => o.Course)
-                                .Include(o => o.Transactions)
+                .Include(o => o.Transactions)
                 .AsQueryable();
 
             if (request.ApplicationUserId != null)
             {
                 orders = orders.Where(x => x.ApplicationUserId == request.ApplicationUserId);
+            }
+            if (request.ParentId != null)
+            {
+                orders = orders.Where(x => x.ApplicationUser.Student.Parent.ApplicationUser.Id == request.ParentId);
             }
             if (request.CourseId != null)
             {
@@ -94,19 +99,19 @@ namespace Application.Orders.Queries
             }
 
             // convert the list of item to list of response model
-            var mappedOrders = _mapper.Map<List<GetBriefOrderResponseModel>>(orders);
-            var createPaginatedListResult = Pagination<GetBriefOrderResponseModel>.Create(mappedOrders.AsQueryable(), request.PageIndex, request.PageSize ?? defaultPageSize);
+            var mappedOrders = _mapper.Map<List<GetOrderResponseModel>>(orders);
+            var createPaginatedListResult = Pagination<GetOrderResponseModel>.Create(mappedOrders.AsQueryable(), request.PageIndex, request.PageSize ?? defaultPageSize);
 
             if (createPaginatedListResult == null)
             {
-                return new BaseResponse<Pagination<GetBriefOrderResponseModel>>
+                return new BaseResponse<Pagination<GetOrderResponseModel>>
                 {
                     Success = false,
                     Message = "Get paginated list order failed",
                 };
             }
 
-            return new BaseResponse<Pagination<GetBriefOrderResponseModel>>
+            return new BaseResponse<Pagination<GetOrderResponseModel>>
             {
                 Success = true,
                 Message = "Get paginated list order successful",

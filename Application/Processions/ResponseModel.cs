@@ -21,6 +21,7 @@ namespace Application.Processions
         public GetBriefParticipantResponseModel Participant { get; set; }
         public Guid? TopicId { get; set; }
         public GetBriefTopicResponseModel? Topic { get; set; }
+        public DateTime Created { get; set; }
     }
 
     [AutoMap(typeof(Domain.Entities.Procession))]
@@ -30,6 +31,7 @@ namespace Application.Processions
         public GetBriefParticipantResponseModel Participant { get; set; }
         public Guid? TopicId { get; set; }
         public GetBriefTopicResponseModel? Topic { get; set; }
+        public DateTime Created { get; set; }
     }
 
 }

@@ -24,6 +24,7 @@ public class GetBriefWorksheetTemplateResponseModel : BaseResponseModel
     public Guid? TopicId { get; set; }
     public GetBriefTopicResponseModel? Topic { get; set; }
     public List<GetBriefLevelTemplateRelationResponseModel> LevelTemplateRelations { get; set; }
+    public DateTime Created { get; set; }
 }
 
 [AutoMap(typeof(Domain.Entities.WorksheetTemplate))]
@@ -41,4 +42,5 @@ public class GetWorksheetTemplateResponseModel : BaseResponseModel
 
     public List<GetBriefWorksheetResponseModel> Worksheets { get; set; }
     public List<GetBriefLevelTemplateRelationResponseModel> LevelTemplateRelations { get; set; }
+    public DateTime Created { get; set; }
 }

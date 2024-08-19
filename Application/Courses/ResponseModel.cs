@@ -31,6 +31,7 @@ public class GetBriefCourseResponseModel : BaseResponseModel
     public List<GetBriefTeachableResponseModel> Teachables { get; set; }
     public List<GetBriefChapterResponseModel> Chapters { get; set; }
     public List<GetBriefEnrollmentResponseModel> Enrollments { get; set; }
+    public DateTime Created { get; set; }
 }
 
 [AutoMap(typeof(Domain.Entities.Course))]
@@ -52,5 +53,6 @@ public class GetCourseResponseModel : BaseResponseModel
     public List<GetBriefChapterResponseModel> Chapters { get; set; }
     public List<GetBriefEnrollmentResponseModel> Enrollments { get; set; }
     public List<GetBriefWorksheetTemplateResponseModel>? WorksheetTemplates { get; set; }
+    public DateTime Created { get; set; }
 
 }

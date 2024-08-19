@@ -23,6 +23,7 @@ namespace Application.Sessions
         public Guid TeachingSlotId { get; set; }
         public GetBriefTeachingSlotResponseModel TeachingSlot { get; set; }
         public List<GetBriefParticipantResponseModel>? Participants { get; set; }
+        public DateTime Created { get; set; }
     }
 
     [AutoMap(typeof(Domain.Entities.Session))]
@@ -34,5 +35,6 @@ namespace Application.Sessions
         public Guid TeachingSlotId { get; set; }
         public GetBriefTeachingSlotResponseModel TeachingSlot { get; set; }
         public List<GetBriefParticipantResponseModel>? Participants { get; set; }
+        public DateTime Created { get; set; }
     }
 }

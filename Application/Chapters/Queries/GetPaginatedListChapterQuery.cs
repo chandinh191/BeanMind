@@ -72,6 +72,10 @@ public class GetPaginatedListChapterQueryHandler : IRequestHandler<GetPaginatedL
         {
             chapters = chapters.OrderByDescending(x => x.Created);
         }
+        // filter by filter date
+
+            chapters = chapters.OrderBy(x => x.Order);
+
 
         // filter by start time and end time
         if (request.StartTime != DateTime.MinValue)
