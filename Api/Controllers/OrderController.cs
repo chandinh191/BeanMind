@@ -9,6 +9,7 @@ using Application.Users.Commands;
 using Domain.Entities.UserEntities;
 using Infrastructure.Common.VNPAY_CS_ASPX;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -165,6 +166,7 @@ namespace Api.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Create(ISender sender, [FromBody] CreateOrderCommand command)
         {
             var result = await sender.Send(command);
@@ -175,6 +177,7 @@ namespace Api.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         public async Task<IActionResult> Update(ISender sender, [FromBody] UpdateOrderCommand command)
         {
             var result = await sender.Send(command);
@@ -185,6 +188,7 @@ namespace Api.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> Delete(ISender sender, [FromRoute] Guid id)
         {
             var result = await sender.Send(new DeleteOrderCommand() with

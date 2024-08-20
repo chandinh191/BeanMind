@@ -4,6 +4,7 @@ using Application.Enrollments.Queries;
 using Application.Games.Commands;
 using Application.Games.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
@@ -33,6 +34,7 @@ namespace Api.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Create(ISender sender, [FromBody] CreateGameCommand command)
         {
             var result = await sender.Send(command);
@@ -43,6 +45,7 @@ namespace Api.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         public async Task<IActionResult> Update(ISender sender, [FromBody] UpdateGameCommand command)
         {
             var result = await sender.Send(command);
@@ -53,6 +56,7 @@ namespace Api.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> Delete(ISender sender, [FromRoute] Guid id)
         {
             var result = await sender.Send(new DeleteGameCommand() with

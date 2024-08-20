@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Api.Controllers;
 
 [ApiController]
+
 [Route(ControllerRouteName.CourseRoute)]
 public class CourseController : ControllerBase
 {
@@ -34,6 +35,7 @@ public class CourseController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> Create(ISender sender, [FromBody] CreateCourseCommand command)
     {
         var result = await sender.Send(command);
@@ -44,6 +46,7 @@ public class CourseController : ControllerBase
     }
 
     [HttpPut]
+    [Authorize]
     public async Task<IActionResult> Update(ISender sender, [FromBody] UpdateCourseCommand command)
     {
         var result = await sender.Send(command);
@@ -54,6 +57,7 @@ public class CourseController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize]
     public async Task<IActionResult> Delete(ISender sender, [FromRoute] Guid id)
     {
         var result = await sender.Send(new DeleteCourseCommand() with

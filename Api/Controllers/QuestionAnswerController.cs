@@ -37,6 +37,7 @@ public class QuestionAnswerController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> Create(ISender sender, [FromBody] CreateQuestionAnswerCommand command)
     {
         var result = await sender.Send(command);
@@ -47,6 +48,7 @@ public class QuestionAnswerController : ControllerBase
     }
 
     [HttpPut]
+    [Authorize]
     public async Task<IActionResult> Update(ISender sender, [FromBody] UpdateQuestionAnswerCommand command)
     {
         var result = await sender.Send(command);
@@ -57,6 +59,7 @@ public class QuestionAnswerController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize]
     public async Task<IActionResult> Delete(ISender sender, [FromRoute] Guid id)
     {
         var result = await sender.Send(new DeleteQuestionAnswerCommand() with

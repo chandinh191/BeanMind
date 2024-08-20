@@ -81,11 +81,13 @@ public class UserController : ControllerBase
         };
     }
     [HttpPost]
+    [Authorize]
     public async Task<BaseResponse<GetBriefApplicationUserResponseModel>> RegisterAccount(ISender sender, [FromBody] RegisterUserCommand command)
     {
         return await sender.Send(command);
     }
     [HttpPut]
+    [Authorize]
     public async Task<BaseResponse<GetBriefApplicationUserResponseModel>> UpdateAccount(ISender sender, [FromBody] UpdateUserCommand command)
     {
 
@@ -104,6 +106,7 @@ public class UserController : ControllerBase
         return await sender.Send(query);
     }
     [HttpDelete("{id}")]
+    [Authorize]
     public async Task<IActionResult> Delete(ISender sender, [FromRoute] string id)
     {
         var result = await sender.Send(new DeleteUserCommand() with

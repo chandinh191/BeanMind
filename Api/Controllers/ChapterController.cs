@@ -34,6 +34,7 @@ public class ChapterController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> Create(ISender sender, [FromBody] CreateChapterCommand command)
     {
         var result = await sender.Send(command);
@@ -44,6 +45,7 @@ public class ChapterController : ControllerBase
     }
 
     [HttpPut]
+    [Authorize]
     public async Task<IActionResult> Update(ISender sender, [FromBody] UpdateChapterCommand command)
     {
         var result = await sender.Send(command);
@@ -54,6 +56,7 @@ public class ChapterController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize]
     public async Task<IActionResult> Delete(ISender sender, [FromRoute] Guid id)
     {
         var result = await sender.Send(new DeleteChapterCommand() with

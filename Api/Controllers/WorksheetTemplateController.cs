@@ -37,6 +37,7 @@ public class WorksheetTemplateController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> Create(ISender sender, [FromBody] CreateWorksheetTemplateCommand command)
     {
         var result = await sender.Send(command);
@@ -47,6 +48,7 @@ public class WorksheetTemplateController : ControllerBase
     }
 
     [HttpPut]
+    [Authorize]
     public async Task<IActionResult> Update(ISender sender, [FromBody] UpdateWorksheetTemplateCommand command)
     {
         var result = await sender.Send(command);
@@ -57,6 +59,7 @@ public class WorksheetTemplateController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize]
     public async Task<IActionResult> Delete(ISender sender, [FromRoute] Guid id)
     {
         var result = await sender.Send(new DeleteWorksheetTemplateCommand() with

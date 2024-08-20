@@ -4,6 +4,7 @@ using Application.Sessions.Queries;
 using Application.Students.Commands;
 using Application.Students.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
@@ -46,6 +47,7 @@ namespace Api.Controllers
         }
 */
         [HttpPut]
+        [Authorize]
         public async Task<IActionResult> Update(ISender sender, [FromBody] UpdateStudentCommand command)
         {
             var result = await sender.Send(command);
@@ -56,6 +58,7 @@ namespace Api.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> Delete(ISender sender, [FromRoute] Guid id)
         {
             var result = await sender.Send(new DeleteStudentCommand() with

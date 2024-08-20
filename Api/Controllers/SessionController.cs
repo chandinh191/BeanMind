@@ -4,6 +4,7 @@ using Application.Sessions.Queries;
 using Application.Subjects.Commands;
 using Application.Subjects.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
@@ -36,6 +37,7 @@ namespace Api.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Create(ISender sender, [FromBody] CreateSessionCommand command)
         {
             var result = await sender.Send(command);
@@ -45,6 +47,7 @@ namespace Api.Controllers
             };
         }
         [HttpPost("auto-assign")]
+        [Authorize]
         public async Task<IActionResult> CreateAutoAssign(ISender sender, [FromBody] CreateAutoSessionCommand command)
         {
             var result = await sender.Send(command);
@@ -55,6 +58,7 @@ namespace Api.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         public async Task<IActionResult> Update(ISender sender, [FromBody] UpdateSessionCommand command)
         {
             var result = await sender.Send(command);
@@ -65,6 +69,7 @@ namespace Api.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> Delete(ISender sender, [FromRoute] Guid id)
         {
             var result = await sender.Send(new DeleteSessionCommand() with

@@ -135,6 +135,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("login")]
+    [Authorize]
     public async Task<IActionResult> Login(ISender sender, [FromBody] LoginCommand command)
     {
         var result = await sender.Send(command);
@@ -146,6 +147,7 @@ public class AuthController : ControllerBase
 
 
     [HttpPost("resendConfirmEmail")]
+    [Authorize]
     public async Task<IActionResult> ResendConfirmEmail(ISender sender, [FromBody] ResendConfirmEmailCommand command)
     {
         var result = await sender.Send(command);
@@ -155,24 +157,28 @@ public class AuthController : ControllerBase
         };
     }
     [HttpPost]
+    [Authorize]
     public async Task<BaseResponse<GetBriefApplicationUserResponseModel>> RegisterAccount(ISender sender, [FromBody] RegisterUserCommand command)
     {
         return await sender.Send(command);
     }
 
     [HttpPost("refresh")]
+    [Authorize]
     public async Task<BaseResponse<AccessTokenResponseModel>> RefreshToken(ISender sender, [FromBody] TokenRefreshCommand command)
     {
         return await sender.Send(command);
     }
 
     [HttpPost("forgotPassword")]
+    [Authorize]
     public async Task<BaseResponse<string>> ForgotPassword(ISender sender, [FromBody] ForgotPasswordCommand command)
     {
         return await sender.Send(command);
     }
 
     [HttpPost("resetPassword")]
+    [Authorize]
     public async Task<BaseResponse<string>> ResetPassword(ISender sender, [FromBody] ResetPasswordCommand command)
     {
         return await sender.Send(command);

@@ -36,6 +36,7 @@ public class TopicController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> Create(ISender sender, [FromBody] CreateTopicCommand command)
     {
         var result = await sender.Send(command);
@@ -46,6 +47,7 @@ public class TopicController : ControllerBase
     }
 
     [HttpPut]
+    [Authorize]
     public async Task<IActionResult> Update(ISender sender, [FromBody] UpdateTopicCommand command)
     {
         var result = await sender.Send(command);
@@ -56,6 +58,7 @@ public class TopicController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize]
     public async Task<IActionResult> Delete(ISender sender, [FromRoute] Guid id)
     {
         var result = await sender.Send(new DeleteTopicCommand() with
