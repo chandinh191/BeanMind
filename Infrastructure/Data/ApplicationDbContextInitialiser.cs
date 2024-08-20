@@ -153,6 +153,8 @@ public class ApplicationDbContextInitialiser
             "8 năm kinh nghiệm giảng dạy cho trẻ nhỏ", 
             "Làm việc cho Nasa 12 năm", 
             "Tốt nghiệp khóa đào tạo giảng dạy chuyên nghiệp" };
+        var firstNames = new List<string> { "Vinh", "Thịnh", "Tiến", "Kiệt", "Triệu" };
+        var lastNames = new List<string> { "Trần", "Mai", "Nguyễn", "Lê", "Nguyễn" };
         var random = new Random();
         for (int i = 0; i < 5; i++)
         {
@@ -161,7 +163,9 @@ public class ApplicationDbContextInitialiser
                 Id = "8e02b95e-6491-4eaf-a75a-06dae6e1ea4" + i.ToString(),
                 Email = "TeacherTesting" + i + "@localhost.com",
                 UserName = "TeacherTesting" + i + "@localhost.com",
-                EmailConfirmed = true
+                EmailConfirmed = true,
+                FirstName = firstNames[i],
+                LastName = lastNames[i],
             };
             if (_userManager.Users.FirstOrDefault(u => u.Email.Equals(user.Email)) == null)
             {
@@ -190,7 +194,9 @@ public class ApplicationDbContextInitialiser
                 Id = "ae8ab566-70fb-445a-81da-a414f04462c" + i.ToString(),
                 Email = "ParentTesting" + i + "@localhost.com",
                 UserName = "ParentTesting" + i + "@localhost.com",
-                EmailConfirmed = true
+                EmailConfirmed = true,
+                FirstName = firstNames[i],
+                LastName = lastNames[i],
             };
             if (_userManager.Users.FirstOrDefault(u => u.Email.Equals(user.Email)) == null)
             {
@@ -222,7 +228,9 @@ public class ApplicationDbContextInitialiser
                 Id = "954b8b1b-1b5f-42f6-9e27-4aa65cc7e7b" + i.ToString(),
                 Email = "StudentTesting" + i + "@localhost.com",
                 UserName = "StudentTesting" + i + "@localhost.com",
-                EmailConfirmed = true
+                EmailConfirmed = true,
+                FirstName = firstNames[i],
+                LastName  = lastNames[i],
             };
             if (_userManager.Users.FirstOrDefault(u => u.Email.Equals(user.Email)) == null)
             {

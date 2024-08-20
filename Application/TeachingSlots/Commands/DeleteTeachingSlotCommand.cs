@@ -31,7 +31,7 @@ namespace Application.TeachingSlots.Commands
 
         public async Task<BaseResponse<GetBriefTeachingSlotResponseModel>> Handle(DeleteTeachingSlotCommand request, CancellationToken cancellationToken)
         {
-            var teachingSlot = await _context.Teachables.FirstOrDefaultAsync(x => x.Id == request.Id);
+            var teachingSlot = await _context.TeachingSlots.FirstOrDefaultAsync(x => x.Id == request.Id);
             if (teachingSlot == null)
             {
                 return new BaseResponse<GetBriefTeachingSlotResponseModel>

@@ -722,7 +722,7 @@ namespace Infrastructure.Data
                 {
                     Id = new Guid("02f812c2-aeff-45b6-892b-f8548dd1d9b0"),
                     Order = 1,
-                    CourseId = new Guid("471519c0-673d-40c0-b094-2014fe96848d5"),
+                    CourseId = new Guid("471519c0-673d-40c0-b094-2014fe96848d"),
                     Title = "Ôn tập các số đến 100",
                     Description = "Bài giảng Cộng, trừ các số tròn chục là một trong những bài học quan trọng trong chương trình Toán 2 sách Kết nối tri thức. BeanMind đã biên soạn chi tiết về lý thuyết cần nhớ và bài tập minh hoạ, giúp các em học sinh nắm được nội dung về các số đến 100 và các dạng toán của nó. Sau đây mời quý phụ huynh và các em học sinh cùng tham khảo.",
                 });
@@ -756,7 +756,7 @@ namespace Infrastructure.Data
                 {
                     Id = new Guid("a2472712-f2d9-41cc-aa31-24a1bc27c279"),
                     Order = 2,
-                    CourseId = new Guid("471519c0-673d-40c0-b094-2014fe96848d5"),
+                    CourseId = new Guid("471519c0-673d-40c0-b094-2014fe96848d"),
                     Title = "Tia số. Số liền trước, số liền sau",
                     Description = "Dưới đây là phần tóm tắt lý thuyết và các bài tập minh họa có hướng dẫn giải chi tiết của bài Tia số. Số liền trước, số liền sau được BeanMind biên soạn chi tiết về kiến thức cân nhớ, giúp các em học sinh lớp 2 dễ dàng nắm vững kiến thức quan trọng của bài. Mời các em cùng tham khảo.",
                 });
@@ -790,7 +790,7 @@ namespace Infrastructure.Data
                 {
                     Id = new Guid("67f25718-3555-462a-b2cc-63829621c06a"),
                     Order = 3,
-                    CourseId = new Guid("471519c0-673d-40c0-b094-2014fe96848d5"),
+                    CourseId = new Guid("471519c0-673d-40c0-b094-2014fe96848d"),
                     Title = "Các thành phần của phép cộng, phép trừ",
                     Description = "Bài học Các thành phần của phép cộng, phép trừ chương trình Toán lớp 2 sách Kết nối tri thức được BeanMind biên soạn nhằm giúp các em học sinh học tập tốt môn Toán lớp 2. Đồng thời đây cũng là tài liệu tham khảo cho các phụ huynh và giáo viên trong quá trình dạy học. Mời các em học sinh cùng các bậc phụ huynh tham khảo.",
                 });
@@ -798,7 +798,7 @@ namespace Infrastructure.Data
                 {
                     Id = new Guid("9e317fb6-1d8f-415c-95c6-4e72e5a40acb"),
                     Order = 4,
-                    CourseId = new Guid("471519c0-673d-40c0-b094-2014fe96848d5"),
+                    CourseId = new Guid("471519c0-673d-40c0-b094-2014fe96848d"),
                     Title = "Hơn, kém nhau bao nhiêu?",
                     Description = "Bài giảng Hơn, kém nhau bao nhiêu? bên dưới đây được BeanMind biên soạn chi tiết lý thuyết cần nhớ, sử dụng các bài tập minh hoạ kèm theo hướng dẫn giải chi tiết, dành cho các em học sinh lớp 2 tham khảo, giúp các em học sinh rèn luyện giải môn Toán lớp 2. Mời các em học sinh cùng các bậc phụ huynh tham khảo.",
                 });
@@ -806,7 +806,7 @@ namespace Infrastructure.Data
                 {
                     Id = new Guid("1f3b8cad-5ef0-45a5-babb-5e49d1bf40c8"),
                     Order = 5,
-                    CourseId = new Guid("471519c0-673d-40c0-b094-2014fe96848d5"),
+                    CourseId = new Guid("471519c0-673d-40c0-b094-2014fe96848d"),
                     Title = "Ôn tập phép cộng, phép trừ (không nhớ) trong phạm vi 100",
                     Description = "Bài học sau đây gồm chi tiết các dạng Toán về phép cộng, phép trừ (không nhớ) trong phạm vi 100, đồng thời sử dụng các bài tập minh hoạ kèm theo hướng dẫn giải chi tiết, dành cho các em học sinh lớp 2 tham khảo, giúp các em học sinh rèn luyện giải môn Toán lớp 2. Mời các em học sinh cùng các bậc phụ huynh tham khảo.",
                 });
@@ -814,7 +814,7 @@ namespace Infrastructure.Data
                 {
                     Id = new Guid("648c486b-6f2d-4721-b588-54978b92ecfb"),
                     Order = 6,
-                    CourseId = new Guid("471519c0-673d-40c0-b094-2014fe96848d5"),
+                    CourseId = new Guid("471519c0-673d-40c0-b094-2014fe96848d"),
                     Title = "Luyện tập chung",
                     Description = "Việc học các kỹ năng giải Toán khi vào lớp 2 là rất quan trọng. Vậy giải Toán như thế nào để phù hợp với tất cả các học sinh, các em có thể tự đọc các kiến thức và tự làm các ví dụ minh họa để nâng cao các kỹ năng giải Toán lớp 2 của mình thêm hiệu quả. Sau đây là một ví dụ minh họa về bài lý thuyết Bài 6 Luyện tập chung sách Kết nối tri thức, mời các em cùng tham khảo.",
                 });

@@ -154,6 +154,11 @@ public class AuthController : ControllerBase
             StatusCode = result.Code
         };
     }
+    [HttpPost]
+    public async Task<BaseResponse<GetBriefApplicationUserResponseModel>> RegisterAccount(ISender sender, [FromBody] RegisterUserCommand command)
+    {
+        return await sender.Send(command);
+    }
 
     [HttpPost("refresh")]
     public async Task<BaseResponse<AccessTokenResponseModel>> RefreshToken(ISender sender, [FromBody] TokenRefreshCommand command)

@@ -66,22 +66,34 @@ namespace Application.Sessions.Commands
                     };
                 }
             }
-
-            var teachingSlots = await _context.TeachingSlots
-                                              .Include(ts => ts.Course)
-                                              .ThenInclude(course => course.Teachables)
-                                              .Where(ts => ts.Course.Teachables.Any(teachable => teachable.ApplicationUserId == request.LecturerId && teachable.IsDeleted == false))
-                                              .Where(ts => ts.Id == request.TeachingSlotId)
-                                              .ToListAsync();
-
-            if (teachingSlots == null || teachingSlots.Count == 0)
+            var teachingSlot = await _context.TeachingSlots.FirstOrDefaultAsync(x => x.Id == request.TeachingSlotId);
+            if (teachingSlot == null)
             {
                 return new BaseResponse<GetBriefSessionResponseModel>
                 {
                     Success = false,
-                    Message = "Teaching slot not found (filter from course for any Teachables of lecturer)",
+                    Message = "Teaching slot not found",
                 };
             }
+            var teachable = await _context.Teachables
+                   .FirstOrDefaultAsync(x => x.ApplicationUserId == request.LecturerId && x.CourseId == teachingSlot.CourseId && x.IsDeleted == false);
+            if (teachable == null)
+            {
+                return new BaseResponse<GetBriefSessionResponseModel>
+                {
+                    Success = false,
+                    Message = "User are not able to teach this course",
+                };
+            }
+            /*int dayOfWeek = (int)request.Date.DayOfWeek;
+            if (dayOfWeek != teachingSlot.DayIndex)
+            {
+                return new BaseResponse<GetBriefSessionResponseModel>
+                {
+                    Success = false,
+                    Message = "You need to create exactly what day of the week compared to your teaching slot data",
+                };
+            }*/
             //var session = _mapper.Map<Domain.Entities.Session>(request);
             var session = new Session()
             {

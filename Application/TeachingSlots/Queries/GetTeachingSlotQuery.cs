@@ -43,7 +43,7 @@ namespace Application.TeachingSlots.Queries
 
             var teachingSlot = await _context.TeachingSlots
                 .Include(x => x.Course)
-                .Include(x => x.Sessions)
+                .Include(x => x.Sessions).ThenInclude(o => o.ApplicationUser)
                 .FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);
             var mappedTeachingSlot = _mapper.Map<GetTeachingSlotResponseModel>(teachingSlot);
 

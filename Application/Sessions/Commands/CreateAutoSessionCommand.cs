@@ -26,6 +26,8 @@ namespace Application.Sessions.Commands
         public DateTime To { get; set; }
         [Required]
         public string LecturerId { get; set; }
+        [Required]
+        public Guid CourseId { get; set; }
     }
 
     public class CreateAutoSessionCommandHanler : IRequestHandler<CreateAutoSessionCommand, BaseResponse<string>>
@@ -64,8 +66,18 @@ namespace Application.Sessions.Commands
                     };
                 }
             }
+            var course = await _context.Courses.FirstOrDefaultAsync(x => x.Id == request.CourseId);
+            if (course == null)
+            {
+                return new BaseResponse<string>
+                {
+                    Success = false,
+                    Message = "Course is not found"
+                };
+            }
 
             var teachingSlots = await _context.TeachingSlots
+                                              .Where(o => o.CourseId == request.CourseId)
                                               .Include(ts => ts.Course)
                                               .ThenInclude(course => course.Teachables)
                                               .Where(ts => ts.Course.Teachables.Any(teachable => teachable.ApplicationUserId == request.LecturerId && teachable.IsDeleted == false))

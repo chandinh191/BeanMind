@@ -96,7 +96,7 @@ namespace Application.Sessions.Commands
                     Message = "User are not able to teach this course",
                 };
             }
-            int dayOfWeek = (int)request.Date.DayOfWeek;
+            /*int dayOfWeek = (int)request.Date.DayOfWeek;
             if (dayOfWeek != teachingSlot.DayIndex)
             {
                 return new BaseResponse<GetBriefSessionResponseModel>
@@ -105,10 +105,9 @@ namespace Application.Sessions.Commands
                     Message = "You need to create exactly what day of the week compared to your teaching slot data",
                 };
             }
-
-          /*  var checkDuplicateTime = _context.Sessions
+*/
+/*            var checkDuplicateTime = _context.Sessions
                 .Where(o => o.ApplicationUserId == request.LecturerId
-                //&& o.TeachingSlot.Slot == teachingSlot.Slot //trùng slot cái đang tạo
                 && o.Date == request.Date) //trùng ngày
                 .AsQueryable();
             if (checkDuplicateTime != null && checkDuplicateTime.Count() > 0) //Nếu có lịch dạy trùng thời gian 
@@ -122,6 +121,10 @@ namespace Application.Sessions.Commands
 
             //_mapper.Map(request, question);
             // Use reflection to update non-null properties
+            if(request.LecturerId != null)
+            {
+                session.ApplicationUserId = request.LecturerId;
+            }
             foreach (var property in request.GetType().GetProperties())
             {
                 var requestValue = property.GetValue(request);

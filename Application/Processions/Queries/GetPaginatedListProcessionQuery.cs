@@ -19,6 +19,7 @@ namespace Application.Processions.Queries
         public int PageIndex { get; init; }
         public int? PageSize { get; init; }
         public Guid ParticipantId { get; set; }
+        public Guid EnrollmentId { get; set; }
         public Guid TopicId { get; set; }
         public IsDeleted IsDeleted { get; init; } = IsDeleted.All;
         public SortBy SortBy { get; init; }
@@ -51,6 +52,11 @@ namespace Application.Processions.Queries
             if (request.ParticipantId != Guid.Empty)
             {
                 processions = processions.Where(x => x.ParticipantId == request.ParticipantId);
+            }
+            // filter by EnrollmentId 
+            if (request.EnrollmentId != Guid.Empty)
+            {
+                processions = processions.Where(x => x.Participant.EnrollmentId == request.EnrollmentId);
             }
             // filter by TopicId
             if (request.TopicId != Guid.Empty)
