@@ -21,7 +21,7 @@ namespace Application.Students.Commands
         public Guid Id { get; init; }
         public string? ApplicationUserId { get; set; }
         public Guid? ParentId { get; set; }
-        public int? Image { get; set; }
+        public string? Image { get; set; }
         public string? School { get; set; }
         public string? Class { get; set; }
     }

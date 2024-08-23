@@ -50,7 +50,7 @@ namespace Application.Teachers.Commands
                 }
             }
 
-            var teacher = await _context.Teachables.FirstOrDefaultAsync(x => x.Id == request.Id);
+            var teacher = await _context.Teachers.FirstOrDefaultAsync(x => x.Id == request.Id);
 
             if (teacher == null)
             {

@@ -19,6 +19,7 @@ using Application.Topics.Queries;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using Application.Parents;
 using Application.ApplicationUsers;
+using Application.Auth.Commands;
 
 namespace Api.Controllers;
 
@@ -35,8 +36,17 @@ public class AuthController : ControllerBase
         _userManager = userManager;
     }
 
-    [HttpGet("login-google")]
-    public IActionResult LoginGoogle()
+    [HttpPost("login-google")]
+    public async Task<IActionResult> ConfirmEmailAccount(ISender sender, [FromQuery] LoginGoogleCommand command)
+    {
+        var result = await sender.Send(command);
+        return new ObjectResult(result)
+        {
+            StatusCode = result.Code
+        };
+    }
+    [HttpGet("google")]
+    public IActionResult LoginGoogleAPI()
     {
         var props = new AuthenticationProperties { RedirectUri = "/api/v1/auth/google-response" };
         return Challenge(props, GoogleDefaults.AuthenticationScheme);

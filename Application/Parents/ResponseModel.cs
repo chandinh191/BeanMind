@@ -17,8 +17,6 @@ namespace Application.Parents
     {
         public string ApplicationUserId { get; set; }
         public string Address { get; set; }
-        public string Address1 { get; set; }
-        public string Address2 { get; set; }
         public string Phone { get; set; }
         public double Wallet { get; set; }
         public Gender Gender { get; set; }
@@ -32,8 +30,6 @@ namespace Application.Parents
         public GetBriefApplicationUserResponseModel ApplicationUser { get; set; }
         public List<GetBriefStudentResponseModel> Students { get; set; }
         public string Address { get; set; }
-        public string Address1 { get; set; }
-        public string Address2 { get; set; }
         public string Phone { get; set; }
         public double Wallet { get; set; }
         public Gender Gender { get; set; }
