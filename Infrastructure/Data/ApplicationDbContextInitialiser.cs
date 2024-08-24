@@ -133,8 +133,8 @@ public class ApplicationDbContextInitialiser
         //Default Manager
         var defaultManagerUser = new ApplicationUser
         {
-            Email = "manager@localhost.com",
-            UserName = "manager@localhost.com",
+            Email = "manager@gmail.com",
+            UserName = "manager@gmail.com",
             EmailConfirmed = true
         };
         if (_userManager.Users.FirstOrDefault(u => u.Email.Equals(defaultManagerUser.Email)) == null)
@@ -153,19 +153,21 @@ public class ApplicationDbContextInitialiser
             "8 năm kinh nghiệm giảng dạy cho trẻ nhỏ", 
             "Làm việc cho Nasa 12 năm", 
             "Tốt nghiệp khóa đào tạo giảng dạy chuyên nghiệp" };
-        var firstNames = new List<string> { "Vinh", "Thịnh", "Tiến", "Kiệt", "Triệu" };
-        var lastNames = new List<string> { "Trần", "Mai", "Nguyễn", "Lê", "Nguyễn" };
+
+        var emailTeacher = new List<string> { "vinhtc191", "maitruongthinh08", "marchjeff145", "tuankiet2911", "trieudoublenguyen" };
+        var firstNameTeachers = new List<string> { "Dinh", "Trường", "Văn", "Tuấn", "Nguyên" };
+        var lastNameTeachers = new List<string> { "Chần", "Mai", "Nguyễn", "Lê", "Nguyễn" };
         var random = new Random();
         for (int i = 0; i < 5; i++)
         {
             var user = new ApplicationUser
             {
                 Id = "8e02b95e-6491-4eaf-a75a-06dae6e1ea4" + i.ToString(),
-                Email = "TeacherTesting" + i + "@localhost.com",
-                UserName = "TeacherTesting" + i + "@localhost.com",
+                Email = emailTeacher[i] + "@gmail.com",
+                UserName = emailTeacher[i] + "@gmail.com",
                 EmailConfirmed = true,
-                FirstName = firstNames[i],
-                LastName = lastNames[i],
+                FirstName = firstNameTeachers[i],
+                LastName = lastNameTeachers[i],
             };
             if (_userManager.Users.FirstOrDefault(u => u.Email.Equals(user.Email)) == null)
             {
@@ -179,24 +181,28 @@ public class ApplicationDbContextInitialiser
             {
                 Id = new Guid(),
                 ApplicationUserId = user.Id,
-                Image = "https://static.vecteezy.com/system/resources/previews/019/153/517/original/avatar-of-a-teacher-character-free-vector.jpg",
+                Image = "https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/vinhdepzai%2Fteacher.png?alt=media&token=d693ecbe-c04d-428f-a7a4-16eafd933d14",
                 Experience = experiences[i],
                 Level = levels[i]
             });
             await _context.Teachers.AddAsync(teacher);
             user.TeacherId = teacher.Id;
         }
+
+        var emailParents = new List<string> { "kietlt", "trieunn" };
+        var firstNameParents = new List<string> { "Kiet", "Trieu" };
+        var lastNameParents = new List<string> { "Le", "Nguyen" };
         // Parent Account User
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 2; i++)
         {
             var user = new ApplicationUser
             {
                 Id = "ae8ab566-70fb-445a-81da-a414f04462c" + i.ToString(),
-                Email = "ParentTesting" + i + "@localhost.com",
-                UserName = "ParentTesting" + i + "@localhost.com",
+                Email = emailParents[i] + "@gmail.com",
+                UserName = emailParents[i] + "@gmail.com",
                 EmailConfirmed = true,
-                FirstName = firstNames[i],
-                LastName = lastNames[i],
+                FirstName = firstNameParents[i],
+                LastName = lastNameParents[i],
             };
             if (_userManager.Users.FirstOrDefault(u => u.Email.Equals(user.Email)) == null)
             {
@@ -218,19 +224,23 @@ public class ApplicationDbContextInitialiser
             await _context.Parents.AddAsync(parent);
             user.ParentId = parent.Id;
         }
+
+        var emailStudent = new List<string> { "vinhtc", "thinhmt", "tiennv" };
+        var firstNameStudents = new List<string> { "Vinh", "Thịnh", "Tiến" };
+        var lastNameStudents = new List<string> { "Trần", "Mai", "Nguyễn" };
         // Student Account User
         var schools = new List<string> { "Tiểu học Việt Anh", "Tiểu học Quốc tế Hà Nội", "Tiểu học Nam Việt", "Tiểu Học Marie Curie", "Tiểu học Đinh Thiện Lý" };
         var classes = new List<string> { "Lớp 1", "Lớp 2", "Lớp 3", "Lớp 4", "Lớp 5", };
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 3; i++)
         {
             var user = new ApplicationUser
             {
                 Id = "954b8b1b-1b5f-42f6-9e27-4aa65cc7e7b" + i.ToString(),
-                Email = "StudentTesting" + i + "@localhost.com",
-                UserName = "StudentTesting" + i + "@localhost.com",
+                Email = emailStudent[i] + "@gmail.com",
+                UserName = emailStudent[i] + "@gmail.com",
                 EmailConfirmed = true,
-                FirstName = firstNames[i],
-                LastName  = lastNames[i],
+                FirstName = firstNameStudents[i],
+                LastName  = lastNameStudents[i],
             };
             if (_userManager.Users.FirstOrDefault(u => u.Email.Equals(user.Email)) == null)
             {
@@ -244,8 +254,8 @@ public class ApplicationDbContextInitialiser
             {
                 Id = new Guid(),
                 ApplicationUserId = user.Id,
-                ParentId = new Guid("4977e82e-9592-475b-a6fa-10942721c6d" + i.ToString()),
-                Image = "https://png.pngtree.com/png-vector/20190129/ourmid/pngtree-teachers-day-cartoon-student-thanksgiving-element-daystudentteacherteacherhappyreturnrepaythanksgivingrepaycartoonhand-paintedcartoon-imagecartoon-png-image_568791.jpg",
+                ParentId = new Guid("4977e82e-9592-475b-a6fa-10942721c6d" + (i%2).ToString() ),
+                Image = "https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/vinhdepzai%2Fstudent.png?alt=media&token=c9530e62-817f-420b-9d69-59c67ff8c862",
                 School = schools[i],
                 Class = classes[i]
             });

@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using System.ComponentModel.DataAnnotations;
 
 namespace Api.Controllers
@@ -94,7 +95,7 @@ namespace Api.Controllers
                                 {
                                     vnpay.AddRequestData("vnp_BankCode", "INTCARD");
                                 }*/
-            /* var ipAddress = (Request.Headers["HTTP_X_FORWARDED_FOR"].IsNullOrEmpty()) 
+           /* var ipAddress = (Request.Headers["HTTP_X_FORWARDED_FOR"].IsNullOrEmpty()) 
                  ? Request.Headers["REMOTE_ADDR"]
                  : Request.Headers["HTTP_X_FORWARDED_FOR"];*/
 

@@ -145,7 +145,6 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("login")]
-    [Authorize]
     public async Task<IActionResult> Login(ISender sender, [FromBody] LoginCommand command)
     {
         var result = await sender.Send(command);

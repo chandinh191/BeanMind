@@ -28,7 +28,7 @@ public sealed record CreateCourseCommand : IRequest<BaseResponse<GetBriefCourseR
     public Guid ProgramTypeId { get; set; }
     [Required]
     public Guid CourseLevelId { get; set; }
-    public List<CreateTeacherIdModel> Teachables { get; set; }
+    public List<CreateTeacherIdModel>? Teachables { get; set; }
 }
 public class CreateTeacherIdModel
 {
@@ -102,7 +102,7 @@ public class CreateCourseCommandHanler : IRequestHandler<CreateCourseCommand, Ba
             };
         }
 
-        if(request.Teachables.Count > 0)
+        if(request.Teachables != null && request.Teachables.Count > 0)
         {
             foreach(var userId in request.Teachables)
             {
