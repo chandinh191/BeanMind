@@ -47,7 +47,7 @@ namespace Api.Controllers
             };
         }
         [HttpPost("auto-assign")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> CreateAutoAssign(ISender sender, [FromBody] CreateAutoSessionCommand command)
         {
             var result = await sender.Send(command);

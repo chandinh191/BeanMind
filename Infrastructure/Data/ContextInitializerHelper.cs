@@ -328,7 +328,7 @@ namespace Infrastructure.Data
                 Price = 200,
                 ImageURL = "https://lh3.googleusercontent.com/cUU3mc0ZhuccrJt8PSkcIicKVG5I6WXqJoCMaldiuDH1XCMbKEKUxAzJxpRITwcqXzXe6wxofg1aRrAOyBc9R--m85Q5K8myK2KvEChDa3xUdyKwI5xIjOBM1VNuVHE4dBt5tAqX",
                 Description = "Mở đầu chương trình Toán 1 Kết Nối Tri Thức, các em sẽ tìm hiểu về Các số từ 0 đến 10. Gồm các bài học có tóm tắt lý thuyết, cung cấp các bài tập minh họa để các em ôn tập và củng cố kiến thức đã học. Bên cạnh đó, hệ thống hỏi đáp sẽ giúp các em giải đáp các thắc mắc sau khi học bài. Mời các em xem chi tiết bài học.",
-                TotalSlot = 20,
+                TotalSlot = 10,
             });
             // Chapter table
             await _context.Chapters.AddAsync(new Chapter
@@ -542,7 +542,7 @@ namespace Infrastructure.Data
                 Title = "Làm quen với một số hình phẳng",
                 ImageURL = "https://static.vecteezy.com/system/resources/thumbnails/002/399/898/small_2x/education-concept-with-funny-characters-vector.jpg",
                 Description = "Nhận biết được một số hình vuông, hình tròn, hình tam giác, hình chữ nhật là nội dung các em sẽ tìm hiểu ở Chương: Làm quen với một số hình phẳng của môn Toán 1 Kết Nối Tri thức. Bài học được BeanMind biên soạn với các phần tóm tắt lý thuyết, bài tập minh họa và giúp các em chuẩn bị bài học thật tốt và luyện tập, đánh giá năng lực của bản thân. Hệ thống hỏi đáp sẽ giúp các em giải quyết nhiều câu hỏi khó nhanh chóng, hiệu quả. Các em xem nội dung bài học ngay bên dưới.",
-                TotalSlot = 30,
+                TotalSlot = 8,
             });
             await _context.Chapters.AddAsync(new Chapter
             {
@@ -618,7 +618,7 @@ namespace Infrastructure.Data
                 Title = "Phép cộng, phép trừ trong phạm vi 10",
                 ImageURL = "https://img.loigiaihay.com/picture/2022/0921/bai-2-tr49.JPG",
                 Description = "Đến với nội dung Phép cộng, phép trừ trong phạm vi 10 của chương trình Toán 1 Kết Nối Tri Thức, các em sẽ được học hỏi thêm các kiến thức mới về phép toán cộng, trừ trong phạm vi 10. Bên cạnh đó, các em còn được thử sức với các bài tập minh họa cuối mỗi bài học nhằm đánh giá năng lực bản thân sau khi học bài. Hệ thống hỏi đáp cuối bài sẽ giải đáp các thắc mắc của các em trong quá trình học. Mời các em theo dõi nội dung chi tiết bên dưới!",
-                TotalSlot = 25,
+                TotalSlot = 15,
             });
             await _context.Courses.AddAsync(new Course
             {
@@ -630,7 +630,7 @@ namespace Infrastructure.Data
                 Title = "Làm quen với một số hình khối",
                 ImageURL = "https://vnmedia2.monkeyuni.net/upload/web/storage_web/21-08-2023_09:39:28_toan-lop-1-khoi-lap-phuong-0.jpg",
                 Description = "Đến với Chương: Làm quen với một số hình khối của chương trình Toán 1 Kết Nối Tri Thức các em sẽ được tiềm hiểu về khối lập phương, khối hợp chữ nhật. Nhằm giúp các em học tập thật tốt và nắm vững kiến thức trọng tâm trong bài, Hoc247 đã biên soạn các bài tập minh họa sau phần tóm tắt lý thuyết. Chúc các em học tập tốt. Nếu có thắc mắc cần giải quyết, hãy bình luận ở phần hỏi đáp cuối bài học.",
-                TotalSlot = 24,
+                TotalSlot = 14,
             });
             await _context.Courses.AddAsync(new Course
             {
@@ -642,7 +642,7 @@ namespace Infrastructure.Data
                 Title = "Ôn tập học kì 1",
                 ImageURL = "https://play-lh.googleusercontent.com/GndUEl04bwSNJKEPAlRB-8AKfnb5X0oZN_clNmgwBRZl2MOPQpFRCJL_6rFxioj_Gg",
                 Description = "Mời các em đến với nội dung Ôn tập học kì 1​​ của chương trình Toán 1 Kết nối tri thức do Hoc247 biên soạn dưới đây. Ở chương này các em học sinh sẽ được ôn tập lại đầy đủ các kiến thức đã học, bên cạnh đó còn có các bài tập minh họa có hướng dẫn giải chi tiết, giúp các em có thể tự luyện tập, đối chiếu đáp án, đánh giá năng lực bản thân sau khi học bài. Hệ thống hỏi đáp sẽ giúp các em giải quyết các thắc mắc liên quan đến bài học.",
-                TotalSlot = 24,
+                TotalSlot = 8,
             });
             await _context.Courses.AddAsync(new Course
             {
@@ -654,7 +654,7 @@ namespace Infrastructure.Data
                 Title = "Các số đến 100",
                 ImageURL = "https://booktoan.com/wp-content/uploads/2023/07/unnamed-file-447.png",
                 Description = "BeanMind xin giới thiệu các em học sinh Chương: Các số đến 100 môn Toán 1 sách Kết Nối Tri Thức. Nội dung đầy đủ bao gồm tóm tắt lý thuyết, các bài tập SGK và các bài tập minh họa có hướng dẫn giải chi tiết. Hi vọng bài học sẽ giúp các em nắm vững kiến thức và ghi nhớ được các số có hai chữ số, so sánh số có hai chữ số và các phép toán liên quan đến chương. Nếu có bất kì thắc mắc gì về chủ đề này, các em vui lòng bình luận ở mục hỏi đáp để BeanMind hỗ trợ.",
-                TotalSlot = 18,
+                TotalSlot = 8,
             });
             await _context.Courses.AddAsync(new Course
             {
@@ -666,7 +666,7 @@ namespace Infrastructure.Data
                 Title = "Độ dài và đo độ dài",
                 ImageURL = "https://img.loigiaihay.com/picture/2022/1107/bai-1-tr115.PNG",
                 Description = "Đến với chương Độ dài và đo độ dài Toán 1 Kết Nối Tri Thức các em học sinh sẽ thực hành ước lượng và đo độ dài, biết so sánh các vật dài hơn, ngắn hơn,....BeanMind đã tóm tắt chi tiết các kiến thức cần nhớ, các dạng bài tập và các bài tập minh họa có hướng dẫn giải chi tiết, giúp các em dễ dàng nắm vững được kiến thức mới. Mời quý phụ huynh và các em học sinh cùng tham khảo!",
-                TotalSlot = 35,
+                TotalSlot = 6,
             });
             await _context.Courses.AddAsync(new Course
             {
@@ -678,7 +678,7 @@ namespace Infrastructure.Data
                 Title = "Phép cộng, phép trừ (không nhớ) trong phạm vi 100",
                 ImageURL = "https://vietjack.com/giai-bai-tap-toan-1/images/phep-tru-trong-pham-vi-100-tru-khong-nho-trang-158-1.PNG",
                 Description = "Phép cộng, phép trừ (không nhớ) trong phạm vi 100 là một trong những chương học quan trọng của chương trình Toán 1 Kết Nối Tri Thức. BeanMind đã biên soạn chi tiết lý thuyết cần nhớ, bài tập minh họa, giúp các em học sinh nắm vững nội dung như phép cộng, trừ số có hai chữ số cho số có hai chữ số, phép cộng, trừ số có hai chữ số cho số có một chữ số. Sau đây mời quý phụ huynh và các em học sinh cùng tham khảo.",
-                TotalSlot = 22,
+                TotalSlot = 12,
             });
             await _context.Courses.AddAsync(new Course
             {
@@ -690,7 +690,7 @@ namespace Infrastructure.Data
                 Title = "Thời gian, giờ và lịch",
                 ImageURL = "https://www.vietjack.com/toan-1-ket-noi/images/bai-34-xem-gio-dung-tren-dong-ho-5.png",
                 Description = "Nhận biết được thời gian trên đồng hồ, xem được ngày tháng trên lịch là nội dung các em sẽ tìm hiểu ở Chương: Thời gian, giờ và lịch của môn Toán 1 Kết Nối Tri thức. Bài học được BeanMind biên soạn với các phần tóm tắt lý thuyết, bài tập minh họa và giúp các em chuẩn bị bài học thật tốt và luyện tập, đánh giá năng lực của bản thân. Hệ thống hỏi đáp sẽ giúp các em giải quyết nhiều câu hỏi khó nhanh chóng, hiệu quả. Các em xem nội dung bài học ngay bên dưới.",
-                TotalSlot = 15,
+                TotalSlot = 10,
             });
             await _context.Courses.AddAsync(new Course
             {
@@ -702,7 +702,7 @@ namespace Infrastructure.Data
                 Title = "Ôn tập cuối năm",
                 ImageURL = "https://mir-s3-cdn-cf.behance.net/projects/404/d2c356205497513.Y3JvcCwxMDMzLDgwOCw2MSw2OTM.png",
                 Description = "Đến với Ôn tập cuối năm của chương trình Toán 1 Kết Nối Tri Thức đã được BeanMind biên soạn chi tiết các kiến thức cần nhớ và các bài tập minh họa có hướng dẫn giải chi tiết, nhầm giúp các em học tập thật tốt môn Toán 1. Đồng thời đây cũng là tài liệu tham khảo cho các phụ huynh và các giáo viên trong quá trình dạy học. Mời các em học sinh cùng các bậc phụ huynh tham khảo.",
-                TotalSlot = 12,
+                TotalSlot = 6,
             });
             //
             await _context.Courses.AddAsync(new Course
@@ -715,7 +715,7 @@ namespace Infrastructure.Data
                 Title = "Ôn tập và bổ sung",
                 ImageURL = "https://infinitylearn.com/surge/wp-content/uploads/2021/12/MicrosoftTeams-image-58.jpg",
                 Description = "Mở đầu chương trình Toán 2 Kết Nối Tri Thức, các em sẽ tìm hiểu về Chủ đề 1 : Ôn tập và bổ sung. Gồm các bài học có tóm tắt lý thuyết, cung cấp các bài tập minh họa để các em ôn tập và củng cố kiến thức đã học. Bên cạnh đó, hệ thống hỏi đáp sẽ giúp các em giải đáp các thắc mắc sau khi học bài. Mời các em xem chi tiết bài học.",
-                TotalSlot = 20,
+                TotalSlot = 10,
             });
                 // -----------
                 await _context.Chapters.AddAsync(new Chapter
@@ -829,7 +829,7 @@ namespace Infrastructure.Data
                 Title = "Phép cộng, phép trừ trong phạm vi 20",
                 ImageURL = "https://mightymath.edu.vn/uploads/pictures/634f768b165b7822016ef8e0/content_bang-tru-trong-pham-vi-20-lop-2-moi.jpg",
                 Description = "Đến với nội dung Chủ đề 2: Phép cộng, phép trừ trong phạm vi 20 của chương trình Toán 2 Kết Nối Tri Thức, các em sẽ được học hỏi thêm các kiến thức mới về bảng cộng, bảng trừ qua 10, bài toán về thêm, bớt một số đơn vị,.... Bên cạnh đó, các em còn được thử sức với các bài tập minh họa cuối mỗi bài học nhằm đánh giá năng lực bản thân sau khi học bài. Hệ thống hỏi đáp cuối bài sẽ giải đáp các thắc mắc của các em trong quá trình học. Mời các em theo dõi nội dung chi tiết bên dưới!",
-                TotalSlot = 30,
+                TotalSlot = 14,
             });
             await _context.Courses.AddAsync(new Course
             {
@@ -853,7 +853,7 @@ namespace Infrastructure.Data
                 Title = "Phép cộng, phép trừ (có nhớ) trong phạm vi 100",
                 ImageURL = "https://img.loigiaihay.com/picture/question_lgh/2021_41/1622174452-cech.jpg",
                 Description = "Mời các em đến với nội dung Chủ đề 4 : Phép cộng, phép trừ (có nhớ) trong phạm vi 100​​ của chương trình Toán 2 Kết nối tri thức do Benamind biên soạn dưới đây. Ở chương này các em học sinh sẽ được ôn tập lại đầy đủ các kiến thức đã học, bên cạnh đó còn có các bài tập minh họa có hướng dẫn giải chi tiết, giúp các em có thể tự luyện tập, đối chiếu đáp án, đánh giá năng lực bản thân sau khi học bài. Hệ thống hỏi đáp sẽ giúp các em giải quyết các thắc mắc liên quan đến bài học.",
-                TotalSlot = 25,
+                TotalSlot = 12,
             });
             await _context.Courses.AddAsync(new Course
             {
@@ -877,7 +877,7 @@ namespace Infrastructure.Data
                 Title = "Ngày - giờ, giờ - phút, ngày - tháng",
                 ImageURL = "https://vnmedia2.monkeyuni.net/upload/web/storage_web/28-03-2022_12:35:29_toan-lop-2-ngay-gio.jpg",
                 Description = "BeanMind xin giới thiệu các em học sinh Chủ đề 6 : Ngày - giờ, giờ - phút, ngày - tháng môn Toán 2 sách Kết Nối Tri Thức. Nội dung đầy đủ bao gồm tóm tắt lý thuyết, các bài tập SGK và các bài tập minh họa có hướng dẫn giải chi tiết. Hi vọng bài học sẽ giúp các em nắm vững kiến thức và ghi nhớ được các số có hai chữ số, so sánh số có hai chữ số và các phép toán liên quan đến chương. Nếu có bất kì thắc mắc gì về chủ đề này, các em vui lòng bình luận ở mục hỏi đáp để BeanMind  hỗ trợ.",
-                TotalSlot = 22,
+                TotalSlot = 12,
             });
             await _context.Courses.AddAsync(new Course
             {
@@ -889,7 +889,7 @@ namespace Infrastructure.Data
                 Title = "Ôn tập Học kì 1",
                 ImageURL = "https://i.pinimg.com/736x/51/7e/89/517e890cd1d9606b78ccbdd08f0fdf1d.jpg",
                 Description = "Ôn tập Học kì 1 Toán 2 Kết Nối Tri Thức các em học sinh sẽ Ôn tập hình phẳng, Ôn tập đo lường, Ôn tập phép cộng, phép trừ trong phạm vi 20, 100. BeanMind đã tóm tắt chi tiết các kiến thức cần nhớ, các dạng bài tập và các bài tập minh họa có hướng dẫn giải chi tiết, giúp các em dễ dàng nắm vững được kiến thức mới. Mời quý phụ huynh và các em học sinh cùng tham khảo!",
-                TotalSlot = 35,
+                TotalSlot = 15,
             });
 
             // --------------
@@ -904,10 +904,26 @@ namespace Infrastructure.Data
             });
             await _context.TeachingSlots.AddAsync(new TeachingSlot
             {
+                Id = new Guid("50199a05-0c0c-45ef-8b98-570e592fc903"),
+                StartTime = "2 pm",
+                EndTime = "4 pm",
+                DayIndex = 2,
+                CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
+            });
+            await _context.TeachingSlots.AddAsync(new TeachingSlot
+            {
                 Id = new Guid("811c17cb-527e-4658-9db4-454fdeeca3ef"),
                 StartTime = "8 am",
                 EndTime = "10 am",
                 DayIndex = 3,
+                CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
+            });
+            await _context.TeachingSlots.AddAsync(new TeachingSlot
+            {
+                Id = new Guid("ec198adf-2a3e-42d9-af87-37ee9a819f99"),
+                StartTime = "10 am",
+                EndTime = "12 am",
+                DayIndex = 4,
                 CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
             });
             await _context.TeachingSlots.AddAsync(new TeachingSlot

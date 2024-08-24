@@ -56,3 +56,26 @@ public class GetCourseResponseModel : BaseResponseModel
     public DateTime Created { get; set; }
 
 }
+[AutoMap(typeof(Domain.Entities.Course))]
+public class GetCourseResponseModelVer2 : BaseResponseModel
+{
+    public string Title { get; set; }
+    public string ImageURL { get; set; }
+    public string Description { get; set; }
+    public int Price { get; set; }
+    public int TotalSlot { get; set; }
+    public Guid SubjectId { get; set; }
+    public GetBriefSubjectResponseModel Subject { get; set; }
+    public Guid ProgramTypeId { get; set; }
+    public GetBriefProgramTypeResponseModel ProgramType { get; set; }
+    public Guid CourseLevelId { get; set; }
+    public GetBriefCourseLevelResponseModel CourseLevel { get; set; }
+    public List<GetBriefTeachingSlotResponseModel> TeachingSlots { get; set; }
+    public List<GetTeachableResponseModel> Teachables { get; set; }
+    public List<GetBriefChapterResponseModel> Chapters { get; set; }
+    public List<GetBriefEnrollmentResponseModel> Enrollments { get; set; }
+    public List<GetBriefWorksheetTemplateResponseModel>? WorksheetTemplates { get; set; }
+    public DateTime Created { get; set; }
+    public bool IsAvailable { get; set; } = false;
+    public int NumberOfEnrollment { get; set; } = 0;
+}

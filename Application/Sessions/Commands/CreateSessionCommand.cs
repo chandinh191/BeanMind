@@ -95,6 +95,17 @@ namespace Application.Sessions.Commands
                 };
             }*/
             //var session = _mapper.Map<Domain.Entities.Session>(request);
+            var existedSession = _context.Sessions
+              .Where(o => o.ApplicationUserId == request.LecturerId && o.TeachingSlotId == request.TeachingSlotId && o.Date == request.Date && o.IsDeleted ==false)
+              .FirstOrDefault();
+            if (existedSession != null)
+            {
+                return new BaseResponse<GetBriefSessionResponseModel>
+                {
+                    Success = false,
+                    Message = "Session is existed",
+                };
+            }
             var session = new Session()
             {
                 ApplicationUserId = request.LecturerId,

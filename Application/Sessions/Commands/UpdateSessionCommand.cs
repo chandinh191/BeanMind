@@ -96,6 +96,22 @@ namespace Application.Sessions.Commands
                     Message = "User are not able to teach this course",
                 };
             }
+            var existedSession = _context.Sessions
+              .Where(o => o.ApplicationUserId == request.LecturerId 
+                && o.TeachingSlotId == request.TeachingSlotId 
+                && o.Date == request.Date 
+                && o.IsDeleted == false 
+                && o.Id != session.Id
+                )
+              .FirstOrDefault();
+            if (existedSession != null)
+            {
+                return new BaseResponse<GetBriefSessionResponseModel>
+                {
+                    Success = false,
+                    Message = "Session is existed",
+                };
+            }
             /*int dayOfWeek = (int)request.Date.DayOfWeek;
             if (dayOfWeek != teachingSlot.DayIndex)
             {
@@ -106,22 +122,22 @@ namespace Application.Sessions.Commands
                 };
             }
 */
-/*            var checkDuplicateTime = _context.Sessions
-                .Where(o => o.ApplicationUserId == request.LecturerId
-                && o.Date == request.Date) //trùng ngày
-                .AsQueryable();
-            if (checkDuplicateTime != null && checkDuplicateTime.Count() > 0) //Nếu có lịch dạy trùng thời gian 
-            {
-                return new BaseResponse<GetBriefSessionResponseModel>
-                {
-                    Success = false,
-                    Message = "The lecturer have a session during this time",
-                };
-            }*/
+            /*            var checkDuplicateTime = _context.Sessions
+                            .Where(o => o.ApplicationUserId == request.LecturerId
+                            && o.Date == request.Date) //trùng ngày
+                            .AsQueryable();
+                        if (checkDuplicateTime != null && checkDuplicateTime.Count() > 0) //Nếu có lịch dạy trùng thời gian 
+                        {
+                            return new BaseResponse<GetBriefSessionResponseModel>
+                            {
+                                Success = false,
+                                Message = "The lecturer have a session during this time",
+                            };
+                        }*/
 
             //_mapper.Map(request, question);
             // Use reflection to update non-null properties
-            if(request.LecturerId != null)
+            if (request.LecturerId != null)
             {
                 session.ApplicationUserId = request.LecturerId;
             }

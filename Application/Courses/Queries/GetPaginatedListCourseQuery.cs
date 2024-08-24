@@ -8,7 +8,7 @@ using Domain.Enums;
 
 namespace Application.Courses.Queries;
 
-public sealed record GetPaginatedListCourseQuery : IRequest<BaseResponse<Pagination<GetCourseResponseModel>>>
+public sealed record GetPaginatedListCourseQuery : IRequest<BaseResponse<Pagination<GetCourseResponseModelVer2>>>
 {
     public int PageIndex { get; init; }
     public int? PageSize { get; init; }
@@ -22,7 +22,7 @@ public sealed record GetPaginatedListCourseQuery : IRequest<BaseResponse<Paginat
     public DateTime EndTime { get; init; } = DateTime.MinValue;
 }
 
-public class GetPaginatedListCourseQueryHandler : IRequestHandler<GetPaginatedListCourseQuery, BaseResponse<Pagination<GetCourseResponseModel>>>
+public class GetPaginatedListCourseQueryHandler : IRequestHandler<GetPaginatedListCourseQuery, BaseResponse<Pagination<GetCourseResponseModelVer2>>>
 {
     private readonly ApplicationDbContext _context;
     private readonly IConfiguration _configuration;
@@ -35,7 +35,7 @@ public class GetPaginatedListCourseQueryHandler : IRequestHandler<GetPaginatedLi
         _mapper = mapper;
     }
 
-    public async Task<BaseResponse<Pagination<GetCourseResponseModel>>> Handle(GetPaginatedListCourseQuery request, CancellationToken cancellationToken)
+    public async Task<BaseResponse<Pagination<GetCourseResponseModelVer2>>> Handle(GetPaginatedListCourseQuery request, CancellationToken cancellationToken)
     {
         var defaultPageSize = _configuration.GetValue<int>("Pagination:PageSize");
         var courses = _context.Courses
@@ -101,24 +101,43 @@ public class GetPaginatedListCourseQueryHandler : IRequestHandler<GetPaginatedLi
         {
             courses = courses.Where(o => o.Created <= request.EndTime);
         }
+      
+
 
         // convert the list of item to list of response model
-        var mappedCourses = _mapper.Map<List<GetCourseResponseModel>>(courses);
-        var createPaginatedListResult = Pagination<GetCourseResponseModel>.Create(mappedCourses.AsQueryable(), request.PageIndex, request.PageSize ?? defaultPageSize);
+        var mappedCourses = _mapper.Map<List<GetCourseResponseModelVer2>>(courses);
+        foreach (var mappedCourse in mappedCourses)
+        {
+            var session = _context.Sessions
+              .Include(o => o.TeachingSlot)
+              .Where(o => o.Date >= DateTime.Now.AddHours(14))
+              .Where(o => o.TeachingSlot.CourseId == mappedCourse.Id)              
+              .AsQueryable();
+            int futureSession = session.Count();
+            if (futureSession >= mappedCourse.TotalSlot)
+            {
+                mappedCourse.IsAvailable = true;
+            }
+            var enrolment = _context.Enrollments
+             .Where(o => o.CourseId == mappedCourse.Id && o.IsDeleted == false)
+             .AsQueryable();
+            mappedCourse.NumberOfEnrollment = enrolment.Count();
+        }
+        var createPaginatedListResult = Pagination<GetCourseResponseModelVer2>.Create(mappedCourses.AsQueryable(), request.PageIndex, request.PageSize ?? defaultPageSize);
 
         if(createPaginatedListResult == null)
         {
-            return new BaseResponse<Pagination<GetCourseResponseModel>>
+            return new BaseResponse<Pagination<GetCourseResponseModelVer2>>
             {
                 Success = false,
                 Message = "Get paginated list course failed",
             };
         }
 
-        return new BaseResponse<Pagination<GetCourseResponseModel>>
+        return new BaseResponse<Pagination<GetCourseResponseModelVer2>>
         {
             Success = true,
-            Message = "Get paginated list course successful",
+            Message = "Get paginated list course successfully",
             Data = createPaginatedListResult,
         };
     }

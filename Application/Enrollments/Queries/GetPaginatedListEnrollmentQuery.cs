@@ -15,7 +15,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Application.Enrollments.Queries
 {
 
-    public sealed record GetPaginatedListEnrollmentQuery : IRequest<BaseResponse<Pagination<GetBriefEnrollmentResponseModel>>>
+    public sealed record GetPaginatedListEnrollmentQuery : IRequest<BaseResponse<Pagination<GetBriefEnrollmentResponseModelVer2>>>
     {
         public int PageIndex { get; init; }
         public int? PageSize { get; init; }
@@ -27,7 +27,7 @@ namespace Application.Enrollments.Queries
         public DateTime EndTime { get; init; } = DateTime.MinValue;
     }
 
-    public class GetPaginatedListEnrollmentQueryHandler : IRequestHandler<GetPaginatedListEnrollmentQuery, BaseResponse<Pagination<GetBriefEnrollmentResponseModel>>>
+    public class GetPaginatedListEnrollmentQueryHandler : IRequestHandler<GetPaginatedListEnrollmentQuery, BaseResponse<Pagination<GetBriefEnrollmentResponseModelVer2>>>
     {
         private readonly ApplicationDbContext _context;
         private readonly IConfiguration _configuration;
@@ -40,7 +40,7 @@ namespace Application.Enrollments.Queries
             _mapper = mapper;
         }
 
-        public async Task<BaseResponse<Pagination<GetBriefEnrollmentResponseModel>>> Handle(GetPaginatedListEnrollmentQuery request, CancellationToken cancellationToken)
+        public async Task<BaseResponse<Pagination<GetBriefEnrollmentResponseModelVer2>>> Handle(GetPaginatedListEnrollmentQuery request, CancellationToken cancellationToken)
         {
             var defaultPageSize = _configuration.GetValue<int>("Pagination:PageSize");
             var enrollments = _context.Enrollments
@@ -95,24 +95,41 @@ namespace Application.Enrollments.Queries
             }
 
             // convert the list of item to list of response model
-            var mappedEnrollments = _mapper.Map<List<GetBriefEnrollmentResponseModel>>(enrollments);
-            var createPaginatedListResult = Pagination<GetBriefEnrollmentResponseModel>.Create(mappedEnrollments.AsQueryable(), request.PageIndex, request.PageSize ?? defaultPageSize);
+            var mappedEnrollments = _mapper.Map<List<GetBriefEnrollmentResponseModelVer2>>(enrollments);
+            foreach (var mappedEnrollment in mappedEnrollments)
+            {
+                mappedEnrollment.PercentTopicCompletion = CactulatePercentTopicCompletion(mappedEnrollment.Id, mappedEnrollment.CourseId);
+            }
+            var createPaginatedListResult = Pagination<GetBriefEnrollmentResponseModelVer2>.Create(mappedEnrollments.AsQueryable(), request.PageIndex, request.PageSize ?? defaultPageSize);
 
             if (createPaginatedListResult == null)
             {
-                return new BaseResponse<Pagination<GetBriefEnrollmentResponseModel>>
+                return new BaseResponse<Pagination<GetBriefEnrollmentResponseModelVer2>>
                 {
                     Success = false,
                     Message = "Get PaginatedList enrollment failed",
                 };
             }
 
-            return new BaseResponse<Pagination<GetBriefEnrollmentResponseModel>>
+            return new BaseResponse<Pagination<GetBriefEnrollmentResponseModelVer2>>
             {
                 Success = true,
-                Message = "Get PaginatedList enrollment successful",
+                Message = "Get PaginatedList enrollment successfully",
                 Data = createPaginatedListResult,
             };
+        }
+        public double CactulatePercentTopicCompletion(Guid enrollmentId, Guid courseId)
+        {
+            var processions = _context.Processions
+                .Include(o => o.Participant).ThenInclude(o => o.Enrollment)
+                //.Where(o => o.Participant.IsPresent == true && o.Participant.Status == Domain.Enums.ParticipantStatus.Done)
+                .Where(o => o.Participant.Enrollment.Id == enrollmentId)
+                .ToList();
+            var topics = _context.Topics
+               .Include(o => o.Chapter).ThenInclude(o => o.Course)
+               .Where(o => o.Chapter.Course.Id == courseId)
+               .ToList();
+            return ((double)processions.Count() / topics.Count()) * 100;
         }
     }
 

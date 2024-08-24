@@ -27,6 +27,17 @@ namespace Application.Enrollments
         public EnrollmentStatus Status { get; set; }
         public DateTime Created { get; set; }
     }
+    [AutoMap(typeof(Domain.Entities.Enrollment))]
+    public class GetBriefEnrollmentResponseModelVer2 : BaseResponseModel
+    {
+        public string ApplicationUserId { get; set; }
+        public GetBriefApplicationUserResponseModel ApplicationUser { get; set; }
+        public Guid CourseId { get; set; }
+        public GetBriefCourseResponseModel Course { get; set; }
+        public EnrollmentStatus Status { get; set; }
+        public DateTime Created { get; set; }
+        public double PercentTopicCompletion { get; set; } = 0;
+    }
 
     [AutoMap(typeof(Domain.Entities.Enrollment))]
     public class GetEnrollmentResponseModel : BaseResponseModel
@@ -39,6 +50,20 @@ namespace Application.Enrollments
         public List<GetBriefWorksheetAttemptResponseModel> WorksheetAttempts { get; set; }
         public EnrollmentStatus Status { get; set; }
         public DateTime Created { get; set; }
+
+    }
+    [AutoMap(typeof(Domain.Entities.Enrollment))]
+    public class GetEnrollmentResponseModelVer2 : BaseResponseModel
+    {
+        public string ApplicationUserId { get; set; }
+        public GetBriefApplicationUserResponseModel ApplicationUser { get; set; }
+        public Guid CourseId { get; set; }
+        public GetBriefCourseResponseModel Course { get; set; }
+        public List<GetBriefParticipantResponseModel> Participants { get; set; }
+        public List<GetBriefWorksheetAttemptResponseModel> WorksheetAttempts { get; set; }
+        public EnrollmentStatus Status { get; set; }
+        public DateTime Created { get; set; }
+        public double PercentTopicCompletion { get; set; } = 0;
 
     }
 

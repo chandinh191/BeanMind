@@ -115,11 +115,11 @@ public class ApplicationDbContextInitialiser
             await _roleManager.CreateAsync(teacherRole);
         }
 
-        // Default Admin: admin@localhost.com 
+        // Default Admin: admin@gmail.com 
         var defaultAdministratorUser = new ApplicationUser
         {
-            Email = _configuration["AdministratorAccount:Email"], //"admin@localhost.com",
-            UserName = _configuration["AdministratorAccount:UserName"], //"admin@localhost.com",
+            Email = _configuration["AdministratorAccount:Email"], //"admin@gmail.com",
+            UserName = _configuration["AdministratorAccount:UserName"], //"admin@gmail.com",
             EmailConfirmed = true
         };
         if (_userManager.Users.FirstOrDefault(u => u.Email.Equals(defaultAdministratorUser.Email)) == null)
@@ -159,8 +159,8 @@ public class ApplicationDbContextInitialiser
             "https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/avatar_images%2Fteacher3.png?alt=media&token=7b0d2f48-3127-4ed4-be6c-88f666912616",
             "https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/avatar_images%2Fteacher4.png?alt=media&token=ac994ea2-5dbe-4e70-aa01-fb6bf0973496",
             "https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/avatar_images%2Fteacher5.png?alt=media&token=e1952549-9b18-4a3f-a64e-173d7238e604" };
-        var emailTeacher = new List<string> { "vinhtc191", "maitruongthinh08", "marchjeff145", "tuankiet2911", "trieudoublenguyen" };
-        var firstNameTeachers = new List<string> { "Dinh", "Trường", "Văn", "Tuấn", "Nguyên" };
+        var emailTeacher = new List<string> { "kamvinh19", "maitruongthinh08", "marchjeff145", "tuankiet2911", "trieudoublenguyen" };
+        var firstNameTeachers = new List<string> { "Kong", "Trường", "Văn", "Tuấn", "Nguyên" };
         var lastNameTeachers = new List<string> { "Chần", "Mai", "Nguyễn", "Lê", "Nguyễn" };
         var random = new Random();
         for (int i = 0; i < 5; i++)

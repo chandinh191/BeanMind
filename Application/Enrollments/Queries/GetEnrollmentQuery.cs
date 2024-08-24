@@ -15,13 +15,13 @@ using Domain.Entities.UserEntities;
 
 namespace Application.Enrollments.Queries
 {
-    public sealed record GetEnrollmentQuery : IRequest<BaseResponse<GetEnrollmentResponseModel>>
+    public sealed record GetEnrollmentQuery : IRequest<BaseResponse<GetEnrollmentResponseModelVer2>>
     {
         [Required]
         public Guid Id { get; init; }
     }
 
-    public class GetEnrollmentQueryHanler : IRequestHandler<GetEnrollmentQuery, BaseResponse<GetEnrollmentResponseModel>>
+    public class GetEnrollmentQueryHanler : IRequestHandler<GetEnrollmentQuery, BaseResponse<GetEnrollmentResponseModelVer2>>
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -32,11 +32,11 @@ namespace Application.Enrollments.Queries
             _mapper = mapper;
         }
 
-        public async Task<BaseResponse<GetEnrollmentResponseModel>> Handle(GetEnrollmentQuery request, CancellationToken cancellationToken)
+        public async Task<BaseResponse<GetEnrollmentResponseModelVer2>> Handle(GetEnrollmentQuery request, CancellationToken cancellationToken)
         {
             if (request.Id == Guid.Empty)
             {
-                return new BaseResponse<GetEnrollmentResponseModel>
+                return new BaseResponse<GetEnrollmentResponseModelVer2>
                 {
                     Success = false,
                     Message = "Get enrollment failed",
@@ -51,12 +51,12 @@ namespace Application.Enrollments.Queries
                 .FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);
 
             //enrollment.PercentTopicCompletion = CactulatePercentTopicCompletion(enrollment.Id, enrollment.CourseId);                
-            //enrollment.PercentWorksheetCompletion = 1.0;
             
 
-            var mappedEnrollment= _mapper.Map<GetEnrollmentResponseModel>(enrollment);
+            var mappedEnrollment= _mapper.Map<GetEnrollmentResponseModelVer2>(enrollment);
+            mappedEnrollment.PercentTopicCompletion = CactulatePercentTopicCompletion(enrollment.Id, enrollment.CourseId);
 
-            return new BaseResponse<GetEnrollmentResponseModel>
+            return new BaseResponse<GetEnrollmentResponseModelVer2>
             {
                 Success = true,
                 Message = "Get enrollment successful",

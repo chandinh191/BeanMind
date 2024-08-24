@@ -15,9 +15,12 @@ namespace Application.TeachingSlots.Commands
     [AutoMap(typeof(Domain.Entities.TeachingSlot), ReverseMap = true)]
     public sealed record CreateTeachingSlotCommand : IRequest<BaseResponse<GetBriefTeachingSlotResponseModel>>
     {
+        [Required]
         public int DayIndex { get; set; }
         //public int Slot { get; set; }\
+        [Required]
         public string StartTime { get; set; }
+        [Required]
         public string EndTime { get; set; }
         [Required]
         public Guid CourseId { get; set; }
