@@ -88,7 +88,8 @@ public class CreateCourseCommandHanler : IRequestHandler<CreateCourseCommand, Ba
             TotalSlot = request.TotalSlot,
             SubjectId = request.SubjectId,
             ProgramTypeId = request.ProgramTypeId,
-            CourseLevelId = request.CourseLevelId
+            CourseLevelId = request.CourseLevelId,
+            IsDeleted = true            
         };
         var createCourseResult = await _context.AddAsync(course, cancellationToken);
 

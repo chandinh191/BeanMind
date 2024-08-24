@@ -22,6 +22,16 @@ namespace Api.Controllers
                 StatusCode = result.Code
             };
         }
+        [HttpGet("simplify")]
+        public async Task<IActionResult> GetAll2(ISender sender, [FromQuery] GetPaginatedListEnrollmentQueryV2 query)
+        {
+            var result = await sender.Send(query);
+            return new ObjectResult(result)
+            {
+                StatusCode = result.Code
+            };
+        }
+
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(ISender sender, [FromRoute] Guid id)

@@ -18,8 +18,6 @@ namespace Domain.Entities.UserEntities
         public ApplicationUser ApplicationUser { get; set; }
         public IEnumerable<Student>? Students { get; set; }
         public string? Address { get; set; }
-        public string? Address1 { get; set; }
-        public string? Address2 { get; set; }
         public string? Phone {  get; set; }
         public double? Wallet { get; set; }
         public Gender? Gender { get; set; }
