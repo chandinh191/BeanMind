@@ -11,6 +11,7 @@ using Microsoft.VisualBasic;
 using System.ComponentModel;
 using Newtonsoft.Json;
 using System.Threading;
+using static System.Net.WebRequestMethods;
 
 namespace Infrastructure.Data;
 
@@ -153,7 +154,11 @@ public class ApplicationDbContextInitialiser
             "8 năm kinh nghiệm giảng dạy cho trẻ nhỏ", 
             "Làm việc cho Nasa 12 năm", 
             "Tốt nghiệp khóa đào tạo giảng dạy chuyên nghiệp" };
-
+        var imgTeacher = new List<string> { "https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/avatar_images%2Fteacher1.png?alt=media&token=14f15cad-63e6-4a88-b1a7-89a52e1cd38c",
+            "https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/avatar_images%2Fteacher2.png?alt=media&token=e47b6b26-726b-4e0b-9c9c-0618ed412ac9",
+            "https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/avatar_images%2Fteacher3.png?alt=media&token=7b0d2f48-3127-4ed4-be6c-88f666912616",
+            "https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/avatar_images%2Fteacher4.png?alt=media&token=ac994ea2-5dbe-4e70-aa01-fb6bf0973496",
+            "https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/avatar_images%2Fteacher5.png?alt=media&token=e1952549-9b18-4a3f-a64e-173d7238e604" };
         var emailTeacher = new List<string> { "vinhtc191", "maitruongthinh08", "marchjeff145", "tuankiet2911", "trieudoublenguyen" };
         var firstNameTeachers = new List<string> { "Dinh", "Trường", "Văn", "Tuấn", "Nguyên" };
         var lastNameTeachers = new List<string> { "Chần", "Mai", "Nguyễn", "Lê", "Nguyễn" };
@@ -181,7 +186,7 @@ public class ApplicationDbContextInitialiser
             {
                 Id = new Guid(),
                 ApplicationUserId = user.Id,
-                Image = "https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/vinhdepzai%2Fteacher.png?alt=media&token=d693ecbe-c04d-428f-a7a4-16eafd933d14",
+                Image = imgTeacher[i],
                 Experience = experiences[i],
                 Level = levels[i]
             });
@@ -228,6 +233,10 @@ public class ApplicationDbContextInitialiser
         var emailStudent = new List<string> { "vinhtc", "thinhmt", "tiennv" };
         var firstNameStudents = new List<string> { "Vinh", "Thịnh", "Tiến" };
         var lastNameStudents = new List<string> { "Trần", "Mai", "Nguyễn" };
+        var imgStudent = new List<string> { "https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/avatar_images%2Fstudent1.png?alt=media&token=a0e25007-7586-44a6-8517-67d185be33d4",
+            "https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/avatar_images%2Fstudent2.png?alt=media&token=b2ee024c-a7f5-4916-b375-27df30f8a253",
+            "https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/avatar_images%2Fstudent3.png?alt=media&token=65b4135c-f0c4-45f4-99fa-16b5736f5a75",
+            };
         // Student Account User
         var schools = new List<string> { "Tiểu học Việt Anh", "Tiểu học Quốc tế Hà Nội", "Tiểu học Nam Việt", "Tiểu Học Marie Curie", "Tiểu học Đinh Thiện Lý" };
         var classes = new List<string> { "Lớp 1", "Lớp 2", "Lớp 3", "Lớp 4", "Lớp 5", };
@@ -255,7 +264,7 @@ public class ApplicationDbContextInitialiser
                 Id = new Guid(),
                 ApplicationUserId = user.Id,
                 ParentId = new Guid("4977e82e-9592-475b-a6fa-10942721c6d" + (i%2).ToString() ),
-                Image = "https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/vinhdepzai%2Fstudent.png?alt=media&token=c9530e62-817f-420b-9d69-59c67ff8c862",
+                Image = imgStudent[i],
                 School = schools[i],
                 Class = classes[i]
             });
@@ -280,7 +289,7 @@ public class ApplicationDbContextInitialiser
 
             //Game table
             await ContextInitializerHelper.Seed_Game_Async(_context);
-            await ContextInitializerHelper.Seed_GameHistory_Async(_context);
+            //await ContextInitializerHelper.Seed_GameHistory_Async(_context);
 
             //Worksheet đại pháp
             //Seeding base data for all system data relationships of the worksheet
