@@ -49,7 +49,7 @@ namespace Api.Controllers
         {
             public string BankCode { get; set; }
             public int Money { get; set; }
-            public string IpAddress { get; set; }
+            //public string IpAddress { get; set; }
         }
         public sealed record PaymentCommandResponseModel
         {
