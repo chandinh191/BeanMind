@@ -81,7 +81,6 @@ public class UserController : ControllerBase
         };
     }
     [HttpPost]
-    [Authorize]
     public async Task<BaseResponse<GetBriefApplicationUserResponseModel>> RegisterAccount(ISender sender, [FromBody] RegisterUserCommand command)
     {
         return await sender.Send(command);

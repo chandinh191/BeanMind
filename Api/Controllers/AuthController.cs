@@ -37,7 +37,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("login-google")]
-    public async Task<IActionResult> ConfirmEmailAccount(ISender sender, [FromQuery] LoginGoogleCommand command)
+    public async Task<IActionResult> ConfirmEmailAccount(ISender sender, [FromBody] LoginGoogleCommand command)
     {
         var result = await sender.Send(command);
         return new ObjectResult(result)

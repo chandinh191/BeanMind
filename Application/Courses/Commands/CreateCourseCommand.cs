@@ -29,6 +29,7 @@ public sealed record CreateCourseCommand : IRequest<BaseResponse<GetBriefCourseR
     [Required]
     public Guid CourseLevelId { get; set; }
     public List<CreateTeacherIdModel>? Teachables { get; set; }
+    public bool IsDeleted { get; set; } = false;
 }
 public class CreateTeacherIdModel
 {
@@ -89,7 +90,7 @@ public class CreateCourseCommandHanler : IRequestHandler<CreateCourseCommand, Ba
             SubjectId = request.SubjectId,
             ProgramTypeId = request.ProgramTypeId,
             CourseLevelId = request.CourseLevelId,
-            IsDeleted = true            
+            IsDeleted = request.IsDeleted            
         };
         var createCourseResult = await _context.AddAsync(course, cancellationToken);
 
