@@ -273,10 +273,11 @@ namespace Infrastructure.Data
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"),//BGD
                 Title = "Các số từ 0 đến 10",
                 Price = 200,
-                ImageURL = "https://lh3.googleusercontent.com/cUU3mc0ZhuccrJt8PSkcIicKVG5I6WXqJoCMaldiuDH1XCMbKEKUxAzJxpRITwcqXzXe6wxofg1aRrAOyBc9R--m85Q5K8myK2KvEChDa3xUdyKwI5xIjOBM1VNuVHE4dBt5tAqX",
+                ImageURL = "https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/course_img%2Fcourse1.png?alt=media&token=4293c282-2182-45f9-89b9-9378022274fc",
                 Description = "Mở đầu chương trình Toán 1 Kết Nối Tri Thức, các em sẽ tìm hiểu về Các số từ 0 đến 10. Gồm các bài học có tóm tắt lý thuyết, cung cấp các bài tập minh họa để các em ôn tập và củng cố kiến thức đã học. Bên cạnh đó, hệ thống hỏi đáp sẽ giúp các em giải đáp các thắc mắc sau khi học bài. Mời các em xem chi tiết bài học.",
                 TotalSlot = 10,
             });
+            _context.SaveChanges();
             // Chapter table
             await _context.Chapters.AddAsync(new Chapter
             {
@@ -329,7 +330,8 @@ namespace Infrastructure.Data
                     Description = "Tiết học này sẽ hướng dẫn học sinh cách đếm theo thứ tự các số từ 0 trở lên. Học sinh sẽ bắt đầu bằng việc đếm các số liên tiếp theo thứ tự tăng dần, qua đó nắm vững cách sắp xếp thứ tự tự nhiên của các số. Bài học sẽ bao gồm các bài tập yêu cầu học sinh đếm và sắp xếp các số theo đúng thứ tự, cũng như nhận biết các mẫu số học trong dãy số. Các hoạt động thực hành sẽ giúp học sinh củng cố kỹ năng đếm và nhận diện sự liên tục trong các số, đồng thời phát triển tư duy logic thông qua các bài tập sắp xếp và đếm số theo thứ tự."
 
                 });
-                // -----------
+            // -----------
+
             await _context.Chapters.AddAsync(new Chapter
             {
                 Id = new Guid("a4562cbc-b8f8-4bca-b537-77d7b5e4eacc"),
@@ -478,7 +480,9 @@ namespace Infrastructure.Data
                 Description = "Nhằm giúp các em học sinh có thêm nhiều tài liệu tham khảo hữu ích cho môn Toán 1, BeanMind đã biên soạn và tổng hợp nội dung bài Luyện tập chung. Tài liệu được biên soạn với đầy đủ các dạng Toán và các bài tập minh họa có hướng dẫn giải chi tiết. Mời các em cùng tham khảo.",
             });
 
-            // ------------   
+            // ---------------------------------------------------------------------------------------------------
+            // ---------------------------------------------------------------------------------------------------
+
             await _context.Courses.AddAsync(new Course
             {
                 Id = new Guid("555a0815-d0b8-4975-8e1c-245d7acbab45"),
@@ -487,7 +491,7 @@ namespace Infrastructure.Data
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"), //BGD
                 Price = 150,
                 Title = "Làm quen với một số hình phẳng",
-                ImageURL = "https://static.vecteezy.com/system/resources/thumbnails/002/399/898/small_2x/education-concept-with-funny-characters-vector.jpg",
+                ImageURL = "https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/course_img%2Fcourse2.png?alt=media&token=6a85663e-21c2-42a8-9fde-ee324d2323c3",
                 Description = "Nhận biết được một số hình vuông, hình tròn, hình tam giác, hình chữ nhật là nội dung các em sẽ tìm hiểu ở Chương: Làm quen với một số hình phẳng của môn Toán 1 Kết Nối Tri thức. Bài học được BeanMind biên soạn với các phần tóm tắt lý thuyết, bài tập minh họa và giúp các em chuẩn bị bài học thật tốt và luyện tập, đánh giá năng lực của bản thân. Hệ thống hỏi đáp sẽ giúp các em giải quyết nhiều câu hỏi khó nhanh chóng, hiệu quả. Các em xem nội dung bài học ngay bên dưới.",
                 TotalSlot = 8,
             });
@@ -552,69 +556,96 @@ namespace Infrastructure.Data
                 Description = "Bài học Luyện tập chung bao gồm kiến thức cần nhớ và các dạng Toán liên quan được BeanMind tóm tắt một cách chi tiết,",
             });
 
+            // Adding a new chapter to the course
+            await _context.Chapters.AddAsync(new Chapter
+            {
+                Id = new Guid("d8b99e0e-1f4f-4a5b-8bcf-bd3f6d5b9d5e"),
+                Order = 4,
+                CourseId = new Guid("555a0815-d0b8-4975-8e1c-245d7acbab45"),
+                Title = "Ứng dụng thực tế của các hình học",
+                Description = "Bài giảng này tập trung vào việc giúp học sinh nhận diện và áp dụng các hình học cơ bản như hình tròn, hình tam giác, hình vuông, và hình chữ nhật vào các tình huống thực tế. Các em sẽ được hướng dẫn cách nhận diện các hình học này trong môi trường xung quanh, từ đó giúp phát triển khả năng tư duy không gian và ứng dụng toán học vào cuộc sống hàng ngày."
+            });
 
-            // ------------
+            // Adding topics to the new chapter
+            await _context.Topics.AddAsync(new Topic
+            {
+                Id = new Guid("7f2a9d3e-cf5d-4ec5-97f2-0954f994ca78"),
+                ChapterId = new Guid("d8b99e0e-1f4f-4a5b-8bcf-bd3f6d5b9d5e"),
+                Order = 1,
+                Title = "Nhận diện các hình trong đời sống",
+                Description = "Trong bài học này, học sinh sẽ học cách nhận diện và phân loại các hình học cơ bản như hình tròn, hình tam giác, hình vuông và hình chữ nhật trong các vật thể và cảnh vật hàng ngày. Bằng cách quan sát xung quanh, các em sẽ phát hiện các hình học này trong các đồ vật quen thuộc như bánh xe, cửa sổ, và mái nhà."
+            });
 
-            await _context.Courses.AddAsync(new Course
+            await _context.Topics.AddAsync(new Topic
             {
-                Id = new Guid("6c215522-0925-4f86-b0fd-72f746ca9fd6"),
-                SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"), //Toans
-                CourseLevelId = new Guid("8a7b78a9-d209-473e-a133-919479d61d5c"), //Lop 1
-                ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"), //BGD
-                Price = 200,
-                Title = "Phép cộng, phép trừ trong phạm vi 10",
-                ImageURL = "https://img.loigiaihay.com/picture/2022/0921/bai-2-tr49.JPG",
-                Description = "Đến với nội dung Phép cộng, phép trừ trong phạm vi 10 của chương trình Toán 1 Kết Nối Tri Thức, các em sẽ được học hỏi thêm các kiến thức mới về phép toán cộng, trừ trong phạm vi 10. Bên cạnh đó, các em còn được thử sức với các bài tập minh họa cuối mỗi bài học nhằm đánh giá năng lực bản thân sau khi học bài. Hệ thống hỏi đáp cuối bài sẽ giải đáp các thắc mắc của các em trong quá trình học. Mời các em theo dõi nội dung chi tiết bên dưới!",
-                TotalSlot = 15,
+                Id = new Guid("c1eb5dcb-9b91-4db5-bf3f-b5fcff1c3c7e"),
+                ChapterId = new Guid("d8b99e0e-1f4f-4a5b-8bcf-bd3f6d5b9d5e"),
+                Order = 2,
+                Title = "Ứng dụng các hình học trong giải toán",
+                Description = "Bài học này giúp học sinh học cách áp dụng kiến thức về các hình học cơ bản để giải quyết các bài toán và vấn đề thực tế. Học sinh sẽ thực hành việc sử dụng hình học để phân tích các vấn đề, như tính diện tích của các hình cơ bản và giải các bài toán liên quan đến hình học trong cuộc sống hàng ngày."
             });
-            await _context.Courses.AddAsync(new Course
+
+            // Adding the fifth chapter
+            await _context.Chapters.AddAsync(new Chapter
             {
-                Id = new Guid("c2ad8bc5-d7ef-4639-87b2-d251854656a1"),
-                SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"), //Toans
-                CourseLevelId = new Guid("8a7b78a9-d209-473e-a133-919479d61d5c"), //Lop 1
-                ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"), //BGD
-                Price = 100,
-                Title = "Làm quen với một số hình khối",
-                ImageURL = "https://vnmedia2.monkeyuni.net/upload/web/storage_web/21-08-2023_09:39:28_toan-lop-1-khoi-lap-phuong-0.jpg",
-                Description = "Đến với Chương: Làm quen với một số hình khối của chương trình Toán 1 Kết Nối Tri Thức các em sẽ được tiềm hiểu về khối lập phương, khối hợp chữ nhật. Nhằm giúp các em học tập thật tốt và nắm vững kiến thức trọng tâm trong bài, Hoc247 đã biên soạn các bài tập minh họa sau phần tóm tắt lý thuyết. Chúc các em học tập tốt. Nếu có thắc mắc cần giải quyết, hãy bình luận ở phần hỏi đáp cuối bài học.",
-                TotalSlot = 14,
+                Id = new Guid("a9b77f21-4d4e-45f8-8b7f-82f12d5b64fa"),
+                Order = 5,
+                CourseId = new Guid("555a0815-d0b8-4975-8e1c-245d7acbab45"),
+                Title = "Vẽ và tô màu các hình đơn giản",
+                Description = "Bài học này giúp các em học sinh lớp 1 học cách vẽ và tô màu các hình đơn giản như hình tròn, hình tam giác, hình vuông và hình chữ nhật. Các em sẽ được hướng dẫn từng bước để cầm bút đúng cách, vẽ các hình cơ bản và sau đó tô màu cho các hình vẽ của mình, giúp phát triển kỹ năng vận động tinh và sự sáng tạo."
             });
-            await _context.Courses.AddAsync(new Course
+
+            // Adding topics to the fifth chapter
+            await _context.Topics.AddAsync(new Topic
             {
-                Id = new Guid("59466844-48d3-4556-a7e7-0422ce299190"),
-                SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"), //Toans
-                CourseLevelId = new Guid("8a7b78a9-d209-473e-a133-919479d61d5c"), //Lop 1
-                ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"), //BGD
-                Price = 200,
-                Title = "Ôn tập học kì 1",
-                ImageURL = "https://play-lh.googleusercontent.com/GndUEl04bwSNJKEPAlRB-8AKfnb5X0oZN_clNmgwBRZl2MOPQpFRCJL_6rFxioj_Gg",
-                Description = "Mời các em đến với nội dung Ôn tập học kì 1​​ của chương trình Toán 1 Kết nối tri thức do Hoc247 biên soạn dưới đây. Ở chương này các em học sinh sẽ được ôn tập lại đầy đủ các kiến thức đã học, bên cạnh đó còn có các bài tập minh họa có hướng dẫn giải chi tiết, giúp các em có thể tự luyện tập, đối chiếu đáp án, đánh giá năng lực bản thân sau khi học bài. Hệ thống hỏi đáp sẽ giúp các em giải quyết các thắc mắc liên quan đến bài học.",
-                TotalSlot = 8,
+                Id = new Guid("5ecfa8be-df16-4d1b-8b5e-0f91bc5c6815"),
+                ChapterId = new Guid("a9b77f21-4d4e-45f8-8b7f-82f12d5b64fa"),
+                Order = 1,
+                Title = "Vẽ các hình học cơ bản",
+                Description = "Trong phần này, học sinh sẽ học cách vẽ các hình học cơ bản như hình tròn, hình tam giác, hình vuông và hình chữ nhật theo các bước đơn giản. Các em sẽ được thực hành vẽ các hình này từ các mẫu hình có sẵn và sau đó tự tạo ra các hình của riêng mình, giúp củng cố kỹ năng vẽ và nhận diện hình học."
             });
-            await _context.Courses.AddAsync(new Course
+
+            await _context.Topics.AddAsync(new Topic
             {
-                Id = new Guid("9cea4c8e-2114-4508-a000-c1c743eaa55b"),
-                SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"), //Toans
-                CourseLevelId = new Guid("8a7b78a9-d209-473e-a133-919479d61d5c"), //Lop 1
-                ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"), //BGD
-                Price = 200,
-                Title = "Các số đến 100",
-                ImageURL = "https://booktoan.com/wp-content/uploads/2023/07/unnamed-file-447.png",
-                Description = "BeanMind xin giới thiệu các em học sinh Chương: Các số đến 100 môn Toán 1 sách Kết Nối Tri Thức. Nội dung đầy đủ bao gồm tóm tắt lý thuyết, các bài tập SGK và các bài tập minh họa có hướng dẫn giải chi tiết. Hi vọng bài học sẽ giúp các em nắm vững kiến thức và ghi nhớ được các số có hai chữ số, so sánh số có hai chữ số và các phép toán liên quan đến chương. Nếu có bất kì thắc mắc gì về chủ đề này, các em vui lòng bình luận ở mục hỏi đáp để BeanMind hỗ trợ.",
-                TotalSlot = 8,
+                Id = new Guid("bd8ef469-8d44-4d4c-a06f-5f6c0be9f94c"),
+                ChapterId = new Guid("a9b77f21-4d4e-45f8-8b7f-82f12d5b64fa"),
+                Order = 2,
+                Title = "Tô màu các hình học",
+                Description = "Học sinh sẽ thực hành tô màu cho các hình học đã vẽ, giúp phát triển khả năng sáng tạo và kỹ năng vận động tinh. Bài học sẽ hướng dẫn các em cách lựa chọn màu sắc phù hợp, tô màu đều và cẩn thận, từ đó tạo ra những hình vẽ đẹp mắt và độc đáo."
             });
-            await _context.Courses.AddAsync(new Course
+
+            // Adding the sixth chapter
+            await _context.Chapters.AddAsync(new Chapter
             {
-                Id = new Guid("85e6ab9f-557d-435f-b51c-60124dbc33cc"),
-                SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"), //Toans
-                CourseLevelId = new Guid("8a7b78a9-d209-473e-a133-919479d61d5c"), //Lop 1
-                ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"), //BGD
-                Price = 300,
-                Title = "Độ dài và đo độ dài",
-                ImageURL = "https://img.loigiaihay.com/picture/2022/1107/bai-1-tr115.PNG",
-                Description = "Đến với chương Độ dài và đo độ dài Toán 1 Kết Nối Tri Thức các em học sinh sẽ thực hành ước lượng và đo độ dài, biết so sánh các vật dài hơn, ngắn hơn,....BeanMind đã tóm tắt chi tiết các kiến thức cần nhớ, các dạng bài tập và các bài tập minh họa có hướng dẫn giải chi tiết, giúp các em dễ dàng nắm vững được kiến thức mới. Mời quý phụ huynh và các em học sinh cùng tham khảo!",
-                TotalSlot = 6,
+                Id = new Guid("b2d0c5c6-9587-4ae3-9c7c-69f96e5910f9"),
+                Order = 6,
+                CourseId = new Guid("555a0815-d0b8-4975-8e1c-245d7acbab45"),
+                Title = "Nhận biết hình học trong thực tế",
+                Description = "Bài học này giúp các em học sinh lớp 1 nhận biết các hình học cơ bản trong đời sống hàng ngày, chẳng hạn như hình tròn trong bánh xe, hình vuông trong ô cửa, và hình tam giác trong mái nhà. Các em sẽ tham gia vào các hoạt động quan sát và phân loại để kết nối kiến thức hình học với các đối tượng thực tế xung quanh."
             });
+
+            // Adding topics to the sixth chapter
+            await _context.Topics.AddAsync(new Topic
+            {
+                Id = new Guid("2e3f08b3-5c6b-4f70-b0d8-4b7e3d6d65b8"),
+                ChapterId = new Guid("b2d0c5c6-9587-4ae3-9c7c-69f96e5910f9"),
+                Order = 1,
+                Title = "Tìm các hình học xung quanh em",
+                Description = "Học sinh sẽ học cách tìm và nhận diện các hình học cơ bản xung quanh mình trong các môi trường khác nhau, chẳng hạn như ở nhà, trường học và ngoài trời. Bài học sẽ khuyến khích các em quan sát kỹ lưỡng và ghi chép các hình học mà các em nhìn thấy."
+            });
+
+            await _context.Topics.AddAsync(new Topic
+            {
+                Id = new Guid("0f66d8a7-7e94-411b-8df5-6aafdffcb52a"),
+                ChapterId = new Guid("b2d0c5c6-9587-4ae3-9c7c-69f96e5910f9"),
+                Order = 2,
+                Title = "Thực hành nhận diện hình học",
+                Description = "Học sinh sẽ tham gia vào các hoạt động thực hành nhận diện và phân loại các hình học cơ bản từ các vật dụng xung quanh. Bài học sẽ bao gồm các trò chơi và bài tập tương tác để giúp các em phân loại và nhận diện các hình học một cách chính xác và thú vị."
+            });
+
+            // ---------------------------------------------------------------------------------------------------
+            // ---------------------------------------------------------------------------------------------------
+
             await _context.Courses.AddAsync(new Course
             {
                 Id = new Guid("1a1de7fd-d3c5-4bb3-8c51-fb3b02c44f16"),
@@ -623,10 +654,158 @@ namespace Infrastructure.Data
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"), //BGD
                 Price = 200,
                 Title = "Phép cộng, phép trừ (không nhớ) trong phạm vi 100",
-                ImageURL = "https://vietjack.com/giai-bai-tap-toan-1/images/phep-tru-trong-pham-vi-100-tru-khong-nho-trang-158-1.PNG",
+                ImageURL = "https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/course_img%2Fcourse3.png?alt=media&token=cc0a0bf6-31cc-49ea-8605-bf4275945292",
                 Description = "Phép cộng, phép trừ (không nhớ) trong phạm vi 100 là một trong những chương học quan trọng của chương trình Toán 1 Kết Nối Tri Thức. BeanMind đã biên soạn chi tiết lý thuyết cần nhớ, bài tập minh họa, giúp các em học sinh nắm vững nội dung như phép cộng, trừ số có hai chữ số cho số có hai chữ số, phép cộng, trừ số có hai chữ số cho số có một chữ số. Sau đây mời quý phụ huynh và các em học sinh cùng tham khảo.",
-                TotalSlot = 12,
+                TotalSlot = 10,
             });
+            // Adding the first chapter
+            await _context.Chapters.AddAsync(new Chapter
+            {
+                Id = new Guid("bdc7f6c3-4ec9-43af-b7b2-cb3f2f82f832"),
+                Order = 1,
+                CourseId = new Guid("1a1de7fd-d3c5-4bb3-8c51-fb3b02c44f16"),
+                Title = "Giới thiệu phép cộng và phép trừ",
+                Description = "Bài học này sẽ giới thiệu các khái niệm cơ bản về phép cộng và phép trừ trong phạm vi 100. Học sinh sẽ tìm hiểu cách thực hiện phép cộng và phép trừ với các số đơn giản mà không cần nhớ. Qua các ví dụ minh họa trực quan và bài tập thực hành, các em sẽ nắm vững cách sử dụng các phép toán cơ bản này để giải quyết các bài toán đơn giản. Bài học cũng sẽ bao gồm các phương pháp và chiến lược để giúp học sinh làm quen và tự tin hơn với các phép cộng và phép trừ."
+            });
+
+            // Adding topics to the first chapter
+            await _context.Topics.AddAsync(new Topic
+            {
+                Id = new Guid("46b4f1d3-8fb7-4cf4-897a-dff92a267f63"),
+                ChapterId = new Guid("bdc7f6c3-4ec9-43af-b7b2-cb3f2f82f832"),
+                Order = 1,
+                Title = "Khái niệm cơ bản về phép cộng",
+                Description = "Trong bài học này, học sinh sẽ học cách thực hiện phép cộng các số có hai chữ số mà không cần nhớ. Các em sẽ được cung cấp các ví dụ minh họa cụ thể, hướng dẫn từng bước về cách cộng hai số, cùng với các bài tập thực hành với các số đơn giản. Bài học cũng sẽ bao gồm các trò chơi toán học để củng cố kiến thức và giúp học sinh thấy được ứng dụng thực tiễn của phép cộng trong cuộc sống hàng ngày."
+            });
+
+            await _context.Topics.AddAsync(new Topic
+            {
+                Id = new Guid("75f3e5fc-7fdf-42d3-9c1b-ea3a646f591e"),
+                ChapterId = new Guid("bdc7f6c3-4ec9-43af-b7b2-cb3f2f82f832"),
+                Order = 2,
+                Title = "Khái niệm cơ bản về phép trừ",
+                Description = "Học sinh sẽ học cách thực hiện phép trừ các số có hai chữ số mà không cần nhớ trong bài học này. Các em sẽ được hướng dẫn chi tiết về các bước thực hiện phép trừ, cùng với các ví dụ và bài tập thực hành để củng cố kiến thức. Bài học cũng sẽ bao gồm các hoạt động tương tác và trò chơi để giúp học sinh nắm vững kỹ năng trừ và áp dụng chúng vào các tình huống thực tế."
+            });
+
+            // Adding the second chapter
+            await _context.Chapters.AddAsync(new Chapter
+            {
+                Id = new Guid("17f90b49-5e56-4b8a-9e7d-c75bdb6d8c37"),
+                Order = 2,
+                CourseId = new Guid("1a1de7fd-d3c5-4bb3-8c51-fb3b02c44f16"),
+                Title = "Luyện tập cộng và trừ các số trong phạm vi 100",
+                Description = "Bài học này cung cấp nhiều bài tập luyện tập phép cộng và phép trừ với các số trong phạm vi 100. Học sinh sẽ thực hành qua các bài tập có độ khó tăng dần, giúp các em củng cố và nâng cao kỹ năng phép toán cơ bản. Bài học cũng bao gồm các trò chơi tương tác và hoạt động nhóm để khuyến khích học sinh làm việc cùng nhau và học tập một cách vui vẻ và hiệu quả."
+            });
+
+            // Adding topics to the second chapter
+            await _context.Topics.AddAsync(new Topic
+            {
+                Id = new Guid("a1a7e03f-5c11-4f1d-b5f4-3e788a5886ab"),
+                ChapterId = new Guid("17f90b49-5e56-4b8a-9e7d-c75bdb6d8c37"),
+                Order = 1,
+                Title = "Bài tập cộng cơ bản",
+                Description = "Trong phần này, học sinh sẽ thực hành các bài tập về phép cộng không nhớ với các số trong phạm vi 100. Các bài tập sẽ được thiết kế để phù hợp với nhiều cấp độ kỹ năng khác nhau, bao gồm cả bài tập cá nhân và bài tập nhóm. Mục tiêu là giúp học sinh làm quen với các phép cộng khác nhau và cải thiện khả năng giải toán của mình qua việc thực hành liên tục."
+            });
+
+            await _context.Topics.AddAsync(new Topic
+            {
+                Id = new Guid("35fa7f50-22cf-4e26-9e9e-cd2de0f3c5db"),
+                ChapterId = new Guid("17f90b49-5e56-4b8a-9e7d-c75bdb6d8c37"),
+                Order = 2,
+                Title = "Bài tập trừ cơ bản",
+                Description = "Bài tập trừ cơ bản sẽ giúp học sinh làm quen với các phép trừ không nhớ trong phạm vi 100. Các bài tập sẽ được thiết kế để phù hợp với nhiều cấp độ khác nhau, bao gồm bài tập cá nhân và nhóm. Học sinh sẽ được thực hành các phép trừ khác nhau, cải thiện khả năng giải toán và hiểu rõ hơn về quy trình thực hiện phép trừ."
+            });
+
+            // Adding the third chapter
+            await _context.Chapters.AddAsync(new Chapter
+            {
+                Id = new Guid("b1eafbf6-303e-486d-b5d4-5193e9378a2a"),
+                Order = 3,
+                CourseId = new Guid("1a1de7fd-d3c5-4bb3-8c51-fb3b02c44f16"),
+                Title = "Áp dụng phép cộng và trừ trong các tình huống thực tế",
+                Description = "Bài học này giúp học sinh áp dụng kiến thức về phép cộng và phép trừ vào các tình huống thực tế như mua sắm, phân chia đồ vật, và các tình huống hàng ngày khác. Học sinh sẽ được hướng dẫn cách sử dụng các phép toán để giải quyết các bài toán thực tế, từ việc tính tổng chi phí khi mua sắm đến việc phân chia đồ vật. Bài học cũng bao gồm các hoạt động thực tiễn để giúp học sinh hiểu rõ hơn về ứng dụng của toán học trong cuộc sống."
+            });
+
+            // Adding topics to the third chapter
+            await _context.Topics.AddAsync(new Topic
+            {
+                Id = new Guid("74f5e643-9795-41e2-b33b-758d7032e4f3"),
+                ChapterId = new Guid("b1eafbf6-303e-486d-b5d4-5193e9378a2a"),
+                Order = 1,
+                Title = "Tính toán trong mua sắm",
+                Description = "Học sinh sẽ học cách áp dụng phép cộng và phép trừ khi mua sắm. Các bài học sẽ bao gồm các tình huống thực tế như tính toán tổng chi phí của nhiều mặt hàng hoặc số tiền còn lại sau khi mua hàng. Bài học sẽ sử dụng các ví dụ thực tế và các bài tập ứng dụng để giúp học sinh hiểu rõ hơn cách sử dụng phép toán trong các tình huống mua sắm thực tế, từ đó phát triển kỹ năng tính toán trong đời sống hàng ngày."
+            });
+
+            await _context.Topics.AddAsync(new Topic
+            {
+                Id = new Guid("e5f7b8c1-917f-48a2-983f-b621e1c89736"),
+                ChapterId = new Guid("b1eafbf6-303e-486d-b5d4-5193e9378a2a"),
+                Order = 2,
+                Title = "Tính toán khi phân chia đồ vật",
+                Description = "Học sinh sẽ thực hành phân chia đồ vật thành các nhóm bằng cách sử dụng phép cộng và phép trừ. Các bài tập sẽ giúp học sinh hiểu cách chia sẻ và phân loại đồ vật trong các tình huống cụ thể, như phân chia đồ chơi cho các bạn cùng lớp hoặc chia sẻ bánh kẹo trong một bữa tiệc. Bài học sẽ bao gồm các hoạt động thực tế và bài tập để học sinh có thể áp dụng kiến thức vào các tình huống thực tế."
+            });
+
+            // Adding the fourth chapter
+            await _context.Chapters.AddAsync(new Chapter
+            {
+                Id = new Guid("11dabe72-3157-49f1-9d2e-6386a1f2b19c"),
+                Order = 4,
+                CourseId = new Guid("1a1de7fd-d3c5-4bb3-8c51-fb3b02c44f16"),
+                Title = "Thực hành với các trò chơi và hoạt động tương tác",
+                Description = "Bài học này sẽ sử dụng các trò chơi và hoạt động tương tác để giúp học sinh luyện tập phép cộng và phép trừ. Các trò chơi sẽ được thiết kế để khuyến khích học sinh làm việc nhóm và học tập vui vẻ, từ việc giải các bài toán qua các trò chơi toán học đến các hoạt động nhóm. Mục tiêu là tạo môi trường học tập năng động và thú vị, giúp học sinh củng cố kiến thức và phát triển kỹ năng giải toán một cách hiệu quả."
+            });
+
+            // Adding topics to the fourth chapter
+            await _context.Topics.AddAsync(new Topic
+            {
+                Id = new Guid("a8e8e5cb-0d65-44e7-8c2a-4d57e2e67322"),
+                ChapterId = new Guid("11dabe72-3157-49f1-9d2e-6386a1f2b19c"),
+                Order = 1,
+                Title = "Trò chơi toán học",
+                Description = "Học sinh sẽ tham gia vào các trò chơi toán học thú vị để thực hành phép cộng và phép trừ. Các trò chơi được thiết kế để giúp học sinh phát triển kỹ năng giải toán qua các hoạt động giải trí, bao gồm các trò chơi cá nhân và nhóm. Bài học này nhằm mục đích làm cho việc học toán trở nên vui vẻ và hấp dẫn, đồng thời khuyến khích học sinh tự tin hơn trong việc giải quyết các bài toán."
+            });
+
+            await _context.Topics.AddAsync(new Topic
+            {
+                Id = new Guid("1f12ec3c-94b3-41e4-b2d4-e6af318f2355"),
+                ChapterId = new Guid("11dabe72-3157-49f1-9d2e-6386a1f2b19c"),
+                Order = 2,
+                Title = "Hoạt động nhóm với phép cộng và trừ",
+                Description = "Học sinh sẽ thực hiện các hoạt động nhóm để giải quyết các bài toán về phép cộng và phép trừ. Các hoạt động nhóm bao gồm giải các bài toán theo nhóm, thi đua giải toán, và các trò chơi nhóm. Mục tiêu của bài học là khuyến khích học sinh hợp tác, làm việc nhóm, và cùng nhau giải quyết vấn đề. Các hoạt động này không chỉ giúp học sinh củng cố kiến thức toán học mà còn phát triển kỹ năng làm việc nhóm và giao tiếp."
+            });
+
+            // Adding the fifth chapter
+            await _context.Chapters.AddAsync(new Chapter
+            {
+                Id = new Guid("874dd7d2-9bc6-48da-bf50-1070b6343202"),
+                Order = 5,
+                CourseId = new Guid("1a1de7fd-d3c5-4bb3-8c51-fb3b02c44f16"),
+                Title = "Kiểm tra và đánh giá",
+                Description = "Bài học cuối cùng của khóa học sẽ bao gồm một bài kiểm tra để đánh giá khả năng của học sinh về phép cộng và phép trừ trong phạm vi 100. Bài kiểm tra sẽ đánh giá sự hiểu biết của học sinh về các khái niệm cơ bản và khả năng áp dụng chúng vào các tình huống thực tế. Sau khi kiểm tra, học sinh sẽ nhận được phản hồi chi tiết để cải thiện kỹ năng của mình. Bài học cũng sẽ bao gồm các hoạt động phân tích kết quả để giúp học sinh nhận ra điểm mạnh và điểm cần cải thiện."
+            });
+
+            // Adding topics to the fifth chapter
+            await _context.Topics.AddAsync(new Topic
+            {
+                Id = new Guid("4c5f3b70-1ad2-4c94-8994-00e4e3e379a7"),
+                ChapterId = new Guid("874dd7d2-9bc6-48da-bf50-1070b6343202"),
+                Order = 1,
+                Title = "Bài kiểm tra tổng hợp",
+                Description = "Học sinh sẽ thực hiện một bài kiểm tra tổng hợp để đánh giá kiến thức về phép cộng và phép trừ trong phạm vi 100. Bài kiểm tra sẽ bao gồm các câu hỏi đa dạng, từ các bài toán cơ bản đến các bài toán ứng dụng thực tiễn. Mục tiêu là giúp học sinh kiểm tra sự hiểu biết toàn diện về các khái niệm đã học và khả năng áp dụng chúng vào các tình huống thực tế."
+            });
+
+            await _context.Topics.AddAsync(new Topic
+            {
+                Id = new Guid("10cbeb5e-b6e2-4374-9150-10d5f67e46b1"),
+                ChapterId = new Guid("874dd7d2-9bc6-48da-bf50-1070b6343202"),
+                Order = 2,
+                Title = "Phân tích và cải thiện kỹ năng",
+                Description = "Sau khi hoàn thành bài kiểm tra, học sinh sẽ phân tích kết quả và nhận phản hồi chi tiết để cải thiện kỹ năng. Bài học sẽ bao gồm các hoạt động phân tích kết quả bài kiểm tra, nhận xét về các điểm mạnh và điểm yếu, và lập kế hoạch để cải thiện các kỹ năng còn thiếu. Các hoạt động này nhằm mục đích giúp học sinh tự đánh giá và phát triển một kế hoạch học tập để tiếp tục nâng cao khả năng giải toán của mình."
+            });
+
+            // ---------------------------------------------------------------------------------------------------
+            // ---------------------------------------------------------------------------------------------------
+
             await _context.Courses.AddAsync(new Course
             {
                 Id = new Guid("bd186368-c35a-4f16-9214-c1acdbfce054"),
@@ -635,23 +814,165 @@ namespace Infrastructure.Data
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"), //BGD
                 Price = 200,
                 Title = "Thời gian, giờ và lịch",
-                ImageURL = "https://www.vietjack.com/toan-1-ket-noi/images/bai-34-xem-gio-dung-tren-dong-ho-5.png",
+                ImageURL = "https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/course_img%2Fcourse%204.png?alt=media&token=b284d40a-5b62-4661-a87f-67840aed6986",
                 Description = "Nhận biết được thời gian trên đồng hồ, xem được ngày tháng trên lịch là nội dung các em sẽ tìm hiểu ở Chương: Thời gian, giờ và lịch của môn Toán 1 Kết Nối Tri thức. Bài học được BeanMind biên soạn với các phần tóm tắt lý thuyết, bài tập minh họa và giúp các em chuẩn bị bài học thật tốt và luyện tập, đánh giá năng lực của bản thân. Hệ thống hỏi đáp sẽ giúp các em giải quyết nhiều câu hỏi khó nhanh chóng, hiệu quả. Các em xem nội dung bài học ngay bên dưới.",
-                TotalSlot = 10,
+                TotalSlot = 8,
             });
-            await _context.Courses.AddAsync(new Course
+            // Adding the first chapter
+            await _context.Chapters.AddAsync(new Chapter
             {
-                Id = new Guid("d1830d8f-2259-43a4-b667-ac35f390a1bc"),
-                SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"), //Toans
-                CourseLevelId = new Guid("8a7b78a9-d209-473e-a133-919479d61d5c"), //Lop 1
-                ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"), //BGD
-                Price = 200,
-                Title = "Ôn tập cuối năm",
-                ImageURL = "https://mir-s3-cdn-cf.behance.net/projects/404/d2c356205497513.Y3JvcCwxMDMzLDgwOCw2MSw2OTM.png",
-                Description = "Đến với Ôn tập cuối năm của chương trình Toán 1 Kết Nối Tri Thức đã được BeanMind biên soạn chi tiết các kiến thức cần nhớ và các bài tập minh họa có hướng dẫn giải chi tiết, nhầm giúp các em học tập thật tốt môn Toán 1. Đồng thời đây cũng là tài liệu tham khảo cho các phụ huynh và các giáo viên trong quá trình dạy học. Mời các em học sinh cùng các bậc phụ huynh tham khảo.",
-                TotalSlot = 6,
+                Id = new Guid("b5f96c58-6d7a-4b1f-b3e5-7c4b945e7f26"),
+                Order = 1,
+                CourseId = new Guid("bd186368-c35a-4f16-9214-c1acdbfce054"),
+                Title = "Giới thiệu về thời gian",
+                Description = "Chương đầu tiên của khóa học sẽ giúp học sinh hiểu rõ về khái niệm thời gian, bao gồm cách sử dụng đồng hồ để đọc giờ và phân biệt giữa các phần của đồng hồ như kim giờ, kim phút và kim giây. Học sinh sẽ học cách xác định thời gian trong ngày, cách đọc thời gian trên đồng hồ và sự khác biệt giữa các đơn vị đo thời gian như giờ và phút. Chương này cung cấp các ví dụ thực tế và bài tập thực hành để giúp các em nắm vững các khái niệm cơ bản về thời gian, từ đó áp dụng chúng vào cuộc sống hàng ngày một cách hiệu quả."
             });
-            //
+
+            // Adding topics to the first chapter
+            await _context.Topics.AddAsync(new Topic
+            {
+                Id = new Guid("e02d4f3b-84cb-4e47-a6b1-1a0d2c21434f"),
+                ChapterId = new Guid("b5f96c58-6d7a-4b1f-b3e5-7c4b945e7f26"),
+                Order = 1,
+                Title = "Đọc giờ trên đồng hồ",
+                Description = "Trong bài học này, học sinh sẽ tìm hiểu về cách đọc giờ trên đồng hồ cơ bản, bao gồm việc xác định kim giờ, kim phút, và kim giây. Học sinh sẽ học cách đọc các mốc thời gian quan trọng trong ngày như giờ, phút, và giây, và cách chuyển đổi giữa các mốc thời gian khác nhau. Bài học sẽ bao gồm các ví dụ minh họa chi tiết và bài tập thực hành để giúp học sinh làm quen với việc đọc giờ chính xác và hiệu quả."
+            });
+
+            await _context.Topics.AddAsync(new Topic
+            {
+                Id = new Guid("b66b9a9f-61ef-49b5-8a0e-c8f9d6a91737"),
+                ChapterId = new Guid("b5f96c58-6d7a-4b1f-b3e5-7c4b945e7f26"),
+                Order = 2,
+                Title = "Phân biệt giờ và phút",
+                Description = "Bài học này sẽ giúp học sinh phân biệt rõ ràng giữa giờ và phút, và cách sử dụng đồng hồ để đo lường thời gian. Học sinh sẽ học cách xác định và ghi nhớ các mốc thời gian quan trọng trong ngày, và các khái niệm về sự khác biệt giữa giờ và phút. Bài học sẽ bao gồm các ví dụ cụ thể và các bài tập để học sinh có thể thực hành và củng cố kiến thức của mình về cách đo lường thời gian."
+            });
+
+            await _context.Topics.AddAsync(new Topic
+            {
+                Id = new Guid("d49f827f-9c8d-4707-b431-f3de8a9b8f73"),
+                ChapterId = new Guid("b5f96c58-6d7a-4b1f-b3e5-7c4b945e7f26"),
+                Order = 3,
+                Title = "Thực hành đo thời gian",
+                Description = "Trong bài học này, học sinh sẽ thực hành đo thời gian bằng cách sử dụng đồng hồ và các công cụ đo thời gian khác. Học sinh sẽ tham gia vào các hoạt động thực tế như đo thời gian cho các sự kiện hàng ngày và ghi lại kết quả. Bài học sẽ bao gồm các bài tập thực hành và các bài kiểm tra để giúp học sinh áp dụng kiến thức của mình vào các tình huống thực tế và nâng cao khả năng đo thời gian của mình."
+            });
+
+            // Adding the second chapter
+            await _context.Chapters.AddAsync(new Chapter
+            {
+                Id = new Guid("a8e4f712-572f-4b3e-a75f-7b5f03b83c8f"),
+                Order = 2,
+                CourseId = new Guid("bd186368-c35a-4f16-9214-c1acdbfce054"),
+                Title = "Lịch và ngày tháng",
+                Description = "Chương này tập trung vào việc hiểu và sử dụng lịch và ngày tháng trong cuộc sống hàng ngày. Học sinh sẽ được giới thiệu về cấu trúc của lịch, bao gồm các thành phần như ngày, tháng, và năm. Các em sẽ học cách đọc và hiểu ngày tháng trên lịch, xác định các ngày trong tuần, và cách lên kế hoạch cho các sự kiện dựa trên lịch. Bài học cũng bao gồm các bài tập thực hành và các hoạt động để giúp học sinh nắm vững cách sử dụng lịch một cách hiệu quả."
+            });
+
+            // Adding topics to the second chapter
+            await _context.Topics.AddAsync(new Topic
+            {
+                Id = new Guid("f7b14a8e-205a-45dc-8e3e-d60a457f01e6"),
+                ChapterId = new Guid("a8e4f712-572f-4b3e-a75f-7b5f03b83c8f"),
+                Order = 1,
+                Title = "Hiểu về lịch",
+                Description = "Bài học này giúp học sinh hiểu cấu trúc và các phần của lịch, bao gồm ngày, tháng, và năm. Học sinh sẽ tìm hiểu cách sử dụng lịch để theo dõi thời gian và các sự kiện quan trọng, và cách xác định các ngày trong tuần và các tháng trong năm. Bài học sẽ cung cấp các ví dụ cụ thể và bài tập thực hành để học sinh nắm vững kiến thức về lịch và cách áp dụng nó vào cuộc sống hàng ngày."
+            });
+
+            await _context.Topics.AddAsync(new Topic
+            {
+                Id = new Guid("3c7a4f9b-6bfb-4c54-a1c8-3f07e4b41bfc"),
+                ChapterId = new Guid("a8e4f712-572f-4b3e-a75f-7b5f03b83c8f"),
+                Order = 2,
+                Title = "Đọc ngày tháng trên lịch",
+                Description = "Trong bài học này, học sinh sẽ học cách đọc và hiểu ngày tháng trên lịch. Các em sẽ học cách xác định các ngày trong tháng, các tuần trong tháng, và các tháng trong năm. Bài học sẽ bao gồm các hoạt động thực hành để giúp học sinh nắm vững cách đọc ngày tháng và áp dụng nó vào việc lập kế hoạch cho các hoạt động trong cuộc sống."
+            });
+
+            await _context.Topics.AddAsync(new Topic
+            {
+                Id = new Guid("f4e5b6a3-8f4a-4f59-911e-0b6f18d934a6"),
+                ChapterId = new Guid("a8e4f712-572f-4b3e-a75f-7b5f03b83c8f"),
+                Order = 3,
+                Title = "Lên kế hoạch với lịch",
+                Description = "Bài học này giúp học sinh học cách sử dụng lịch để lên kế hoạch cho các sự kiện và hoạt động trong tương lai. Các em sẽ tìm hiểu cách tổ chức các hoạt động hàng ngày, lập kế hoạch cho các sự kiện quan trọng như sinh nhật và lễ hội, và theo dõi các hoạt động dựa trên lịch. Bài học sẽ bao gồm các bài tập thực hành và các hoạt động để giúp học sinh áp dụng kiến thức về lịch vào việc lập kế hoạch hiệu quả."
+            });
+
+            // Adding the third chapter
+            await _context.Chapters.AddAsync(new Chapter
+            {
+                Id = new Guid("e1c9d6f7-1d69-4f46-b55e-4e6c5c2b973b"),
+                Order = 3,
+                CourseId = new Guid("bd186368-c35a-4f16-9214-c1acdbfce054"),
+                Title = "So sánh thời gian",
+                Description = "Chương này giúp học sinh phát triển kỹ năng so sánh thời gian bằng cách sử dụng đồng hồ và lịch. Học sinh sẽ học cách so sánh các khoảng thời gian khác nhau, xác định thời gian sớm hơn hoặc muộn hơn, và áp dụng các kỹ năng so sánh vào các tình huống thực tế. Bài học sẽ bao gồm các ví dụ cụ thể và bài tập thực hành để giúp học sinh nắm vững kỹ năng so sánh thời gian và áp dụng nó vào việc lập kế hoạch và tổ chức các hoạt động."
+            });
+
+            // Adding topics to the third chapter
+            await _context.Topics.AddAsync(new Topic
+            {
+                Id = new Guid("a1b9f0e8-4b6c-4b2b-933d-09a3dff7f5d4"),
+                ChapterId = new Guid("e1c9d6f7-1d69-4f46-b55e-4e6c5c2b973b"),
+                Order = 1,
+                Title = "So sánh thời gian giữa các hoạt động",
+                Description = "Bài học này giúp học sinh học cách so sánh thời gian giữa các hoạt động khác nhau trong ngày. Các em sẽ tìm hiểu cách xác định thời gian bắt đầu và kết thúc của các hoạt động, và so sánh thời gian giữa các hoạt động để lên kế hoạch cho các hoạt động tiếp theo. Bài học sẽ bao gồm các bài tập thực hành và ví dụ cụ thể để giúp học sinh áp dụng kỹ năng so sánh thời gian vào việc tổ chức các hoạt động hàng ngày."
+            });
+
+            await _context.Topics.AddAsync(new Topic
+            {
+                Id = new Guid("8b2e7f9b-cd12-4d52-89f1-f8e9b5fbd51d"),
+                ChapterId = new Guid("e1c9d6f7-1d69-4f46-b55e-4e6c5c2b973b"),
+                Order = 2,
+                Title = "So sánh thời gian và lịch",
+                Description = "Trong bài học này, học sinh sẽ học cách so sánh thời gian trên đồng hồ với ngày tháng trên lịch. Các em sẽ tìm hiểu cách so sánh các khoảng thời gian khác nhau, xác định các mốc thời gian quan trọng trong ngày và trong tuần, và áp dụng kỹ năng so sánh vào các tình huống thực tế. Bài học sẽ bao gồm các hoạt động thực hành và bài tập để giúp học sinh nắm vững kỹ năng so sánh thời gian và lịch."
+            });
+
+            await _context.Topics.AddAsync(new Topic
+            {
+                Id = new Guid("5d1b0f6c-5c6e-4b77-9e0f-bb9c15a42b61"),
+                ChapterId = new Guid("e1c9d6f7-1d69-4f46-b55e-4e6c5c2b973b"),
+                Order = 3,
+                Title = "Áp dụng so sánh thời gian vào thực tế",
+                Description = "Trong bài học này, học sinh sẽ học cách áp dụng kỹ năng so sánh thời gian vào các tình huống thực tế. Các em sẽ thực hiện các bài tập về việc lập kế hoạch cho các hoạt động và sự kiện dựa trên việc so sánh thời gian và ngày tháng. Bài học sẽ bao gồm các ví dụ thực tế và hoạt động để giúp học sinh áp dụng kiến thức của mình vào cuộc sống hàng ngày."
+            });
+
+            // Adding the fourth chapter
+            await _context.Chapters.AddAsync(new Chapter
+            {
+                Id = new Guid("c9b25a3f-29dc-4d59-b9c4-917b2a0cf3d6"),
+                Order = 4,
+                CourseId = new Guid("bd186368-c35a-4f16-9214-c1acdbfce054"),
+                Title = "Ứng dụng thời gian trong cuộc sống",
+                Description = "Chương này giúp học sinh hiểu cách áp dụng các khái niệm về thời gian vào cuộc sống hàng ngày. Các em sẽ tìm hiểu về cách sử dụng thời gian để tổ chức các hoạt động trong ngày, lên kế hoạch cho các sự kiện và quản lý thời gian hiệu quả. Học sinh sẽ được giới thiệu về các công cụ quản lý thời gian, cách lập kế hoạch cho các sự kiện và hoạt động dựa trên thời gian, và cách duy trì sự cân bằng giữa các hoạt động học tập và vui chơi. Bài học sẽ bao gồm các ví dụ thực tế, bài tập và hoạt động để giúp học sinh áp dụng kiến thức về thời gian vào việc lập kế hoạch và tổ chức các hoạt động hàng ngày."
+            });
+
+            // Adding topics to the fourth chapter
+            await _context.Topics.AddAsync(new Topic
+            {
+                Id = new Guid("e4b8c06e-2a9b-4c7e-b4f0-2c87b6b2f6d9"),
+                ChapterId = new Guid("c9b25a3f-29dc-4d59-b9c4-917b2a0cf3d6"),
+                Order = 1,
+                Title = "Quản lý thời gian cá nhân",
+                Description = "Bài học này giúp học sinh học cách quản lý thời gian cá nhân hiệu quả. Các em sẽ tìm hiểu các kỹ năng tổ chức thời gian, lập kế hoạch cho các hoạt động hàng ngày, và cách duy trì sự cân bằng giữa học tập và giải trí. Bài học sẽ bao gồm các ví dụ thực tế và bài tập để giúp học sinh áp dụng các kỹ năng quản lý thời gian vào cuộc sống hàng ngày."
+            });
+
+            await _context.Topics.AddAsync(new Topic
+            {
+                Id = new Guid("e93f6d6b-d586-4a7b-bf0e-df5d227db8b9"),
+                ChapterId = new Guid("c9b25a3f-29dc-4d59-b9c4-917b2a0cf3d6"),
+                Order = 2,
+                Title = "Lên kế hoạch cho sự kiện",
+                Description = "Trong bài học này, học sinh sẽ học cách lập kế hoạch cho các sự kiện quan trọng như sinh nhật, lễ hội, và các hoạt động ngoài trời. Các em sẽ tìm hiểu cách tổ chức thời gian và tài nguyên để đảm bảo sự kiện diễn ra thành công. Bài học sẽ bao gồm các bài tập thực hành và ví dụ cụ thể để giúp học sinh áp dụng kiến thức về lập kế hoạch vào việc tổ chức các sự kiện."
+            });
+
+            await _context.Topics.AddAsync(new Topic
+            {
+                Id = new Guid("c89b5d62-cf46-4e3d-bf9a-0b77d7b6248a"),
+                ChapterId = new Guid("c9b25a3f-29dc-4d59-b9c4-917b2a0cf3d6"),
+                Order = 3,
+                Title = "Duy trì sự cân bằng trong cuộc sống",
+                Description = "Bài học này giúp học sinh học cách duy trì sự cân bằng giữa học tập, vui chơi, và các hoạt động khác. Các em sẽ tìm hiểu về tầm quan trọng của việc quản lý thời gian hiệu quả và cách duy trì sự cân bằng giữa các hoạt động hàng ngày. Bài học sẽ bao gồm các ví dụ thực tế và các hoạt động để giúp học sinh áp dụng kiến thức vào việc duy trì sự cân bằng trong cuộc sống của mình."
+            });
+
+            // ---------------------------------------------------------------------------------------------------
+            // ---------------------------------------------------------------------------------------------------
+ 
             await _context.Courses.AddAsync(new Course
             {
                 Id = new Guid("471519c0-673d-40c0-b094-2014fe96848d"),
@@ -766,18 +1087,8 @@ namespace Infrastructure.Data
                     Description = "Việc học các kỹ năng giải Toán khi vào lớp 2 là rất quan trọng. Vậy giải Toán như thế nào để phù hợp với tất cả các học sinh, các em có thể tự đọc các kiến thức và tự làm các ví dụ minh họa để nâng cao các kỹ năng giải Toán lớp 2 của mình thêm hiệu quả. Sau đây là một ví dụ minh họa về bài lý thuyết Bài 6 Luyện tập chung sách Kết nối tri thức, mời các em cùng tham khảo.",
                 });
 
-            await _context.Courses.AddAsync(new Course
-            {
-                Id = new Guid("ab8c3b06-9ae7-408f-a923-1fb9564ba181"),
-                SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"), // Toan
-                CourseLevelId = new Guid("dd885d8d-0ea4-4c19-9b06-5e02bb44e7bb"), //Lop 2
-                ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"),//BGD
-                Price = 250,
-                Title = "Phép cộng, phép trừ trong phạm vi 20",
-                ImageURL = "https://mightymath.edu.vn/uploads/pictures/634f768b165b7822016ef8e0/content_bang-tru-trong-pham-vi-20-lop-2-moi.jpg",
-                Description = "Đến với nội dung Chủ đề 2: Phép cộng, phép trừ trong phạm vi 20 của chương trình Toán 2 Kết Nối Tri Thức, các em sẽ được học hỏi thêm các kiến thức mới về bảng cộng, bảng trừ qua 10, bài toán về thêm, bớt một số đơn vị,.... Bên cạnh đó, các em còn được thử sức với các bài tập minh họa cuối mỗi bài học nhằm đánh giá năng lực bản thân sau khi học bài. Hệ thống hỏi đáp cuối bài sẽ giải đáp các thắc mắc của các em trong quá trình học. Mời các em theo dõi nội dung chi tiết bên dưới!",
-                TotalSlot = 14,
-            });
+            // ---------------------------------------------------------------------------------------------------
+            // ---------------------------------------------------------------------------------------------------
             await _context.Courses.AddAsync(new Course
             {
                 Id = new Guid("d96fa6e2-ba64-4639-b0bb-d95c4f6b40d1"),
@@ -786,59 +1097,201 @@ namespace Infrastructure.Data
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"),//BGD
                 Price = 250,
                 Title = "Làm quen với khối lượng, dung tích",
-                ImageURL = "https://pomath.vn/wp-content/uploads/2023/09/toan-lop-2-lam-quen-voi-khoi-luong-va-dung-tich-4-1.jpg",
+                ImageURL = "https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/course_img%2Fcourse5.png?alt=media&token=a5d09f6d-086d-4b51-ad94-2729feb6d45b",
                 Description = "Đến với nội dung Chủ đề 3 : Làm quen với khối lượng, dung tích của chương trình Toán 2 Kết Nối Tri Thức, các em sẽ được học các bài như: Lít, ki-lô-gam, khối lượng và đơn vị đo khối lượng . Bên cạnh đó, các em còn được thử sức với các bài tập minh họa cuối mỗi bài học nhằm đánh giá năng lực bản thân sau khi học bài. Hệ thống hỏi đáp cuối bài sẽ giải đáp các thắc mắc của các em trong quá trình học. Mời các em theo dõi nội dung chi tiết bên dưới!",
-                TotalSlot = 15,
+                TotalSlot = 5,
             });
-            await _context.Courses.AddAsync(new Course
+            // Adding the first chapter
+            await _context.Chapters.AddAsync(new Chapter
             {
-                Id = new Guid("6dc0d9fd-3b29-4e9e-a766-f7aade0ae97a"),
-                SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"), // Toan
-                CourseLevelId = new Guid("dd885d8d-0ea4-4c19-9b06-5e02bb44e7bb"), //Lop 2
-                ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"),//BGD
-                Price = 250,
-                Title = "Phép cộng, phép trừ (có nhớ) trong phạm vi 100",
-                ImageURL = "https://img.loigiaihay.com/picture/question_lgh/2021_41/1622174452-cech.jpg",
-                Description = "Mời các em đến với nội dung Chủ đề 4 : Phép cộng, phép trừ (có nhớ) trong phạm vi 100​​ của chương trình Toán 2 Kết nối tri thức do Benamind biên soạn dưới đây. Ở chương này các em học sinh sẽ được ôn tập lại đầy đủ các kiến thức đã học, bên cạnh đó còn có các bài tập minh họa có hướng dẫn giải chi tiết, giúp các em có thể tự luyện tập, đối chiếu đáp án, đánh giá năng lực bản thân sau khi học bài. Hệ thống hỏi đáp sẽ giúp các em giải quyết các thắc mắc liên quan đến bài học.",
-                TotalSlot = 12,
-            });
-            await _context.Courses.AddAsync(new Course
-            {
-                Id = new Guid("23c317ba-e081-4ed3-83d8-3c9c52a269d8"),
-                SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"), // Toan
-                CourseLevelId = new Guid("dd885d8d-0ea4-4c19-9b06-5e02bb44e7bb"), //Lop 2
-                ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"),//BGD
-                Price = 250,
-                Title = "Làm quen với hình phẳng",
-                ImageURL = "https://vnmedia2.monkeyuni.net/upload/web/storage_web/09-06-2022_18:01:39_toan-lop-2-lam-quen-voi-hinh-phang.jpg",
-                Description = "Nhận biết được điểm, đoạn thẳng, đường thẳng, đường cong, ba điểm thẳng hàng, đường gấp khúc, hình tứ giác là nội dung các em sẽ tìm hiểu ở Chủ đề 5 : Làm quen với hình phẳng của môn Toán 2 Kết Nối Tri thức. Bài học được BeanMind biên soạn với các phần tóm tắt lý thuyết, bài tập minh họa và giúp các em chuẩn bị bài học thật tốt và luyện tập, đánh giá năng lực của bản thân. Hệ thống hỏi đáp sẽ giúp các em giải quyết nhiều câu hỏi khó nhanh chóng, hiệu quả. Các em xem nội dung bài học ngay bên dưới.",
-                TotalSlot = 18,
-            });
-            await _context.Courses.AddAsync(new Course
-            {
-                Id = new Guid("c6e8223d-441e-4be2-a541-d33cb55fc6ff"),
-                SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"), // Toan
-                CourseLevelId = new Guid("dd885d8d-0ea4-4c19-9b06-5e02bb44e7bb"), //Lop 2
-                ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"),//BGD
-                Price = 250,
-                Title = "Ngày - giờ, giờ - phút, ngày - tháng",
-                ImageURL = "https://vnmedia2.monkeyuni.net/upload/web/storage_web/28-03-2022_12:35:29_toan-lop-2-ngay-gio.jpg",
-                Description = "BeanMind xin giới thiệu các em học sinh Chủ đề 6 : Ngày - giờ, giờ - phút, ngày - tháng môn Toán 2 sách Kết Nối Tri Thức. Nội dung đầy đủ bao gồm tóm tắt lý thuyết, các bài tập SGK và các bài tập minh họa có hướng dẫn giải chi tiết. Hi vọng bài học sẽ giúp các em nắm vững kiến thức và ghi nhớ được các số có hai chữ số, so sánh số có hai chữ số và các phép toán liên quan đến chương. Nếu có bất kì thắc mắc gì về chủ đề này, các em vui lòng bình luận ở mục hỏi đáp để BeanMind  hỗ trợ.",
-                TotalSlot = 12,
-            });
-            await _context.Courses.AddAsync(new Course
-            {
-                Id = new Guid("904224da-5ee9-4ce1-9ec8-9e87497cafec"),
-                SubjectId = new Guid("14b76851-0f86-4dd2-a59c-ae45893c9578"), // Toan
-                CourseLevelId = new Guid("dd885d8d-0ea4-4c19-9b06-5e02bb44e7bb"), //Lop 2
-                ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"),//BGD
-                Price = 250,
-                Title = "Ôn tập Học kì 1",
-                ImageURL = "https://i.pinimg.com/736x/51/7e/89/517e890cd1d9606b78ccbdd08f0fdf1d.jpg",
-                Description = "Ôn tập Học kì 1 Toán 2 Kết Nối Tri Thức các em học sinh sẽ Ôn tập hình phẳng, Ôn tập đo lường, Ôn tập phép cộng, phép trừ trong phạm vi 20, 100. BeanMind đã tóm tắt chi tiết các kiến thức cần nhớ, các dạng bài tập và các bài tập minh họa có hướng dẫn giải chi tiết, giúp các em dễ dàng nắm vững được kiến thức mới. Mời quý phụ huynh và các em học sinh cùng tham khảo!",
-                TotalSlot = 15,
+                Id = new Guid("e8f8b8e4-fc25-4efc-946b-14c744d17b29"),
+                Order = 1,
+                CourseId = new Guid("d96fa6e2-ba64-4639-b0bb-d95c4f6b40d1"),
+                Title = "Khái niệm cơ bản về khối lượng và dung tích",
+                Description = "Bài học đầu tiên của chúng ta sẽ giúp các em làm quen với các khái niệm cơ bản về khối lượng và dung tích. Các em sẽ học cách phân biệt khối lượng và dung tích, cũng như các đơn vị đo lường cơ bản như lít và ki-lô-gam. Bài học sẽ bao gồm các ví dụ minh họa rõ ràng và các bài tập thực hành giúp các em nắm vững lý thuyết và ứng dụng các khái niệm vào thực tế."
             });
 
+            // Adding topics to the first chapter
+            await _context.Topics.AddAsync(new Topic
+            {
+                Id = new Guid("c1f5e7a9-372f-4d69-a1d8-5f8c79b8c9e0"),
+                ChapterId = new Guid("e8f8b8e4-fc25-4efc-946b-14c744d17b29"),
+                Order = 1,
+                Title = "Khái niệm về khối lượng",
+                Description = "Trong bài học này, các em sẽ tìm hiểu về khối lượng - một thuộc tính quan trọng của vật thể, phản ánh độ nặng của nó. Các em sẽ học các đơn vị đo lường khối lượng như ki-lô-gam và gram, và cách chuyển đổi giữa các đơn vị này. Bài học sẽ cung cấp các ví dụ thực tế về việc sử dụng khối lượng trong cuộc sống hàng ngày và các bài tập giúp các em làm quen với các phép toán cơ bản liên quan đến khối lượng."
+            });
+
+            await _context.Topics.AddAsync(new Topic
+            {
+                Id = new Guid("c7e4d38c-b55a-4e9f-8f87-e5a3ef7bfa89"),
+                ChapterId = new Guid("e8f8b8e4-fc25-4efc-946b-14c744d17b29"),
+                Order = 2,
+                Title = "Khái niệm về dung tích",
+                Description = "Bài học này sẽ giúp các em hiểu về dung tích, là lượng không gian bên trong một vật chứa. Các em sẽ học về các đơn vị đo lường dung tích như lít và mili-lít, và cách sử dụng chúng để đo lường các chất lỏng. Các ví dụ minh họa sẽ bao gồm việc đo dung tích của các vật chứa thông dụng trong nhà bếp và các bài tập giúp các em thực hành và làm quen với khái niệm dung tích."
+            });
+
+            await _context.Topics.AddAsync(new Topic
+            {
+                Id = new Guid("d5e1f27d-2f6d-4e55-bb3d-3456e7a46f7c"),
+                ChapterId = new Guid("e8f8b8e4-fc25-4efc-946b-14c744d17b29"),
+                Order = 3,
+                Title = "So sánh khối lượng và dung tích",
+                Description = "Trong bài học này, các em sẽ học cách so sánh khối lượng và dung tích giữa các vật thể. Các em sẽ tìm hiểu sự khác biệt giữa việc đo lường khối lượng và đo lường dung tích, và cách so sánh chúng trong các tình huống thực tế. Bài học sẽ cung cấp các bài tập so sánh thực tế và các trò chơi tương tác để giúp các em củng cố kiến thức và nâng cao khả năng so sánh các đơn vị đo lường."
+            });
+
+            // Adding the second chapter
+            await _context.Chapters.AddAsync(new Chapter
+            {
+                Id = new Guid("d3d6745e-05d8-4736-8aeb-45d8d325fa87"),
+                Order = 2,
+                CourseId = new Guid("d96fa6e2-ba64-4639-b0bb-d95c4f6b40d1"),
+                Title = "Đơn vị đo khối lượng và dung tích",
+                Description = "Bài học này tập trung vào việc tìm hiểu các đơn vị đo khối lượng và dung tích. Các em sẽ học về các đơn vị đo lường như lít, mili-lít, ki-lô-gam và gram, và cách sử dụng chúng trong các phép đo. Bài học sẽ bao gồm các hoạt động thực hành đo khối lượng và dung tích của các vật thể khác nhau, giúp các em làm quen với việc sử dụng các đơn vị đo lường trong thực tế."
+            });
+
+            // Adding topics to the second chapter
+            await _context.Topics.AddAsync(new Topic
+            {
+                Id = new Guid("8a47a5a1-007c-4b78-8b09-6d7b6ae56d85"),
+                ChapterId = new Guid("d3d6745e-05d8-4736-8aeb-45d8d325fa87"),
+                Order = 1,
+                Title = "Đơn vị đo khối lượng: Ki-lô-gam và gram",
+                Description = "Trong bài học này, các em sẽ tìm hiểu chi tiết về đơn vị đo khối lượng như ki-lô-gam và gram. Các em sẽ học cách sử dụng các đơn vị này để đo khối lượng của các vật thể và thực hành chuyển đổi giữa ki-lô-gam và gram. Bài học sẽ bao gồm các ví dụ minh họa và bài tập thực hành để các em làm quen với việc đo lường khối lượng trong cuộc sống hàng ngày."
+            });
+
+            await _context.Topics.AddAsync(new Topic
+            {
+                Id = new Guid("d6c6d1b8-4b91-4b4a-8b6b-5b94c124d6a5"),
+                ChapterId = new Guid("d3d6745e-05d8-4736-8aeb-45d8d325fa87"),
+                Order = 2,
+                Title = "Đơn vị đo dung tích: Lít và mili-lít",
+                Description = "Bài học này sẽ giúp các em hiểu về các đơn vị đo dung tích như lít và mili-lít. Các em sẽ học cách đo dung tích của các chất lỏng và thực hành chuyển đổi giữa lít và mili-lít. Bài học sẽ bao gồm các ví dụ minh họa và bài tập thực hành giúp các em làm quen với việc đo lường dung tích trong các tình huống thực tế, chẳng hạn như đo lượng nước trong một chai hoặc lượng sữa trong một hộp."
+            });
+
+            await _context.Topics.AddAsync(new Topic
+            {
+                Id = new Guid("0b9f6d34-fd4d-4f5d-bd6c-9c53b94f23d9"),
+                ChapterId = new Guid("d3d6745e-05d8-4736-8aeb-45d8d325fa87"),
+                Order = 3,
+                Title = "Chuyển đổi đơn vị đo khối lượng và dung tích",
+                Description = "Trong bài học này, các em sẽ học cách chuyển đổi giữa các đơn vị đo khối lượng và dung tích. Các em sẽ thực hành chuyển đổi giữa ki-lô-gam và gram, lít và mili-lít qua các bài tập thực hành và ví dụ cụ thể. Bài học sẽ giúp các em củng cố khả năng làm việc với các đơn vị đo lường và ứng dụng chúng vào các tình huống thực tế."
+            });
+
+            // Adding the third chapter
+            await _context.Chapters.AddAsync(new Chapter
+            {
+                Id = new Guid("f6c7e09a-bb65-4c35-bd9e-9e9b1b530b2d"),
+                Order = 3,
+                CourseId = new Guid("d96fa6e2-ba64-4639-b0bb-d95c4f6b40d1"),
+                Title = "Tính toán với khối lượng và dung tích",
+                Description = "Bài học này sẽ giúp các em áp dụng các kiến thức đã học về khối lượng và dung tích vào các bài toán tính toán. Các em sẽ thực hành các phép toán cơ bản như cộng và trừ với các đơn vị đo lường, và giải quyết các bài toán thực tiễn liên quan đến khối lượng và dung tích. Bài học sẽ bao gồm các ví dụ cụ thể và bài tập thực hành giúp các em nâng cao kỹ năng tính toán và giải quyết vấn đề."
+            });
+
+            // Adding topics to the third chapter
+            await _context.Topics.AddAsync(new Topic
+            {
+                Id = new Guid("14d0e16d-1e2d-4c84-97d3-2a97baf5f45e"),
+                ChapterId = new Guid("f6c7e09a-bb65-4c35-bd9e-9e9b1b530b2d"),
+                Order = 1,
+                Title = "Cộng và trừ khối lượng",
+                Description = "Bài học này sẽ giúp các em thực hành các phép toán cộng và trừ với các đơn vị đo khối lượng. Các em sẽ làm quen với việc cộng và trừ các giá trị khối lượng và thực hành giải quyết các bài toán thực tế liên quan đến khối lượng. Bài học sẽ cung cấp các ví dụ và bài tập để các em củng cố khả năng thực hiện các phép toán với đơn vị đo khối lượng."
+            });
+
+            await _context.Topics.AddAsync(new Topic
+            {
+                Id = new Guid("d9e2c7b1-09a8-49d8-890f-5f6c8d5c1f12"),
+                ChapterId = new Guid("f6c7e09a-bb65-4c35-bd9e-9e9b1b530b2d"),
+                Order = 2,
+                Title = "Cộng và trừ dung tích",
+                Description = "Trong bài học này, các em sẽ thực hành các phép toán cộng và trừ với các đơn vị đo dung tích. Các em sẽ học cách cộng và trừ các giá trị dung tích và giải quyết các bài toán thực tiễn liên quan đến dung tích. Bài học sẽ bao gồm các ví dụ minh họa và bài tập thực hành giúp các em làm quen với các phép toán liên quan đến dung tích."
+            });
+
+            await _context.Topics.AddAsync(new Topic
+            {
+                Id = new Guid("912a3f1e-c3d9-46ba-8a47-48a2c643c3dc"),
+                ChapterId = new Guid("f6c7e09a-bb65-4c35-bd9e-9e9b1b530b2d"),
+                Order = 3,
+                Title = "Bài toán thực tiễn về khối lượng và dung tích",
+                Description = "Bài học này sẽ đưa các em vào các bài toán thực tiễn liên quan đến khối lượng và dung tích. Các em sẽ giải quyết các tình huống thực tế, chẳng hạn như tính toán lượng thực phẩm cần mua hoặc lượng nước cần chuẩn bị cho một bữa tiệc. Bài học sẽ bao gồm các bài tập và ví dụ giúp các em áp dụng kiến thức đã học vào các tình huống thực tế."
+            });
+
+            // Adding the fourth chapter
+            await _context.Chapters.AddAsync(new Chapter
+            {
+                Id = new Guid("b2f38e25-68fc-4e2e-a1e0-2d4e7c4b8d79"),
+                Order = 4,
+                CourseId = new Guid("d96fa6e2-ba64-4639-b0bb-d95c4f6b40d1"),
+                Title = "Ứng dụng khối lượng và dung tích trong cuộc sống hàng ngày",
+                Description = "Bài học này sẽ giúp các em nhận diện và ứng dụng các kiến thức về khối lượng và dung tích vào cuộc sống hàng ngày. Các em sẽ học cách sử dụng các đơn vị đo lường trong các tình huống thực tiễn, như mua sắm, nấu ăn, và các hoạt động khác. Bài học sẽ bao gồm các hoạt động thực hành và bài tập giúp các em hiểu rõ hơn về việc sử dụng khối lượng và dung tích trong thực tế."
+            });
+
+            // Adding topics to the fourth chapter
+            await _context.Topics.AddAsync(new Topic
+            {
+                Id = new Guid("b8f4d2e5-3f0d-4bde-9c4b-7e8d5f01b8d9"),
+                ChapterId = new Guid("b2f38e25-68fc-4e2e-a1e0-2d4e7c4b8d79"),
+                Order = 1,
+                Title = "Mua sắm với khối lượng và dung tích",
+                Description = "Bài học này sẽ giúp các em hiểu cách sử dụng khối lượng và dung tích khi mua sắm các sản phẩm. Các em sẽ học cách đọc nhãn sản phẩm, nhận diện các đơn vị đo lường và tính toán số lượng cần thiết khi mua sắm. Bài học sẽ bao gồm các ví dụ thực tế và bài tập để các em làm quen với việc áp dụng khối lượng và dung tích trong các tình huống mua sắm."
+            });
+
+            await _context.Topics.AddAsync(new Topic
+            {
+                Id = new Guid("c5e8f5c1-6a3b-4e09-bb2d-82e6f5b2e9d7"),
+                ChapterId = new Guid("b2f38e25-68fc-4e2e-a1e0-2d4e7c4b8d79"),
+                Order = 2,
+                Title = "Nấu ăn và đo lường khối lượng, dung tích",
+                Description = "Trong bài học này, các em sẽ học cách đo lường khối lượng và dung tích trong quá trình nấu ăn. Các em sẽ tìm hiểu cách sử dụng các công cụ đo lường như cốc đo lít và cân điện tử để đo lượng nguyên liệu. Bài học sẽ bao gồm các ví dụ minh họa và bài tập thực hành giúp các em nắm vững cách sử dụng khối lượng và dung tích trong việc chuẩn bị các món ăn."
+            });
+
+            await _context.Topics.AddAsync(new Topic
+            {
+                Id = new Guid("a7e9b3f4-2b0d-4b5d-8b1b-4c7e9e3d6f7a"),
+                ChapterId = new Guid("b2f38e25-68fc-4e2e-a1e0-2d4e7c4b8d79"),
+                Order = 3,
+                Title = "Ứng dụng trong các trò chơi và hoạt động",
+                Description = "Bài học này sẽ khám phá cách khối lượng và dung tích được áp dụng trong các trò chơi và hoạt động hàng ngày. Các em sẽ học cách sử dụng các đơn vị đo lường trong các trò chơi như đo lường lượng nước trong một bể bơi hoặc khối lượng của các vật phẩm trong một trò chơi. Bài học sẽ bao gồm các ví dụ và bài tập thực hành để các em thấy rõ sự ứng dụng của khối lượng và dung tích trong các hoạt động giải trí."
+            });
+
+            // Adding the fifth chapter
+            await _context.Chapters.AddAsync(new Chapter
+            {
+                Id = new Guid("a5f2d8d6-7a9c-4e7c-8d4e-58a9b1c8c2d8"),
+                Order = 5,
+                CourseId = new Guid("d96fa6e2-ba64-4639-b0bb-d95c4f6b40d1"),
+                Title = "Tổng kết và đánh giá",
+                Description = "Bài học cuối cùng sẽ tổng kết các kiến thức về khối lượng và dung tích mà các em đã học. Các em sẽ làm bài kiểm tra tổng hợp để đánh giá khả năng của mình về các khái niệm cơ bản. Bài học cũng sẽ cung cấp phản hồi chi tiết để các em hiểu rõ hơn về điểm mạnh và các lĩnh vực cần cải thiện. Các hoạt động phân tích kết quả sẽ giúp các em nhận ra các khía cạnh cần chú ý để nâng cao kỹ năng của mình."
+            });
+
+            // Adding topics to the fifth chapter
+            await _context.Topics.AddAsync(new Topic
+            {
+                Id = new Guid("7e9d4f67-8e2d-4d83-bf93-8d2c0b1a9a8d"),
+                ChapterId = new Guid("a5f2d8d6-7a9c-4e7c-8d4e-58a9b1c8c2d8"),
+                Order = 1,
+                Title = "Bài kiểm tra tổng hợp",
+                Description = "Học sinh sẽ thực hiện một bài kiểm tra tổng hợp để đánh giá kiến thức về khối lượng và dung tích. Bài kiểm tra sẽ bao gồm các câu hỏi từ cơ bản đến nâng cao, giúp các em kiểm tra khả năng hiểu biết và áp dụng các khái niệm đã học vào các tình huống thực tế. Bài kiểm tra cũng sẽ giúp các em nhận diện những lĩnh vực cần cải thiện và củng cố kiến thức."
+            });
+
+            await _context.Topics.AddAsync(new Topic
+            {
+                Id = new Guid("c6b1d3e8-3b9c-4f77-bc8a-64f1b9c8e9a3"),
+                ChapterId = new Guid("a5f2d8d6-7a9c-4e7c-8d4e-58a9b1c8c2d8"),
+                Order = 2,
+                Title = "Phân tích kết quả bài kiểm tra",
+                Description = "Trong bài học này, các em sẽ phân tích kết quả bài kiểm tra tổng hợp. Các em sẽ học cách đọc và hiểu các phản hồi, nhận diện các điểm mạnh và điểm cần cải thiện. Bài học sẽ bao gồm các hoạt động phân tích chi tiết và các bài tập giúp các em hiểu rõ hơn về cách cải thiện kỹ năng của mình."
+            });
+
+            await _context.Topics.AddAsync(new Topic
+            {
+                Id = new Guid("e8f3a9b7-1a5d-45c5-bc4a-2f6e9d4c7b8c"),
+                ChapterId = new Guid("a5f2d8d6-7a9c-4e7c-8d4e-58a9b1c8c2d8"),
+                Order = 3,
+                Title = "Lời khuyên để nâng cao kỹ năng",
+                Description = "Bài học này sẽ cung cấp các lời khuyên và chiến lược để các em nâng cao kỹ năng về khối lượng và dung tích. Các em sẽ học các phương pháp học tập hiệu quả, cách thực hành thêm để cải thiện kỹ năng, và các nguồn tài liệu bổ sung để tiếp tục học hỏi. Bài học sẽ giúp các em tự tin hơn trong việc áp dụng kiến thức và nâng cao khả năng giải quyết vấn đề."
+            });
+
+            _context.SaveChanges();
             // --------------
             // TeachingSlot table
             await _context.TeachingSlots.AddAsync(new TeachingSlot
@@ -931,7 +1384,8 @@ namespace Infrastructure.Data
                 DayIndex = 3,
                 CourseId = new Guid("471519c0-673d-40c0-b094-2014fe96848d"),
             });
-          
+            _context.SaveChanges();
+
         }
         public async static Task Seed_ChapterGame_Async(ApplicationDbContext _context)
         {

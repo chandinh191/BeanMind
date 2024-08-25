@@ -99,7 +99,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
         {
             if (entry.State == EntityState.Added)
             {
-                entry.Entity.Created = DateTime.Now;
+                entry.Entity.Created = DateTime.Now.AddHours(14);
                 entry.Entity.CreatedBy = "Admin";
             }
             else if (entry.State == EntityState.Modified)
