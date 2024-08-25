@@ -19,6 +19,7 @@ public sealed record UpdateChapterCommand : IRequest<BaseResponse<GetBriefChapte
     public int? Order { get; init; }
     public string? Description { get; init; }
     public Guid? CourseId { get; set; }
+    public bool? IsDeleted { get; set; }
 }
 
 public class UpdateChapterCommandHanler : IRequestHandler<UpdateChapterCommand, BaseResponse<GetBriefChapterResponseModel>>

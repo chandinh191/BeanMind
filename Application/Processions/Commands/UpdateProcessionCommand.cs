@@ -20,6 +20,7 @@ namespace Application.Processions.Commands
         public Guid Id { get; set; }
         public Guid? ParticipantId { get; set; }
         public Guid? TopicId { get; set; }
+        public bool? IsDeleted { get; set; }
     }
 
     public class UpdateProcessionCommandHanler : IRequestHandler<UpdateProcessionCommand, BaseResponse<GetBriefProcessionResponseModel>>

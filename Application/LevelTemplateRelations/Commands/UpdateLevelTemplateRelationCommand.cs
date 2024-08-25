@@ -22,6 +22,7 @@ namespace Application.LevelTemplateRelations.Commands
         public Guid? QuestionLevelId { get; set; }
         public Guid? WorksheetTemplateId { get; set; }
         public int? NoQuestions { get; set; }
+        public bool? IsDeleted { get; set; }
     }
 
     public class UpdateLevelTemplateRelationCommandHanler : IRequestHandler<UpdateLevelTemplateRelationCommand, BaseResponse<GetBriefLevelTemplateRelationResponseModel>>

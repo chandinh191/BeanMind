@@ -26,6 +26,7 @@ namespace Application.Sessions.Commands
         public string LecturerId { get; set; }
         [Required]
         public Guid TeachingSlotId { get; set; }
+        public bool? IsDeleted { get; set; }
     }
 
     public class UpdateSessionCommandHanler : IRequestHandler<UpdateSessionCommand, BaseResponse<GetBriefSessionResponseModel>>

@@ -23,6 +23,7 @@ namespace Application.Parents.Commands
         public string? Phone { get; set; }
         public double? Wallet { get; set; }
         public Gender? Gender { get; set; }
+        public bool? IsDeleted { get; set; }
     }
 
     public class UpdateParentCommandHanler : IRequestHandler<UpdateParentCommand, BaseResponse<GetBriefParentResponseModel>>

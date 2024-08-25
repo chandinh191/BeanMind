@@ -23,6 +23,7 @@ public sealed record UpdateCourseCommand : IRequest<BaseResponse<GetBriefCourseR
     public Guid? CourseLevelId { get; set; }
     public List<UpdateTeacherIdModel> Teachables { get; set; }
     public bool? IsDeleted { get; set; }
+
 }
 public class UpdateTeacherIdModel
 {

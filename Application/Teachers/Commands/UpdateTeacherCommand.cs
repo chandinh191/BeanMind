@@ -21,6 +21,7 @@ namespace Application.Teachers.Commands
         public string? Experience { get; set; }
         public string? Image { get; set; }
         public string? Level { get; set; }
+        public bool? IsDeleted { get; set; }
     }
 
     public class UpdateTeacherCommandHanler : IRequestHandler<UpdateTeacherCommand, BaseResponse<GetBriefTeacherResponseModel>>

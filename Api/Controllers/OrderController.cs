@@ -167,7 +167,7 @@ namespace Api.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> Create(ISender sender, [FromBody] CreateOrderCommand command)
         {
             var result = await sender.Send(command);
@@ -178,7 +178,7 @@ namespace Api.Controllers
         }
 
         [HttpPut]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> Update(ISender sender, [FromBody] UpdateOrderCommand command)
         {
             var result = await sender.Send(command);

@@ -2,7 +2,7 @@
 
 public abstract class BaseAuditableEntity : BaseEntity
 {
-    public DateTime Created { get; set; } = DateTime.Now;
+    public DateTime Created { get; set; } = DateTime.Now.AddHours(14);
 
     public string? CreatedBy { get; set; } = "Admin";   
 

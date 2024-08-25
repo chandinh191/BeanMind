@@ -23,6 +23,7 @@ namespace Application.Enrollments.Commands
         public string? ApplicationUserId { get; set; }
         public Guid? CourseId { get; set; }
         public EnrollmentStatus? Status { get; set; }
+        public bool? IsDeleted { get; set; }
     }
 
     public class UpdateEnrollmentCommandHanler : IRequestHandler<UpdateEnrollmentCommand, BaseResponse<GetBriefEnrollmentResponseModel>>
@@ -76,6 +77,18 @@ namespace Application.Enrollments.Commands
                 };
             }
 
+            if (request.Status != null && request.Status == EnrollmentStatus.Complete)
+            {
+                double percentTopicCompletion = CactulatePercentTopicCompletion(enrollment.Id, enrollment.CourseId);
+                if (percentTopicCompletion < 100) {
+                    return new BaseResponse<GetBriefEnrollmentResponseModel>
+                    {
+                        Success = false,
+                        Message = "Student have not completed 100% of the topic",
+                    };
+                }
+            }
+
             //_mapper.Map(request, enrollment);
             // Use reflection to update non-null properties
             foreach (var property in request.GetType().GetProperties())
@@ -112,6 +125,19 @@ namespace Application.Enrollments.Commands
                 Message = "Update enrollment successful",
                 Data = mappedEnrollmentResult
             };
+        }
+        public double CactulatePercentTopicCompletion(Guid enrollmentId, Guid courseId)
+        {
+            var processions = _context.Processions
+                .Include(o => o.Participant).ThenInclude(o => o.Enrollment)
+                //.Where(o => o.Participant.IsPresent == true && o.Participant.Status == Domain.Enums.ParticipantStatus.Done)
+                .Where(o => o.Participant.Enrollment.Id == enrollmentId)
+                .ToList();
+            var topics = _context.Topics
+               .Include(o => o.Chapter).ThenInclude(o => o.Course)
+               .Where(o => o.Chapter.Course.Id == courseId)
+               .ToList();
+            return ((double)processions.Count() / topics.Count()) * 100;
         }
     }
 }

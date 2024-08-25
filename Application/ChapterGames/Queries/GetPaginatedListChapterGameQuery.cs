@@ -4,6 +4,7 @@ using AutoMapper;
 using Domain.Enums;
 using Infrastructure.Data;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -42,7 +43,9 @@ namespace Application.ChapterGames.Queries
         public async Task<BaseResponse<Pagination<GetBriefChapterGameResponseModel>>> Handle(GetPaginatedListChapterGameQuery request, CancellationToken cancellationToken)
         {
             var defaultPageSize = _configuration.GetValue<int>("Pagination:PageSize");
-            var chapterGames = _context.ChapterGames.AsQueryable();
+            var chapterGames = _context.ChapterGames
+                .Include(o => o.Game)
+                .AsQueryable();
 
 
             // filter by chapter id

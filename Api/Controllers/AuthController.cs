@@ -136,7 +136,7 @@ public class AuthController : ControllerBase
     {
         var result = await sender.Send(command);
         if (result.Success) {
-            return Redirect("https://www.sender.net/wp-content/uploads/2023/09/b0205-email-confirmation-small.webp");
+            return Redirect("https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/avatar_images%2Fxacnhanemail.png?alt=media&token=7b1ebe06-4cc1-4c93-b251-5dd4d6ec1f1a");
         }
         return new ObjectResult(result)
         {
@@ -156,7 +156,6 @@ public class AuthController : ControllerBase
 
 
     [HttpPost("resendConfirmEmail")]
-    [Authorize]
     public async Task<IActionResult> ResendConfirmEmail(ISender sender, [FromBody] ResendConfirmEmailCommand command)
     {
         var result = await sender.Send(command);
@@ -165,8 +164,18 @@ public class AuthController : ControllerBase
             StatusCode = result.Code
         };
     }
+
+    [HttpPost("sendAccountStudentInfo")]
+    public async Task<IActionResult> SendAccountStudentInfo(ISender sender, [FromBody] SendAccountStudentInfoCommand command)
+    {
+        var result = await sender.Send(command);
+        return new ObjectResult(result)
+        {
+            StatusCode = result.Code
+        };
+    }
+
     [HttpPost]
-    [Authorize]
     public async Task<BaseResponse<GetBriefApplicationUserResponseModel>> RegisterAccount(ISender sender, [FromBody] RegisterUserCommand command)
     {
         return await sender.Send(command);

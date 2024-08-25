@@ -26,6 +26,7 @@ namespace Application.Participants.Commands
         public Guid? SessionId { get; set; }
         public bool? IsPresent { get; set; }
         public ParticipantStatus? Status { get; set; }
+        public bool? IsDeleted { get; set; }
     }
 
     public class UpdateParticipantCommandHanler : IRequestHandler<UpdateParticipantCommand, BaseResponse<GetBriefParticipantResponseModel>>

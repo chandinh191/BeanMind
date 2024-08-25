@@ -28,6 +28,7 @@ namespace Application.Transactions.Commands
         public string? ResponseCode { get; set; }
         public string? TransactionNo { get; set; }
         public TransactionStatus? Status { get; set; }
+        public bool? IsDeleted { get; set; }
     }
 
     public class UpdateTransactionCommandHanler : IRequestHandler<UpdateTransactionCommand, BaseResponse<GetBriefTransactionResponseModel>>

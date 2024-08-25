@@ -160,8 +160,8 @@ public class ApplicationDbContextInitialiser
             "https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/avatar_images%2Fteacher4.png?alt=media&token=ac994ea2-5dbe-4e70-aa01-fb6bf0973496",
             "https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/avatar_images%2Fteacher5.png?alt=media&token=e1952549-9b18-4a3f-a64e-173d7238e604" };
         var emailTeacher = new List<string> { "kamvinh19", "maitruongthinh08", "marchjeff145", "tuankiet2911", "trieudoublenguyen" };
-        var firstNameTeachers = new List<string> { "Kong", "Trường", "Văn", "Tuấn", "Nguyên" };
-        var lastNameTeachers = new List<string> { "Chần", "Mai", "Nguyễn", "Lê", "Nguyễn" };
+        var firstNameTeachers = new List<string> { "Cong", "Trường", "Văn", "Tuấn", "Nguyên" };
+        var lastNameTeachers = new List<string> { "Trần", "Mai", "Nguyễn", "Lê", "Nguyễn" };
         var random = new Random();
         for (int i = 0; i < 5; i++)
         {
@@ -194,9 +194,9 @@ public class ApplicationDbContextInitialiser
             user.TeacherId = teacher.Id;
         }
 
-        var emailParents = new List<string> { "kietlt", "trieunn" };
-        var firstNameParents = new List<string> { "Kiet", "Trieu" };
-        var lastNameParents = new List<string> { "Le", "Nguyen" };
+        var emailParents = new List<string> { "vinhtc191", "trieunn" };
+        var firstNameParents = new List<string> { "Vinh", "Trieu" };
+        var lastNameParents = new List<string> { "Trần", "Nguyen" };
         // Parent Account User
         for (int i = 0; i < 2; i++)
         {
@@ -230,9 +230,9 @@ public class ApplicationDbContextInitialiser
             user.ParentId = parent.Id;
         }
 
-        var emailStudent = new List<string> { "vinhtc", "thinhmt", "tiennv" };
-        var firstNameStudents = new List<string> { "Vinh", "Thịnh", "Tiến" };
-        var lastNameStudents = new List<string> { "Trần", "Mai", "Nguyễn" };
+        var emailStudent = new List<string> { "kietlt", "thinhmt", "tiennv" };
+        var firstNameStudents = new List<string> { "Kiệt", "Thịnh", "Tiến" };
+        var lastNameStudents = new List<string> { "Lê", "Mai", "Nguyễn" };
         var imgStudent = new List<string> { "https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/avatar_images%2Fstudent1.png?alt=media&token=a0e25007-7586-44a6-8517-67d185be33d4",
             "https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/avatar_images%2Fstudent2.png?alt=media&token=b2ee024c-a7f5-4916-b375-27df30f8a253",
             "https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/avatar_images%2Fstudent3.png?alt=media&token=65b4135c-f0c4-45f4-99fa-16b5736f5a75",
@@ -289,7 +289,7 @@ public class ApplicationDbContextInitialiser
 
             //Game table
             await ContextInitializerHelper.Seed_Game_Async(_context);
-            //await ContextInitializerHelper.Seed_GameHistory_Async(_context);
+            await ContextInitializerHelper.Seed_ChapterGame_Async(_context);
 
             //Worksheet đại pháp
             //Seeding base data for all system data relationships of the worksheet

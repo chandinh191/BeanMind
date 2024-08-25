@@ -37,7 +37,7 @@ public class WorksheetController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize]
+    //[Authorize]
     public async Task<IActionResult> Create(ISender sender, [FromBody] CreateWorksheetCommand command)
     {
         var result = await sender.Send(command);

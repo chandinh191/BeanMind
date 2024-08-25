@@ -19,6 +19,7 @@ namespace Application.WorksheetAttemptAnswers.Commands
         public Guid Id { get; init; }
         public Guid? WorksheetAttemptId { get; set; }
         public Guid? QuestionAnswerId { get; set; }
+        public bool? IsDeleted { get; set; }
     }
 
     public class UpdateWorksheetAttemptAnswerCommandHanler : IRequestHandler<UpdateWorksheetAttemptAnswerCommand, BaseResponse<GetBriefWorksheetAttemptAnswerResponseModel>>

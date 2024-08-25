@@ -23,6 +23,15 @@ public class CourseController : ControllerBase
             StatusCode = result.Code
         };
     }
+    [HttpGet("hot")]
+    public async Task<IActionResult> GetHightLightList(ISender sender, [FromQuery] GetPaginatedListHotCourseQuery query)
+    {
+        var result = await sender.Send(query);
+        return new ObjectResult(result)
+        {
+            StatusCode = result.Code
+        };
+    }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(ISender sender, [FromRoute] Guid id)

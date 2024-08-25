@@ -173,59 +173,6 @@ namespace Infrastructure.Data
             //await SeedGameHistoryAsync(context);
         }
 
-        public async static Task Seed_GameHistory_Async(ApplicationDbContext _context)
-        {
-            // GameHistories table
-            await _context.GameHistories.AddAsync(new GameHistory
-            {
-                Id = new Guid("f9033f16-8f40-4cce-a687-ac1fac7712a7"),
-                GameId = new Guid("3ae42c10-7dbe-4e71-a52c-c19c44e3c4a0"),
-                ApplicationUserId = "954b8b1b-1b5f-42f6-9e27-4aa65cc7e7b1",
-                Point = 10,
-                Duration = 8
-            });
-            await _context.GameHistories.AddAsync(new GameHistory
-            {
-                Id = new Guid("cb23cacd-7e73-4c32-a488-6ea58f1beacf"),
-                GameId = new Guid("3ae42c10-7dbe-4e71-a52c-c19c44e3c4a0"),
-                ApplicationUserId = "954b8b1b-1b5f-42f6-9e27-4aa65cc7e7b2",
-                Point = 14,
-                Duration = 8
-            });
-            await _context.GameHistories.AddAsync(new GameHistory
-            {
-                Id = new Guid("352a4f2a-13a7-4ac7-a92e-3cf900ac4425"),
-                GameId = new Guid("3ae42c10-7dbe-4e71-a52c-c19c44e3c4a0"),
-                ApplicationUserId = "954b8b1b-1b5f-42f6-9e27-4aa65cc7e7b2",
-                Point = 95,
-                Duration = 4
-            });
-            await _context.GameHistories.AddAsync(new GameHistory
-            {
-                Id = new Guid("6c78454f-f667-4d4c-949a-d81aa082df44"),
-                GameId = new Guid("3ae42c10-7dbe-4e71-a52c-c19c44e3c4a0"),
-                ApplicationUserId = "954b8b1b-1b5f-42f6-9e27-4aa65cc7e7b1",
-                Point = 34,
-                Duration = 2
-            });
-            await _context.GameHistories.AddAsync(new GameHistory
-            {
-                Id = new Guid("5d1addc2-56b0-4c8e-81ee-9049facac523"),
-                GameId = new Guid("49299e7c-fa16-45fd-84e4-1a725c118a9f"),
-                ApplicationUserId = "954b8b1b-1b5f-42f6-9e27-4aa65cc7e7b0",
-                Point = 34,
-                Duration = 3
-            });
-            await _context.GameHistories.AddAsync(new GameHistory
-            {
-                Id = new Guid("2c8fb39d-1112-403e-8eb3-2252b21f3307"),
-                GameId = new Guid("49299e7c-fa16-45fd-84e4-1a725c118a9f"),
-                ApplicationUserId = "954b8b1b-1b5f-42f6-9e27-4aa65cc7e7b3",
-                Point = 34,
-                Duration = 1
-            });
-        }
-
         public async static Task Seed_Subject_CourseLevel_ProgamType_Async(ApplicationDbContext _context)
         {
             // Subject table
@@ -985,6 +932,21 @@ namespace Infrastructure.Data
                 CourseId = new Guid("471519c0-673d-40c0-b094-2014fe96848d"),
             });
           
+        }
+        public async static Task Seed_ChapterGame_Async(ApplicationDbContext _context)
+        {
+            await _context.ChapterGames.AddAsync(new ChapterGame
+            {
+                Id = new Guid("85a5ae0b-af59-4a4b-a48a-beee2a7b485b"),
+                GameId = new Guid("a65534d6-b34c-43d1-e2f6-08dcb0b903bd"),
+                ChapterId = new Guid("2110f3bc-0170-4bbc-a3be-09823e310e43")
+            });
+            await _context.ChapterGames.AddAsync(new ChapterGame
+            {
+                Id = new Guid("1a61520b-7ee4-473c-961d-96dbb905b881"),
+                GameId = new Guid("3e2e9eee-07bb-4548-e2fa-08dcb0b903bd"),
+                ChapterId = new Guid("d0f9feee-92c2-4f01-9fc7-4c801c3202c7")
+            });
         }
 
         public async static Task Seed_Session_Enrollment_Participant_Teachable_Async(ApplicationDbContext _context)

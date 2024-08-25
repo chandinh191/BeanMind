@@ -17,6 +17,7 @@ public sealed record UpdateTopicCommand : IRequest<BaseResponse<GetBriefTopicRes
     public string? Description { get; init; }
     public int? Order { get; set; }
     public Guid? ChapterId { get; set; }
+    public bool? IsDeleted { get; set; }
 }
 
 public class UpdateTopicCommandHanler : IRequestHandler<UpdateTopicCommand, BaseResponse<GetBriefTopicResponseModel>>

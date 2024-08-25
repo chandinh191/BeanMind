@@ -27,6 +27,7 @@ public sealed record UpdateQuestionCommand : IRequest<BaseResponse<GetBriefQuest
     public Guid? TopicId { get; set; }
     public Guid? QuestionLevelId { get; set; }
     public List<UpdateQuestionAnswerModel>? QuestionAnswers { get; set; }
+    public bool? IsDeleted { get; set; }
 }
 
 public class UpdateQuestionCommandHanler : IRequestHandler<UpdateQuestionCommand, BaseResponse<GetBriefQuestionResponseModel>>

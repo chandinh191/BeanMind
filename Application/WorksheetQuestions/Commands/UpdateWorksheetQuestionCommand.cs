@@ -19,6 +19,7 @@ namespace Application.WorksheetQuestions.Commands
         public Guid Id { get; init; }
         public Guid? QuestionId { get; set; }
         public Guid? WorksheetId { get; set; }
+        public bool? IsDeleted { get; set; }
     }
 
     public class UpdateWorksheetQuestionCommandHanler : IRequestHandler<UpdateWorksheetQuestionCommand, BaseResponse<GetBriefWorksheetQuestionResponseModel>>

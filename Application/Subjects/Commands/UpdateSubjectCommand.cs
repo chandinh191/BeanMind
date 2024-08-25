@@ -15,6 +15,7 @@ public sealed record UpdateSubjectCommand : IRequest<BaseResponse<GetBriefSubjec
     public Guid Id { get; init; }
     public string? Title { get; init; }
     public string? Description { get; init; }
+    public bool? IsDeleted { get; set; }
 }
 
 public class UpdateSubjectCommandHanler : IRequestHandler<UpdateSubjectCommand, BaseResponse<GetBriefSubjectResponseModel>>

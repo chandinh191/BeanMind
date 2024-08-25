@@ -21,6 +21,7 @@ namespace Application.Teachables.Commands
         public Guid Id { get; init; }
         public string? LecturerId { get; set; }
         public Guid? CourseId { get; set; }
+        public bool? IsDeleted { get; set; }
     }
 
     public class UpdateTeachableCommandHanler : IRequestHandler<UpdateTeachableCommand, BaseResponse<GetBriefTeachableResponseModel>>

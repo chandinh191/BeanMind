@@ -25,6 +25,7 @@ public sealed record UpdateWorksheetTemplateCommand : IRequest<BaseResponse<GetW
     public Guid? ChapterId { get; set; }
     public Guid? TopicId { get; set; }
     public List<UpdateLevelTemplateRelationModel>? LevelTemplateRelations { get; set; }
+    public bool? IsDeleted { get; set; }
 }
 
 public class UpdateWorksheetTemplateCommandHanler : IRequestHandler<UpdateWorksheetTemplateCommand, BaseResponse<GetWorksheetTemplateResponseModel>>

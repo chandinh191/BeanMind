@@ -126,11 +126,17 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, B
                 }
                 if (role == "Student")
                 {
+                    var imgStudent = new List<string> { "https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/avatar_images%2Fstudent1.png?alt=media&token=a0e25007-7586-44a6-8517-67d185be33d4",
+                        "https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/avatar_images%2Fstudent2.png?alt=media&token=b2ee024c-a7f5-4916-b375-27df30f8a253",
+                        "https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/avatar_images%2Fstudent3.png?alt=media&token=65b4135c-f0c4-45f4-99fa-16b5736f5a75",
+                        };
+                    var random = new Random();
+                    int randomIndex = random.Next(imgStudent.Count);
                     var student = new Student
                     {
                         Id = new Guid(),
                         ApplicationUserId = user.Id,
-                        Image = "https://png.pngtree.com/png-vector/20190129/ourmid/pngtree-teachers-day-cartoon-student-thanksgiving-element-daystudentteacherteacherhappyreturnrepaythanksgivingrepaycartoonhand-paintedcartoon-imagecartoon-png-image_568791.jpg",
+                        Image = imgStudent[randomIndex],
                         School = "",
                         Class = ""
                     };

@@ -1,9 +1,13 @@
-﻿using Application.Common;
+﻿using Application.ApplicationUsers;
+using Application.Common;
 using AutoMapper;
 using Domain.Entities.UserEntities;
 using Infrastructure.Data;
+using Infrastructure.Services;
 using MediatR;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -24,17 +28,20 @@ namespace Application.Students.Commands
         public string? Image { get; set; }
         public string? School { get; set; }
         public string? Class { get; set; }
+        public bool? IsDeleted { get; set; }
     }
 
     public class UpdateStudentCommandHanler : IRequestHandler<UpdateStudentCommand, BaseResponse<GetBriefStudentResponseModel>>
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
+        private readonly IEmailService _emailService;
 
-        public UpdateStudentCommandHanler(ApplicationDbContext context, IMapper mapper)
+        public UpdateStudentCommandHanler(ApplicationDbContext context, IMapper mapper, IEmailService emailService)
         {
             _context = context;
             _mapper = mapper;
+            _emailService = emailService;
         }
 
         public async Task<BaseResponse<GetBriefStudentResponseModel>> Handle(UpdateStudentCommand request, CancellationToken cancellationToken)
@@ -62,9 +69,10 @@ namespace Application.Students.Commands
                     };
                 }
             }
+            var parent = new Parent();
             if (request.ParentId != null)
             {
-                var parent = await _context.Parents.FirstOrDefaultAsync(x => x.Id == request.ParentId);
+                parent = await _context.Parents.FirstOrDefaultAsync(x => x.Id == request.ParentId);
                 if (parent == null)
                 {
                     return new BaseResponse<GetBriefStudentResponseModel>

@@ -30,6 +30,7 @@ namespace Application.Games.Commands
         public string? ItemStoreJson { get; set; }
         public string? AnimalJson { get; set; }
         public List<UpdateChapterGameModel> ChapterGames { get; set; }
+        public bool? IsDeleted { get; set; }
     }
 
     public class UpdateGameCommandHanler : IRequestHandler<UpdateGameCommand, BaseResponse<GetBriefGameResponseModel>>

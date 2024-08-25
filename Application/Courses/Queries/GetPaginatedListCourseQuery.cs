@@ -17,7 +17,7 @@ public sealed record GetPaginatedListCourseQuery : IRequest<BaseResponse<Paginat
     public Guid ProgramTypeId { get; init; }
     public Guid CourseLevelId { get; init; }
     public IsDeleted IsDeleted { get; init; } = IsDeleted.All;
-    public SortBy SortBy { get; init; } 
+    public SortBy SortBy { get; init; }
     public DateTime StartTime { get; init; } = DateTime.MinValue;
     public DateTime EndTime { get; init; } = DateTime.MinValue;
 }

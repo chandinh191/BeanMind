@@ -23,6 +23,7 @@ namespace Application.ProgramTypes.Commands
         //[StringLength(maximumLength: 50, MinimumLength = 4, ErrorMessage = "Title must be at least 4 characters long.")]
         public string? Title { get; init; }
         public string? Description { get; init; }
+        public bool? IsDeleted { get; set; }
     }
 
     public class UpdateProgramTypeCommandHanler : IRequestHandler<UpdateProgramTypeCommand, BaseResponse<GetBriefProgramTypeResponseModel>>

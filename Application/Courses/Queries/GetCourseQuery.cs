@@ -7,13 +7,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Application.Courses.Queries;
 
-public sealed record GetCourseQuery : IRequest<BaseResponse<GetCourseResponseModel>>
+public sealed record GetCourseQuery : IRequest<BaseResponse<GetCourseResponseModelVer2>>
 {
     [Required]
     public Guid Id { get; init; }
 }
 
-public class GetCourseQueryHanler : IRequestHandler<GetCourseQuery, BaseResponse<GetCourseResponseModel>>
+public class GetCourseQueryHanler : IRequestHandler<GetCourseQuery, BaseResponse<GetCourseResponseModelVer2>>
 {
     private readonly ApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -24,11 +24,11 @@ public class GetCourseQueryHanler : IRequestHandler<GetCourseQuery, BaseResponse
         _mapper = mapper;
     }
 
-    public async Task<BaseResponse<GetCourseResponseModel>> Handle(GetCourseQuery request, CancellationToken cancellationToken)
+    public async Task<BaseResponse<GetCourseResponseModelVer2>> Handle(GetCourseQuery request, CancellationToken cancellationToken)
     {
         if(request.Id == Guid.Empty)
         {
-            return new BaseResponse<GetCourseResponseModel>
+            return new BaseResponse<GetCourseResponseModelVer2>
             {
                 Success = false,
                 Message = "Get course failed",
@@ -46,9 +46,13 @@ public class GetCourseQueryHanler : IRequestHandler<GetCourseQuery, BaseResponse
             .Include(o => o.TeachingSlots)
             .FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);
 
-        var mappedCourse = _mapper.Map<GetCourseResponseModel>(course);
+        var mappedCourse = _mapper.Map<GetCourseResponseModelVer2>(course);
+        var enrolment = _context.Enrollments
+             .Where(o => o.CourseId == mappedCourse.Id && o.IsDeleted == false)
+             .AsQueryable();
+        mappedCourse.NumberOfEnrollment = enrolment.Count();
 
-        return new BaseResponse<GetCourseResponseModel>
+        return new BaseResponse<GetCourseResponseModelVer2>
         {
             Success = true,
             Message = "Get course successful",

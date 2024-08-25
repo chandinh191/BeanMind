@@ -21,6 +21,7 @@ namespace Application.ChapterGames.Commands
         public Guid Id { get; init; }
         public Guid? ChapterId { get; set; }
         public Guid? GameId { get; set; }
+        public bool? IsDeleted { get; set; }
     }
 
     public class UpdateChapterGameCommandHanler : IRequestHandler<UpdateChapterGameCommand, BaseResponse<GetBriefChapterGameResponseModel>>

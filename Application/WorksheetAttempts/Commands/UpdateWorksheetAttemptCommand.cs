@@ -29,6 +29,7 @@ namespace Application.WorksheetAttempts.Commands
         public WorksheetAttemptStatus Status { get; set; }
         public int? Score { get; set; }
         public List<CreateWorkSheetAttemptAnswerModel>? WorkSheetAttemptAnswers { get; set; }
+        public bool? IsDeleted { get; set; }
     }
 
     public class UpdateWorksheetAttemptCommandHanler : IRequestHandler<UpdateWorksheetAttemptCommand, BaseResponse<GetBriefWorksheetAttemptResponseModel>>

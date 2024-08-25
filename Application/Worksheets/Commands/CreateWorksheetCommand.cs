@@ -50,7 +50,12 @@ public class CreateWorksheetCommandHanler : IRequestHandler<CreateWorksheetComma
             };
         }
 
-        var worksheet = _mapper.Map<Domain.Entities.Worksheet>(request);
+        //var worksheet = _mapper.Map<Domain.Entities.Worksheet>(request);
+        var worksheet = new Worksheet()
+        {
+            Title = request.Title,
+            Description = request.Description
+        };
         var createWorksheetResult = await _context.AddAsync(worksheet, cancellationToken);
 
         if(createWorksheetResult.Entity == null)

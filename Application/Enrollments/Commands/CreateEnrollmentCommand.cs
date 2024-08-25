@@ -23,7 +23,7 @@ namespace Application.Enrollments.Commands
         public string ApplicationUserId { get; set; }
         [Required]
         public Guid CourseId { get; set; }
-        public EnrollmentStatus Status { get; set; }
+        public EnrollmentStatus Status { get; set; } = EnrollmentStatus.OnGoing;
     }
 
     public class CreateEnrollmentCommandHanler : IRequestHandler<CreateEnrollmentCommand, BaseResponse<GetBriefEnrollmentResponseModel>>
@@ -70,6 +70,19 @@ namespace Application.Enrollments.Commands
                 {
                     Success = false,
                     Message = "Account are not order finished yet",
+                };
+            }
+            var existedEnrollment = await _context.Enrollments.FirstOrDefaultAsync(x => x.ApplicationUserId == request.ApplicationUserId 
+                && x.CourseId == request.CourseId
+                && x.Status == EnrollmentStatus.OnGoing
+                );
+
+            if (existedEnrollment != null)
+            {
+                return new BaseResponse<GetBriefEnrollmentResponseModel>
+                {
+                    Success = false,
+                    Message = "There is already an enrollment in progress. Cannot create more.",
                 };
             }
 

@@ -73,7 +73,20 @@ public class EmailService : IEmailService
             $"<a href=\"{HtmlEncoder.Default.Encode(confirmationlink)}\">Confirm Email</a>\r\n    " +
             $"<p>If you did not register for our service, please ignore this email.</p>\r\n    " +
             $"<p>Best,</p>\r\n    " +
-            $"<p>RaeKyo Inc.</p>";
+            $"<p>BeanMind Inc.</p>";
+        await SendEmailAsync(EmailMessage.Create(email, body, subject));
+    }
+    public async Task SendInfoStudentAsync(string email, string username, string password)
+    {
+        var subject = "Notice of new student registration information";
+        var body = $@"
+        <p>Dear User,</p>
+        <p>Thank you for registering a new student. Here is the information for your student to log in and use our services:</p>
+        <p><strong>Username:</strong> {username}</p>
+        <p><strong>Password:</strong> {password}</p>
+        <p>Please keep this information safe and do not share it with others.</p>
+        <p>Best regards,</p>
+        <p>BeanMind Inc.</p>";
         await SendEmailAsync(EmailMessage.Create(email, body, subject));
     }
 

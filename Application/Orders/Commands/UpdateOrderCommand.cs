@@ -23,8 +23,9 @@ namespace Application.Orders.Commands
         public string? ApplicationUserId { get; set; }
         public DateTime? OrderDate { get; set; }
         public OrderStatus? Status { get; set; }
-        public int? Amount { get; set; }
+        public int? Amount { get; set; }     
         public string? Provider { get; set; }
+        public bool? IsDeleted { get; set; }
     }
 
     public class UpdateParentCommandHanler : IRequestHandler<UpdateOrderCommand, BaseResponse<GetBriefOrderResponseModel>>

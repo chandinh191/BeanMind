@@ -23,6 +23,7 @@ public sealed record UpdateWorksheetCommand : IRequest<BaseResponse<GetBriefWork
     public string? Description { get; init; }
     public Guid? WorksheetTemplateId { get; set; }
     public List<UpdateWorkSheetQuestionrModel>? WorksheetQuestions { get; set; }
+    public bool? IsDeleted { get; set; }
 }
 
 public class UpdateWorksheetCommandHanler : IRequestHandler<UpdateWorksheetCommand, BaseResponse<GetBriefWorksheetResponseModel>>
