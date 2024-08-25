@@ -1,3 +1,4 @@
+﻿using Application.BackgroundServices;
 using Application;
 using Infrastructure;
 using Infrastructure.Data;
@@ -43,13 +44,17 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
+        builder.Services.AddHostedService<CheckingCompeleteEnrollment>();
+        builder.Services.AddHostedService<CheckingExpiredOrder>();
+        builder.Services.AddControllers();
+
         var app = builder.Build();
 
 
         app.UseSwagger();
         app.UseSwaggerUI();
 
-        await InitialiserExtensions.InitialiseDatabaseAsync(app.Services);
+        //await InitialiserExtensions.InitialiseDatabaseAsync(app.Services);
 
         app.UseCors(cfg =>
         {
