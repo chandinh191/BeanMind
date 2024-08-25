@@ -1129,7 +1129,8 @@ namespace Infrastructure.Data
                 var question = new Question
                 {
                     Id = new Guid(),
-                    Content = "Câu hỏi thứ " + (i+1).ToString() +" - " + questionLevelName + " : ",
+                    //Content = "Câu hỏi thứ " + (i+1).ToString() +" - " + questionLevelName + " : ",
+                    Content = "Câu hỏi thứ " + (i + 1).ToString() + " - " + questionLevelName + " : ",
                     TopicId = topicId,
                     QuestionLevelId = questionLevel
                 };

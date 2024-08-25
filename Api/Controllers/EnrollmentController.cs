@@ -44,7 +44,7 @@ namespace Api.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> Create(ISender sender, [FromBody] CreateEnrollmentCommand command)
         {
             var result = await sender.Send(command);

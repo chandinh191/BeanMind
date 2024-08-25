@@ -44,6 +44,7 @@ public class GetCourseQueryHanler : IRequestHandler<GetCourseQuery, BaseResponse
             .Include(x => x.Teachables).ThenInclude(o => o.ApplicationUser)
             .Include(o => o.WorksheetTemplates).ThenInclude(o => o.Worksheets)
             .Include(o => o.TeachingSlots)
+                        .Include(x => x.Enrollments)
             .FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);
 
         var mappedCourse = _mapper.Map<GetCourseResponseModelVer2>(course);

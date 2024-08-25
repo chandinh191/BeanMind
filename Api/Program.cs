@@ -44,20 +44,7 @@ public class Program
         builder.Services.AddSwaggerGen();
 
         var app = builder.Build();
-    /*    // Example of converting server time to local time
-        // Assume server time is UTC and local time zone is Pacific Standard Time (PST)
-        DateTime serverTime = DateTime.UtcNow.AddHours(14);
 
-        // Specify the target time zone (e.g., Pacific Standard Time)
-        TimeZoneInfo localTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
-
-        // Convert the server time to the local time
-        DateTime localTime = TimeZoneInfo.ConvertTime(serverTime, TimeZoneInfo.Utc, localTimeZone);
-
-        // Log the converted time or use it as needed
-        var logger = app.Services.GetRequiredService<ILogger<Program>>();
-        logger.LogInformation("Server Time (UTC): {ServerTime}", serverTime);
-        logger.LogInformation("Local Time (PST): {LocalTime}", localTime);*/
 
         app.UseSwagger();
         app.UseSwaggerUI();

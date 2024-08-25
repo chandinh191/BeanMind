@@ -24,7 +24,7 @@ namespace Application.GameHistories.Commands
         [Required]
         public int Point { get; set; }
         public int Duration { get; set; }
-        public DateTime Created { get; set; } = DateTime.Now.AddHours(14);
+        //public DateTime Created { get; set; }
     }
 
     public class CreateGameHistoryCommandHanler : IRequestHandler<CreateGameHistoryCommand, BaseResponse<GetBriefGameHistoryResponseModel>>

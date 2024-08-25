@@ -82,6 +82,7 @@ public class CreateWorksheetCommandHanler : IRequestHandler<CreateWorksheetComma
             }
         }
 
+        await _context.SaveChangesAsync(cancellationToken);
 
         var mappedWorksheetResult = _mapper.Map<GetBriefWorksheetResponseModel>(createWorksheetResult.Entity);
 
