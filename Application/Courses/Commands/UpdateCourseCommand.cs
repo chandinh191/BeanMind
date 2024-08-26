@@ -13,6 +13,7 @@ public sealed record UpdateCourseCommand : IRequest<BaseResponse<GetBriefCourseR
 {
     [Required]
     public Guid Id { get; init; }
+    public string? ContentURL { get; set; }
     public string? Title { get; init; }
     public string? Description { get; init; }
     public string? ImageURL { get; set; }

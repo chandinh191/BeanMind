@@ -15,6 +15,7 @@ public sealed record CreateCourseCommand : IRequest<BaseResponse<GetBriefCourseR
 {
     [Required]
     public string Title { get; init; }
+    public string ContentURL { get; set; }
     [Required]
     public string Description { get; init; }
     [Required]
@@ -83,6 +84,7 @@ public class CreateCourseCommandHanler : IRequestHandler<CreateCourseCommand, Ba
         var course = new Domain.Entities.Course
         {
             Title = request.Title,
+            ContentURL = request.ContentURL,
             Description = request.Description,
             Price = request.Price,
             ImageURL = request.ImageURL,

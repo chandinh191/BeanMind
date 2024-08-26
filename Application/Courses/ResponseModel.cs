@@ -18,6 +18,7 @@ namespace Application.Courses;
 public class GetBriefCourseResponseModel : BaseResponseModel
 {
     public string Title { get; set; }
+    public string? ContentURL { get; set; }
     public string ImageURL { get; set; }
     public string Description { get; set; }
     public int Price { get; set; }
@@ -38,6 +39,7 @@ public class GetBriefCourseResponseModel : BaseResponseModel
 public class GetCourseResponseModel : BaseResponseModel
 {
     public string Title { get; set; }
+    public string? ContentURL { get; set; }
     public string ImageURL { get; set; }
     public string Description { get; set; }
     public int Price { get; set; }
@@ -60,6 +62,7 @@ public class GetCourseResponseModel : BaseResponseModel
 public class GetCourseResponseModelVer2 : BaseResponseModel
 {
     public string Title { get; set; }
+    public string? ContentURL { get; set; }
     public string ImageURL { get; set; }
     public string Description { get; set; }
     public int Price { get; set; }

@@ -38,7 +38,7 @@ namespace Application.BackgroundServices
                     var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
                     var orders = await context.Orders
-                        .Where(o => o.Created.AddMinutes(5) < DateTime.UtcNow.AddHours(14) && o.Status == Domain.Enums.OrderStatus.Pending)
+                        .Where(o => o.Created.AddMinutes(15) < DateTime.UtcNow.AddHours(14) && o.Status == Domain.Enums.OrderStatus.Pending)
                         .ToListAsync(stoppingToken);
 
                     foreach (var order in orders)
@@ -51,7 +51,7 @@ namespace Application.BackgroundServices
                     }
                 }
 
-                await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
+                await Task.Delay(TimeSpan.FromMinutes(5), stoppingToken);
             }
         }
     }
