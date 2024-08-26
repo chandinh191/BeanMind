@@ -272,10 +272,11 @@ namespace Infrastructure.Data
                 CourseLevelId = new Guid("8a7b78a9-d209-473e-a133-919479d61d5c"), //Lop 1
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"),//BGD
                 Title = "Các số từ 0 đến 10",
+                ContentURL = "https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/course_img%2Fcac_so_1_den_10.pdf?alt=media&token=0310819c-a0f8-4d00-aef5-3864b50a38da",
                 Price = 200,
                 ImageURL = "https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/course_img%2Fcourse1.png?alt=media&token=4293c282-2182-45f9-89b9-9378022274fc",
                 Description = "Mở đầu chương trình Toán 1 Kết Nối Tri Thức, các em sẽ tìm hiểu về Các số từ 0 đến 10. Gồm các bài học có tóm tắt lý thuyết, cung cấp các bài tập minh họa để các em ôn tập và củng cố kiến thức đã học. Bên cạnh đó, hệ thống hỏi đáp sẽ giúp các em giải đáp các thắc mắc sau khi học bài. Mời các em xem chi tiết bài học.",
-                TotalSlot = 10,
+                TotalSlot = 8,
             });
             _context.SaveChanges();
             // Chapter table
@@ -493,7 +494,7 @@ namespace Infrastructure.Data
                 Title = "Làm quen với một số hình phẳng",
                 ImageURL = "https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/course_img%2Fcourse2.png?alt=media&token=6a85663e-21c2-42a8-9fde-ee324d2323c3",
                 Description = "Nhận biết được một số hình vuông, hình tròn, hình tam giác, hình chữ nhật là nội dung các em sẽ tìm hiểu ở Chương: Làm quen với một số hình phẳng của môn Toán 1 Kết Nối Tri thức. Bài học được BeanMind biên soạn với các phần tóm tắt lý thuyết, bài tập minh họa và giúp các em chuẩn bị bài học thật tốt và luyện tập, đánh giá năng lực của bản thân. Hệ thống hỏi đáp sẽ giúp các em giải quyết nhiều câu hỏi khó nhanh chóng, hiệu quả. Các em xem nội dung bài học ngay bên dưới.",
-                TotalSlot = 8,
+                TotalSlot = 5,
             });
             await _context.Chapters.AddAsync(new Chapter
             {
@@ -654,9 +655,10 @@ namespace Infrastructure.Data
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"), //BGD
                 Price = 200,
                 Title = "Phép cộng, phép trừ (không nhớ) trong phạm vi 100",
+                ContentURL = "https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/course_img%2Fcong_tru_trong_pham_vi_100.pdf?alt=media&token=90722fe3-39e2-4bdb-a07b-6cbabfba2e02",
                 ImageURL = "https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/course_img%2Fcourse3.png?alt=media&token=cc0a0bf6-31cc-49ea-8605-bf4275945292",
                 Description = "Phép cộng, phép trừ (không nhớ) trong phạm vi 100 là một trong những chương học quan trọng của chương trình Toán 1 Kết Nối Tri Thức. BeanMind đã biên soạn chi tiết lý thuyết cần nhớ, bài tập minh họa, giúp các em học sinh nắm vững nội dung như phép cộng, trừ số có hai chữ số cho số có hai chữ số, phép cộng, trừ số có hai chữ số cho số có một chữ số. Sau đây mời quý phụ huynh và các em học sinh cùng tham khảo.",
-                TotalSlot = 10,
+                TotalSlot = 8,
             });
             // Adding the first chapter
             await _context.Chapters.AddAsync(new Chapter
@@ -981,6 +983,7 @@ namespace Infrastructure.Data
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"),//BGD
                 Price = 200,
                 Title = "Ôn tập và bổ sung",
+                ContentURL = "https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/course_img%2Fon_tap_lop_1_ky_1.pdf?alt=media&token=66ad5131-8065-421c-980c-4492819ed4d7",
                 ImageURL = "https://infinitylearn.com/surge/wp-content/uploads/2021/12/MicrosoftTeams-image-58.jpg",
                 Description = "Mở đầu chương trình Toán 2 Kết Nối Tri Thức, các em sẽ tìm hiểu về Chủ đề 1 : Ôn tập và bổ sung. Gồm các bài học có tóm tắt lý thuyết, cung cấp các bài tập minh họa để các em ôn tập và củng cố kiến thức đã học. Bên cạnh đó, hệ thống hỏi đáp sẽ giúp các em giải đáp các thắc mắc sau khi học bài. Mời các em xem chi tiết bài học.",
                 TotalSlot = 10,
@@ -1572,36 +1575,372 @@ namespace Infrastructure.Data
                 new Guid("73558a53-e910-470a-a261-e42d803508e9")
             };
             Random random = new Random();
-            int totalGenerate = 100; //100 questions
-            for (int i = 0; i < totalGenerate; i++)
+
+            //Guid questionLevel = questionLevels.ElementAt(random.Next(questionLevels.Count)).Key;
+            //Guid topicId = topics[random.Next(topics.Count)];
+
+            var questionsAndAnswers = new List<(string question, List<(string answer, bool isCorrect)>)>
             {
-                Guid questionLevel = questionLevels.ElementAt(random.Next(questionLevels.Count)).Key;
-                string questionLevelName = questionLevels.ElementAt(random.Next(questionLevels.Count)).Value;
-                Guid topicId = topics[random.Next(topics.Count)];
-
-                //Seeding question
-                var question = new Question
+                ("Kết quả của 7 + 2 là ", new List<(string, bool)>
                 {
-                    Id = new Guid(),
-                    //Content = "Câu hỏi thứ " + (i+1).ToString() +" - " + questionLevelName + " : ",
-                    Content = "Câu hỏi thứ " + (i + 1).ToString() + " - " + questionLevelName + " : ",
-                    TopicId = topicId,
-                    QuestionLevelId = questionLevel
+                    ("9", true), ("8", false), ("10", false), ("7", false)
+                }),
+                ("Kết quả của 6 - 3 là ", new List<(string, bool)>
+                {
+                    ("3", true), ("4", false), ("2", false), ("1", false)
+                }),
+                ("Kết quả của 4 + 4 là ", new List<(string, bool)>
+                {
+                    ("8", true), ("7", false), ("6", false), ("9", false)
+                }),
+                ("Kết quả của 5 + 3 là ", new List<(string, bool)>
+                {
+                    ("8", true), ("7", false), ("6", false), ("9", false)
+                }),
+                ("Kết quả của 9 - 2 là ", new List<(string, bool)>
+                {
+                    ("7", true), ("8", false), ("6", false), ("5", false)
+                }),
+                ("Kết quả của 10 - 5 là ", new List<(string, bool)>
+                {
+                    ("5", true), ("6", false), ("4", false), ("3", false)
+                }),
+                ("Kết quả của 8 + 1 là ", new List<(string, bool)>
+                {
+                    ("9", true), ("7", false), ("8", false), ("10", false)
+                }),
+                ("Kết quả của 2 + 6 là ", new List<(string, bool)>
+                {
+                    ("8", true), ("7", false), ("6", false), ("5", false)
+                }),
+                ("Kết quả của 4 + 3 là ", new List<(string, bool)>
+                {
+                    ("7", true), ("6", false), ("8", false), ("5", false)
+                }),
+                ("Kết quả của 10 - 7 là ", new List<(string, bool)>
+                {
+                    ("3", true), ("4", false), ("5", false), ("2", false)
+                })
+            };
+            foreach (var (question, answers) in questionsAndAnswers)
+            {
+                var newQuestion = new Question
+                {
+                    Id = Guid.NewGuid(),
+                    Content = question,
+                    TopicId = topics[random.Next(topics.Count)],
+                    QuestionLevelId = questionLevels.ElementAt(random.Next(2)).Key
                 };
-                await _context.Questions.AddAsync(question);
+                await _context.Questions.AddAsync(newQuestion);
 
-                //Seeding question answers
-                for (int j = 0; j < 4; j++) {
+                foreach (var (answerContent, isCorrect) in answers)
+                {
                     await _context.QuestionAnswers.AddAsync(new QuestionAnswer
                     {
-                        Id = new Guid(),
-                        QuestionId = question.Id,
-                        //Content = "Câu trả lời thứ " + j + " cho câu hỏi " + i + " " + ((i % 4 == j) ? "true" : "false"),
-                        Content = "Câu trả lời thứ " + j + " cho câu hỏi " + i ,
-                        IsCorrect = (i%4 == j) ? true : false,
+                        Id = Guid.NewGuid(),
+                        QuestionId = newQuestion.Id,
+                        Content = answerContent,
+                        IsCorrect = isCorrect
                     });
                 }
             }
+            await _context.SaveChangesAsync();
+
+            var questionsAndAnswers2 = new List<(string question, List<(string answer, bool isCorrect)>)>
+            {
+                ("Có bao nhiêu số có một chữ số:", new List<(string, bool)>
+                {
+                    ("10", false), ("9", true), ("8", false), ("90", false)
+                }),
+                ("Số liền trước số lớn nhất có một chữ số là số:", new List<(string, bool)>
+                {
+                    ("8", true), ("9", false), ("10", false), ("11", false)
+                }),
+                ("Số liền sau số lớn nhất có hai chữ số là số:", new List<(string, bool)>
+                {
+                    ("10", false), ("9", false), ("99", false), ("100", true)
+                }),
+                ("Số ở giữa số 25 và 27 là số:", new List<(string, bool)>
+                {
+                    ("28", false), ("24", false), ("26", true), ("29", false)
+                }),
+                ("Kết quả của phép tính 56 + 13 – 30 =…..", new List<(string, bool)>
+                {
+                    ("29", false), ("39", true), ("49", false), ("59", false)
+                }),
+                ("Số điền vào chỗ chấm trong phép tính ……….+15 – 20 = 37 là:", new List<(string, bool)>
+                {
+                    ("37", false), ("40", false), ("42", true), ("45", false)
+                }),
+                ("Nhà bà có tất cả 64 quả bưởi và na, trong đó số quả na là 24, vậy số quả bưởi là:", new List<(string, bool)>
+                {
+                    ("88 quả", false), ("40 quả", true), ("24 quả", false), ("20 quả", false)
+                }),
+                ("Số 45 là số liền sau số:", new List<(string, bool)>
+                {
+                    ("40", false), ("44", true), ("46", false), ("50", false)
+                }),
+                ("Hà có 35 lá cờ, Hà cho An 5 lá cờ và cho Lan 10 lá cờ, số lá cờ Hà còn lại:", new List<(string, bool)>
+                {
+                    ("30 lá", false), ("25 lá", true), ("20 lá", false), ("15 lá", false)
+                }),
+                ("Số liền sau số bé nhất có hai chữ số là:", new List<(string, bool)>
+                {
+                    ("9", false), ("10", false), ("11", true), ("12", false)
+                }),
+                ("Dãy số nào sau đây được xếp theo thứ tự từ bé đến lớn:", new List<(string, bool)>
+                {
+                    ("95; 83; 65; 52; 20", false), ("25; 30; 42; 86; 60", false), ("24; 32; 65; 82; 90", true), ("12; 15; 42; 52; 25", false)
+                }),
+                ("Hình tam giác là hình có:", new List<(string, bool)>
+                {
+                    ("2 cạnh", false), ("3 cạnh", true), ("4 cạnh", false), ("5 cạnh", false)
+                }),
+                ("Hôm nay là thứ năm ngày 8 thì hôm kia là ngày:", new List<(string, bool)>
+                {
+                    ("Thứ bảy ngày 10", false), ("Thứ ba ngày 10", false), ("Thứ ba ngày 6", true), ("Thứ tư ngày 7", false)
+                }),
+                ("Đoạn thẳng AB dài 18 cm, đoạn thẳng BC dài 25 cm, vậy đoạn thẳng BC ngắn hơn đoạn thẳng AB:", new List<(string, bool)>
+                {
+                    ("Đúng", false), ("Sai", true), ("Không chắc chắn", false), ("Cả hai đều sai", false)
+                }),
+                ("Có tất cả bao nhiêu số tròn chục có hai chữ số:", new List<(string, bool)>
+                {
+                    ("9", false), ("10", true), ("90", false), ("100", false)
+                }),
+                ("Số 65 là số ở giữa của:", new List<(string, bool)>
+                {
+                    ("60 và 65", false), ("64 và 66", true), ("65 và 70", false), ("61 và 62", false)
+                }),
+                ("Số tròn chục ở giữa số 35 và 45 là:", new List<(string, bool)>
+                {
+                    ("30", false), ("40", true), ("50", false), ("20", false)
+                }),
+                ("Số liền trước số bé nhất có hai chữ số là số:", new List<(string, bool)>
+                {
+                    ("11", false), ("10", false), ("9", true), ("8", false)
+                }),
+                ("Dãy số nào sau đây xếp theo thứ tự từ lớn đến bé:", new List<(string, bool)>
+                {
+                    ("90; 95; 80; 35; 65", false), ("95; 80; 62; 50; 20", true), ("20; 50; 62; 80; 95", false), ("55; 23; 35; 20; 10", false)
+                }),
+                ("Số lớn nhất có hai chữ số là:", new List<(string, bool)>
+                {
+                    ("98", false), ("99", true), ("100", false), ("10", false)
+                }),
+                ("Kết quả nào của phép tính 55 – 42 +22 = ………bé hơn số nào:", new List<(string, bool)>
+                {
+                    ("30", false), ("35", false), ("40", true), ("45", false)
+                }),
+                ("Đoạn thẳng BC dài 14cm, đoạn thẳng CD dài hơn đoạn thẳng BC 3cm, vậy đoạn thẳng CD dài là:", new List<(string, bool)>
+                {
+                    ("11", false), ("11cm", false), ("17", false), ("17cm", true)
+                }),
+                ("Số mà có số liền trước là số 20 là:", new List<(string, bool)>
+                {
+                    ("18", false), ("19", true), ("21", false), ("22", false)
+                }),
+                ("Năm nay anh 10 tuổi, anh hơn em 4 tuổi, vậy tuổi của em là:", new List<(string, bool)>
+                {
+                    ("14 tuổi", false), ("4 tuổi", false), ("6 tuổi", true), ("8 tuổi", false)
+                }),
+                ("Lớp 1A có 55 bạn, trong đó có 30 bạn nam, vậy số bạn nữ của lớp 1A là:", new List<(string, bool)>
+                {
+                    ("85 bạn", false), ("25 bạn", true), ("20 bạn", false), ("30 bạn", false)
+                }),
+                ("Kết quả của phép tính 85 – 24 – 40 =……", new List<(string, bool)>
+                {
+                    ("31", true), ("21", false), ("11", false), ("10", false)
+                }),
+                ("Nam có 12 bút chì, Thành có 13 bút chì, Văn có 14 bút chì. Vậy số bút chì có tất cả là:", new List<(string, bool)>
+                {
+                    ("29 bút", false), ("39 bút", true), ("49 bút", false), ("59 bút", false)
+                }),
+                ("Số lớn hơn 62 và nhỏ hơn 64 là số:", new List<(string, bool)>
+                {
+                    ("60", false), ("61", false), ("62", false), ("63", true)
+                }),
+                ("Một tuần có:", new List<(string, bool)>
+                {
+                    ("5 ngày", false), ("6 ngày", false), ("7 ngày", true), ("8 ngày", false)
+                }),
+                ("Số thích hợp điền vào chỗ chấm của phép tính ……….- 12 - 35 = 21 là:", new List<(string, bool)>
+                {
+                    ("88", false), ("78", true), ("68", false), ("58", false)
+                })
+            };
+
+            foreach (var (question, answers) in questionsAndAnswers2)
+            {
+                var newQuestion = new Question
+                {
+                    Id = Guid.NewGuid(),
+                    Content = question,
+                    TopicId = topics[random.Next(topics.Count)],
+                    QuestionLevelId = questionLevels.ElementAt(random.Next(2,questionLevels.Count)).Key
+                };
+                await _context.Questions.AddAsync(newQuestion);
+
+                foreach (var (answerContent, isCorrect) in answers)
+                {
+                    await _context.QuestionAnswers.AddAsync(new QuestionAnswer
+                    {
+                        Id = Guid.NewGuid(),
+                        QuestionId = newQuestion.Id,
+                        Content = answerContent,
+                        IsCorrect = isCorrect
+                    });
+                }
+            }
+            await _context.SaveChangesAsync();
+
+            var questionsAndAnswers3 = new List<(string question, List<(string answer, bool isCorrect)>)>
+            {
+                ("Số nhỏ nhất có hai chữ số là:", new List<(string, bool)>
+                {
+                    ("10", true), ("11", false), ("9", false), ("12", false)
+                }),
+                ("5 x 3 = ?", new List<(string, bool)>
+                {
+                    ("15", true), ("20", false), ("10", false), ("5", false)
+                }),
+                ("Kết quả của phép tính 9 - 4 là:", new List<(string, bool)>
+                {
+                    ("5", true), ("4", false), ("3", false), ("6", false)
+                }),
+                ("Hình vuông có bao nhiêu cạnh:", new List<(string, bool)>
+                {
+                    ("3", false), ("4", true), ("5", false), ("6", false)
+                }),
+                ("Trong các số sau, số nào là số chẵn:", new List<(string, bool)>
+                {
+                    ("7", false), ("4", true), ("9", false), ("5", false)
+                }),
+                ("Kết quả của phép nhân 2 x 6 là:", new List<(string, bool)>
+                {
+                    ("10", false), ("12", true), ("8", false), ("14", false)
+                }),
+                ("Số nào lớn hơn 18 nhưng nhỏ hơn 22:", new List<(string, bool)>
+                {
+                    ("19", true), ("18", false), ("20", false), ("22", false)
+                }),
+                ("3 x 4 = ?", new List<(string, bool)>
+                {
+                    ("7", false), ("12", true), ("9", false), ("10", false)
+                }),
+                ("Kết quả của phép tính 15 + 5 là:", new List<(string, bool)>
+                {
+                    ("20", true), ("21", false), ("19", false), ("18", false)
+                }),
+                ("Số 6 + số nào bằng 10:", new List<(string, bool)>
+                {
+                    ("4", true), ("5", false), ("3", false), ("6", false)
+                }),
+                ("Có bao nhiêu số lẻ từ 1 đến 9:", new List<(string, bool)>
+                {
+                    ("4", false), ("5", true), ("3", false), ("6", false)
+                }),
+                ("Số liền sau số 12 là:", new List<(string, bool)>
+                {
+                    ("11", false), ("13", true), ("14", false), ("10", false)
+                }),
+                ("Kết quả của phép chia 20 ÷ 5 là:", new List<(string, bool)>
+                {
+                    ("4", true), ("5", false), ("3", false), ("6", false)
+                }),
+                ("1 tuần có mấy ngày:", new List<(string, bool)>
+                {
+                    ("5 ngày", false), ("6 ngày", false), ("7 ngày", true), ("8 ngày", false)
+                }),
+                ("Hình tam giác có bao nhiêu cạnh:", new List<(string, bool)>
+                {
+                    ("2", false), ("3", true), ("4", false), ("5", false)
+                }),
+                ("Số lớn nhất có một chữ số là:", new List<(string, bool)>
+                {
+                    ("9", true), ("8", false), ("10", false), ("7", false)
+                }),
+                ("10 - 2 = ?", new List<(string, bool)>
+                {
+                    ("8", true), ("7", false), ("6", false), ("9", false)
+                }),
+                ("Số nào là số lẻ:", new List<(string, bool)>
+                {
+                    ("4", false), ("8", false), ("5", true), ("2", false)
+                }),
+                ("Kết quả của phép tính 6 + 4 là:", new List<(string, bool)>
+                {
+                    ("10", true), ("11", false), ("9", false), ("8", false)
+                }),
+                ("Số nào là số nguyên tố:", new List<(string, bool)>
+                {
+                    ("4", false), ("9", false), ("7", true), ("6", false)
+                }),
+                ("5 x 5 = ?", new List<(string, bool)>
+                {
+                    ("25", true), ("20", false), ("15", false), ("10", false)
+                }),
+                ("Số nhỏ nhất có một chữ số là:", new List<(string, bool)>
+                {
+                    ("0", true), ("1", false), ("2", false), ("3", false)
+                }),
+                ("Kết quả của phép chia 16 ÷ 4 là:", new List<(string, bool)>
+                {
+                    ("4", true), ("3", false), ("5", false), ("6", false)
+                }),
+                ("Hình chữ nhật có bao nhiêu góc vuông:", new List<(string, bool)>
+                {
+                    ("2", false), ("3", false), ("4", true), ("5", false)
+                }),
+                ("Kết quả của phép nhân 7 x 2 là:", new List<(string, bool)>
+                {
+                    ("14", true), ("12", false), ("10", false), ("16", false)
+                }),
+                ("Số lớn hơn 33 nhưng nhỏ hơn 35 là:", new List<(string, bool)>
+                {
+                    ("32", false), ("33", false), ("34", true), ("35", false)
+                }),
+                ("Kết quả của phép trừ 12 - 7 là:", new List<(string, bool)>
+                {
+                    ("5", true), ("4", false), ("3", false), ("2", false)
+                }),
+                ("1 ngày có bao nhiêu giờ:", new List<(string, bool)>
+                {
+                    ("12 giờ", false), ("24 giờ", true), ("36 giờ", false), ("48 giờ", false)
+                }),
+                ("Số nào nhỏ hơn 15 nhưng lớn hơn 10:", new List<(string, bool)>
+                {
+                    ("12", true), ("15", false), ("10", false), ("9", false)
+                }),
+                ("Kết quả của phép cộng 8 + 7 là:", new List<(string, bool)>
+                {
+                    ("15", true), ("14", false), ("13", false), ("12", false)
+                })
+            };
+            foreach (var (question, answers) in questionsAndAnswers3)
+            {
+                var newQuestion = new Question
+                {
+                    Id = Guid.NewGuid(),
+                    Content = question,
+                    TopicId = topics[random.Next(topics.Count)],
+                    QuestionLevelId = questionLevels.ElementAt(random.Next(questionLevels.Count)).Key
+                };
+                await _context.Questions.AddAsync(newQuestion);
+
+                foreach (var (answerContent, isCorrect) in answers)
+                {
+                    await _context.QuestionAnswers.AddAsync(new QuestionAnswer
+                    {
+                        Id = Guid.NewGuid(),
+                        QuestionId = newQuestion.Id,
+                        Content = answerContent,
+                        IsCorrect = isCorrect
+                    });
+                }
+            }
+            await _context.SaveChangesAsync();
+
         }
 
         public async static Task Seed_Worksheet_Async(ApplicationDbContext _context)
@@ -1620,7 +1959,7 @@ namespace Infrastructure.Data
                 Id = new Guid("a054bf47-6783-4cbe-ac05-02b5b22b84ec"),
                 QuestionLevelId = new Guid("871D2DE9-CFCA-4ED0-A9A9-658639D664DF"), //Trung bình
                 WorksheetTemplateId = new Guid("721f378c-69fd-4f9d-ba93-38fa2db2044f"),
-                NoQuestions = 10
+                NoQuestions = 3
             });
             await _context.LevelTemplateRelations.AddAsync(new LevelTemplateRelation
             {
@@ -1634,47 +1973,8 @@ namespace Infrastructure.Data
                 Id = new Guid("de30e2e6-a203-494d-a8ed-8a279f36f25c"),
                 QuestionLevelId = new Guid("26FB0C3C-2F79-4940-AC2C-6EF7BA427D92"), //Dễ
                 WorksheetTemplateId = new Guid("721f378c-69fd-4f9d-ba93-38fa2db2044f"),
-                NoQuestions = 10
+                NoQuestions = 3
             });
-            // Worksheet table
-            await _context.Worksheets.AddAsync(new Worksheet
-            {
-                Id = new Guid("89b67173-669d-443f-ba87-79b8791c6238"),
-                WorksheetTemplateId = new Guid("721f378c-69fd-4f9d-ba93-38fa2db2044f"),
-                Title = "Luyện tập số từ 0 đến 10",
-                Description = "Ôn luyện kiến thức tổng hợp cho khóa học các số từ 1 đến 10"
-            });
-            await _context.Worksheets.AddAsync(new Worksheet
-            {
-                Id = new Guid("6834d36d-b09d-4812-8aa9-7001ce6f9833"),
-                WorksheetTemplateId = new Guid("721f378c-69fd-4f9d-ba93-38fa2db2044f"),
-                Title = "Luyện tập chung",
-                Description = "Ôn tập và tổng hợp lại kiến thức"
-            });
-            var questions = _context.Questions.AsQueryable().ToList();
-            Random random = new Random();
-            for (int i = 10;i< 20; i++)
-            {
-                // Select a random question from the list
-                var question = questions[random.Next(questions.Count)];
-                await _context.WorksheetQuestions.AddAsync(new WorksheetQuestion
-                {
-                    Id = new Guid("23528d26-7db3-444d-9e9d-9a11948f7b" + i.ToString()),                    
-                    QuestionId = question.Id,
-                    WorksheetId = new Guid("89b67173-669d-443f-ba87-79b8791c6238"),
-                });
-            }
-            for (int i = 10; i < 25; i++)
-            {
-                // Select a random question from the list
-                var question = questions[random.Next(questions.Count)];
-                await _context.WorksheetQuestions.AddAsync(new WorksheetQuestion
-                {
-                    Id = new Guid("858d6e8c-0887-4fea-99ce-390c5ad73c" + i.ToString()),
-                    QuestionId = question.Id,
-                    WorksheetId = new Guid("6834d36d-b09d-4812-8aa9-7001ce6f9833"),
-                });
-            }
         }
 
         public class GameSeed

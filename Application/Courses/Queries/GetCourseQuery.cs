@@ -51,6 +51,16 @@ public class GetCourseQueryHanler : IRequestHandler<GetCourseQuery, BaseResponse
         var enrolment = _context.Enrollments
              .Where(o => o.CourseId == mappedCourse.Id && o.IsDeleted == false)
              .AsQueryable();
+        var session = _context.Sessions
+              .Include(o => o.TeachingSlot)
+              .Where(o => o.Date >= DateTime.Now.AddHours(14))
+              .Where(o => o.TeachingSlot.CourseId == mappedCourse.Id)
+              .AsQueryable();
+        int futureSession = session.Count();
+        if (futureSession >= mappedCourse.TotalSlot)
+        {
+            mappedCourse.IsAvailable = true;
+        }
         mappedCourse.NumberOfEnrollment = enrolment.Count();
 
         return new BaseResponse<GetCourseResponseModelVer2>

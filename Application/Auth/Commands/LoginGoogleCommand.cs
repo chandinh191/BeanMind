@@ -1,7 +1,11 @@
 ﻿using Application.Common;
 using Application.Helpers;
+using Application.Orders.Commands;
 using Application.Users;
+using Application.Users.Commands;
+using Domain.Entities;
 using Domain.Entities.UserEntities;
+using Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
@@ -20,11 +24,13 @@ public class LoginGoogleCommandHandler : IRequestHandler<LoginGoogleCommand, Bas
 {
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly IConfiguration _configuration;
+    private readonly ISender _sender;
 
-    public LoginGoogleCommandHandler(UserManager<ApplicationUser> userManager, IConfiguration configuration)
+    public LoginGoogleCommandHandler(UserManager<ApplicationUser> userManager, IConfiguration configuration, ISender sender)
     {
         _userManager = userManager;
         _configuration = configuration;
+        _sender = sender;
     }
 
     public async Task<BaseResponse<AccessTokenResponseModel>> Handle(LoginGoogleCommand request, CancellationToken cancellationToken)
@@ -56,37 +62,43 @@ public class LoginGoogleCommandHandler : IRequestHandler<LoginGoogleCommand, Bas
         // user founded, generate accessToken, refreshToken return to user
         if (user is not null)
         {
-            // user is not confirm mail yet
-            if (!await _userManager.IsEmailConfirmedAsync(user))
-            {
-                return new BaseResponse<AccessTokenResponseModel> { Success = false, Message = "User is not confirm mail yet" };
-            }
-
             return await GenerateTokenAndRespond(user, applicationName, jwtExpiresIn, "Login successfully");
         }
 
-        // user not founded, create new user with UserName, Email, generate accessToken, refreshToken return to user
-        var newUser = new ApplicationUser { Email = EmailFromToken, UserName = EmailFromToken };
-        var createUserResult = await _userManager.CreateAsync(newUser, RandomGenerator.GenerateRandomString(20));
-
-        // create new user fail
-        if (!createUserResult.Succeeded)
+        /*  // user not founded, create new user with UserName, Email, generate accessToken, refreshToken return to user
+          var newUser = new ApplicationUser { Email = EmailFromToken, UserName = EmailFromToken ,EmailConfirmed =true};
+          var createUserResult = await _userManager.CreateAsync(newUser, RandomGenerator.GenerateRandomString(20));
+          // create new user fail
+          if (!createUserResult.Succeeded)
+          {
+              return new BaseResponse<AccessTokenResponseModel>()
+              {
+                  Success = false,
+                  Message = "Create user failed",
+                  Errors = createUserResult.Errors.Select(e => e.Description).ToList()
+              };
+          }
+          // add user to role
+          await _userManager.AddToRoleAsync(newUser, Domain.Constants.Roles.Parent);
+          // mail confirmed
+          var confirmToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+          await _userManager.ConfirmEmailAsync(user, confirmToken);*/
+        var name = claims.FirstOrDefault(x => x.Type == "name")?.Value;
+        var imageURl = claims.FirstOrDefault(x => x.Type == "picture")?.Value;
+        List<string> roles = new List<string> { "Parent" };
+        var result = await _sender.Send(new RegisterUserCommand
         {
-            return new BaseResponse<AccessTokenResponseModel>()
-            {
-                Success = false,
-                Message = "Create user failed",
-                Errors = createUserResult.Errors.Select(e => e.Description).ToList()
-            };
-        }
-
-        // add user to role
-        await _userManager.AddToRoleAsync(newUser, Domain.Constants.Roles.Administrator);
-
-        // mail confirmed
-        var confirmToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-        await _userManager.ConfirmEmailAsync(user, confirmToken);
-
+            Email = EmailFromToken,
+            FirstName = name,
+            LastName = name,
+            Username = EmailFromToken,
+            Password = "Abc@123!",
+            EmailConfirmed = true,
+            Roles = roles
+        });
+        
+        var newUser = new ApplicationUser {Id=result.Data.Id, Email = EmailFromToken, UserName = EmailFromToken, EmailConfirmed = true };
+        //await _userManager.AddToRoleAsync(newUser, Domain.Constants.Roles.Parent);
         return await GenerateTokenAndRespond(newUser, applicationName, jwtExpiresIn, "Account registered and Login successfully");
     }
 

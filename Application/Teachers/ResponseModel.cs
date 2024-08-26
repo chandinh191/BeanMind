@@ -17,9 +17,9 @@ namespace Application.Teachers
     public class GetBriefTeacherResponseModel : BaseResponseModel
     {
         public string ApplicationUserId { get; set; }
-        public string Experience { get; set; }
-        public string Image { get; set; }
-        public string Level { get; set; }
+        public string? Experience { get; set; }
+        public string? Image { get; set; }
+        public string? Level { get; set; }
         public DateTime Created { get; set; }
     }
 
@@ -28,9 +28,9 @@ namespace Application.Teachers
     {
         public string ApplicationUserId { get; set; }
         public GetBriefApplicationUserResponseModel ApplicationUser { get; set; }
-        public string Experience { get; set; }
-        public string Image { get; set; }
-        public string Level { get; set; }
+        public string? Experience { get; set; }
+        public string? Image { get; set; }
+        public string? Level { get; set; }
         public DateTime Created { get; set; }
     }
 }

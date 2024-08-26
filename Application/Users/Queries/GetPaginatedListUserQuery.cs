@@ -7,6 +7,7 @@ using Domain.Enums;
 using Infrastructure.Data;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -43,7 +44,11 @@ namespace Application.Users.Queries
         public async Task<BaseResponse<Pagination<GetUserInfoResponseModel>>> Handle(GetPaginatedListUserQuery request, CancellationToken cancellationToken)
         {
             var defaultPageSize = _configuration.GetValue<int>("Pagination:PageSize");
-            var users = _context.ApplicationUsers.AsQueryable();
+            var users = _context.ApplicationUsers
+                .Include(o => o.Parent)
+                     .Include(o => o.Teacher)
+                          .Include(o => o.Student)
+                .AsQueryable();
 
             // filter by isdeleted
             if (request.IsDeleted.Equals(IsDeleted.Inactive))

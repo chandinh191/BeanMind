@@ -36,7 +36,8 @@ namespace Domain.Enums
     public enum ParticipantStatus
     {
         NotYet = 1,
-        Done = 2
+        Present = 2,
+        Absent = 3
     }
     public enum OrderStatus
     {

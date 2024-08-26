@@ -92,7 +92,10 @@ namespace Application.Sessions.Commands
                 };
             }
             var sessions = await _context.Sessions
+                .Include(o => o.TeachingSlot)
                                          .Where(o => o.Date >= request.From && o.Date <= request.To)
+                                         .Where(o => o.ApplicationUserId == request.LecturerId)
+                                         .Where(o => o.TeachingSlot.CourseId == request.CourseId)
                                          .ToListAsync();
             if(sessions != null && sessions.Count > 0)
             {

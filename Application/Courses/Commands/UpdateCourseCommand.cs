@@ -22,7 +22,7 @@ public sealed record UpdateCourseCommand : IRequest<BaseResponse<GetBriefCourseR
     public Guid? SubjectId { get; set; }
     public Guid? ProgramTypeId { get; set; }
     public Guid? CourseLevelId { get; set; }
-    public List<UpdateTeacherIdModel> Teachables { get; set; }
+    public List<UpdateTeacherIdModel>? Teachables { get; set; }
     public bool? IsDeleted { get; set; }
 
 }
@@ -119,14 +119,14 @@ public class UpdateCourseCommandHanler : IRequestHandler<UpdateCourseCommand, Ba
                 Message = "Update course failed",
             };
         }
-        var teachables =  _context.Teachables.Where(x => x.CourseId == course.Id).AsQueryable(); 
-        foreach(var record in teachables)
-        {
-            record.IsDeleted = true;
-        }
 
-        if (request.Teachables.Count > 0)
+        if (request.Teachables != null && request.Teachables.Count > 0)
         {
+            var teachables = _context.Teachables.Where(x => x.CourseId == course.Id).AsQueryable();
+            foreach (var record in teachables)
+            {
+                record.IsDeleted = true;
+            }
             foreach (var userId in request.Teachables)
             {
                 var applicationUser = await _context.ApplicationUsers.FirstOrDefaultAsync(x => x.Id == userId.lecturerId);

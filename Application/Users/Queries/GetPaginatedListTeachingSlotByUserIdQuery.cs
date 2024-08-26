@@ -86,7 +86,9 @@ namespace Application.Users.Queries
                     .Include(o => o.Participants).ThenInclude(o => o.Enrollment)
                     .Include(o => o.TeachingSlot)
                     .Include(o => o.ApplicationUser)
-                    .Where(o => o.Participants.Any(e => e.Enrollment.ApplicationUserId == request.Id && e.Enrollment.Status == EnrollmentStatus.OnGoing && e.Enrollment.IsDeleted == false))
+                    .Where(o => o.Participants.Any(e => e.Enrollment.ApplicationUserId == request.Id 
+                        //&& e.Enrollment.Status == EnrollmentStatus.OnGoing 
+                        && e.Enrollment.IsDeleted == false))
                     .ToList();
 
                     // convert the list of item to list of response model
