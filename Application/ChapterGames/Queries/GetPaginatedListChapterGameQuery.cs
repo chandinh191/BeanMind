@@ -20,6 +20,7 @@ namespace Application.ChapterGames.Queries
         public int PageIndex { get; init; }
         public int? PageSize { get; init; }
         public Guid ChapterId { get; set; }
+        public Guid CourseId { get; set; }
         public Guid GameId { get; set; }
         public IsDeleted IsDeleted { get; init; } = IsDeleted.All;
         public SortBy SortBy { get; init; }
@@ -45,9 +46,13 @@ namespace Application.ChapterGames.Queries
             var defaultPageSize = _configuration.GetValue<int>("Pagination:PageSize");
             var chapterGames = _context.ChapterGames
                 .Include(o => o.Game)
+                .Include(o => o.Chapter)
                 .AsQueryable();
-
-
+            // filter by course id
+            if (request.CourseId != Guid.Empty)
+            {
+                chapterGames = chapterGames.Where(x => x.Chapter.CourseId == request.CourseId);
+            }
             // filter by chapter id
             if (request.ChapterId != Guid.Empty)
             {

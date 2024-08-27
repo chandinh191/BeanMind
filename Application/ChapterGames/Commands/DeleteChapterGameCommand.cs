@@ -1,6 +1,8 @@
 ﻿using Application.ChapterGames;
 using Application.Common;
+using Application.Teachables;
 using AutoMapper;
+using Domain.Entities;
 using Infrastructure.Data;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -41,23 +43,9 @@ namespace Application.ChapterGames.Commands
                     Message = "Chapter game not found",
                 };
             }
-            _context.Remove(chapterGame);
-           /* chapterGame.IsDeleted = true;
-
-            var updateChapterGameResult = _context.Update(chapterGame);
-
-            if (updateChapterGameResult.Entity == null)
-            {
-                return new BaseResponse<GetBriefChapterGameResponseModel>
-                {
-                    Success = false,
-                    Message = "Delete chapter game failed",
-                };
-            }
+             _context.Remove(chapterGame);
 
             await _context.SaveChangesAsync(cancellationToken);
-
-            var mappedChapterGameResult = _mapper.Map<GetBriefChapterGameResponseModel>(updateChapterGameResult.Entity);*/
 
             return new BaseResponse<string>
             {

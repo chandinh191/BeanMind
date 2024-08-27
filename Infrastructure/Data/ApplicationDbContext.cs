@@ -109,7 +109,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
             }
             else if (entry.State == EntityState.Deleted)
             {
-                if (entry.Entity is LevelTemplateRelation || entry.Entity is Teachable || entry.Entity is QuestionAnswer || entry.Entity is Procession)
+                if (entry.Entity is LevelTemplateRelation || entry.Entity is Teachable || entry.Entity is QuestionAnswer || entry.Entity is Procession || entry.Entity is ChapterGame)
                 {
                     entry.State = EntityState.Deleted;
                 }

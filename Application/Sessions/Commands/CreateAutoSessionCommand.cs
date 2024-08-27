@@ -66,6 +66,24 @@ namespace Application.Sessions.Commands
                     };
                 }
             }
+            if (request.From >= request.To)
+            {
+                return new BaseResponse<string>
+                {
+                    Success = false,
+                    Message = "'From' date must be earlier than 'To' date.",
+                };
+            }
+
+            if (request.From > DateTime.Now.AddHours(-10))
+            {
+                return new BaseResponse<string>
+                {
+                    Success = false,
+                    Message = "'From' date must be later than the current date.",
+                };
+            }
+
             var course = await _context.Courses.FirstOrDefaultAsync(x => x.Id == request.CourseId);
             if (course == null)
             {
@@ -77,7 +95,7 @@ namespace Application.Sessions.Commands
             }
 
             var teachingSlots = await _context.TeachingSlots
-                                              .Where(o => o.CourseId == request.CourseId)
+                                              .Where(o => o.CourseId == request.CourseId && o.IsDeleted == false)
                                               .Include(ts => ts.Course)
                                               .ThenInclude(course => course.Teachables)
                                               .Where(ts => ts.Course.Teachables.Any(teachable => teachable.ApplicationUserId == request.LecturerId && teachable.IsDeleted == false))

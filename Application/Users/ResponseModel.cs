@@ -41,6 +41,7 @@ public sealed record class GetUserInfoResponseModel
     public List<GetBriefEnrollmentResponseModel>? Enrollments { get; set; }
     public required List<string> Roles { get; set; }
     public DateTime Created { get; set; }
+    public bool IsDeleted { get; set; }
 }
 [AutoMap(typeof(ApplicationUser))]
 public sealed record class GetParentUserInfoResponseModel

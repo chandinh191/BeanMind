@@ -54,7 +54,7 @@ public class Program
         app.UseSwagger();
         app.UseSwaggerUI();
 
-        //await InitialiserExtensions.InitialiseDatabaseAsync(app.Services);
+        await InitialiserExtensions.InitialiseDatabaseAsync(app.Services);
 
         app.UseCors(cfg =>
         {

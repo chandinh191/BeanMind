@@ -1483,14 +1483,32 @@ namespace Infrastructure.Data
             await _context.ChapterGames.AddAsync(new ChapterGame
             {
                 Id = new Guid("85a5ae0b-af59-4a4b-a48a-beee2a7b485b"),
-                GameId = new Guid("a65534d6-b34c-43d1-e2f6-08dcb0b903bd"),
+                GameId = new Guid("ead13199-827d-4c48-5d08-08dcafad932c"),
                 ChapterId = new Guid("2110f3bc-0170-4bbc-a3be-09823e310e43")
             });
             await _context.ChapterGames.AddAsync(new ChapterGame
             {
                 Id = new Guid("1a61520b-7ee4-473c-961d-96dbb905b881"),
+                GameId = new Guid("49299e7c-fa16-45fd-84e4-1a725c118a9f"),
+                ChapterId = new Guid("3f15e8a2-247e-4d79-85f4-d46a73f7782b")
+            });
+            await _context.ChapterGames.AddAsync(new ChapterGame
+            {
+                Id = new Guid("4cff627d-4336-49f3-ba9e-4b41302164e5"),
+                GameId = new Guid("134a1896-37a0-481c-76b8-08dcb1f69dd7"),
+                ChapterId = new Guid("17f90b49-5e56-4b8a-9e7d-c75bdb6d8c37")
+            });
+            await _context.ChapterGames.AddAsync(new ChapterGame
+            {
+                Id = new Guid("a7b438e6-9457-4f1d-922c-85fb87d56381"),
                 GameId = new Guid("3e2e9eee-07bb-4548-e2fa-08dcb0b903bd"),
-                ChapterId = new Guid("d0f9feee-92c2-4f01-9fc7-4c801c3202c7")
+                ChapterId = new Guid("11dabe72-3157-49f1-9d2e-6386a1f2b19c")
+            });
+            await _context.ChapterGames.AddAsync(new ChapterGame
+            {
+                Id = new Guid("95721ca2-44a8-4c70-8198-80a3ea62172b"),
+                GameId = new Guid("c296495f-342e-4fd6-5d09-08dcafad932c"),
+                ChapterId = new Guid("11dabe72-3157-49f1-9d2e-6386a1f2b19c")
             });
         }
 
