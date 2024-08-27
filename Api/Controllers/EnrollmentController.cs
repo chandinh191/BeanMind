@@ -54,6 +54,17 @@ namespace Api.Controllers
             };
         }
 
+
+        [HttpPost("enrollment-able")]
+        public async Task<IActionResult> IsEnroll(ISender sender, [FromBody] CheckAbleEnrollmentCommand command)
+        {
+            var result = await sender.Send(command);
+            return new ObjectResult(result)
+            {
+                StatusCode = result.Code
+            };
+        }
+
         [HttpPut]
         [Authorize]
         public async Task<IActionResult> Update(ISender sender, [FromBody] UpdateEnrollmentCommand command)

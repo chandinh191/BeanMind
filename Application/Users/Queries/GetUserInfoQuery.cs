@@ -33,7 +33,7 @@ public class GetUserInfoQueryHandler : IRequestHandler<GetUserInfoQuery, BaseRes
             .Include(x => x.Parent)
             .Include(x => x.Student).ThenInclude(o => o.Parent)
             .Include(x => x.Teacher)
-            .Include(x => x.Enrollments)
+            .Include(x => x.Enrollments).ThenInclude(o => o.Course)
             .Include(x => x.Teachables)
             .Include(x => x.Sessions)
             .FirstOrDefaultAsync(x => x.Id.Equals(request.UserId), cancellationToken);

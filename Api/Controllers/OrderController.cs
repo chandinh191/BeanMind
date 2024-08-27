@@ -52,6 +52,7 @@ namespace Api.Controllers
             public string BankCode { get; set; }
             public int Money { get; set; }
             //public string IpAddress { get; set; }
+            public string ReturnUrl { get; set; }
         }
         public sealed record PaymentCommandResponseModel
         {
@@ -61,15 +62,17 @@ namespace Api.Controllers
         public async Task<IActionResult> Payment([FromBody] PaymentCommand paymentCommand)
         {
             //Get Config Info
-            string vnp_Returnurl = _configuration.GetValue<string>("VnPay:vnp_Returnurl");
+            //string vnp_Returnurl = _configuration.GetValue<string>("VnPay:vnp_Returnurl");
+            string vnp_Returnurl = paymentCommand.ReturnUrl;
             string vnp_Url = _configuration.GetValue<string>("VnPay:vnp_Url");
             string vnp_TmnCode = _configuration.GetValue<string>("VnPay:vnp_TmnCode");
-            string vnp_HashSecret = _configuration.GetValue<string>("VnPay:vnp_HashSecret");
+            //string vnp_HashSecret = _configuration.GetValue<string>("VnPay:vnp_HashSecret");
+            string vnp_HashSecret = "Q4F6TR2KG4JFFQFJH36432W3KLSYB6YF";
 
             //Get payment input
             OrderInfo order = new OrderInfo();
             order.OrderId = DateTime.Now.Ticks; // Giả lập mã giao dịch hệ thống merchant gửi sang VNPAY
-            order.Amount = paymentCommand.Money; // Giả lập số tiền thanh toán hệ thống merchant gửi sang VNPAY 100,000 VND
+            order.Amount = paymentCommand.Money*100; // Giả lập số tiền thanh toán hệ thống merchant gửi sang VNPAY 100,000 VND
             order.Status = "0"; //0: Trạng thái thanh toán "chờ thanh toán" hoặc "Pending" khởi tạo giao dịch chưa có IPN
             order.CreatedDate = DateTime.Now;
             //Save order to db
@@ -79,7 +82,8 @@ namespace Api.Controllers
 
             vnpay.AddRequestData("vnp_Version", VnPayLibrary.VERSION);
             vnpay.AddRequestData("vnp_Command", "pay");
-            vnpay.AddRequestData("vnp_TmnCode", vnp_TmnCode);
+            //vnpay.AddRequestData("vnp_TmnCode", vnp_TmnCode);
+            vnpay.AddRequestData("vnp_TmnCode", "HZYL19H4");
             vnpay.AddRequestData("vnp_Amount", order.Amount.ToString()); //Số tiền thanh toán. Số tiền không mang các ký tự phân tách thập phân, phần nghìn, ký tự tiền tệ. Để gửi số tiền thanh toán là 100,000 VND (một trăm nghìn VNĐ) thì merchant cần nhân thêm 100 lần (khử phần thập phân), sau đó gửi sang VNPAY là: 10000000
             vnpay.AddRequestData("vnp_BankCode", paymentCommand.BankCode);
 

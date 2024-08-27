@@ -36,6 +36,7 @@ namespace Application.Users.Commands
         //public required string? Password { get; init; }
         public int? YearOfBirth { get; set; }
         public required List<string>? Roles { get; init; }
+        public bool? IsDeleted { get; set; }
 
     }
     public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, BaseResponse<GetBriefApplicationUserResponseModel>>

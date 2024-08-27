@@ -66,15 +66,15 @@ namespace Application.Sessions.Commands
                     };
                 }
             }
-            if (request.From >= request.To)
+/*            if (request.From >= request.To)
             {
                 return new BaseResponse<string>
                 {
                     Success = false,
                     Message = "'From' date must be earlier than 'To' date.",
                 };
-            }
-
+            }*/
+/*
             if (request.From > DateTime.Now.AddHours(-10))
             {
                 return new BaseResponse<string>
@@ -82,7 +82,7 @@ namespace Application.Sessions.Commands
                     Success = false,
                     Message = "'From' date must be later than the current date.",
                 };
-            }
+            }*/
 
             var course = await _context.Courses.FirstOrDefaultAsync(x => x.Id == request.CourseId);
             if (course == null)

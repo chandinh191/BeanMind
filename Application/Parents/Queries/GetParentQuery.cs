@@ -45,10 +45,11 @@ namespace Application.Parents.Queries
 
 
             var parent = await _context.Parents
-                .Where(o => o.Students.Any(x => x.ApplicationUser.IsDeleted == false))
-                .Where(o => o.Students.Any(x => x.ApplicationUser.Enrollments.Any(en => en.IsDeleted == false)))
                 .Include(o => o.ApplicationUser)
                 .Include(o => o.Students).ThenInclude(o => o.ApplicationUser).ThenInclude(o => o.Enrollments).ThenInclude(o => o.Course)
+                //.Where(o => o.Students.Any(x => x.ApplicationUser.IsDeleted == false))
+                //.Where(o => o.Students.Any(x => x.ApplicationUser.Enrollments.All(en => en.IsDeleted == false)))
+
                 .FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);
 
             // user not found

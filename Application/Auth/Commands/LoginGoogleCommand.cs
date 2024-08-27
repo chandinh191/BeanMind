@@ -84,13 +84,27 @@ public class LoginGoogleCommandHandler : IRequestHandler<LoginGoogleCommand, Bas
           var confirmToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
           await _userManager.ConfirmEmailAsync(user, confirmToken);*/
         var name = claims.FirstOrDefault(x => x.Type == "name")?.Value;
+        var firstname2= "";
+        var lastname2 = "";
+        if (!string.IsNullOrEmpty(name))
+        {
+            var nameParts = name.Split(' ');
+            firstname2 = nameParts.First(); // Lấy chữ đầu tiên làm FirstName
+            lastname2 = string.Join(" ", nameParts.Skip(1)); // Phần còn lại làm LastName
+        }
+        else
+        {
+            firstname2 = string.Empty;
+            lastname2 = string.Empty;
+        }
+
         var imageURl = claims.FirstOrDefault(x => x.Type == "picture")?.Value;
         List<string> roles = new List<string> { "Parent" };
         var result = await _sender.Send(new RegisterUserCommand
         {
             Email = EmailFromToken,
-            FirstName = name,
-            LastName = name,
+            FirstName = firstname2,
+            LastName = lastname2,
             Username = EmailFromToken,
             Password = "Abc@123!",
             EmailConfirmed = true,
