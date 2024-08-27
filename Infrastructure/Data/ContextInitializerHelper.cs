@@ -491,6 +491,7 @@ namespace Infrastructure.Data
                 CourseLevelId = new Guid("8a7b78a9-d209-473e-a133-919479d61d5c"), //Lop 1
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"), //BGD
                 Price = 150,
+                ContentURL = "https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/course_img%2Fhinh%20hoc.pdf?alt=media&token=0649e7de-2bbd-47fc-aebb-213cc3c8b742",
                 Title = "Làm quen với một số hình phẳng",
                 ImageURL = "https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/course_img%2Fcourse2.png?alt=media&token=6a85663e-21c2-42a8-9fde-ee324d2323c3",
                 Description = "Nhận biết được một số hình vuông, hình tròn, hình tam giác, hình chữ nhật là nội dung các em sẽ tìm hiểu ở Chương: Làm quen với một số hình phẳng của môn Toán 1 Kết Nối Tri thức. Bài học được BeanMind biên soạn với các phần tóm tắt lý thuyết, bài tập minh họa và giúp các em chuẩn bị bài học thật tốt và luyện tập, đánh giá năng lực của bản thân. Hệ thống hỏi đáp sẽ giúp các em giải quyết nhiều câu hỏi khó nhanh chóng, hiệu quả. Các em xem nội dung bài học ngay bên dưới.",
@@ -815,6 +816,7 @@ namespace Infrastructure.Data
                 CourseLevelId = new Guid("8a7b78a9-d209-473e-a133-919479d61d5c"), //Lop 1
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"), //BGD
                 Price = 200,
+                ContentURL = "https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/course_img%2Fthoigian_gio_va_lich.pdf?alt=media&token=f6748ba7-851b-4594-8e00-d47e5324d1fb",
                 Title = "Thời gian, giờ và lịch",
                 ImageURL = "https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/course_img%2Fcourse%204.png?alt=media&token=b284d40a-5b62-4661-a87f-67840aed6986",
                 Description = "Nhận biết được thời gian trên đồng hồ, xem được ngày tháng trên lịch là nội dung các em sẽ tìm hiểu ở Chương: Thời gian, giờ và lịch của môn Toán 1 Kết Nối Tri thức. Bài học được BeanMind biên soạn với các phần tóm tắt lý thuyết, bài tập minh họa và giúp các em chuẩn bị bài học thật tốt và luyện tập, đánh giá năng lực của bản thân. Hệ thống hỏi đáp sẽ giúp các em giải quyết nhiều câu hỏi khó nhanh chóng, hiệu quả. Các em xem nội dung bài học ngay bên dưới.",
@@ -1099,6 +1101,7 @@ namespace Infrastructure.Data
                 CourseLevelId = new Guid("dd885d8d-0ea4-4c19-9b06-5e02bb44e7bb"), //Lop 2
                 ProgramTypeId = new Guid("8c368591-a7f0-4679-b059-31c22fa46c1c"),//BGD
                 Price = 250,
+                ContentURL = "https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/course_img%2Fhinh%20hoc.pdf?alt=media&token=0649e7de-2bbd-47fc-aebb-213cc3c8b742",
                 Title = "Làm quen với khối lượng, dung tích",
                 ImageURL = "https://firebasestorage.googleapis.com/v0/b/beanmind-2911.appspot.com/o/course_img%2Fcourse5.png?alt=media&token=a5d09f6d-086d-4b51-ad94-2729feb6d45b",
                 Description = "Đến với nội dung Chủ đề 3 : Làm quen với khối lượng, dung tích của chương trình Toán 2 Kết Nối Tri Thức, các em sẽ được học các bài như: Lít, ki-lô-gam, khối lượng và đơn vị đo khối lượng . Bên cạnh đó, các em còn được thử sức với các bài tập minh họa cuối mỗi bài học nhằm đánh giá năng lực bản thân sau khi học bài. Hệ thống hỏi đáp cuối bài sẽ giải đáp các thắc mắc của các em trong quá trình học. Mời các em theo dõi nội dung chi tiết bên dưới!",
@@ -1337,7 +1340,7 @@ namespace Infrastructure.Data
                 DayIndex = 5,
                 CourseId = new Guid("ceaf0f02-168d-4f69-975f-14a61d492886"),
             });
-            //-----
+            //--------------
             await _context.TeachingSlots.AddAsync(new TeachingSlot
             {
                 Id = new Guid("c608dd61-9076-4181-9786-6c6b211b0bbd"),
@@ -1363,6 +1366,66 @@ namespace Infrastructure.Data
                 CourseId = new Guid("555a0815-d0b8-4975-8e1c-245d7acbab45"),
             });
             //------
+            //--------------
+            await _context.TeachingSlots.AddAsync(new TeachingSlot
+            {
+                Id = new Guid("48bdd659-d67a-4c66-ae75-f76fdf68dbcc"),
+                StartTime = "7 am",
+                EndTime = "10 am",
+                DayIndex = 1,
+                CourseId = new Guid("1a1de7fd-d3c5-4bb3-8c51-fb3b02c44f16"),
+            });
+            await _context.TeachingSlots.AddAsync(new TeachingSlot
+            {
+                Id = new Guid("fd332db2-1d09-45f7-8bae-2ec6bad1106e"),
+                StartTime = "7 am",
+                EndTime = "10 am",
+                DayIndex = 3,
+                CourseId = new Guid("1a1de7fd-d3c5-4bb3-8c51-fb3b02c44f16"),
+            });
+            await _context.TeachingSlots.AddAsync(new TeachingSlot
+            {
+                Id = new Guid("1e83df4c-5d28-4398-8e1d-c48a9391270e"),
+                StartTime = "7 am",
+                EndTime = "10 am",
+                DayIndex = 5,
+                CourseId = new Guid("1a1de7fd-d3c5-4bb3-8c51-fb3b02c44f16"),
+            });
+            //------
+            //--------------
+            await _context.TeachingSlots.AddAsync(new TeachingSlot
+            {
+                Id = new Guid("dd2d17d0-70d4-46da-a148-4e3a2aa4cba2"),
+                StartTime = "2 pm",
+                EndTime = "4 pm",
+                DayIndex = 1,
+                CourseId = new Guid("bd186368-c35a-4f16-9214-c1acdbfce054"),
+            });
+            await _context.TeachingSlots.AddAsync(new TeachingSlot
+            {
+                Id = new Guid("aeb43bb4-bc8f-496c-a77d-6d1a1d34b098"),
+                StartTime = "2 pm",
+                EndTime = "4 pm",
+                DayIndex = 2,
+                CourseId = new Guid("bd186368-c35a-4f16-9214-c1acdbfce054"),
+            });
+            await _context.TeachingSlots.AddAsync(new TeachingSlot
+            {
+                Id = new Guid("95c00c79-35a8-436a-b878-aa3d4bb1c4af"),
+                StartTime = "2 pm",
+                EndTime = "4 pm",
+                DayIndex = 3,
+                CourseId = new Guid("bd186368-c35a-4f16-9214-c1acdbfce054"),
+            });
+            await _context.TeachingSlots.AddAsync(new TeachingSlot
+            {
+                Id = new Guid("306be03a-041e-478e-99d5-52e3480561d9"),
+                StartTime = "2 pm",
+                EndTime = "4 pm",
+                DayIndex = 4,
+                CourseId = new Guid("bd186368-c35a-4f16-9214-c1acdbfce054"),
+            });
+            //------
             await _context.TeachingSlots.AddAsync(new TeachingSlot
             {
                 Id = new Guid("60913325-34df-4a96-956c-2a32b0fde16d"),
@@ -1386,6 +1449,31 @@ namespace Infrastructure.Data
                 EndTime = "3 pm",
                 DayIndex = 3,
                 CourseId = new Guid("471519c0-673d-40c0-b094-2014fe96848d"),
+            });
+            //------
+            await _context.TeachingSlots.AddAsync(new TeachingSlot
+            {
+                Id = new Guid("a3cc3e31-c26c-4953-838b-3f457946a026"),
+                StartTime = "5 pm",
+                EndTime = "7 pm",
+                DayIndex = 2,
+                CourseId = new Guid("d96fa6e2-ba64-4639-b0bb-d95c4f6b40d1"),
+            });
+            await _context.TeachingSlots.AddAsync(new TeachingSlot
+            {
+                Id = new Guid("b0c5f33a-7654-4bc0-9c02-e4ab526cfebb"),
+                StartTime = "5 pm",
+                EndTime = "7 pm",
+                DayIndex = 4,
+                CourseId = new Guid("d96fa6e2-ba64-4639-b0bb-d95c4f6b40d1"),
+            });
+            await _context.TeachingSlots.AddAsync(new TeachingSlot
+            {
+                Id = new Guid("22f8f7ff-ab4d-4047-a237-c77d495c7d0f"),
+                StartTime = "5 pm",
+                EndTime = "7 pm",
+                DayIndex = 6,
+                CourseId = new Guid("d96fa6e2-ba64-4639-b0bb-d95c4f6b40d1"),
             });
             _context.SaveChanges();
 
@@ -1949,7 +2037,7 @@ namespace Infrastructure.Data
             await _context.WorksheetTemplates.AddAsync(new WorksheetTemplate
             {
                 Id = new Guid("721f378c-69fd-4f9d-ba93-38fa2db2044f"),
-                Title = "Mẫu kiểm tra 1",
+                Title = "Mẫu kiểm tra khó",
                 CourseId = new Guid("CEAF0F02-168D-4F69-975F-14A61D492886"),
                 Classification = 0
             });
@@ -1959,7 +2047,7 @@ namespace Infrastructure.Data
                 Id = new Guid("a054bf47-6783-4cbe-ac05-02b5b22b84ec"),
                 QuestionLevelId = new Guid("871D2DE9-CFCA-4ED0-A9A9-658639D664DF"), //Trung bình
                 WorksheetTemplateId = new Guid("721f378c-69fd-4f9d-ba93-38fa2db2044f"),
-                NoQuestions = 3
+                NoQuestions = 2
             });
             await _context.LevelTemplateRelations.AddAsync(new LevelTemplateRelation
             {
@@ -1970,10 +2058,47 @@ namespace Infrastructure.Data
             });
             await _context.LevelTemplateRelations.AddAsync(new LevelTemplateRelation
             {
+                Id = new Guid("340161ca-a711-4d41-bd28-464b26d7511b"),
+                QuestionLevelId = new Guid("ca44a423-5b69-4953-8e94-8e4b771bef19"), //cuc Khó
+                WorksheetTemplateId = new Guid("721f378c-69fd-4f9d-ba93-38fa2db2044f"),
+                NoQuestions = 5
+            });
+            await _context.LevelTemplateRelations.AddAsync(new LevelTemplateRelation
+            {
                 Id = new Guid("de30e2e6-a203-494d-a8ed-8a279f36f25c"),
                 QuestionLevelId = new Guid("26FB0C3C-2F79-4940-AC2C-6EF7BA427D92"), //Dễ
                 WorksheetTemplateId = new Guid("721f378c-69fd-4f9d-ba93-38fa2db2044f"),
+                NoQuestions = 2
+            });
+            // WorksheetTemplate table
+            await _context.WorksheetTemplates.AddAsync(new WorksheetTemplate
+            {
+                Id = new Guid("3ea235ca-52e0-470e-83b7-0c3e8126a7d2"),
+                Title = "Mẫu kiểm tra dễ",
+                CourseId = new Guid("CEAF0F02-168D-4F69-975F-14A61D492886"),
+                Classification = 0
+            });
+            // LevelTemplateRelation table
+            await _context.LevelTemplateRelations.AddAsync(new LevelTemplateRelation
+            {
+                Id = new Guid("48f561e1-bede-428a-8785-c32c90dff954"),
+                QuestionLevelId = new Guid("871D2DE9-CFCA-4ED0-A9A9-658639D664DF"), //Trung bình
+                WorksheetTemplateId = new Guid("3ea235ca-52e0-470e-83b7-0c3e8126a7d2"),
                 NoQuestions = 3
+            });
+            await _context.LevelTemplateRelations.AddAsync(new LevelTemplateRelation
+            {
+                Id = new Guid("8cbf9190-0794-4f7e-bc6e-9ce7e946f9f1"),
+                QuestionLevelId = new Guid("8F45DAB4-C1F8-4528-8CA4-BA5F682F847D"), //Khó
+                WorksheetTemplateId = new Guid("3ea235ca-52e0-470e-83b7-0c3e8126a7d2"),
+                NoQuestions = 1
+            });
+            await _context.LevelTemplateRelations.AddAsync(new LevelTemplateRelation
+            {
+                Id = new Guid("de30280a-346e-433f-89b4-1b932b618ee6"),
+                QuestionLevelId = new Guid("26FB0C3C-2F79-4940-AC2C-6EF7BA427D92"), //Dễ
+                WorksheetTemplateId = new Guid("3ea235ca-52e0-470e-83b7-0c3e8126a7d2"),
+                NoQuestions = 6
             });
         }
 

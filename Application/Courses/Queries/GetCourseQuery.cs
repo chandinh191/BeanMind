@@ -39,6 +39,7 @@ public class GetCourseQueryHanler : IRequestHandler<GetCourseQuery, BaseResponse
         var course = await _context.Courses
             .Include(x => x.Subject)
             .Include(x => x.Chapters).ThenInclude(x => x.Topics)
+            .Include(x => x.Chapters).ThenInclude(x => x.ChapterGames).ThenInclude(o => o.Game)
             .Include(x => x.ProgramType)
             .Include(x => x.CourseLevel)
             .Include(x => x.Teachables).ThenInclude(o => o.ApplicationUser)

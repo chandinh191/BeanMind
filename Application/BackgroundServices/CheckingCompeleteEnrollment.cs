@@ -44,15 +44,21 @@ namespace Application.BackgroundServices
 
                     foreach (var mappedEnrollment in mappedEnrollments)
                     {
-                        mappedEnrollment.PercentTopicCompletion = await CalculatePercentTopicCompletionAsync(context, mappedEnrollment.Id, mappedEnrollment.CourseId, stoppingToken);
+                        var participant = await context.Participants
+                            .FirstOrDefaultAsync(x => x.EnrollmentId == mappedEnrollment.Id && x.Status == Domain.Enums.ParticipantStatus.NotYet);
 
-                        if (mappedEnrollment.PercentTopicCompletion >= 100)
+                        if (participant == null)
                         {
-                            var result = await _sender.Send(new UpdateEnrollmentCommand
+                            mappedEnrollment.PercentTopicCompletion = await CalculatePercentTopicCompletionAsync(context, mappedEnrollment.Id, mappedEnrollment.CourseId, stoppingToken);
+
+                            if (mappedEnrollment.PercentTopicCompletion >= 100)
                             {
-                                Id = mappedEnrollment.Id,
-                                Status = Domain.Enums.EnrollmentStatus.Complete,
-                            }, stoppingToken);
+                                var result = await _sender.Send(new UpdateEnrollmentCommand
+                                {
+                                    Id = mappedEnrollment.Id,
+                                    Status = Domain.Enums.EnrollmentStatus.Complete,
+                                }, stoppingToken);
+                            }
                         }
                     }
                 }

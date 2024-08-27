@@ -13,13 +13,13 @@ using System.Threading.Tasks;
 
 namespace Application.ChapterGames.Commands
 {
-    public sealed record DeleteChapterGameCommand : IRequest<BaseResponse<GetBriefChapterGameResponseModel>>
+    public sealed record DeleteChapterGameCommand : IRequest<BaseResponse<string>>
     {
         [Required]
         public Guid Id { get; init; }
     }
 
-    public class DeleteChapterGameCommandHanler : IRequestHandler<DeleteChapterGameCommand, BaseResponse<GetBriefChapterGameResponseModel>>
+    public class DeleteChapterGameCommandHanler : IRequestHandler<DeleteChapterGameCommand, BaseResponse<string>>
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -30,18 +30,19 @@ namespace Application.ChapterGames.Commands
             _mapper = mapper;
         }
 
-        public async Task<BaseResponse<GetBriefChapterGameResponseModel>> Handle(DeleteChapterGameCommand request, CancellationToken cancellationToken)
+        public async Task<BaseResponse<string>> Handle(DeleteChapterGameCommand request, CancellationToken cancellationToken)
         {
             var chapterGame = await _context.ChapterGames.FirstOrDefaultAsync(x => x.Id == request.Id);
             if (chapterGame == null)
             {
-                return new BaseResponse<GetBriefChapterGameResponseModel>
+                return new BaseResponse<string>
                 {
                     Success = false,
                     Message = "Chapter game not found",
                 };
             }
-            chapterGame.IsDeleted = true;
+            _context.Remove(chapterGame);
+           /* chapterGame.IsDeleted = true;
 
             var updateChapterGameResult = _context.Update(chapterGame);
 
@@ -56,13 +57,12 @@ namespace Application.ChapterGames.Commands
 
             await _context.SaveChangesAsync(cancellationToken);
 
-            var mappedChapterGameResult = _mapper.Map<GetBriefChapterGameResponseModel>(updateChapterGameResult.Entity);
+            var mappedChapterGameResult = _mapper.Map<GetBriefChapterGameResponseModel>(updateChapterGameResult.Entity);*/
 
-            return new BaseResponse<GetBriefChapterGameResponseModel>
+            return new BaseResponse<string>
             {
                 Success = true,
                 Message = "Delete chapter game successful",
-                Data = mappedChapterGameResult
             };
         }
     }

@@ -75,7 +75,7 @@ public class GetCourseResponseModelVer2 : BaseResponseModel
     public GetBriefCourseLevelResponseModel CourseLevel { get; set; }
     public List<GetBriefTeachingSlotResponseModel> TeachingSlots { get; set; }
     public List<GetTeachableResponseModel> Teachables { get; set; }
-    public List<GetBriefChapterResponseModel> Chapters { get; set; }
+    public List<GetChapterResponseModel> Chapters { get; set; }
     public List<GetBriefEnrollmentResponseModel> Enrollments { get; set; }
     public List<GetBriefWorksheetTemplateResponseModel>? WorksheetTemplates { get; set; }
     public DateTime Created { get; set; }

@@ -84,7 +84,7 @@ namespace Application.Users.Queries
                     var sessions = _context.Sessions
                     .Where(o => o.IsDeleted == false)
                     .Include(o => o.Participants).ThenInclude(o => o.Enrollment)
-                    .Include(o => o.TeachingSlot)
+                    .Include(o => o.TeachingSlot).ThenInclude(o => o.Course)
                     .Include(o => o.ApplicationUser)
                     .Where(o => o.Participants.Any(e => e.Enrollment.ApplicationUserId == request.Id 
                         //&& e.Enrollment.Status == EnrollmentStatus.OnGoing 
