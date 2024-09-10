@@ -120,7 +120,9 @@ public class ApplicationDbContextInitialiser
         {
             Email = _configuration["AdministratorAccount:Email"], //"admin@gmail.com",
             UserName = _configuration["AdministratorAccount:UserName"], //"admin@gmail.com",
-            EmailConfirmed = true
+            EmailConfirmed = true,
+            FirstName = "Admin",
+            LastName = ""
         };
         if (_userManager.Users.FirstOrDefault(u => u.Email.Equals(defaultAdministratorUser.Email)) == null)
         {
@@ -136,7 +138,9 @@ public class ApplicationDbContextInitialiser
         {
             Email = "manager@gmail.com",
             UserName = "manager@gmail.com",
-            EmailConfirmed = true
+            EmailConfirmed = true,
+            FirstName = "Manager",
+            LastName = ""
         };
         if (_userManager.Users.FirstOrDefault(u => u.Email.Equals(defaultManagerUser.Email)) == null)
         {
